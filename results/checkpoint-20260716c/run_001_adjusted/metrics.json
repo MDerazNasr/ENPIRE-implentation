@@ -1,0 +1,406 @@
+{
+  "RAY_DISABLE_DOCKER_CPU_WARNING": [
+    1.0
+  ],
+  "RAY_USE_MULTIPROCESSING_CPU_COUNT": [
+    1.0
+  ],
+  "TF_ENABLE_ONEDNN_OPTS": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "actor/action_ref_abs_mean": [
+    0.112
+  ],
+  "actor/actor/compute_adv": [
+    1.78e-05
+  ],
+  "actor/actor/recv_traj": [
+    4.748
+  ],
+  "actor/actor/sync_model_to_rollout": [
+    0.2
+  ],
+  "actor/actor_weight_in_warmup": [
+    0.0
+  ],
+  "actor/actor_weight_ramp_progress": [
+    1.0
+  ],
+  "actor/actor_weight_schedule_enabled": [
+    0.0
+  ],
+  "actor/bc_human_loss": [
+    0.0
+  ],
+  "actor/bc_loss": [
+    0.067
+  ],
+  "actor/bc_ref_loss": [
+    0.067
+  ],
+  "actor/bc_weight": [
+    0.8
+  ],
+  "actor/entropy": [
+    -390.0
+  ],
+  "actor/forward_actor": [
+    0.014
+  ],
+  "actor/forward_critic": [
+    0.294
+  ],
+  "actor/grad_norm": [
+    13.225
+  ],
+  "actor/human_mask_ratio": [
+    0.0
+  ],
+  "actor/lr": [
+    0.0001
+  ],
+  "actor/policy_mask_ratio": [
+    1.0
+  ],
+  "actor/q_pi": [
+    0.162
+  ],
+  "actor/q_value_0": [
+    0.162
+  ],
+  "actor/q_value_1": [
+    0.053
+  ],
+  "actor/q_weight": [
+    1.0
+  ],
+  "actor/reference_dropout_prob": [
+    0.5
+  ],
+  "actor/sample": [
+    0.0025
+  ],
+  "actor/update_one_epoch": [
+    0.489
+  ],
+  "actor/weighted_bc": [
+    0.054
+  ],
+  "actor/weighted_q": [
+    0.162
+  ],
+  "alpha/grad_norm": [
+    0.0
+  ],
+  "cluster_node_rank": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "critic/grad_norm": [
+    2.901
+  ],
+  "critic/lr": [
+    0.0001
+  ],
+  "critic/q_data": [
+    -0.168
+  ],
+  "env/compute_bootstrap_rewards": [
+    0.000218
+  ],
+  "env/env/bootstrap_step": [
+    0.969
+  ],
+  "env/env/send_rollout_trajectories": [
+    0.569
+  ],
+  "env/env_interact_step": [
+    1.077
+  ],
+  "env/interact": [
+    4.611
+  ],
+  "env/run_interact_once": [
+    4.611
+  ],
+  "environment/actor_switch_step": [
+    0.0
+  ],
+  "environment/actor_switch_step_nonzero": [
+    0.0
+  ],
+  "environment/entered_actor_phase_once": [
+    1.0
+  ],
+  "environment/episode_len": [
+    20.0
+  ],
+  "environment/num_trajectories": [
+    1.0
+  ],
+  "environment/return": [
+    0.0
+  ],
+  "environment/reward": [
+    0.0
+  ],
+  "environment/success_once": [
+    0.0
+  ],
+  "eval/actor_switch_step": [
+    0.0
+  ],
+  "eval/actor_switch_step_nonzero": [
+    0.0
+  ],
+  "eval/entered_actor_phase_once": [
+    1.0
+  ],
+  "eval/episode_len": [
+    20.0
+  ],
+  "eval/num_trajectories": [
+    1.0
+  ],
+  "eval/return": [
+    0.0
+  ],
+  "eval/reward": [
+    0.0
+  ],
+  "eval/success_once": [
+    0.0
+  ],
+  "local_accelerator_rank": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "local_rank": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "local_world_size": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "pid": [
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33634.0,
+    33634.0,
+    33630.0,
+    33630.0,
+    33630.0,
+    33630.0,
+    33630.0,
+    33630.0,
+    33634.0,
+    33634.0,
+    33632.0,
+    33632.0,
+    33634.0,
+    33634.0,
+    33634.0,
+    33634.0,
+    33634.0,
+    33634.0,
+    33634.0,
+    33634.0,
+    33632.0,
+    33632.0,
+    33634.0,
+    33634.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33632.0,
+    33630.0,
+    33630.0,
+    33630.0
+  ],
+  "placement_node_rank": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "rank": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "replay/actor_switch_rate": [
+    0.0
+  ],
+  "replay/cache_size": [
+    1.0
+  ],
+  "replay/done_rate": [
+    1.0
+  ],
+  "replay/intervention_rate": [
+    0.0
+  ],
+  "replay/intervention_requested_rate": [
+    0.0
+  ],
+  "replay/num_trajectories": [
+    1.0
+  ],
+  "replay/record_transition_rate": [
+    0.5
+  ],
+  "replay/reward_mean": [
+    0.0
+  ],
+  "replay/reward_positive_rate": [
+    0.0
+  ],
+  "replay/total_samples": [
+    1.0
+  ],
+  "replay/transition_count": [
+    1.0
+  ],
+  "rlt/actor_updates_run": [
+    1.0
+  ],
+  "rlt/critic_updates_run": [
+    1.0
+  ],
+  "rlt/desired_total_updates": [
+    1.0
+  ],
+  "rlt/global_min_replay_size": [
+    1.0
+  ],
+  "rlt/global_total_transitions_added": [
+    1.0
+  ],
+  "rlt/global_transitions_since_train": [
+    1.0
+  ],
+  "rlt/max_updates_per_train_step": [
+    1.0
+  ],
+  "rlt/min_replay_buffer_size": [
+    1.0
+  ],
+  "rlt/pending_update_budget": [
+    0.0
+  ],
+  "rlt/ready_for_online": [
+    0.0
+  ],
+  "rlt/should_train": [
+    1.0
+  ],
+  "rlt/skip_reason": [
+    0.0
+  ],
+  "rlt/train_every_episodes": [
+    0.0
+  ],
+  "rlt/train_every_transitions": [
+    1.0
+  ],
+  "rlt/update_epoch": [
+    1.0
+  ],
+  "rlt/update_step": [
+    0.0
+  ],
+  "rlt/updates_scheduled": [
+    1.0
+  ],
+  "rlt/updates_to_run": [
+    1.0
+  ],
+  "rlt/warmup_required_updates": [
+    1.0
+  ],
+  "rollout/generate_one_epoch": [
+    4.026
+  ],
+  "rollout/rollout/generate": [
+    4.029
+  ],
+  "sac/actor_loss": [
+    -0.109
+  ],
+  "sac/alpha": [
+    0.0
+  ],
+  "sac/alpha_loss": [
+    0.0
+  ],
+  "sac/critic_loss": [
+    0.031
+  ],
+  "time/cal_adv_and_returns": [
+    0.0021
+  ],
+  "time/eval": [
+    3.027
+  ],
+  "time/generate_rollouts": [
+    4.783
+  ],
+  "time/step": [
+    9.105
+  ],
+  "time/sync_weights": [
+    0.797
+  ]
+}

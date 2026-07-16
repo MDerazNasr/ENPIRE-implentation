@@ -1,0 +1,15 @@
+# The initial Stage-2 actor learning rate. The rule may halve this value when
+# the loss is non-finite or plateaus.
+learning_rate: 0.0001
+
+# RLT reference-action regularization (RLinf: algorithm.bc_weight). The rule
+# may multiply this by 0.8 when evaluation success is below the target.
+regularization_strength: 1.0
+
+# Number of bounded RLinf runner iterations per experiment run. This is a
+# budget field, not a tuning target in the current rule.
+training_iterations: 1
+
+# Train/evaluation episode length used by the checkpoint. Twenty steps are
+# required here to produce one replay transition with the upstream example.
+episode_steps: 20

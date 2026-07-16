@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local environment and editor state
+.env
+.DS_Store
+.idea/
+.vscode/
+
+# Generated experiment artifacts
+results/**
+!results/**/
+!results/README.md
+!results/**/*.json
+!results/**/*.csv
+!results/**/*.log
+!results/**/command.sh
+!results/phase1_runs.jsonl
+*.ckpt
+*.pt
+*.pth
+wandb/

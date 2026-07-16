@@ -1,0 +1,3 @@
+run_id,status,learning_rate,regularization_strength,success,loss,loss_key,return_code,elapsed_seconds,decision
+run_000_baseline,baseline,0.0001,1.0,0.0,-0.119,sac/actor_loss,0,271.789,evaluation success below target; relaxed reference regularization
+run_001_adjusted,reverted,0.0001,0.8,0.0,-0.109,sac/actor_loss,0,267.796,evaluation success tied; reverted to baseline

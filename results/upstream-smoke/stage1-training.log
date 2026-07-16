@@ -1,0 +1,387 @@
+/workspace/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/defaults_list.py:262: UserWarning: In 'maniskill_rlt_stage1_sft_openpi_pi05': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/workspace/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/hydra.py:161: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+2026-07-16 06:49:25,493	WARNING utils.py:469 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.
+2026-07-16 06:49:25,493	WARNING utils.py:481 -- Ray currently does not support initializing Ray with fractional cpus. Your num_cpus will be truncated from 13.6 to 13.
+2026-07-16 06:49:30,766	INFO worker.py:2015 -- Started a local Ray instance. View the dashboard at [1m[32mhttp://127.0.0.1:8265 [39m[22m
+[INFO 06:49:42 RLinf] RLinf is running on a cluster with 1 node and 1 accelerator. The nodes' details are:
+node_labels: []
+node_rank: 0
+ray_id: 4c438309e2a1b6fbf07e64cf553edef909982e571183744ba0aa709c
+node_ip: 172.18.0.2
+num_cpus: 13
+python_interpreter_path: /workspace/qualia/RLinf/.venv/bin/python
+hardware_resources:
+- type: Accelerator
+  infos:
+  - type: Accelerator
+    model: NV_GPU:L40S
+profiler_backends: []
+
+Node groups' details are:
+label: cluster
+nodes: '0'
+hardware_type: Accelerator
+ignore_hardware: false
+env_configs: null
+
+label: node
+nodes: '0'
+hardware_type: null
+ignore_hardware: true
+env_configs: null
+
+[INFO 06:49:42 FlexiblePlacementStrategy]
+[INFO 06:49:42 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+{
+  "actor": {
+    "model": {
+      "model_type": "openpi",
+      "model_path": "/root/qualia-assets/pi05_base",
+      "precision": null,
+      "num_action_chunks": 10,
+      "action_dim": 8,
+      "is_lora": false,
+      "lora_rank": 32,
+      "use_proprio": true,
+      "num_steps": 5,
+      "add_value_head": false,
+      "openpi": {
+        "config_name": "pi05_rlt_maniskill_joint",
+        "num_images_in_input": 2,
+        "noise_level": 0.5,
+        "action_chunk": 10,
+        "num_steps": 5,
+        "train_expert_only": false,
+        "action_env_dim": 8,
+        "noise_method": "flow_sde",
+        "add_value_head": false,
+        "value_after_vlm": false,
+        "value_vlm_mode": "mean_token",
+        "detach_critic_input": true,
+        "action_horizon": 10,
+        "use_rlt": true,
+        "rlt_alpha": 1.0,
+        "rlt_input_dim": 2048,
+        "rlt_embed_dim": 2048,
+        "rlt_num_rl_tokens": 1,
+        "rlt_prefix_seq_len": 1024,
+        "rlt_num_layers": 2,
+        "rlt_num_heads": 8,
+        "rlt_mlp_ratio": 4.0,
+        "rlt_encoder_type": "append_self_attention",
+        "rlt_image_only": false,
+        "rlt_use_mask": true
+      },
+      "openpi_data": {
+        "repo_id": "maniskill_peginsertionside_joint",
+        "default_prompt": "insert the peg in the hole",
+        "norm_stats_path": "/workspace/qualia/assets/maniskill_smoke/norm_stats.json"
+      }
+    },
+    "fsdp_config": {
+      "strategy": "fsdp",
+      "sharding_strategy": "no_shard",
+      "gradient_checkpointing": false,
+      "cpu_offload": false,
+      "offload_pin_memory": false,
+      "reshard_after_forward": true,
+      "enable_gradient_accumulation": true,
+      "forward_prefetch": false,
+      "limit_all_gathers": false,
+      "backward_prefetch": null,
+      "use_orig_params": false,
+      "use_liger_kernel": false,
+      "mixed_precision": {
+        "param_dtype": null,
+        "reduce_dtype": null,
+        "buffer_dtype": null
+      },
+      "amp_autocast": {
+        "enabled": false,
+        "precision": "bf16"
+      },
+      "grad_scaler": {
+        "enabled": false,
+        "init_scale": null,
+        "growth_interval": null
+      }
+    },
+    "group_name": "ActorGroup",
+    "training_backend": "fsdp",
+    "micro_batch_size": 1,
+    "global_batch_size": 1,
+    "seed": 0,
+    "optim": {
+      "lr": 2.5e-05,
+      "value_lr": 0.000155,
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.95,
+      "adam_eps": 1e-08,
+      "weight_decay": 1e-10,
+      "clip_grad": 1.0,
+      "total_training_steps": 1,
+      "lr_warmup_steps": 0,
+      "lr_scheduler": "cosine",
+      "num_cycles": 0.5,
+      "min_lr": 2.5e-06
+    }
+  },
+  "cluster": {
+    "num_nodes": 1,
+    "component_placement": {
+      "actor,env,rollout": "all"
+    }
+  },
+  "runner": {
+    "task_type": "sft",
+    "logger": {
+      "log_path": "/root/qualia-runs/stage1-smoke",
+      "project_name": "rlinf",
+      "experiment_name": "maniskill_rlt_stage1_sft_openpi_pi05",
+      "logger_backends": null
+    },
+    "max_epochs": -1,
+    "max_steps": 1,
+    "val_check_interval": -1,
+    "save_interval": -1,
+    "per_worker_log": false,
+    "per_worker_log_path": null
+  },
+  "data": {
+    "train_data_paths": [
+      {
+        "dataset_path": "/workspace/qualia/assets/maniskill_smoke",
+        "weight": 1.0
+      }
+    ]
+  },
+  "reward": {
+    "use_reward_model": false
+  },
+  "critic": {
+    "use_critic_model": false
+  }
+}
+[INFO 06:49:42 FlexiblePlacementStrategy]
+[INFO 06:49:42 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 06:49:42 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[36m(FSDPVlaSftWorker pid=9155)[0m [INFO 06:50:14 FlexiblePlacementStrategy]
+[36m(FSDPVlaSftWorker pid=9155)[0m [INFO 06:50:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:datasets:PyTorch version 2.6.0 available.
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:datasets:Polars version 1.42.1 available.
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:datasets:TensorFlow version 2.21.0 available.
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:datasets:JAX version 0.5.3 available.
+[36m(FSDPVlaSftWorker pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(FSDPVlaSftWorker pid=9155)[0m I0000 00:00:1784184645.511803    9155 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(FSDPVlaSftWorker pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(FSDPVlaSftWorker pid=9155)[0m I0000 00:00:1784184668.261853    9155 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:root:Loaded norm stats from /workspace/qualia/assets/maniskill_smoke
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:root:data_config: DataConfig(repo_id='/workspace/qualia/assets/maniskill_smoke', asset_id='maniskill_smoke', norm_stats={'state': NormStats(mean=array([-0.09765499,  0.60581845, -0.0281424 , -1.86967432,  0.02873164,
+[36m(FSDPVlaSftWorker pid=9155)[0m         2.47049308, -0.96059084,  0.02660817,  0.02658811]), std=array([0.19002584, 0.19386964, 0.06936736, 0.28648713, 0.07150902,
+[36m(FSDPVlaSftWorker pid=9155)[0m        0.13462402, 0.43239698, 0.01071707, 0.01073213]), q01=array([-0.49567956,  0.25627399, -0.20435829, -2.4130129 , -0.11827035,
+[36m(FSDPVlaSftWorker pid=9155)[0m         2.16118431, -2.03872017,  0.01391668,  0.01388467]), q99=array([ 0.28865065,  1.105597  ,  0.11172209, -1.09861718,  0.22441286,
+[36m(FSDPVlaSftWorker pid=9155)[0m         2.77971042, -0.1590509 ,  0.03999474,  0.03999474])), 'actions': NormStats(mean=array([ 0.08531349,  0.02405764,  0.01127904,  0.03656783, -0.00905097,
+[36m(FSDPVlaSftWorker pid=9155)[0m         0.01098834,  0.09533079, -0.39062503]), std=array([0.27716812, 0.27337387, 0.09148014, 0.34915015, 0.10260999,
+[36m(FSDPVlaSftWorker pid=9155)[0m        0.17985974, 0.47303045, 0.92054987]), q01=array([-0.58104796, -0.75376037, -0.31984209, -1.        , -0.37547388,
+[36m(FSDPVlaSftWorker pid=9155)[0m        -0.5276632 , -1.        , -1.        ]), q99=array([0.70615329, 0.71232443, 0.29005074, 0.9668    , 0.29630415,
+[36m(FSDPVlaSftWorker pid=9155)[0m        0.49221149, 0.9996    , 0.9996    ]))}, repack_transforms=Group(inputs=[RepackTransform(structure={'observation/image': 'image', 'observation/wrist_image': 'wrist_image', 'observation/state': 'state', 'actions': 'actions'})], outputs=()), data_transforms=Group(inputs=[ManiSkillInputs(model_type=<ModelType.PI05: 'pi05'>, use_wrist_image=True, default_prompt='insert the peg in the hole')], outputs=[ManiSkillOutputs(output_action_dim=8)]), model_transforms=Group(inputs=[InjectDefaultPrompt(prompt=None), ResizeImages(height=224, width=224), TokenizePrompt(tokenizer=<openpi.models.tokenizer.PaligemmaTokenizer object at 0x7d725520a610>, discrete_state_input=True), PadStatesAndActions(model_action_dim=32)], outputs=()), use_quantile_norm=True, action_sequence_keys=('actions',), prompt_from_task=False, rlds_data_dir=None, action_space=None, filter_dict_path=None)
+[36m(FSDPVlaSftWorker pid=9155)[0m Generating train split: 0 examples [00:00, ? examples/s]
+[36m(FSDPVlaSftWorker pid=9155)[0m Generating train split: 51 examples [00:00, 490.52 examples/s]
+[36m(FSDPVlaSftWorker pid=9155)[0m Generating train split: 117 examples [00:00, 537.14 examples/s]
+[36m(FSDPVlaSftWorker pid=9155)[0m Generating train split: 202 examples [00:00, 653.37 examples/s]
+[36m(FSDPVlaSftWorker pid=9155)[0m Generating train split: 273 examples [00:00, 638.29 examples/s]
+[36m(FSDPVlaSftWorker pid=9155)[0m Generating train split: 447 examples [00:00, 717.74 examples/s]
+[36m(FSDPVlaSftWorker pid=9155)[0m Generating train split: 565 examples [00:00, 733.08 examples/s]Generating train split: 565 examples [00:00, 690.38 examples/s]
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:root:local_batch_size: 1
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:2026-07-16 06:51:24,646:jax._src.xla_bridge:925: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:jax._src.xla_bridge:Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:2026-07-16 06:51:24,663:jax._src.xla_bridge:925: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+[36m(FSDPVlaSftWorker pid=9155)[0m INFO:jax._src.xla_bridge:Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+[36m(ActorGroup(rank=0) pid=9155)[0m INFO:root:Loaded norm stats from /workspace/qualia/assets/maniskill_smoke
+[36m(FSDPVlaSftWorker pid=9155)[0m [WARNING 06:50:14 ActorGroup-Rank-0][fsdp_model_manager.py:70] Provided there is sufficient GPU memory, set the actor.model.precision parameter to fp32 to allow the optimizer to run in fp32 for better convergence. Meanwhile, setting mixed_precision.param_dtype to 16-bit dtype can help maximize speed, as it will automatically convert fp32 to fp16 during operator execution.
+[36m(FSDPVlaSftWorker pid=9155)[0m [INFO 06:50:14 ActorGroup-Rank-0][fsdp_model_manager.py:124] [FSDP] AMP is disabled.
+[36m(ActorGroup(rank=0) pid=9155)[0m [INFO 06:53:01 ActorGroup-Rank-0][fsdp_model_manager.py:282] [FSDP] Gradient checkpointing is disabled
+Global Step:   0%|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 0/1 [00:00<?, ?it/s][36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784184826.373034   10513 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784184837.003714   10513 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784184882.695207   10713 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784184892.703112   10713 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784184938.327541   10934 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784184945.403127   10934 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784184987.361115   11203 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784184994.999838   11203 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784185036.757627   11441 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784185043.652685   11441 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784185082.914930   11716 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784185089.739988   11716 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784185130.467360   11926 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784185137.734637   11926 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784185178.640121   12116 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=9155)[0m I0000 00:00:1784185185.421830   12116 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=9155)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+Global Step: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [06:53<00:00, 413.66s/it, time/step=414, time/training=414, train/grad_norm=2.37, train/learning_rate=6.25e-8, train/loss=4.23, train/rlt_loss=4.17, train/vla_loss=0.062]Global Step: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [06:53<00:00, 413.66s/it, time/step=414, time/training=414, train/grad_norm=2.37, train/learning_rate=6.25e-8, train/loss=4.23, train/rlt_loss=4.17, train/vla_loss=0.062]
+[36m(ActorGroup(rank=0) pid=9155)[0m Forcing gradient checkpointing to be enabled for Gemma expert model
+[36m(ActorGroup(rank=0) pid=9155)[0m /root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py:123: UserWarning: resource_tracker: process died unexpectedly, relaunching.  Some resources might leak.
+[36m(ActorGroup(rank=0) pid=9155)[0m   warnings.warn('resource_tracker: process died unexpectedly, '
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-_9a_2h_1'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-ujix6axo'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-nbx9d_e0'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-n0d69hwg'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-yu_alid_'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-r5sq8dpv'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-tr5otp2n'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-gvu7b_py'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-absp30ql'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-tea2ana5'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-a8uc20wq'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-txxegj8k'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-tqtqtgfu'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-gj1och72'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-5lnjox1l'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-986xg0g7'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-8dk04nxn'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-dstomqfh'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-wq2dpqsf'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-m9b6gu5o'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-awu582h3'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-of1esig0'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-jiqocjbx'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-ln2u6x9c'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-2jgc4z04'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-ic5ztmuk'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-jcj3ytkd'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-9du9n9r7'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-hp9d250e'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-cjpeg50u'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-76xv7czz'
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/resource_tracker.py", line 239, in main
+[36m(ActorGroup(rank=0) pid=9155)[0m     cache[rtype].remove(name)
+[36m(ActorGroup(rank=0) pid=9155)[0m KeyError: '/mp-9c13pwcf'
+[36m(ActorGroup(rank=0) pid=9155)[0m Exception ignored in atexit callback: <function _exit_function at 0x7d73e59d6020>
+[36m(ActorGroup(rank=0) pid=9155)[0m Traceback (most recent call last):
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/util.py", line 360, in _exit_function
+[36m(ActorGroup(rank=0) pid=9155)[0m     p.join()
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/process.py", line 149, in join
+[36m(ActorGroup(rank=0) pid=9155)[0m     res = self._popen.wait(timeout)
+[36m(ActorGroup(rank=0) pid=9155)[0m           ^^^^^^^^^^^^^^^^^^^^^^^^^
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/popen_fork.py", line 43, in wait
+[36m(ActorGroup(rank=0) pid=9155)[0m     return self.poll(os.WNOHANG if timeout == 0.0 else 0)
+[36m(ActorGroup(rank=0) pid=9155)[0m            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/multiprocessing/popen_fork.py", line 27, in poll
+[36m(ActorGroup(rank=0) pid=9155)[0m     pid, sts = os.waitpid(self.pid, flag)
+[36m(ActorGroup(rank=0) pid=9155)[0m                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[36m(ActorGroup(rank=0) pid=9155)[0m   File "/workspace/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+[36m(ActorGroup(rank=0) pid=9155)[0m     _error_if_any_worker_fails()
+[36m(ActorGroup(rank=0) pid=9155)[0m RuntimeError: DataLoader worker (pid 11203) is killed by signal: Killed.
