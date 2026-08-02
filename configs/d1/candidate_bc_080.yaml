@@ -9,6 +9,7 @@
   "runtime_environment": {
     "EMBODIED_PATH": "${RLINF_HOME}/examples/embodiment",
     "PYTHONPATH": "${RLINF_HOME}",
+    "VK_ICD_FILENAMES": "/etc/vulkan/icd.d/nvidia_icd.json",
     "SAPIEN_RENDER_SYSTEM": "egl",
     "MUJOCO_GL": "egl",
     "PYOPENGL_PLATFORM": "egl"
