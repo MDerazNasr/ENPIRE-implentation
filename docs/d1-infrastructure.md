@@ -77,7 +77,9 @@ currently cap cumulative D1 spend at `$15`; reporting events occur at `$5`,
 requires a reviewed config change.
 
 Resource sampling uses `nvidia-smi` when available and remains valid on a
-no-GPU development host. Pod billing must still be checked with the provider:
+no-GPU development host. It also records Linux total/available system RAM from
+`/proc/meminfo`, with a portable total-RAM fallback. Pod billing must still be
+checked with the provider:
 terminating the training subprocess does not prove the pod stopped billing.
 
 ## Scientific decision module
@@ -89,9 +91,7 @@ interprets improvement as at least 10% shorter successful episodes.
 
 ## Stage-2 verification boundary
 
-The generated Hydra keys are based on the pinned upstream configuration and
-the earlier successful smoke logs. Stage 2 must still verify the commands
-against the actual pinned checkout before any execution. In particular,
-Reference A's `rlt_policy_switch.enable=false` must be proven to execute only
-VLA reference chunks rather than assumed from its name.
-
+The generated Hydra keys and separate SFT/embodiment launch paths were audited
+against a fresh checkout of the pinned upstream commit. Reference A's disabled
+switch is source-consistent with VLA reference-chunk routing, but Stage 4 must
+still confirm that behavior from runtime routing metrics.

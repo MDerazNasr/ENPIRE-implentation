@@ -19,6 +19,9 @@ REQUIRED_TOP_LEVEL = {
     "experiment_id",
     "stage",
     "condition",
+    "entrypoint",
+    "config_path",
+    "runtime_environment",
     "rlinf_config",
     "expected_rlinf_commit",
     "required_paths",
@@ -76,6 +79,16 @@ def validate_d1_config(config: Mapping[str, Any]) -> None:
         "candidate",
     }:
         raise D1ConfigError(f"unsupported condition: {config['condition']!r}")
+    for field in ("entrypoint", "config_path"):
+        value = config[field]
+        if (
+            not isinstance(value, str)
+            or value.startswith("/")
+            or ".." in Path(value).parts
+        ):
+            raise D1ConfigError(f"{field} must be a safe RLinf-relative path")
+    if not isinstance(config["runtime_environment"], dict):
+        raise D1ConfigError("runtime_environment must be an object")
     if not isinstance(config["required_paths"], dict) or not config["required_paths"]:
         raise D1ConfigError("required_paths must be a non-empty object")
     if not isinstance(config["hydra_overrides"], list) or not all(
@@ -157,13 +170,29 @@ def validate_required_paths(config: Mapping[str, Any]) -> None:
         raise D1ConfigError("required path validation failed: " + "; ".join(failures))
 
 
+def validate_rlinf_layout(config: Mapping[str, Any]) -> None:
+    rlinf_home = Path(config["required_paths"]["rlinf_home"]["path"])
+    expected = {
+        "entrypoint": rlinf_home / config["entrypoint"],
+        "config": rlinf_home / config["config_path"] / f"{config['rlinf_config']}.yaml",
+        "python": rlinf_home / ".venv/bin/python",
+    }
+    missing = [
+        f"{label}: {path}"
+        for label, path in expected.items()
+        if not path.is_file()
+    ]
+    if missing:
+        raise D1ConfigError("RLinf layout validation failed: " + "; ".join(missing))
+
+
 def build_d1_command(config: Mapping[str, Any], run_dir: Path) -> tuple[list[str], Path]:
     rlinf_home = Path(config["required_paths"]["rlinf_home"]["path"])
     command = [
         str(rlinf_home / ".venv/bin/python"),
-        str(rlinf_home / "examples/embodiment/train_embodied_agent.py"),
+        str(rlinf_home / config["entrypoint"]),
         "--config-path",
-        str(rlinf_home / "examples/embodiment/config"),
+        str(rlinf_home / config["config_path"]),
         "--config-name",
         config["rlinf_config"],
         *config["hydra_overrides"],

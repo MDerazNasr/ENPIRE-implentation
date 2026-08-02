@@ -4,6 +4,14 @@
   "experiment_id": "d1-stage1-scientific",
   "stage": "stage1",
   "condition": "scientific_stage1",
+  "entrypoint": "examples/sft/train_vla_sft.py",
+  "config_path": "examples/sft/config",
+  "runtime_environment": {
+    "EMBODIED_PATH": "${RLINF_HOME}/examples/sft",
+    "PYTHONPATH": "${RLINF_HOME}",
+    "MUJOCO_GL": "egl",
+    "PYOPENGL_PLATFORM": "egl"
+  },
   "rlinf_config": "maniskill_rlt_stage1_sft_openpi_pi05",
   "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
   "required_paths": {

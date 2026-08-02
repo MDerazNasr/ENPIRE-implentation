@@ -4,6 +4,15 @@
   "experiment_id": "d1-candidate-c-bc-080",
   "stage": "stage2",
   "condition": "candidate",
+  "entrypoint": "examples/embodiment/train_embodied_agent.py",
+  "config_path": "examples/embodiment/config",
+  "runtime_environment": {
+    "EMBODIED_PATH": "${RLINF_HOME}/examples/embodiment",
+    "PYTHONPATH": "${RLINF_HOME}",
+    "SAPIEN_RENDER_SYSTEM": "egl",
+    "MUJOCO_GL": "egl",
+    "PYOPENGL_PLATFORM": "egl"
+  },
   "rlinf_config": "maniskill_rlt_stage2_ac_mlp",
   "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
   "required_paths": {
@@ -28,7 +37,7 @@
     "env.eval.rlt_policy_switch.expert_takeover.enable=false",
     "rollout.expert_model=null",
     "rollout.rlt_feature_model.model_path=${STAGE1_CHECKPOINT}",
-    "rollout.rlt_feature_model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
+    "+rollout.rlt_feature_model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
     "env.eval.use_fixed_reset_state_ids=true",
     "env.eval.total_num_envs=256",
     "actor.seed=${D1_SEED}",

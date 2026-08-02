@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import time
@@ -78,11 +79,37 @@ def _nvidia_snapshot() -> list[dict[str, Any]]:
     return gpus
 
 
+def _system_memory_snapshot() -> dict[str, int | None]:
+    meminfo = Path("/proc/meminfo")
+    if meminfo.is_file():
+        values: dict[str, int] = {}
+        for line in meminfo.read_text().splitlines():
+            if ":" not in line:
+                continue
+            key, raw = line.split(":", 1)
+            fields = raw.strip().split()
+            if fields and fields[0].isdigit():
+                multiplier = 1024 if len(fields) > 1 and fields[1] == "kB" else 1
+                values[key] = int(fields[0]) * multiplier
+        return {
+            "total_bytes": values.get("MemTotal"),
+            "available_bytes": values.get("MemAvailable"),
+        }
+    try:
+        page_size = os.sysconf("SC_PAGE_SIZE")
+        pages = os.sysconf("SC_PHYS_PAGES")
+        total = int(page_size) * int(pages)
+    except (OSError, ValueError):
+        total = None
+    return {"total_bytes": total, "available_bytes": None}
+
+
 def resource_snapshot(path: Path) -> dict[str, Any]:
     disk = shutil.disk_usage(path)
     return {
         "timestamp_unix": time.time(),
         "gpus": _nvidia_snapshot(),
+        "system_memory": _system_memory_snapshot(),
         "disk_total_bytes": disk.total,
         "disk_used_bytes": disk.used,
         "disk_free_bytes": disk.free,

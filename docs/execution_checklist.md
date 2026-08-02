@@ -31,6 +31,9 @@ weights; dry-run cannot launch paid work.
 
 ## Stage 2 — Assets and environment
 
+- [x] Audit all profiles against a fresh checkout of the pinned RLinf commit.
+- [x] Correct Stage-1 SFT versus Stage-2 embodiment launch boundaries.
+- [x] Verify Hydra override paths and Reference-A routing semantics in source.
 - [ ] Provision the smallest suitable >=24 GB NVIDIA instance.
 - [ ] Record GPU model, hourly price, storage, and launch timestamp.
 - [ ] Install/pin RLinf and verify its tree remains unmodified.

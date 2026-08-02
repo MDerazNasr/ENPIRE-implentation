@@ -12,3 +12,5 @@ The gated D1 scientific-baseline work is specified in:
 - `execution_checklist.md` — sequential implementation and evidence gates.
 - `d1-infrastructure.md` — Stage-1 profiles, dry-run/paid gates, provenance,
   resource monitoring, and known verification boundary.
+- `stage2-environment-audit.md` — pinned-source findings, corrected launch
+  boundaries, and the remaining live-pod gate.

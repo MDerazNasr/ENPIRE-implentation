@@ -14,6 +14,7 @@ from agent.d1_config import (
     resolve_d1_config,
     scientific_diff,
     validate_d1_config,
+    validate_rlinf_layout,
     validate_required_paths,
 )
 from agent.d1_launcher import main, prepare_run
@@ -124,6 +125,33 @@ class D1ConfigTests(unittest.TestCase):
             )
             self.assertIn("env.eval.use_fixed_reset_state_ids=true", command)
 
+    def test_stage1_and_stage2_use_their_upstream_launchers(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            env = environment(Path(temporary))
+            stage1 = resolve_d1_config(
+                load_d1_config(CONFIG_ROOT / "stage1_pilot.yaml"), env
+            )
+            stage2 = resolve_d1_config(
+                load_d1_config(CONFIG_ROOT / "control.yaml"), env
+            )
+            self.assertEqual(stage1["entrypoint"], "examples/sft/train_vla_sft.py")
+            self.assertEqual(stage1["config_path"], "examples/sft/config")
+            self.assertEqual(
+                stage2["entrypoint"],
+                "examples/embodiment/train_embodied_agent.py",
+            )
+            self.assertEqual(stage2["config_path"], "examples/embodiment/config")
+
+    def test_rlinf_layout_requires_entrypoint_config_and_python(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            env = environment(root)
+            config = resolve_d1_config(
+                load_d1_config(CONFIG_ROOT / "stage1_pilot.yaml"), env
+            )
+            with self.assertRaisesRegex(D1ConfigError, "entrypoint"):
+                validate_rlinf_layout(config)
+
 
 class D1ProvenanceTests(unittest.TestCase):
     def test_run_id_cannot_escape_results_directory(self):
@@ -227,6 +255,8 @@ class ResourceAndCostTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             snapshot = resource_snapshot(Path(temporary))
             self.assertIn("gpus", snapshot)
+            self.assertIn("system_memory", snapshot)
+            self.assertIn("total_bytes", snapshot["system_memory"])
             self.assertGreater(snapshot["disk_total_bytes"], 0)
 
 

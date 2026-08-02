@@ -19,6 +19,7 @@ from agent.d1_config import (
     build_d1_command,
     load_d1_config,
     resolve_d1_config,
+    validate_rlinf_layout,
     validate_required_paths,
 )
 from agent.provenance import append_jsonl, create_manifest, utc_now, write_json
@@ -92,6 +93,7 @@ def _execute(
     hourly_price_usd: float,
 ) -> int:
     validate_required_paths(config)
+    validate_rlinf_layout(config)
     if manifest["rlinf_commit_actual"] != RLINF_COMMIT:
         raise D1ConfigError(
             "RLinf checkout mismatch: "
@@ -118,7 +120,7 @@ def _execute(
     process = subprocess.Popen(
         command,
         cwd=cwd,
-        env={**os.environ, "SAPIEN_RENDER_SYSTEM": "egl"},
+        env={**os.environ, **config["runtime_environment"]},
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
