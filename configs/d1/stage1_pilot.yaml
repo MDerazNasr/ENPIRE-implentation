@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+  "experiment_id": "d1-stage1-pilot",
+  "stage": "stage1",
+  "condition": "pilot",
+  "rlinf_config": "maniskill_rlt_stage1_sft_openpi_pi05",
+  "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "required_paths": {
+    "rlinf_home": {
+      "path": "${RLINF_HOME}",
+      "kind": "directory"
+    },
+    "model": {
+      "path": "${MODEL_PATH}",
+      "kind": "directory"
+    },
+    "dataset": {
+      "path": "${DATASET_PATH}",
+      "kind": "directory"
+    },
+    "norm_stats": {
+      "path": "${NORM_STATS_PATH}",
+      "kind": "file"
+    }
+  },
+  "hydra_overrides": [
+    "runner.logger.logger_backends=[wandb]",
+    "runner.logger.project_name=${WANDB_PROJECT}",
+    "runner.max_steps=6",
+    "runner.save_interval=5",
+    "actor.model.model_path=${MODEL_PATH}",
+    "actor.model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
+    "data.train_data_paths.0.dataset_path=${DATASET_PATH}",
+    "actor.micro_batch_size=8",
+    "actor.global_batch_size=8",
+    "actor.seed=${D1_SEED}",
+    "actor.optim.total_training_steps=6"
+  ],
+  "evaluation": {
+    "fixed_reset_state_ids": false,
+    "num_trajectories": 0,
+    "primary_metric": "train/loss"
+  },
+  "scientific_values": {
+    "dataset_scope": "full",
+    "max_steps": 6,
+    "save_interval": 5,
+    "micro_batch_size": 8,
+    "global_batch_size": 8,
+    "learning_rate": 0.000025
+  },
+  "budget": {
+    "max_cost_usd": 15,
+    "report_thresholds_usd": [
+      5,
+      10,
+      15
+    ]
+  },
+  "monitor_interval_seconds": 10
+}

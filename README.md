@@ -16,6 +16,12 @@ This is an integration smoke result, not evidence about RLT performance. Both
 20-step evaluations had `success_once=0.0`; lowering `bc_weight` from `1.0` to
 `0.8` produced no meaningful difference.
 
+D1 baseline work now lives on `experiment/d1-rlt-baseline`. Its Stage-0
+scientific contract and Stage-1 no-GPU infrastructure define separate
+pilot/reference/control/candidate profiles, fixed-ID evaluation, immutable
+provenance, cumulative cost gates, and an explicitly acknowledged launch path.
+No D1 paid run or performance baseline has started yet.
+
 ## Three-phase plan
 
 1. **Phase 1 — rule-based (current):** bounded RLinf runs, text metric

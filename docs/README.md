@@ -10,3 +10,5 @@ The gated D1 scientific-baseline work is specified in:
   compute contract;
 - `experiment_matrix.md` — exact controlled comparison and unresolved inputs;
 - `execution_checklist.md` — sequential implementation and evidence gates.
+- `d1-infrastructure.md` — Stage-1 profiles, dry-run/paid gates, provenance,
+  resource monitoring, and known verification boundary.

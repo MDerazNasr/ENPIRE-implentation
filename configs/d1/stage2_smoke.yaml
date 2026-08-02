@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+  "experiment_id": "d1-stage2-contract-smoke",
+  "stage": "stage2",
+  "condition": "smoke",
+  "rlinf_config": "maniskill_rlt_stage2_ac_mlp",
+  "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "required_paths": {
+    "rlinf_home": {
+      "path": "${RLINF_HOME}",
+      "kind": "directory"
+    },
+    "stage1_checkpoint": {
+      "path": "${STAGE1_CHECKPOINT}",
+      "kind": "directory"
+    },
+    "norm_stats": {
+      "path": "${NORM_STATS_PATH}",
+      "kind": "file"
+    }
+  },
+  "hydra_overrides": [
+    "runner.logger.logger_backends=[wandb]",
+    "runner.logger.project_name=${WANDB_PROJECT}",
+    "runner.only_eval=false",
+    "env.train.rlt_policy_switch.expert_takeover.enable=false",
+    "env.eval.rlt_policy_switch.expert_takeover.enable=false",
+    "rollout.expert_model=null",
+    "rollout.rlt_feature_model.model_path=${STAGE1_CHECKPOINT}",
+    "rollout.rlt_feature_model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
+    "env.eval.use_fixed_reset_state_ids=true",
+    "env.eval.total_num_envs=256",
+    "actor.seed=${D1_SEED}",
+    "algorithm.actor_weight_schedule.warmup_bc_weight=7",
+    "algorithm.actor_weight_schedule.online_bc_weight=2.5",
+    "algorithm.actor_weight_schedule.warmup_q_weight=0.05",
+    "algorithm.actor_weight_schedule.online_q_weight=0.45",
+    "runner.max_steps=1",
+    "runner.val_check_interval=1",
+    "runner.save_interval=-1",
+    "env.train.total_num_envs=1",
+    "env.eval.total_num_envs=1",
+    "env.train.max_episode_steps=20",
+    "env.eval.max_episode_steps=20"
+  ],
+  "evaluation": {
+    "fixed_reset_state_ids": true,
+    "num_trajectories": 256,
+    "primary_metric": "eval/success_once"
+  },
+  "scientific_values": {
+    "warmup_bc_weight": 7,
+    "online_bc_weight": 2.5,
+    "warmup_q_weight": 0.05,
+    "online_q_weight": 0.45,
+    "expert_takeover": false,
+    "fixed_eval_trajectories": 256
+  },
+  "budget": {
+    "max_cost_usd": 15,
+    "report_thresholds_usd": [
+      5,
+      10,
+      15
+    ]
+  },
+  "monitor_interval_seconds": 10
+}

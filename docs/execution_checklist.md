@@ -19,12 +19,12 @@ why the conditions, primary endpoint, and decision rule answer the D1 question.
 
 ## Stage 1 — No-GPU infrastructure
 
-- [ ] Add separate pilot/scientific condition configs.
-- [ ] Add config/path/placeholder validation and dry-run command output.
-- [ ] Add immutable run manifest and local/W&B linkage schema.
-- [ ] Add fixed-evaluation specification.
-- [ ] Add resource and cumulative-cost monitoring.
-- [ ] Add unit tests for commands, provenance, rules, and budget gates.
+- [x] Add separate pilot/scientific condition configs.
+- [x] Add config/path/placeholder validation and dry-run command output.
+- [x] Add immutable run manifest and local/W&B linkage schema.
+- [x] Add fixed-evaluation specification.
+- [x] Add resource and cumulative-cost monitoring.
+- [x] Add unit tests for commands, provenance, rules, and budget gates.
 
 Gate: all tests pass; Candidate differs from Control only in scheduled BC
 weights; dry-run cannot launch paid work.
@@ -98,4 +98,3 @@ Gate: another engineer can reproduce and audit D1 without live explanation.
   contract.
 - Stage 9 / D3-D4: independent multi-GPU coordinator, then bounded coding-agent
   comparison.
-
