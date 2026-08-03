@@ -34,13 +34,13 @@ weights; dry-run cannot launch paid work.
 - [x] Audit all profiles against a fresh checkout of the pinned RLinf commit.
 - [x] Correct Stage-1 SFT versus Stage-2 embodiment launch boundaries.
 - [x] Verify Hydra override paths and Reference-A routing semantics in source.
-- [ ] Provision the smallest suitable >=24 GB NVIDIA instance.
-- [ ] Record GPU model, hourly price, storage, and launch timestamp.
-- [ ] Install/pin RLinf and verify its tree remains unmodified.
-- [ ] Verify full model, dataset, norm stats, task, and disk use.
-- [ ] Authenticate W&B directly on the pod.
-- [ ] Validate CUDA and ManiSkill reset/step.
-- [ ] Re-run bounded upstream Stage-1/Stage-2 logging smoke.
+- [x] Provision the smallest suitable >=24 GB NVIDIA instance.
+- [x] Record GPU model, hourly price, storage, and launch timestamp.
+- [x] Install/pin RLinf and verify its tree remains unmodified.
+- [x] Verify full model, dataset, norm stats, task, and disk use.
+- [x] Authenticate W&B directly on the pod.
+- [x] Validate CUDA and ManiSkill reset/step.
+- [x] Re-run bounded upstream logging smoke and preserve its metrics.
 
 Gate: required assets resolve and unmodified upstream metrics appear in W&B and
 local evidence.
@@ -49,29 +49,31 @@ local evidence.
 
 - [x] Test the declared profile on the minimum 24 GB tier; A10 failed during
   AdamW-state initialization with measured OOM evidence.
-- [ ] Run bounded checkpoint-producing training.
-- [ ] Capture startup and steady-state timing separately.
-- [ ] Capture peak VRAM/RAM and disk use.
-- [ ] Verify saved actor checkpoint and reload.
-- [ ] Project 250/500/1000/2000-step and full-D1 cost.
-- [ ] Report each crossed `$5` spending threshold; stop at pilot cap.
+- [x] Run bounded checkpoint-producing training.
+- [x] Capture startup and steady-state timing separately.
+- [x] Capture peak VRAM/RAM and disk use.
+- [x] Verify saved actor checkpoint and reload.
+- [x] Project reduced and full Stage-1 budgets with accumulation/save overhead.
+- [x] Capture launcher-attributed cost; no Stage-3 `$5` threshold was crossed.
 
 Gate: return a valid checkpoint, measured resource profile, and cost proposal;
 obtain approval before long training.
 
 ## Stage 4 — Stage-2 checkpoint contract smoke
 
-- [ ] Load the pilot Stage-1 checkpoint without fallback.
-- [ ] Run bounded fixed-ID training/rollout/evaluation.
-- [ ] Verify actor/reference paths and complete metric capture.
-- [ ] Link config, manifest, raw log, W&B, JSONL, and checkpoint.
+- [x] Load the pilot Stage-1 checkpoint without fallback.
+- [x] Run bounded fixed-ID training/rollout/evaluation.
+- [x] Verify actor/reference paths and complete metric capture.
+- [x] Link config, manifest, raw log, local ledger, and checkpoint.
 
 Gate: end-to-end contract passes; label result as smoke only.
 
 ## Stage 5 — Scientific reference/control baseline
 
-- [ ] Obtain explicit training/cost approval.
-- [ ] Train the approved Stage-1 checkpoint budget.
+- [x] Obtain explicit approval for the reduced Stage-1 budget.
+- [x] Train and verify the 250-step reduced-budget Stage-1 checkpoint.
+- [x] Probe upstream-scale Stage-2 environment feasibility on the A10; record
+  the measured camera-buffer/VRAM failure without changing the contract.
 - [ ] Evaluate Reference A on the fixed set.
 - [ ] Train/evaluate Control B across approved seeds.
 - [ ] Compute per-seed results and uncertainty.

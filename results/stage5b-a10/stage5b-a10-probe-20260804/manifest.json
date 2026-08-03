@@ -1,0 +1,142 @@
+{
+  "command": [
+    "/home/ubuntu/qualia/RLinf/.venv/bin/python",
+    "/home/ubuntu/qualia/RLinf/examples/embodiment/train_embodied_agent.py",
+    "--config-path",
+    "/home/ubuntu/qualia/RLinf/examples/embodiment/config",
+    "--config-name",
+    "maniskill_rlt_stage2_ac_mlp",
+    "runner.logger.logger_backends=[wandb]",
+    "runner.logger.project_name=qualia-rlt-d1",
+    "runner.only_eval=false",
+    "env.train.rlt_policy_switch.expert_takeover.enable=false",
+    "env.eval.rlt_policy_switch.expert_takeover.enable=false",
+    "rollout.expert_model=null",
+    "rollout.rlt_feature_model.model_path=/home/ubuntu/qualia/checkpoints/stage1-step250/actor",
+    "+rollout.rlt_feature_model.openpi_data.norm_stats_path=/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json",
+    "env.eval.use_fixed_reset_state_ids=true",
+    "env.train.total_num_envs=64",
+    "env.eval.total_num_envs=256",
+    "env.train.max_episode_steps=500",
+    "env.eval.max_episode_steps=500",
+    "env.train.max_steps_per_rollout_epoch=500",
+    "env.eval.max_steps_per_rollout_epoch=500",
+    "actor.seed=2026",
+    "algorithm.actor_weight_schedule.warmup_bc_weight=7",
+    "algorithm.actor_weight_schedule.online_bc_weight=2.5",
+    "algorithm.actor_weight_schedule.warmup_q_weight=0.05",
+    "algorithm.actor_weight_schedule.online_q_weight=0.45",
+    "runner.max_steps=1",
+    "runner.val_check_interval=1",
+    "runner.save_interval=-1",
+    "runner.logger.log_path=/home/ubuntu/qualia/ENPIRE/results/d1/stage5b-a10-probe-20260804"
+  ],
+  "condition": "smoke",
+  "config_path": "/home/ubuntu/qualia/ENPIRE/configs/d1/stage2_resource_probe.yaml",
+  "config_sha256": "b05cd4b434a94ee87567d3f0867fbb1d43754ac3bb5aae62b444bbaeed965697",
+  "created_at": "2026-08-03T22:17:27+00:00",
+  "cumulative_cost_usd": 0.01801364594123337,
+  "elapsed_seconds": 50.27062748000003,
+  "exit_code": 255,
+  "experiment_id": "d1-stage2-resource-probe",
+  "final_cost_usd": 0.018013643560108334,
+  "finished_at": "2026-08-03T22:18:18+00:00",
+  "host": "150-136-104-39",
+  "hourly_price_usd": 1.29,
+  "platform": "Linux-6.8.0-60-generic-x86_64-with-glibc2.35",
+  "project_commit": "eb909aefe2178b1ff1144dfe62008ed5d3655702",
+  "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+  "resolved_config": {
+    "budget": {
+      "max_cost_usd": 15,
+      "report_thresholds_usd": [
+        5,
+        10,
+        15
+      ]
+    },
+    "condition": "smoke",
+    "config_path": "examples/embodiment/config",
+    "entrypoint": "examples/embodiment/train_embodied_agent.py",
+    "evaluation": {
+      "fixed_reset_state_ids": true,
+      "num_trajectories": 256,
+      "primary_metric": "eval/success_once"
+    },
+    "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "experiment_id": "d1-stage2-resource-probe",
+    "hydra_overrides": [
+      "runner.logger.logger_backends=[wandb]",
+      "runner.logger.project_name=qualia-rlt-d1",
+      "runner.only_eval=false",
+      "env.train.rlt_policy_switch.expert_takeover.enable=false",
+      "env.eval.rlt_policy_switch.expert_takeover.enable=false",
+      "rollout.expert_model=null",
+      "rollout.rlt_feature_model.model_path=/home/ubuntu/qualia/checkpoints/stage1-step250/actor",
+      "+rollout.rlt_feature_model.openpi_data.norm_stats_path=/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json",
+      "env.eval.use_fixed_reset_state_ids=true",
+      "env.train.total_num_envs=64",
+      "env.eval.total_num_envs=256",
+      "env.train.max_episode_steps=500",
+      "env.eval.max_episode_steps=500",
+      "env.train.max_steps_per_rollout_epoch=500",
+      "env.eval.max_steps_per_rollout_epoch=500",
+      "actor.seed=2026",
+      "algorithm.actor_weight_schedule.warmup_bc_weight=7",
+      "algorithm.actor_weight_schedule.online_bc_weight=2.5",
+      "algorithm.actor_weight_schedule.warmup_q_weight=0.05",
+      "algorithm.actor_weight_schedule.online_q_weight=0.45",
+      "runner.max_steps=1",
+      "runner.val_check_interval=1",
+      "runner.save_interval=-1"
+    ],
+    "monitor_interval_seconds": 5,
+    "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+    "required_paths": {
+      "norm_stats": {
+        "kind": "file",
+        "path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json"
+      },
+      "rlinf_home": {
+        "kind": "directory",
+        "path": "/home/ubuntu/qualia/RLinf"
+      },
+      "stage1_checkpoint": {
+        "kind": "directory",
+        "path": "/home/ubuntu/qualia/checkpoints/stage1-step250/actor"
+      }
+    },
+    "rlinf_config": "maniskill_rlt_stage2_ac_mlp",
+    "runtime_environment": {
+      "EMBODIED_PATH": "/home/ubuntu/qualia/RLinf/examples/embodiment",
+      "MUJOCO_GL": "egl",
+      "PYOPENGL_PLATFORM": "egl",
+      "PYTHONPATH": "/home/ubuntu/qualia/RLinf",
+      "SAPIEN_RENDER_SYSTEM": "egl",
+      "VK_ICD_FILENAMES": "/etc/vulkan/icd.d/nvidia_icd.json"
+    },
+    "schema_version": 1,
+    "scientific_values": {
+      "episode_horizon": 500,
+      "expert_takeover": false,
+      "fixed_eval_trajectories": 256,
+      "online_bc_weight": 2.5,
+      "online_q_weight": 0.45,
+      "resource_probe_only": true,
+      "runner_steps": 1,
+      "train_environments": 64,
+      "warmup_bc_weight": 7,
+      "warmup_q_weight": 0.05
+    },
+    "stage": "stage2"
+  },
+  "rlinf_commit_actual": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "rlinf_commit_expected": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "run_cost_usd": 0.018013643560108334,
+  "run_directory": "/home/ubuntu/qualia/ENPIRE/results/d1/stage5b-a10-probe-20260804",
+  "schema_version": 1,
+  "started_at": "2026-08-03T22:17:27+00:00",
+  "status": "failed",
+  "wandb_run_url": null,
+  "working_directory": "/home/ubuntu/qualia/RLinf"
+}

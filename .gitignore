@@ -14,6 +14,7 @@ results/**
 !results/**/
 !results/README.md
 !results/**/*.json
+!results/stage5b-a10/**/*.jsonl
 !results/**/*.csv
 !results/**/*.log
 !results/**/command.sh

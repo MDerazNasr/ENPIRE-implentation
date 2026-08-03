@@ -1,0 +1,573 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1785795454.266491    8029 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1785795454.309716    8029 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1785795458.672019    8029 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/defaults_list.py:262: UserWarning: In 'maniskill_rlt_stage2_ac_mlp': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/hydra.py:164: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+2026-08-03 22:17:46,258	INFO worker.py:2015 -- Started a local Ray instance. View the dashboard at [1m[32mhttp://127.0.0.1:8265 [39m[22m
+[INFO 22:17:48 RLinf] RLinf is running on a cluster with 1 node and 1 accelerator. The nodes' details are: 
+node_labels: []
+node_rank: 0
+ray_id: 7a751ef3c16dfc54aa35a398558f3f86cd8cd0c111b09b69494aaed5
+node_ip: 10.19.86.111
+num_cpus: 30
+python_interpreter_path: /home/ubuntu/qualia/RLinf/.venv/bin/python
+hardware_resources:
+- type: Accelerator
+  infos:
+  - type: Accelerator
+    model: NV_GPU:A10
+profiler_backends: []
+
+Node groups' details are: 
+label: cluster
+nodes: '0'
+hardware_type: Accelerator
+ignore_hardware: false
+env_configs: null
+
+label: node
+nodes: '0'
+hardware_type: null
+ignore_hardware: true
+env_configs: null
+
+[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+{
+  "env": {
+    "train": {
+      "env_type": "maniskill_rlt",
+      "total_num_envs": 64,
+      "wrap_obs_mode": "rlt_openpi_joint",
+      "use_full_state": false,
+      "auto_reset": false,
+      "ignore_terminations": false,
+      "use_rel_reward": false,
+      "reward_mode": "only_success",
+      "seed": 2026,
+      "group_size": 1,
+      "use_fixed_reset_state_ids": false,
+      "max_steps_per_rollout_epoch": 500,
+      "max_episode_steps": 500,
+      "rlt_policy_switch": {
+        "enable": true,
+        "task_mode": "full_task",
+        "trigger_mode": "auto",
+        "latch_until_done": true,
+        "auto_gate": {
+          "require_grasp": true,
+          "require_not_success": true,
+          "near_hole_x_min": -0.16,
+          "near_hole_yz_margin": 1.5,
+          "fallback_hole_radius": 0.03
+        },
+        "expert_takeover": {
+          "enable": false,
+          "trigger_mode": "stalled_progress",
+          "gate": {
+            "require_grasp": true,
+            "require_not_success": true,
+            "near_hole_x_min": -0.1,
+            "near_hole_yz_margin": 2.0,
+            "stuck_chunks_before_takeover": 3,
+            "min_x_progress": 0.003,
+            "min_yz_progress": 0.0015,
+            "min_score_progress": 0.002,
+            "progress_yz_weight": 1.0,
+            "fallback_hole_radius": 0.03
+          }
+        }
+      },
+      "video_cfg": {
+        "save_video": false,
+        "info_on_video": true,
+        "fps": 10,
+        "record_every": 1,
+        "video_base_dir": "/home/ubuntu/qualia/ENPIRE/results/d1/stage5b-a10-probe-20260804/video/train"
+      },
+      "enable_offload": false,
+      "init_params": {
+        "id": "PegInsertionSideWideClearance-v1",
+        "num_envs": null,
+        "obs_mode": "rgb",
+        "control_mode": "pd_joint_delta_pos",
+        "sim_backend": "gpu",
+        "reward_mode": "sparse",
+        "sim_config": {
+          "sim_freq": 100,
+          "control_freq": 10
+        },
+        "max_episode_steps": 500,
+        "sensor_configs": {
+          "shader_pack": "default",
+          "width": 384,
+          "height": 384
+        },
+        "render_mode": "all"
+      },
+      "rollout_epoch": 1,
+      "action_dim": 8,
+      "num_action_chunks": 10,
+      "ref_num_action_chunks": 10
+    },
+    "eval": {
+      "env_type": "maniskill_rlt",
+      "total_num_envs": 256,
+      "wrap_obs_mode": "rlt_openpi_joint",
+      "use_full_state": false,
+      "auto_reset": false,
+      "ignore_terminations": false,
+      "use_rel_reward": false,
+      "reward_mode": "only_success",
+      "seed": 2026,
+      "group_size": 1,
+      "use_fixed_reset_state_ids": true,
+      "max_steps_per_rollout_epoch": 500,
+      "max_episode_steps": 500,
+      "rlt_policy_switch": {
+        "enable": true,
+        "task_mode": "full_task",
+        "trigger_mode": "auto",
+        "latch_until_done": true,
+        "auto_gate": {
+          "require_grasp": true,
+          "require_not_success": true,
+          "near_hole_x_min": -0.16,
+          "near_hole_yz_margin": 1.5,
+          "fallback_hole_radius": 0.03
+        },
+        "expert_takeover": {
+          "enable": false,
+          "trigger_mode": "stalled_progress",
+          "gate": {
+            "require_grasp": true,
+            "require_not_success": true,
+            "near_hole_x_min": -0.1,
+            "near_hole_yz_margin": 2.0,
+            "stuck_chunks_before_takeover": 3,
+            "min_x_progress": 0.003,
+            "min_yz_progress": 0.0015,
+            "min_score_progress": 0.002,
+            "progress_yz_weight": 1.0,
+            "fallback_hole_radius": 0.03
+          }
+        }
+      },
+      "video_cfg": {
+        "save_video": false,
+        "info_on_video": true,
+        "fps": 10,
+        "record_every": 1,
+        "video_base_dir": "/home/ubuntu/qualia/ENPIRE/results/d1/stage5b-a10-probe-20260804/video/eval"
+      },
+      "enable_offload": false,
+      "init_params": {
+        "id": "PegInsertionSideWideClearance-v1",
+        "num_envs": null,
+        "obs_mode": "rgb",
+        "control_mode": "pd_joint_delta_pos",
+        "sim_backend": "gpu",
+        "reward_mode": "sparse",
+        "sim_config": {
+          "sim_freq": 100,
+          "control_freq": 10
+        },
+        "max_episode_steps": 500,
+        "sensor_configs": {
+          "shader_pack": "default",
+          "width": 384,
+          "height": 384
+        },
+        "render_mode": "all"
+      },
+      "rollout_epoch": 1,
+      "policy_mode": "eval",
+      "action_dim": 8,
+      "num_action_chunks": 10,
+      "ref_num_action_chunks": 10
+    },
+    "group_name": "EnvGroup"
+  },
+  "actor": {
+    "fsdp_config": {
+      "strategy": "fsdp",
+      "sharding_strategy": "no_shard",
+      "gradient_checkpointing": false,
+      "cpu_offload": false,
+      "offload_pin_memory": false,
+      "reshard_after_forward": true,
+      "enable_gradient_accumulation": true,
+      "forward_prefetch": false,
+      "limit_all_gathers": false,
+      "backward_prefetch": null,
+      "use_orig_params": false,
+      "use_liger_kernel": false,
+      "mixed_precision": {
+        "param_dtype": "fp32",
+        "reduce_dtype": "fp32",
+        "buffer_dtype": "fp32"
+      },
+      "amp_autocast": {
+        "enabled": false,
+        "precision": "bf16"
+      },
+      "grad_scaler": {
+        "enabled": false,
+        "init_scale": null,
+        "growth_interval": null
+      }
+    },
+    "group_name": "ActorGroup",
+    "training_backend": "fsdp",
+    "micro_batch_size": 128,
+    "global_batch_size": 512,
+    "seed": 2026,
+    "enable_offload": false,
+    "model": {
+      "model_type": "rlt_mlp_policy",
+      "precision": "fp32",
+      "policy_setup": "panda-qpos",
+      "action_dim": 8,
+      "num_action_chunks": 10,
+      "ref_num_action_chunks": 10,
+      "z_dim": 2048,
+      "proprio_dim": 9,
+      "add_value_head": false,
+      "add_q_head": true,
+      "q_head_type": "default",
+      "fixed_std": 0.002,
+      "is_lora": false,
+      "lora_rank": 32
+    },
+    "optim": {
+      "clip_grad": 10.0,
+      "lr": 0.0001,
+      "lr_scheduler": "torch_constant"
+    },
+    "critic_optim": {
+      "clip_grad": 10.0,
+      "lr": 0.0001,
+      "lr_scheduler": "torch_constant"
+    }
+  },
+  "weight_syncer": {
+    "type": "patch",
+    "patch": {
+      "snapshot_device": "cpu",
+      "delta_encoding": true,
+      "compression": "none",
+      "init_sync": {
+        "enabled": true,
+        "prefixes": null,
+        "bucket_size": 134217728
+      }
+    }
+  },
+  "cluster": {
+    "num_nodes": 1,
+    "component_placement": {
+      "actor": "0-0",
+      "env": "all",
+      "rollout": "all"
+    }
+  },
+  "runner": {
+    "task_type": "embodied",
+    "logger": {
+      "log_path": "/home/ubuntu/qualia/ENPIRE/results/d1/stage5b-a10-probe-20260804",
+      "project_name": "qualia-rlt-d1",
+      "experiment_name": "maniskill_rlt_stage2_ac_mlp",
+      "logger_backends": [
+        "wandb"
+      ]
+    },
+    "max_epochs": 5000,
+    "max_steps": 1,
+    "only_eval": false,
+    "weight_sync_interval": 1,
+    "val_check_interval": 1,
+    "save_interval": -1,
+    "resume_dir": null,
+    "ckpt_path": null,
+    "per_worker_log": false,
+    "per_worker_log_path": null,
+    "overlap_env_bootstrap": false
+  },
+  "algorithm": {
+    "update_epoch": 5,
+    "rlt_schedule": {
+      "enable": true,
+      "max_updates_per_train_step": 400,
+      "warmup_min_size": 10000,
+      "warmup_post_collect_updates": 30000,
+      "train_every_episodes": 0,
+      "train_every_transitions": 5
+    },
+    "group_size": 1,
+    "adv_type": "embodied_sac",
+    "loss_type": "rlt_ac",
+    "loss_agg_func": "token-mean",
+    "agg_q": "min",
+    "actor_agg_q": "q1",
+    "enable_drq": false,
+    "q_head_type": "default",
+    "bootstrap_type": "standard",
+    "gamma": 0.96,
+    "tau": 0.005,
+    "q_weight": 1.0,
+    "bc_weight": 1.0,
+    "reference_dropout_prob": 0.5,
+    "actor_weight_schedule": {
+      "enable": true,
+      "warmup_updates": 20000,
+      "ramp_updates": 50000,
+      "warmup_bc_weight": 7,
+      "warmup_q_weight": 0.05,
+      "online_bc_weight": 2.5,
+      "online_q_weight": 0.45
+    },
+    "entropy_tuning": {
+      "alpha_type": "fixed_alpha",
+      "initial_alpha": 0.0,
+      "optim": {
+        "lr": 0.0003,
+        "lr_scheduler": "torch_constant",
+        "clip_grad": 10.0
+      }
+    },
+    "replay_buffer": {
+      "enable_cache": true,
+      "cache_size": 10000,
+      "sample_window_size": 50000,
+      "max_num_samples": 50000,
+      "min_buffer_size": 1000,
+      "auto_save": false
+    },
+    "target_update_freq": 1,
+    "target_update_type": "all",
+    "train_actor_steps": 1000,
+    "critic_actor_ratio": 4,
+    "critic_subsample_size": 0,
+    "backup_entropy": false
+  },
+  "rollout": {
+    "group_name": "RolloutGroup",
+    "backend": "huggingface",
+    "enable_offload": false,
+    "pipeline_stage_num": 1,
+    "collect_transitions": true,
+    "collect_prev_infos": true,
+    "model": {
+      "model_type": "rlt_mlp_policy",
+      "model_path": "",
+      "precision": "fp32",
+      "policy_setup": "panda-qpos",
+      "action_dim": 8,
+      "num_action_chunks": 10,
+      "ref_num_action_chunks": 10,
+      "z_dim": 2048,
+      "proprio_dim": 9,
+      "add_q_head": true,
+      "q_head_type": "default",
+      "fixed_std": 0.002,
+      "is_lora": false,
+      "lora_rank": 32
+    },
+    "rlt_feature_model": {
+      "model_type": "openpi",
+      "model_path": "/home/ubuntu/qualia/checkpoints/stage1-step250/actor",
+      "precision": null,
+      "num_action_chunks": 10,
+      "action_dim": 8,
+      "add_value_head": false,
+      "is_lora": false,
+      "lora_rank": 32,
+      "openpi_data": {
+        "repo_id": "maniskill_peginsertionside_joint",
+        "default_prompt": "insert the peg in the hole",
+        "norm_stats_path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json"
+      },
+      "openpi": {
+        "config_name": "pi05_rlt_maniskill_joint",
+        "num_images_in_input": 2,
+        "action_chunk": 10,
+        "action_horizon": 10,
+        "action_env_dim": 8,
+        "num_steps": 5,
+        "train_expert_only": false,
+        "add_value_head": false,
+        "detach_critic_input": true,
+        "use_rlt": true,
+        "rlt_alpha": 1.0,
+        "rlt_input_dim": 2048,
+        "rlt_embed_dim": 2048,
+        "rlt_num_rl_tokens": 1,
+        "rlt_prefix_seq_len": 1024,
+        "rlt_num_layers": 2,
+        "rlt_num_heads": 8,
+        "rlt_mlp_ratio": 4.0,
+        "rlt_encoder_type": "append_self_attention",
+        "rlt_image_only": false,
+        "rlt_use_mask": true
+      }
+    },
+    "expert_model": null,
+    "enable_torch_compile": false,
+    "enable_cuda_graph": false
+  },
+  "reward": {
+    "use_reward_model": false
+  },
+  "critic": {
+    "use_critic_model": false
+  }
+}[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 22:17:48 FlexiblePlacementStrategy] 
+[INFO 22:17:48 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 22:17:48 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[INFO 22:17:48 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[INFO 22:17:48 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[INFO 22:17:48 NodePlacementStrategy] 
+[INFO 22:17:48 NodePlacementStrategy] Using node placement with node ranks: [0], node groups: ['node'].
+[INFO 22:17:48 NodePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank='0', accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[], node_group_label='cluster')].
+[INFO 22:17:48 NodePlacementStrategy] 
+[INFO 22:17:48 NodePlacementStrategy] Using node placement with node ranks: [0], node groups: ['node'].
+[INFO 22:17:48 NodePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank='0', accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[], node_group_label='cluster')].
+[INFO 22:17:48 NodePlacementStrategy] 
+[INFO 22:17:48 NodePlacementStrategy] Using node placement with node ranks: [0], node groups: ['node'].
+[INFO 22:17:48 NodePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank='0', accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[], node_group_label='cluster')].
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: Tracking run with wandb version 0.25.0
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/ubuntu/qualia/ENPIRE/results/d1/stage5b-a10-probe-20260804/wandb/wandb/offline-run-20260803_221749-4mu1jkn7
+[36m(MultiStepRolloutWorker pid=10622)[0m [INFO 22:17:51 FlexiblePlacementStrategy] 
+[36m(MultiStepRolloutWorker pid=10622)[0m [INFO 22:17:51 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(MultiStepRolloutWorker pid=10622)[0m [INFO 22:17:51 FlexiblePlacementStrategy] 
+[36m(MultiStepRolloutWorker pid=10622)[0m [INFO 22:17:51 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(MultiStepRolloutWorker pid=10622)[0m [INFO 22:17:51 FlexiblePlacementStrategy] 
+[36m(MultiStepRolloutWorker pid=10622)[0m [INFO 22:17:51 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(pid=10624)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(pid=10624)[0m I0000 00:00:1785795472.186333   10624 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(RLTACFSDPPolicy pid=10620)[0m [INFO 22:17:52 FlexiblePlacementStrategy] 
+[36m(RLTACFSDPPolicy pid=10620)[0m [INFO 22:17:52 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(RLTACFSDPPolicy pid=10620)[0m [INFO 22:17:52 FlexiblePlacementStrategy] 
+[36m(RLTACFSDPPolicy pid=10620)[0m [INFO 22:17:52 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(RLTACFSDPPolicy pid=10620)[0m [INFO 22:17:52 FlexiblePlacementStrategy] 
+[36m(RLTACFSDPPolicy pid=10620)[0m [INFO 22:17:52 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(pid=10624)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(pid=10624)[0m I0000 00:00:1785795473.691298   10624 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(RolloutGroup(rank=0) pid=10622)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(RolloutGroup(rank=0) pid=10622)[0m I0000 00:00:1785795474.007073   11377 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(EnvWorker pid=10624)[0m [INFO 22:17:54 FlexiblePlacementStrategy] 
+[36m(EnvWorker pid=10624)[0m [INFO 22:17:54 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(EnvWorker pid=10624)[0m [INFO 22:17:54 FlexiblePlacementStrategy] 
+[36m(EnvWorker pid=10624)[0m [INFO 22:17:54 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(EnvWorker pid=10624)[0m [INFO 22:17:54 FlexiblePlacementStrategy] 
+[36m(EnvWorker pid=10624)[0m [INFO 22:17:54 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(RolloutGroup(rank=0) pid=10622)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(RolloutGroup(rank=0) pid=10622)[0m I0000 00:00:1785795475.373056   11377 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(EnvGroup(rank=0) pid=10624)[0m INFO:OpenGL.acceleratesupport:No OpenGL_accelerate module loaded: No module named 'OpenGL_accelerate'
+[36m(RolloutGroup(rank=0) pid=10622)[0m INFO:datasets:PyTorch version 2.6.0 available.
+[36m(RolloutGroup(rank=0) pid=10622)[0m INFO:datasets:Polars version 1.43.2 available.
+[36m(RolloutGroup(rank=0) pid=10622)[0m INFO:datasets:TensorFlow version 2.21.0 available.
+[36m(RolloutGroup(rank=0) pid=10622)[0m INFO:datasets:JAX version 0.5.3 available.
+[36m(EnvGroup(rank=0) pid=10624)[0m /home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=10624)[0m   logger.warn(
+
+[36m(RLTACFSDPPolicy pid=10620)[0m [INFO 22:17:52 ActorGroup-Rank-0][fsdp_model_manager.py:124] [FSDP] AMP is disabled.
+Exception occurred while running EnvWorker's function init_worker: exception is [36mray::EnvWorker.init_worker()[39m (pid=10624, ip=10.19.86.111, actor_id=9da436622d87e23eac3c8fcb01000000, repr=EnvGroup(rank=0))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: cannot create buffer
+
+The above exception was the direct cause of the following exception:
+
+[36mray::EnvWorker.init_worker()[39m (pid=10624, ip=10.19.86.111, actor_id=9da436622d87e23eac3c8fcb01000000, repr=EnvGroup(rank=0))
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+           ^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/scheduler/worker/worker.py", line 74, in sync_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/workers/env/env_worker.py", line 240, in init_worker
+    self.eval_env_list = self._setup_env_and_wrappers(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/workers/env/env_worker.py", line 385, in _setup_env_and_wrappers
+    env = env_cls(
+          ^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/envs/maniskill/maniskill_rlt_env.py", line 140, in __init__
+    self.env: BaseEnv = gym.make(**env_args)
+                        ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/gymnasium/envs/registration.py", line 802, in make
+    env = env_creator(**env_spec_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/utils/registration.py", line 182, in make
+    env = env_spec.make(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/utils/registration.py", line 79, in make
+    return self.cls(**_kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/envs/maniskill/peg_insertion_side_variants.py", line 579, in __init__
+    super().__init__(*args, robot_uids=robot_uids, **kwargs)
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/tasks/tabletop/peg_insertion_side.py", line 84, in __init__
+    super().__init__(
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/sapien_env.py", line 327, in __init__
+    obs, _ = self.reset(seed=[2022 + i for i in range(self.num_envs)], options=dict(reconfigure=True))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/sapien_env.py", line 968, in reset
+    obs = self.get_obs(info)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/sapien_env.py", line 532, in get_obs
+    obs = self._get_obs_with_sensor_data(info)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/sapien_env.py", line 633, in _get_obs_with_sensor_data
+    sensor_data=self._get_obs_sensor_data(apply_texture_transforms),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/sapien_env.py", line 603, in _get_obs_sensor_data
+    self.scene.update_render(update_sensors=True, update_human_render_cameras=False)
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/scene.py", line 399, in update_render
+    self._sapien_update_render(
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/scene.py", line 414, in _sapien_update_render
+    self._gpu_setup_sensors(self.sensors)
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/scene.py", line 1085, in _gpu_setup_sensors
+    self._sapien_gpu_setup_sensors(sensors)
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/mani_skill/envs/scene.py", line 1096, in _sapien_gpu_setup_sensors
+    raise RuntimeError(
+RuntimeError: Unable to create GPU parallelized camera group. If the error is about being unable to create a buffer, you are likely using too many Cameras. Either use less cameras (via less parallel envs) and/or reduce the size of the cameras. Another common cause is using a memory intensive shader, you can try using the 'minimal' shader which optimizes for GPU memory but disables some advanced functionalities. Another option is to avoid rendering with the rgb_array mode / using the human render cameras as they can be more memory intensive as they typically have higher resolutions for the purposes of visualization.
+Exception occurred while running MultiStepRolloutWorker's function init_worker: exception is The actor died unexpectedly before finishing this task.
+	class_name: MultiStepRolloutWorker
+	actor_id: 3ed13231f04198c5eb31fc8201000000
+	pid: 10622
+	name: RolloutGroup:0
+	namespace: RLinf
+	ip: 10.19.86.111
+The actor is dead because it was killed by `ray.kill`.
+Exiting main process due to a failure upon worker execution.
+[1;34mwandb[0m: 
+[1;34mwandb[0m: You can sync this run to the cloud by running:
+[1;34mwandb[0m: [1mwandb sync /home/ubuntu/qualia/ENPIRE/results/d1/stage5b-a10-probe-20260804/wandb/wandb/offline-run-20260803_221749-4mu1jkn7[0m
+[1;34mwandb[0m: Find logs at: [1;35m../ENPIRE/results/d1/stage5b-a10-probe-20260804/wandb/wandb/offline-run-20260803_221749-4mu1jkn7/logs[0m
