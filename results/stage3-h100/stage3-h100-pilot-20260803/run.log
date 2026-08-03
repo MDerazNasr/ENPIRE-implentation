@@ -1,0 +1,675 @@
+/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/defaults_list.py:262: UserWarning: In 'maniskill_rlt_stage1_sft_openpi_pi05': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/hydra.py:164: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+2026-08-03 14:19:30,538	INFO worker.py:2015 -- Started a local Ray instance. View the dashboard at [1m[32mhttp://127.0.0.1:8265 [39m[22m
+[INFO 14:19:33 RLinf] RLinf is running on a cluster with 1 node and 1 accelerator. The nodes' details are: 
+node_labels: []
+node_rank: 0
+ray_id: 41bd3fd941a9cdeb596da76a7254e83c246f5342ed5b7df68d427d39
+node_ip: 172.29.150.57
+num_cpus: 26
+python_interpreter_path: /home/ubuntu/qualia/RLinf/.venv/bin/python
+hardware_resources:
+- type: Accelerator
+  infos:
+  - type: Accelerator
+    model: NV_GPU:H100 PCIe
+profiler_backends: []
+
+Node groups' details are: 
+label: cluster
+nodes: '0'
+hardware_type: Accelerator
+ignore_hardware: false
+env_configs: null
+
+label: node
+nodes: '0'
+hardware_type: null
+ignore_hardware: true
+env_configs: null
+
+[INFO 14:19:33 FlexiblePlacementStrategy] 
+[INFO 14:19:33 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+{
+  "actor": {
+    "model": {
+      "model_type": "openpi",
+      "model_path": "/home/ubuntu/qualia/assets/pi05_base",
+      "precision": null,
+      "num_action_chunks": 10,
+      "action_dim": 8,
+      "is_lora": false,
+      "lora_rank": 32,
+      "use_proprio": true,
+      "num_steps": 5,
+      "add_value_head": false,
+      "openpi": {
+        "config_name": "pi05_rlt_maniskill_joint",
+        "num_images_in_input": 2,
+        "noise_level": 0.5,
+        "action_chunk": 10,
+        "num_steps": 5,
+        "train_expert_only": false,
+        "action_env_dim": 8,
+        "noise_method": "flow_sde",
+        "add_value_head": false,
+        "value_after_vlm": false,
+        "value_vlm_mode": "mean_token",
+        "detach_critic_input": true,
+        "action_horizon": 10,
+        "use_rlt": true,
+        "rlt_alpha": 1.0,
+        "rlt_input_dim": 2048,
+        "rlt_embed_dim": 2048,
+        "rlt_num_rl_tokens": 1,
+        "rlt_prefix_seq_len": 1024,
+        "rlt_num_layers": 2,
+        "rlt_num_heads": 8,
+        "rlt_mlp_ratio": 4.0,
+        "rlt_encoder_type": "append_self_attention",
+        "rlt_image_only": false,
+        "rlt_use_mask": true
+      },
+      "openpi_data": {
+        "repo_id": "maniskill_peginsertionside_joint",
+        "default_prompt": "insert the peg in the hole",
+        "norm_stats_path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json"
+      }
+    },
+    "fsdp_config": {
+      "strategy": "fsdp",
+      "sharding_strategy": "no_shard",
+      "gradient_checkpointing": false,
+      "cpu_offload": false,
+      "offload_pin_memory": false,
+      "reshard_after_forward": true,
+      "enable_gradient_accumulation": true,
+      "forward_prefetch": false,
+      "limit_all_gathers": false,
+      "backward_prefetch": null,
+      "use_orig_params": false,
+      "use_liger_kernel": false,
+      "mixed_precision": {
+        "param_dtype": null,
+        "reduce_dtype": null,
+        "buffer_dtype": null
+      },
+      "amp_autocast": {
+        "enabled": false,
+        "precision": "bf16"
+      },
+      "grad_scaler": {
+        "enabled": false,
+        "init_scale": null,
+        "growth_interval": null
+      }
+    },
+    "group_name": "ActorGroup",
+    "training_backend": "fsdp",
+    "micro_batch_size": 8,
+    "global_batch_size": 8,
+    "seed": 2026,
+    "optim": {
+      "lr": 2.5e-05,
+      "value_lr": 0.000155,
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.95,
+      "adam_eps": 1e-08,
+      "weight_decay": 1e-10,
+      "clip_grad": 1.0,
+      "total_training_steps": 6,
+      "lr_warmup_steps": 500,
+      "lr_scheduler": "cosine",
+      "num_cycles": 0.5,
+      "min_lr": 2.5e-06
+    }
+  },
+  "cluster": {
+    "num_nodes": 1,
+    "component_placement": {
+      "actor,env,rollout": "all"
+    }
+  },
+  "runner": {
+    "task_type": "sft",
+    "logger": {
+      "log_path": "/home/ubuntu/qualia/ENPIRE/results/d1/stage3-h100-pilot-20260803",
+      "project_name": "qualia-rlt-d1",
+      "experiment_name": "maniskill_rlt_stage1_sft_openpi_pi05",
+      "logger_backends": [
+        "wandb"
+      ]
+    },
+    "max_epochs": -1,
+    "max_steps": 6,
+    "val_check_interval": -1,
+    "save_interval": 5,
+    "per_worker_log": false,
+    "per_worker_log_path": null
+  },
+  "data": {
+    "train_data_paths": [
+      {
+        "dataset_path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint",
+        "weight": 1.0
+      }
+    ]
+  },
+  "reward": {
+    "use_reward_model": false
+  },
+  "critic": {
+    "use_critic_model": false
+  }
+}
+[INFO 14:19:33 FlexiblePlacementStrategy] 
+[INFO 14:19:33 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 14:19:33 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[36m(FSDPVlaSftWorker pid=11240)[0m [INFO 14:19:40 FlexiblePlacementStrategy] 
+[36m(FSDPVlaSftWorker pid=11240)[0m [INFO 14:19:40 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:datasets:PyTorch version 2.6.0 available.
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:datasets:Polars version 1.43.2 available.
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:datasets:TensorFlow version 2.21.0 available.
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:datasets:JAX version 0.5.3 available.
+[36m(FSDPVlaSftWorker pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(FSDPVlaSftWorker pid=11240)[0m I0000 00:00:1785766785.132324   11240 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(FSDPVlaSftWorker pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(FSDPVlaSftWorker pid=11240)[0m I0000 00:00:1785766790.380316   11240 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:root:Loaded norm stats from /home/ubuntu/qualia/assets/maniskill_peginsertionside_joint
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:root:data_config: DataConfig(repo_id='/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint', asset_id='maniskill_peginsertionside_joint', norm_stats={'state': NormStats(mean=array([-0.09765499,  0.60581845, -0.0281424 , -1.86967432,  0.02873164,
+[36m(FSDPVlaSftWorker pid=11240)[0m         2.47049308, -0.96059084,  0.02660817,  0.02658811]), std=array([0.19002584, 0.19386964, 0.06936736, 0.28648713, 0.07150902,
+[36m(FSDPVlaSftWorker pid=11240)[0m        0.13462402, 0.43239698, 0.01071707, 0.01073213]), q01=array([-0.49567956,  0.25627399, -0.20435829, -2.4130129 , -0.11827035,
+[36m(FSDPVlaSftWorker pid=11240)[0m         2.16118431, -2.03872017,  0.01391668,  0.01388467]), q99=array([ 0.28865065,  1.105597  ,  0.11172209, -1.09861718,  0.22441286,
+[36m(FSDPVlaSftWorker pid=11240)[0m         2.77971042, -0.1590509 ,  0.03999474,  0.03999474])), 'actions': NormStats(mean=array([ 0.08531349,  0.02405764,  0.01127904,  0.03656783, -0.00905097,
+[36m(FSDPVlaSftWorker pid=11240)[0m         0.01098834,  0.09533079, -0.39062503]), std=array([0.27716812, 0.27337387, 0.09148014, 0.34915015, 0.10260999,
+[36m(FSDPVlaSftWorker pid=11240)[0m        0.17985974, 0.47303045, 0.92054987]), q01=array([-0.58104796, -0.75376037, -0.31984209, -1.        , -0.37547388,
+[36m(FSDPVlaSftWorker pid=11240)[0m        -0.5276632 , -1.        , -1.        ]), q99=array([0.70615329, 0.71232443, 0.29005074, 0.9668    , 0.29630415,
+[36m(FSDPVlaSftWorker pid=11240)[0m        0.49221149, 0.9996    , 0.9996    ]))}, repack_transforms=Group(inputs=[RepackTransform(structure={'observation/image': 'image', 'observation/wrist_image': 'wrist_image', 'observation/state': 'state', 'actions': 'actions'})], outputs=()), data_transforms=Group(inputs=[ManiSkillInputs(model_type=<ModelType.PI05: 'pi05'>, use_wrist_image=True, default_prompt='insert the peg in the hole')], outputs=[ManiSkillOutputs(output_action_dim=8)]), model_transforms=Group(inputs=[InjectDefaultPrompt(prompt=None), ResizeImages(height=224, width=224), TokenizePrompt(tokenizer=<openpi.models.tokenizer.PaligemmaTokenizer object at 0x704f60822790>, discrete_state_input=True), PadStatesAndActions(model_action_dim=32)], outputs=()), use_quantile_norm=True, action_sequence_keys=('actions',), prompt_from_task=False, rlds_data_dir=None, action_space=None, filter_dict_path=None)
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Downloading data:   0%|          | 0/400 [00:00<?, ?files/s]
+Downloading data: 100%|██████████| 400/400 [00:00<00:00, 8161.16files/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 0 examples [00:00, ? examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 117 examples [00:00, 679.61 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 202 examples [00:00, 705.33 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 350 examples [00:00, 752.93 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 447 examples [00:00, 772.93 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 565 examples [00:00, 816.53 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 726 examples [00:00, 844.86 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 853 examples [00:01, 878.74 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 977 examples [00:01, 881.34 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 1070 examples [00:01, 890.33 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 1251 examples [00:01, 959.73 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 1401 examples [00:01, 991.89 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 1535 examples [00:01, 994.01 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 1675 examples [00:01, 1012.25 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 1866 examples [00:02, 969.70 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 2000 examples [00:02, 948.40 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 2161 examples [00:02, 977.11 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 2302 examples [00:02, 992.56 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 2420 examples [00:02, 991.72 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 2560 examples [00:02, 1003.16 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 2705 examples [00:02, 1030.67 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 2835 examples [00:03, 1039.00 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 2984 examples [00:03, 993.41 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 3102 examples [00:03, 1030.65 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 3222 examples [00:03, 1031.88 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 3378 examples [00:03, 1045.89 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 3556 examples [00:03, 1036.80 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 3673 examples [00:03, 1035.74 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 3839 examples [00:03, 1040.34 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 4016 examples [00:04, 1012.22 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 4134 examples [00:04, 1033.63 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 4289 examples [00:04, 1047.96 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 4441 examples [00:04, 1043.99 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 4558 examples [00:04, 1052.68 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 4697 examples [00:04, 1066.68 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 4866 examples [00:04, 1114.07 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 5003 examples [00:05, 1125.06 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 5194 examples [00:05, 1050.64 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 5307 examples [00:05, 1066.17 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 5446 examples [00:05, 1076.25 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 5610 examples [00:05, 1080.69 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 5743 examples [00:05, 1069.75 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 5906 examples [00:05, 1058.93 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 6062 examples [00:06, 1057.47 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 6196 examples [00:06, 994.74 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 6312 examples [00:06, 1030.48 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 6519 examples [00:06, 1022.88 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 6666 examples [00:06, 1024.70 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 6845 examples [00:06, 1051.88 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 6980 examples [00:06, 1068.17 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 7112 examples [00:07, 1069.77 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 7235 examples [00:07, 1016.21 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 7392 examples [00:07, 1005.55 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 7521 examples [00:07, 1026.48 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 7648 examples [00:07, 1048.57 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 7785 examples [00:07, 1030.73 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 7912 examples [00:07, 1031.76 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 8039 examples [00:08, 1021.18 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 8201 examples [00:08, 1015.00 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 8323 examples [00:08, 952.85 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 8451 examples [00:08, 969.43 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 8600 examples [00:08, 957.66 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 8732 examples [00:08, 985.10 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 8879 examples [00:08, 996.10 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 9043 examples [00:09, 1031.87 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 9194 examples [00:09, 1029.19 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 9325 examples [00:09, 977.68 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 9468 examples [00:09, 976.26 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 9607 examples [00:09, 1004.26 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 9755 examples [00:09, 1029.41 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 9864 examples [00:09, 1041.04 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 10034 examples [00:09, 1062.01 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 10182 examples [00:10, 1063.91 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 10341 examples [00:10, 1050.14 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 10466 examples [00:10, 1002.92 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 10629 examples [00:10, 1020.31 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 10763 examples [00:10, 1051.34 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 10878 examples [00:10, 1044.66 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 11066 examples [00:10, 1070.47 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 11279 examples [00:11, 1076.08 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 11433 examples [00:11, 948.18 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 11604 examples [00:11, 940.54 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 11745 examples [00:11, 977.60 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 11893 examples [00:11, 1002.51 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 12088 examples [00:12, 1019.28 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 12256 examples [00:12, 1033.57 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 12428 examples [00:12, 1048.16 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 12571 examples [00:12, 1002.20 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 12706 examples [00:12, 1013.05 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 12855 examples [00:12, 1014.93 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 13012 examples [00:12, 1031.14 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 13171 examples [00:13, 1065.67 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 13342 examples [00:13, 1092.24 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 13515 examples [00:13, 1136.87 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 13647 examples [00:13, 1042.42 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 13769 examples [00:13, 1052.34 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 13951 examples [00:13, 1044.63 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 14098 examples [00:13, 1095.69 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 14216 examples [00:14, 1100.10 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 14336 examples [00:14, 1089.25 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 14466 examples [00:14, 1106.62 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 14631 examples [00:14, 1099.37 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 14778 examples [00:14, 1014.53 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 14961 examples [00:14, 1040.08 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 15153 examples [00:14, 1032.88 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 15285 examples [00:15, 1050.45 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 15423 examples [00:15, 1068.08 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 15540 examples [00:15, 1061.92 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 15680 examples [00:15, 1063.03 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 15817 examples [00:15, 1020.92 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 15982 examples [00:15, 1034.15 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 16164 examples [00:15, 1041.91 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 16281 examples [00:15, 1035.03 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 16403 examples [00:16, 1037.03 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 16547 examples [00:16, 1046.54 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 16694 examples [00:16, 1073.05 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 16817 examples [00:16, 1006.66 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 17017 examples [00:16, 1007.67 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 17158 examples [00:16, 1020.30 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 17303 examples [00:16, 1034.05 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 17467 examples [00:17, 1044.73 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 17601 examples [00:17, 1068.87 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 17730 examples [00:17, 1074.31 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 17873 examples [00:17, 1029.16 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 18015 examples [00:17, 1035.16 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 18209 examples [00:17, 1064.71 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 18386 examples [00:18, 1054.95 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 18567 examples [00:18, 1076.36 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 18687 examples [00:18, 1068.16 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 18811 examples [00:18, 1066.77 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 19056 examples [00:18, 1015.71 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 19177 examples [00:18, 1031.39 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 19362 examples [00:18, 1022.93 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 19514 examples [00:19, 1056.16 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 19656 examples [00:19, 1060.20 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 19814 examples [00:19, 1071.86 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 19938 examples [00:19, 1078.44 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 20079 examples [00:19, 993.94 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 20233 examples [00:19, 1024.24 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 20361 examples [00:19, 1030.64 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 20500 examples [00:20, 1027.04 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 20684 examples [00:20, 1030.07 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 20851 examples [00:20, 955.04 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 21007 examples [00:20, 975.70 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 21153 examples [00:20, 982.15 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 21294 examples [00:20, 978.92 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 21430 examples [00:20, 1005.15 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 21560 examples [00:21, 1029.71 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 21700 examples [00:21, 1057.83 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 21813 examples [00:21, 1057.08 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 21949 examples [00:21, 1042.45 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 22113 examples [00:21, 914.72 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 22273 examples [00:21, 976.69 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 22449 examples [00:21, 1011.07 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 22595 examples [00:22, 1057.67 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 22731 examples [00:22, 1086.49 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 22861 examples [00:22, 1082.72 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 22997 examples [00:22, 1083.42 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 23116 examples [00:22, 1043.81 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 23268 examples [00:22, 1025.19 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 23413 examples [00:22, 1063.95 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 23549 examples [00:23, 1052.73 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 23708 examples [00:23, 1038.83 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 23834 examples [00:23, 1061.68 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 23968 examples [00:23, 1069.52 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 24101 examples [00:23, 1073.71 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 24266 examples [00:23, 991.90 examples/s] 
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 24399 examples [00:23, 1039.21 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 24551 examples [00:23, 1082.17 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 24675 examples [00:24, 1092.02 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 24844 examples [00:24, 1083.50 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 24990 examples [00:24, 1093.23 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 25148 examples [00:24, 1086.58 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 25276 examples [00:24, 1009.02 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 25430 examples [00:24, 1033.62 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 25570 examples [00:24, 1078.39 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 25771 examples [00:25, 1078.54 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 25938 examples [00:25, 1091.22 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 26070 examples [00:25, 1132.61 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 26243 examples [00:25, 1150.78 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 26386 examples [00:25, 1186.81 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 26615 examples [00:25, 1103.07 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 26837 examples [00:26, 1147.78 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 27015 examples [00:26, 1155.91 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 27155 examples [00:26, 1153.45 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 27302 examples [00:26, 1149.20 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 27434 examples [00:26, 1146.48 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 27613 examples [00:26, 1073.64 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 27766 examples [00:26, 1069.22 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 27990 examples [00:27, 1078.73 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 28146 examples [00:27, 1071.13 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 28304 examples [00:27, 1077.20 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 28451 examples [00:27, 1086.77 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 28595 examples [00:27, 1082.17 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m 
+Generating train split: 28681 examples [00:27, 1033.45 examples/s]
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:root:local_batch_size: 8
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:2026-08-03 14:20:21,622:jax._src.xla_bridge:925: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:jax._src.xla_bridge:Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:2026-08-03 14:20:21,624:jax._src.xla_bridge:925: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+[36m(FSDPVlaSftWorker pid=11240)[0m INFO:jax._src.xla_bridge:Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: Tracking run with wandb version 0.25.0
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/ubuntu/qualia/ENPIRE/results/d1/stage3-h100-pilot-20260803/wandb/wandb/offline-run-20260803_142023-m6ls4mbo
+[36m(ActorGroup(rank=0) pid=11240)[0m INFO:root:Loaded norm stats from /home/ubuntu/qualia/assets/maniskill_peginsertionside_joint
+[36m(FSDPVlaSftWorker pid=11240)[0m [WARNING 14:19:39 ActorGroup-Rank-0][fsdp_model_manager.py:70] Provided there is sufficient GPU memory, set the actor.model.precision parameter to fp32 to allow the optimizer to run in fp32 for better convergence. Meanwhile, setting mixed_precision.param_dtype to 16-bit dtype can help maximize speed, as it will automatically convert fp32 to fp16 during operator execution.
+[36m(FSDPVlaSftWorker pid=11240)[0m [INFO 14:19:40 ActorGroup-Rank-0][fsdp_model_manager.py:124] [FSDP] AMP is disabled.
+[36m(ActorGroup(rank=0) pid=11240)[0m [INFO 14:21:22 ActorGroup-Rank-0][fsdp_model_manager.py:282] [FSDP] Gradient checkpointing is disabled
+
+Global Step:   0%|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 0/6 [00:00<?, ?it/s][36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766889.871658   12355 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766891.128247   12355 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766899.804925   12401 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766901.494576   12401 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766909.068159   12505 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766910.254757   12505 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766916.765721   12606 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766917.963372   12606 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766924.541036   12679 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766925.722257   12679 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766934.407865   12781 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766935.634599   12781 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766943.440237   12882 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766944.675510   12882 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766953.270602   12986 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(ActorGroup(rank=0) pid=11240)[0m I0000 00:00:1785766954.784087   12986 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(ActorGroup(rank=0) pid=11240)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+
+Global Step:  17%|█████████████████████████████████████████████████████████████████████████████████████████████████████▏                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | 1/6 [01:14<06:14, 74.93s/it, time/step=74.9, time/training=74.9, train/grad_norm=2.83, train/learning_rate=5e-8, train/loss=4.29, train/rlt_loss=4.19, train/vla_loss=0.0951][36m(ActorGroup(rank=0) pid=11240)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+
+Global Step:  33%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▎                                                                                                                                                                                                                                                                                                                                                                                                                    | 2/6 [01:15<02:05, 31.40s/it, time/step=0.93, time/training=0.921, train/grad_norm=2.78, train/learning_rate=1e-7, train/loss=4.33, train/rlt_loss=4.19, train/vla_loss=0.139][36m(ActorGroup(rank=0) pid=11240)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+
+Global Step:  50%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌                                                                                                                                                                                                                                                                                                             | 3/6 [01:16<00:52, 17.50s/it, time/step=0.951, time/training=0.941, train/grad_norm=2.37, train/learning_rate=1.5e-7, train/loss=4.29, train/rlt_loss=4.22, train/vla_loss=0.0716][36m(ActorGroup(rank=0) pid=11240)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+
+Global Step:  67%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋                                                                                                                                                                                                          | 4/6 [01:17<00:21, 10.97s/it, time/step=0.959, time/training=0.949, train/grad_norm=2.66, train/learning_rate=2e-7, train/loss=4.31, train/rlt_loss=4.2, train/vla_loss=0.112][36m(ActorGroup(rank=0) pid=11240)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+[36m(ActorGroup(rank=0) pid=11240)[0m /home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:863: UserWarning: `_get_pg_default_device` will be deprecated, it only stays for backward-compatiblity reason. If you need to find a device for object collectives, please use `_get_object_coll_device`. If you need to query the device types supported by group, please use `_device_capability(group)`. 
+[36m(ActorGroup(rank=0) pid=11240)[0m   warnings.warn(
+
+Global Step:  83%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏                                                                                                    | 5/6 [02:18<00:28, 28.99s/it, time/step=60.9, time/training=0.945, train/grad_norm=2.7, train/learning_rate=2.5e-7, train/loss=4.27, train/rlt_loss=4.18, train/vla_loss=0.0879][36m(ActorGroup(rank=0) pid=11240)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+[36m(ActorGroup(rank=0) pid=11240)[0m /home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py:863: UserWarning: `_get_pg_default_device` will be deprecated, it only stays for backward-compatiblity reason. If you need to find a device for object collectives, please use `_get_object_coll_device`. If you need to query the device types supported by group, please use `_device_capability(group)`. 
+[36m(ActorGroup(rank=0) pid=11240)[0m   warnings.warn(
+
+Global Step: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 6/6 [03:16<00:00, 38.62s/it, time/step=57.3, time/training=0.948, train/grad_norm=2.66, train/learning_rate=3e-7, train/loss=4.36, train/rlt_loss=4.26, train/vla_loss=0.104]wandb: 
+wandb: Run history:
+wandb:           time/step █▁▁▁▇▆
+wandb:       time/training █▁▁▁▁▁
+wandb:     train/grad_norm █▇▁▅▆▅
+wandb: train/learning_rate ▁▂▄▅▇█
+wandb:          train/loss ▂▆▃▄▁█
+wandb:      train/rlt_loss ▂▂▄▂▁█
+wandb:      train/vla_loss ▃█▁▅▃▄
+wandb: 
+wandb: Run summary:
+wandb:           time/step 57.29735
+wandb:       time/training 0.94805
+wandb:     train/grad_norm 2.65895
+wandb: train/learning_rate 0.0
+wandb:          train/loss 4.36189
+wandb:      train/rlt_loss 4.25767
+wandb:      train/vla_loss 0.10423
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /home/ubuntu/qualia/ENPIRE/results/d1/stage3-h100-pilot-20260803/wandb/wandb/offline-run-20260803_142023-m6ls4mbo
+wandb: Find logs at: /home/ubuntu/qualia/ENPIRE/results/d1/stage3-h100-pilot-20260803/wandb/wandb/offline-run-20260803_142023-m6ls4mbo/logs
+
+Global Step: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 6/6 [03:16<00:00, 32.67s/it, time/step=57.3, time/training=0.948, train/grad_norm=2.66, train/learning_rate=3e-7, train/loss=4.36, train/rlt_loss=4.26, train/vla_loss=0.104]
+[36m(ActorGroup(rank=0) pid=11240)[0m Forcing gradient checkpointing to be enabled for Gemma expert model
+[36m(ActorGroup(rank=0) pid=11240)[0m Forcing gradient checkpointing to be enabled for Gemma expert model
+[36m(ActorGroup(rank=0) pid=11240)[0m Forcing gradient checkpointing to be enabled for Gemma expert model
+[36m(ActorGroup(rank=0) pid=11240)[0m Forcing gradient checkpointing to be enabled for Gemma expert model
+[36m(ActorGroup(rank=0) pid=11240)[0m Forcing gradient checkpointing to be enabled for Gemma expert model
+[36m(ActorGroup(rank=0) pid=11240)[0m Forcing gradient checkpointing to be enabled for Gemma expert model

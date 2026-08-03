@@ -1,0 +1,21 @@
+Stage 3 H100 checkpoint inventory
+Run: stage3-h100-pilot-20260803
+
+[global_step_5]
+10015912759 actor/model_state_dict/full_weights.pt
+1718932 actor/dcp_checkpoint/.metadata
+30050999848 actor/dcp_checkpoint/__0_0.distcp
+
+[global_step_6]
+10015912759 actor/model_state_dict/full_weights.pt
+1718932 actor/dcp_checkpoint/.metadata
+30050999848 actor/dcp_checkpoint/__0_0.distcp
+
+[sha256-global_step_6]
+7f09033aca0e0c4ce1e541160f013e78727bec44d3d24eba917a2317bd281e4f actor/model_state_dict/full_weights.pt
+48ace40566f3649f55bf04180d06357f1772430c026423342b7c1b8ac02bdd45 actor/dcp_checkpoint/.metadata
+a394861be0460e892918527c682d8127e48a95a76895e6738f76f97fb63c3954 actor/dcp_checkpoint/__0_0.distcp
+
+The full checkpoint payloads remain on the provider volume. Their compact
+run logs, provenance, resource samples, inventory, and hashes are retained in
+this repository.

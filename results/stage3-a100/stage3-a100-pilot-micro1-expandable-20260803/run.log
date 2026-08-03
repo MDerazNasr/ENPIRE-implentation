@@ -1,0 +1,226 @@
+/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/defaults_list.py:262: UserWarning: In 'maniskill_rlt_stage1_sft_openpi_pi05': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/hydra.py:164: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+2026-08-03 13:44:11,866	INFO worker.py:2015 -- Started a local Ray instance. View the dashboard at [1m[32mhttp://127.0.0.1:8265 [39m[22m
+[INFO 13:44:14 RLinf] RLinf is running on a cluster with 1 node and 1 accelerator. The nodes' details are: 
+node_labels: []
+node_rank: 0
+ray_id: 880707e59810b8f543cd1aaa26f63cce678017cf3e09965816d0833f
+node_ip: 10.19.24.8
+num_cpus: 30
+python_interpreter_path: /home/ubuntu/qualia/RLinf/.venv/bin/python
+hardware_resources:
+- type: Accelerator
+  infos:
+  - type: Accelerator
+    model: NV_GPU:A100-SXM4-40GB
+profiler_backends: []
+
+Node groups' details are: 
+label: cluster
+nodes: '0'
+hardware_type: Accelerator
+ignore_hardware: false
+env_configs: null
+
+label: node
+nodes: '0'
+hardware_type: null
+ignore_hardware: true
+env_configs: null
+
+[INFO 13:44:14 FlexiblePlacementStrategy] 
+[INFO 13:44:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+{
+  "actor": {
+    "model": {
+      "model_type": "openpi",
+      "model_path": "/home/ubuntu/qualia/assets/pi05_base",
+      "precision": null,
+      "num_action_chunks": 10,
+      "action_dim": 8,
+      "is_lora": false,
+      "lora_rank": 32,
+      "use_proprio": true,
+      "num_steps": 5,
+      "add_value_head": false,
+      "openpi": {
+        "config_name": "pi05_rlt_maniskill_joint",
+        "num_images_in_input": 2,
+        "noise_level": 0.5,
+        "action_chunk": 10,
+        "num_steps": 5,
+        "train_expert_only": false,
+        "action_env_dim": 8,
+        "noise_method": "flow_sde",
+        "add_value_head": false,
+        "value_after_vlm": false,
+        "value_vlm_mode": "mean_token",
+        "detach_critic_input": true,
+        "action_horizon": 10,
+        "use_rlt": true,
+        "rlt_alpha": 1.0,
+        "rlt_input_dim": 2048,
+        "rlt_embed_dim": 2048,
+        "rlt_num_rl_tokens": 1,
+        "rlt_prefix_seq_len": 1024,
+        "rlt_num_layers": 2,
+        "rlt_num_heads": 8,
+        "rlt_mlp_ratio": 4.0,
+        "rlt_encoder_type": "append_self_attention",
+        "rlt_image_only": false,
+        "rlt_use_mask": true
+      },
+      "openpi_data": {
+        "repo_id": "maniskill_peginsertionside_joint",
+        "default_prompt": "insert the peg in the hole",
+        "norm_stats_path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json"
+      }
+    },
+    "fsdp_config": {
+      "strategy": "fsdp",
+      "sharding_strategy": "no_shard",
+      "gradient_checkpointing": false,
+      "cpu_offload": false,
+      "offload_pin_memory": false,
+      "reshard_after_forward": true,
+      "enable_gradient_accumulation": true,
+      "forward_prefetch": false,
+      "limit_all_gathers": false,
+      "backward_prefetch": null,
+      "use_orig_params": false,
+      "use_liger_kernel": false,
+      "mixed_precision": {
+        "param_dtype": null,
+        "reduce_dtype": null,
+        "buffer_dtype": null
+      },
+      "amp_autocast": {
+        "enabled": false,
+        "precision": "bf16"
+      },
+      "grad_scaler": {
+        "enabled": false,
+        "init_scale": null,
+        "growth_interval": null
+      }
+    },
+    "group_name": "ActorGroup",
+    "training_backend": "fsdp",
+    "micro_batch_size": 1,
+    "global_batch_size": 8,
+    "seed": 2026,
+    "optim": {
+      "lr": 2.5e-05,
+      "value_lr": 0.000155,
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.95,
+      "adam_eps": 1e-08,
+      "weight_decay": 1e-10,
+      "clip_grad": 1.0,
+      "total_training_steps": 6,
+      "lr_warmup_steps": 500,
+      "lr_scheduler": "cosine",
+      "num_cycles": 0.5,
+      "min_lr": 2.5e-06
+    }
+  },
+  "cluster": {
+    "num_nodes": 1,
+    "component_placement": {
+      "actor,env,rollout": "all"
+    }
+  },
+  "runner": {
+    "task_type": "sft",
+    "logger": {
+      "log_path": "/home/ubuntu/qualia/ENPIRE/results/d1/stage3-a100-pilot-micro1-expandable-20260803",
+      "project_name": "qualia-rlt-d1",
+      "experiment_name": "maniskill_rlt_stage1_sft_openpi_pi05",
+      "logger_backends": [
+        "wandb"
+      ]
+    },
+    "max_epochs": -1,
+    "max_steps": 6,
+    "val_check_interval": -1,
+    "save_interval": 5,
+    "per_worker_log": false,
+    "per_worker_log_path": null
+  },
+  "data": {
+    "train_data_paths": [
+      {
+        "dataset_path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint",
+        "weight": 1.0
+      }
+    ]
+  },
+  "reward": {
+    "use_reward_model": false
+  },
+  "critic": {
+    "use_critic_model": false
+  }
+}
+[INFO 13:44:14 FlexiblePlacementStrategy] 
+[INFO 13:44:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 13:44:14 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[36m(FSDPVlaSftWorker pid=22330)[0m [INFO 13:44:20 FlexiblePlacementStrategy] 
+[36m(FSDPVlaSftWorker pid=22330)[0m [INFO 13:44:20 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:datasets:PyTorch version 2.6.0 available.
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:datasets:Polars version 1.43.2 available.
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:datasets:TensorFlow version 2.21.0 available.
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:datasets:JAX version 0.5.3 available.
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:root:Loaded norm stats from /home/ubuntu/qualia/assets/maniskill_peginsertionside_joint
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:root:data_config: DataConfig(repo_id='/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint', asset_id='maniskill_peginsertionside_joint', norm_stats={'state': NormStats(mean=array([-0.09765499,  0.60581845, -0.0281424 , -1.86967432,  0.02873164,
+[36m(FSDPVlaSftWorker pid=22330)[0m         2.47049308, -0.96059084,  0.02660817,  0.02658811]), std=array([0.19002584, 0.19386964, 0.06936736, 0.28648713, 0.07150902,
+[36m(FSDPVlaSftWorker pid=22330)[0m        0.13462402, 0.43239698, 0.01071707, 0.01073213]), q01=array([-0.49567956,  0.25627399, -0.20435829, -2.4130129 , -0.11827035,
+[36m(FSDPVlaSftWorker pid=22330)[0m         2.16118431, -2.03872017,  0.01391668,  0.01388467]), q99=array([ 0.28865065,  1.105597  ,  0.11172209, -1.09861718,  0.22441286,
+[36m(FSDPVlaSftWorker pid=22330)[0m         2.77971042, -0.1590509 ,  0.03999474,  0.03999474])), 'actions': NormStats(mean=array([ 0.08531349,  0.02405764,  0.01127904,  0.03656783, -0.00905097,
+[36m(FSDPVlaSftWorker pid=22330)[0m         0.01098834,  0.09533079, -0.39062503]), std=array([0.27716812, 0.27337387, 0.09148014, 0.34915015, 0.10260999,
+[36m(FSDPVlaSftWorker pid=22330)[0m        0.17985974, 0.47303045, 0.92054987]), q01=array([-0.58104796, -0.75376037, -0.31984209, -1.        , -0.37547388,
+[36m(FSDPVlaSftWorker pid=22330)[0m        -0.5276632 , -1.        , -1.        ]), q99=array([0.70615329, 0.71232443, 0.29005074, 0.9668    , 0.29630415,
+[36m(FSDPVlaSftWorker pid=22330)[0m        0.49221149, 0.9996    , 0.9996    ]))}, repack_transforms=Group(inputs=[RepackTransform(structure={'observation/image': 'image', 'observation/wrist_image': 'wrist_image', 'observation/state': 'state', 'actions': 'actions'})], outputs=()), data_transforms=Group(inputs=[ManiSkillInputs(model_type=<ModelType.PI05: 'pi05'>, use_wrist_image=True, default_prompt='insert the peg in the hole')], outputs=[ManiSkillOutputs(output_action_dim=8)]), model_transforms=Group(inputs=[InjectDefaultPrompt(prompt=None), ResizeImages(height=224, width=224), TokenizePrompt(tokenizer=<openpi.models.tokenizer.PaligemmaTokenizer object at 0x738f94540a50>, discrete_state_input=True), PadStatesAndActions(model_action_dim=32)], outputs=()), use_quantile_norm=True, action_sequence_keys=('actions',), prompt_from_task=False, rlds_data_dir=None, action_space=None, filter_dict_path=None)
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:root:local_batch_size: 1
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:2026-08-03 13:44:27,634:jax._src.xla_bridge:925: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:jax._src.xla_bridge:Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:2026-08-03 13:44:27,635:jax._src.xla_bridge:925: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+[36m(FSDPVlaSftWorker pid=22330)[0m INFO:jax._src.xla_bridge:Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: Tracking run with wandb version 0.25.0
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/ubuntu/qualia/ENPIRE/results/d1/stage3-a100-pilot-micro1-expandable-20260803/wandb/wandb/offline-run-20260803_134428-1ydiux5m
+[36m(ActorGroup(rank=0) pid=22330)[0m INFO:root:Loaded norm stats from /home/ubuntu/qualia/assets/maniskill_peginsertionside_joint
+[36m(FSDPVlaSftWorker pid=22330)[0m [WARNING 13:44:20 ActorGroup-Rank-0][fsdp_model_manager.py:70] Provided there is sufficient GPU memory, set the actor.model.precision parameter to fp32 to allow the optimizer to run in fp32 for better convergence. Meanwhile, setting mixed_precision.param_dtype to 16-bit dtype can help maximize speed, as it will automatically convert fp32 to fp16 during operator execution.
+[36m(FSDPVlaSftWorker pid=22330)[0m [INFO 13:44:20 ActorGroup-Rank-0][fsdp_model_manager.py:124] [FSDP] AMP is disabled.
+[36m(ActorGroup(rank=0) pid=22330)[0m [INFO 13:46:01 ActorGroup-Rank-0][fsdp_model_manager.py:282] [FSDP] Gradient checkpointing is disabled
+
+Global Step:   0%|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 0/6 [00:00<?, ?it/s][36m(ActorGroup(rank=0) pid=22330)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+[36m(ActorGroup(rank=0) pid=22330)[0m INFO:root:Disabled gradient checkpointing for PI0Pytorch model
+[36m(ActorGroup(rank=0) pid=22330)[0m Forcing gradient checkpointing to be enabled for Gemma expert model
+[36m(ActorGroup(rank=0) pid=22330)[0m Forcing gradient checkpointing to be enabled for Gemma expert model
+Exception occurred while running FSDPVlaSftWorker's function run_training: exception is [36mray::FSDPVlaSftWorker.run_training()[39m (pid=22330, ip=10.19.24.8, actor_id=167f2bab189dba419cfa9fe201000000, repr=ActorGroup(rank=0))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/scheduler/worker/worker.py", line 74, in sync_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/workers/sft/fsdp_sft_worker.py", line 167, in run_training
+    self.grad_scaler.scale(loss).backward()
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/_tensor.py", line 626, in backward
+    torch.autograd.backward(
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/autograd/__init__.py", line 347, in backward
+    _engine_run_backward(
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/autograd/graph.py", line 823, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.24 GiB. GPU 0 has a total capacity of 39.49 GiB of which 281.56 MiB is free. Including non-PyTorch memory, this process has 39.21 GiB memory in use. Of the allocated memory 37.91 GiB is allocated by PyTorch, and 670.35 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Exiting main process due to a failure upon worker execution.
+
+Global Step:   0%|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 0/6 [01:32<?, ?it/s]
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /home/ubuntu/qualia/ENPIRE/results/d1/stage3-a100-pilot-micro1-expandable-20260803/wandb/wandb/offline-run-20260803_134428-1ydiux5m
+wandb: Find logs at: /home/ubuntu/qualia/ENPIRE/results/d1/stage3-a100-pilot-micro1-expandable-20260803/wandb/wandb/offline-run-20260803_134428-1ydiux5m/logs

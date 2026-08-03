@@ -1,0 +1,118 @@
+{
+  "command": [
+    "/home/ubuntu/qualia/RLinf/.venv/bin/python",
+    "/home/ubuntu/qualia/RLinf/examples/sft/train_vla_sft.py",
+    "--config-path",
+    "/home/ubuntu/qualia/RLinf/examples/sft/config",
+    "--config-name",
+    "maniskill_rlt_stage1_sft_openpi_pi05",
+    "runner.logger.logger_backends=[wandb]",
+    "runner.logger.project_name=qualia-rlt-d1",
+    "runner.max_steps=6",
+    "runner.save_interval=5",
+    "actor.model.model_path=/home/ubuntu/qualia/assets/pi05_base",
+    "actor.model.openpi_data.norm_stats_path=/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json",
+    "data.train_data_paths.0.dataset_path=/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint",
+    "actor.micro_batch_size=1",
+    "actor.global_batch_size=8",
+    "actor.seed=2026",
+    "actor.optim.total_training_steps=6",
+    "runner.logger.log_path=/home/ubuntu/qualia/ENPIRE/results/d1/stage3-a100-pilot-micro1-expandable-20260803"
+  ],
+  "condition": "pilot",
+  "config_path": "/home/ubuntu/qualia/ENPIRE/configs/d1/stage1_pilot_micro1.yaml",
+  "config_sha256": "3c9081a54b9abf580007b0cdbdd686636410c2e4dec3dbcdb7761ec172f38f2a",
+  "created_at": "2026-08-03T13:44:02+00:00",
+  "cumulative_cost_usd": 0.3770856856608691,
+  "elapsed_seconds": 220.71217948400044,
+  "exit_code": 255,
+  "experiment_id": "d1-stage1-pilot-micro1",
+  "final_cost_usd": 0.12200479092835004,
+  "finished_at": "2026-08-03T13:47:42+00:00",
+  "host": "137-131-56-133",
+  "hourly_price_usd": 1.99,
+  "platform": "Linux-6.8.0-60-generic-x86_64-with-glibc2.35",
+  "project_commit": "714b1cb8c157fc1f9e00416253d5569f4c843f5d",
+  "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+  "resolved_config": {
+    "budget": {
+      "max_cost_usd": 15,
+      "report_thresholds_usd": [
+        5,
+        10,
+        15
+      ]
+    },
+    "condition": "pilot",
+    "config_path": "examples/sft/config",
+    "entrypoint": "examples/sft/train_vla_sft.py",
+    "evaluation": {
+      "fixed_reset_state_ids": false,
+      "num_trajectories": 0,
+      "primary_metric": "train/loss"
+    },
+    "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "experiment_id": "d1-stage1-pilot-micro1",
+    "hydra_overrides": [
+      "runner.logger.logger_backends=[wandb]",
+      "runner.logger.project_name=qualia-rlt-d1",
+      "runner.max_steps=6",
+      "runner.save_interval=5",
+      "actor.model.model_path=/home/ubuntu/qualia/assets/pi05_base",
+      "actor.model.openpi_data.norm_stats_path=/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json",
+      "data.train_data_paths.0.dataset_path=/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint",
+      "actor.micro_batch_size=1",
+      "actor.global_batch_size=8",
+      "actor.seed=2026",
+      "actor.optim.total_training_steps=6"
+    ],
+    "monitor_interval_seconds": 10,
+    "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+    "required_paths": {
+      "dataset": {
+        "kind": "directory",
+        "path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint"
+      },
+      "model": {
+        "kind": "directory",
+        "path": "/home/ubuntu/qualia/assets/pi05_base"
+      },
+      "norm_stats": {
+        "kind": "file",
+        "path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json"
+      },
+      "rlinf_home": {
+        "kind": "directory",
+        "path": "/home/ubuntu/qualia/RLinf"
+      }
+    },
+    "rlinf_config": "maniskill_rlt_stage1_sft_openpi_pi05",
+    "runtime_environment": {
+      "EMBODIED_PATH": "/home/ubuntu/qualia/RLinf/examples/sft",
+      "MUJOCO_GL": "egl",
+      "PYOPENGL_PLATFORM": "egl",
+      "PYTHONPATH": "/home/ubuntu/qualia/RLinf"
+    },
+    "schema_version": 1,
+    "scientific_values": {
+      "dataset_scope": "full",
+      "fallback_reason": "A100 batch-8 forward OOM; only micro batch changed",
+      "global_batch_size": 8,
+      "gradient_accumulation_steps": 8,
+      "learning_rate": 2.5e-05,
+      "max_steps": 6,
+      "micro_batch_size": 1,
+      "save_interval": 5
+    },
+    "stage": "stage1"
+  },
+  "rlinf_commit_actual": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "rlinf_commit_expected": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "run_cost_usd": 0.12200479092835004,
+  "run_directory": "/home/ubuntu/qualia/ENPIRE/results/d1/stage3-a100-pilot-micro1-expandable-20260803",
+  "schema_version": 1,
+  "started_at": "2026-08-03T13:44:02+00:00",
+  "status": "failed",
+  "wandb_run_url": null,
+  "working_directory": "/home/ubuntu/qualia/RLinf"
+}

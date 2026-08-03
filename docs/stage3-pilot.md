@@ -1,7 +1,8 @@
 # Stage 3 Representative Stage-1 Pilot
 
-Status: in progress; the minimum-hardware A10 attempt failed before the first
-optimizer step, so no checkpoint was produced.
+Status: complete. The unchanged representative profile completed on an H100
+80 GB PCIe, produced step-5 and step-6 checkpoints, and reloaded the final
+checkpoint through RLinf's native resume path.
 
 ## A10 minimum-hardware result (2026-08-03)
 
@@ -34,10 +35,73 @@ available; it can be synced after authentication.
 Raw evidence is stored under
 `results/stage3-a10/stage3-a10-pilot-20260803/`.
 
-## Next action
+## A100 40 GB boundary result
 
-Resume the same profile on a 40--48 GB NVIDIA GPU. The already-proven A100
-40 GB or an A6000 48 GB is the smallest evidence-supported tier. Stage 3
-remains incomplete until six steps finish, the step-5 actor checkpoint exists
-and reloads, and measured timing/resource data support the longer-run cost
-projection.
+The same full-precision profile was then tested on an A100 40 GB SXM4. Batch
+size 8 passed optimizer initialization but failed in the first forward pass at
+approximately 39.44 GiB allocated. The preregistered fallback kept global
+batch size 8 and reduced only the micro batch to 1; it passed the forward pass
+but failed during backward while requesting another 2.24 GiB with about 1.30
+GiB free. Retrying that fallback with PyTorch expandable segments produced the
+same material result. No precision, objective, optimizer, or offload semantics
+were silently changed. Raw evidence is under `results/stage3-a100/`.
+
+This establishes that 40 GB is below the requirement for the unchanged
+full-precision profile. It does not establish that all 48 GB cards will work;
+48 GB remains an untested boundary.
+
+## H100 80 GB successful result (2026-08-03)
+
+- Provider instance: `ce090b02782b431eb0a2442421a2eff8` at `$3.29/hour`.
+- GPU: NVIDIA H100 PCIe with 81,559 MiB reported VRAM.
+- RLinf: pinned commit `c90951a0c799a750cb5294ed10587c61cc2af8bf`.
+- Assets: official pi0.5 weights (14,467,165,872 bytes), all 400 episode
+  parquets, and the matched normalization statistics.
+- Training profile: unchanged micro/global batch size 8, FP32 execution,
+  six optimizer steps, save interval 5, seed 2026.
+- Outcome: exit code 0. All six steps logged total, RLT, and VLA loss. Final
+  total loss was 4.36189; six steps are a systems validation, not evidence of
+  convergence or policy improvement.
+- Peak sampled GPU memory: 42,195 MiB. Peak inferred system-memory use was
+  49.95 GiB.
+- Steady-state training time: approximately 0.947 seconds per step (steps
+  2--4, excluding checkpoint saves). The first step took 74.9 seconds because
+  of data-worker/JIT warmup. Each full checkpoint save added about 59 seconds.
+- Checkpoints: both step 5 and final step 6 are approximately 40.07 GB each
+  (about 37.32 GiB). RLinf's native `runner.resume_dir` path loaded the complete
+  final actor/optimizer/scheduler checkpoint, restored global step 6, and
+  exited cleanly at 6/6 without an additional optimizer step.
+- Launcher-attributed run time/cost: 331.62 seconds and `$0.3031`. This excludes
+  billable installation/download/reload time; the provider's final spend must
+  be recorded separately. No `$5` reporting threshold was crossed.
+- W&B logged offline because the previously shared credential is considered
+  exposed and was not reused.
+
+Compact evidence is stored under `results/stage3-h100/`. The 75 GB checkpoint
+payload remains on the provider volume; the repository retains the file sizes
+and SHA-256 hashes instead of duplicating it.
+
+## Longer-run cost projection
+
+Using the measured 0.947-second steady-state step time, about 135.6 seconds of
+one-time startup, a 59-second save, and the H100 price of `$3.29/hour`:
+
+| Steps | One final checkpoint | Checkpoint every 5 steps |
+| ---: | ---: | ---: |
+| 250 | about 7.2 min / `$0.39` | about 55.4 min / `$3.04` |
+| 500 | about 11.1 min / `$0.61` | about 108.5 min / `$5.95` |
+| 1,000 | about 19.0 min / `$1.04` | about 214.7 min / `$11.77` |
+| 2,000 | about 34.8 min / `$1.91` | about 427.2 min / `$23.42` |
+
+These are engineering projections, not provider invoices. Frequent saves are
+both time- and storage-dominant: saving every five steps would create roughly
+8 TB per 1,000 steps if every checkpoint were retained. A longer experiment
+should therefore use a scientifically justified, much wider checkpoint
+interval and retention policy.
+
+## Stage gate
+
+Stage 3 is complete. Stage 4 must not start without explicit approval. The
+next decision is whether to test the 48 GB boundary or accept the H100 as the
+known-working tier, then define the first meaningful baseline horizon and
+checkpoint cadence within the cost cap.
