@@ -106,6 +106,10 @@ next decision is whether to test the 48 GB boundary or accept the H100 as the
 known-working tier, then define the first meaningful baseline horizon and
 checkpoint cadence within the cost cap.
 
+Stage 4 subsequently completed; see `docs/stage4-contract-smoke.md` for the
+bounded Stage-2 checkpoint-load, rollout, update, and fixed-ID evaluation
+evidence.
+
 ## External RunPod checkpoint preservation (2026-08-03)
 
 A second bounded upstream Stage-1 run completed for five optimizer steps on an
