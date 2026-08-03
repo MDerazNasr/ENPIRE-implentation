@@ -1,8 +1,9 @@
 # Stage 5 Scientific Baseline Readiness
 
 Status: Stage 5A is complete. The unchanged Stage 5B probe failed during the
-256-parallel-camera allocation on both A10 and H100; the preregistered batched
-evaluation probe is pending. Reference A and Control B have not started.
+256-parallel-camera allocation on A10 and triggered an H100 Vulkan device loss.
+The preregistered batched evaluation probe is pending a clean provider-level
+H100 restart. Reference A and Control B have not started.
 
 Stage 5A has since completed successfully. See
 `docs/stage5a-reduced-checkpoint.md` for its measured result and checkpoint.
@@ -54,14 +55,16 @@ start under the existing authorization.
 6. Report at `$5`, `$10`, `$15`, `$20`, and every further `$5`; stop before
    crossing `$25` without Mohamed's approval.
 
-The retained D1 run manifests now total approximately `$5.8208`, so the `$5` notification
-threshold has been crossed. Provider-billed setup/idle time remains additional.
+The retained D1 run manifests now total approximately `$5.9084`, so the `$5`
+notification threshold has been crossed. Provider-billed setup/idle time
+remains additional.
 
 The failure is no longer treated as a simple GPU-capacity question: the H100
-failed before material VRAM allocation. The next probe changes only evaluation
-execution batching and is separately named, documented, and validated. Do not
-start Reference A or Control B until that probe reaches rollout and produces
-the complete 256-trajectory evaluation.
+failed before material VRAM allocation, then failed a one-environment RGB
+preflight. The next valid action is to restart the pod, pass that one-environment
+preflight, and only then repeat the separately named batched probe. Do not start
+Reference A or Control B until that probe reaches rollout and produces the
+complete 256-trajectory evaluation.
 
 ## Scientific interpretation boundary
 

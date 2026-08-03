@@ -1,8 +1,10 @@
 # Stage 5B Stage-2 Resource Probes
 
-Status: the unchanged 256-parallel-eval contract failed on both A10 and H100.
-A preregistered 64-parallel x 4-epoch probe is next. This is resource evidence,
-not policy-performance evidence.
+Status: the unchanged 256-parallel-eval contract failed on A10 and triggered a
+Vulkan device loss on H100. The preregistered 64-parallel x 4-epoch probe must
+be repeated after a provider-level H100 restart because even a subsequent
+one-environment RGB preflight fails on the poisoned device. This is resource
+evidence, not policy-performance evidence.
 
 ## Purpose
 
@@ -76,7 +78,8 @@ parallel-camera-group diagnostic. Host memory remained above 1.28 TiB
 available and the GPU returned to idle. The low sampled VRAM peak means the
 H100 failure cannot be explained as ordinary capacity exhaustion.
 
-The retained D1 manifests now sum to approximately `$5.8208` of
+The retained D1 manifests through this unchanged-contract run sum to
+approximately `$5.8208` of
 launcher-attributed GPU time, so the required `$5` notification remains active.
 Provider setup, download, transfer, and idle billing are not represented in
 that sum; reconcile the provider dashboards before approving later long runs.
@@ -97,9 +100,34 @@ Control B, and Candidate C. A config validator rejects profiles where parallel
 environments x rollout epochs does not equal the declared trajectory count.
 This is an operational batching adaptation, not a policy hyperparameter.
 
+## Invalid pre-restart batched attempt
+
+The committed 64-parallel x 4-epoch profile was launched at project commit
+`7bcf0c9`, but it encountered the same `ErrorDeviceLost` before rollout:
+
+| Field | Result |
+| --- | ---: |
+| Manifest status | `failed` |
+| Exit code | `255` |
+| Elapsed time | 95.83 seconds |
+| Peak sampled VRAM | 2,725 MiB / 81,559 MiB |
+| Launcher-attributed cost | `$0.0876` |
+
+This attempt is excluded from the profile's feasibility decision. Immediately
+afterward, a one-environment 384 x 384 RGB/GPU constructor also failed with
+`vk::Device::waitForFences: ErrorDeviceLost`; the earlier Stage-4 run had
+successfully executed that one-environment path. `nvidia-smi --gpu-reset` is
+unsupported on this pod. Therefore the current device context is invalid and a
+provider-level pod restart is required before repeating the batched probe.
+
+The retained D1 manifests now sum to approximately `$5.9084` in
+launcher-attributed runtime. Provider billing remains higher because setup,
+installation, transfer, restart, and idle time are outside these manifests.
+
 Reference A and Control B remain unrun. Stage 6 remains blocked.
 
 Evidence:
 
 - `results/stage5b-a10/stage5b-a10-probe-20260804/`
 - `results/stage5b-h100/stage5b-h100-probe-20260804/`
+- `results/stage5b-h100-batched/stage5b-h100-batched-probe-20260804/`

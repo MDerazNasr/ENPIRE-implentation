@@ -76,6 +76,8 @@ Gate: end-to-end contract passes; label result as smoke only.
   the measured camera-buffer/VRAM failure without changing the contract.
 - [x] Retry the unchanged probe on H100; record the low-VRAM `ErrorDeviceLost`
   camera-group failure without claiming a hardware-capacity result.
+- [x] Reject the first batched attempt after a one-environment preflight proves
+  the H100 Vulkan device remained lost; require a provider-level restart.
 - [ ] Validate 256 fixed-ID evaluations as 64 parallel environments x 4 epochs.
 - [ ] Evaluate Reference A on the fixed set.
 - [ ] Train/evaluate Control B across approved seeds.
