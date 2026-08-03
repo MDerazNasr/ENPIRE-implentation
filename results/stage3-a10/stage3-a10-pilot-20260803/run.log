@@ -1,0 +1,450 @@
+/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/defaults_list.py:262: UserWarning: In 'maniskill_rlt_stage1_sft_openpi_pi05': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/hydra.py:164: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+2026-08-03 09:53:55,798	INFO worker.py:2015 -- Started a local Ray instance. View the dashboard at [1m[32mhttp://127.0.0.1:8265 [39m[22m
+[INFO 09:53:57 RLinf] RLinf is running on a cluster with 1 node and 1 accelerator. The nodes' details are: 
+node_labels: []
+node_rank: 0
+ray_id: 540c4e928b5c1171d6ca03f71476b891bfe865e5984f45f4a89133b1
+node_ip: 10.19.80.94
+num_cpus: 30
+python_interpreter_path: /home/ubuntu/qualia/RLinf/.venv/bin/python
+hardware_resources:
+- type: Accelerator
+  infos:
+  - type: Accelerator
+    model: NV_GPU:A10
+profiler_backends: []
+
+Node groups' details are: 
+label: cluster
+nodes: '0'
+hardware_type: Accelerator
+ignore_hardware: false
+env_configs: null
+
+label: node
+nodes: '0'
+hardware_type: null
+ignore_hardware: true
+env_configs: null
+
+[INFO 09:53:57 FlexiblePlacementStrategy] 
+[INFO 09:53:57 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+{
+  "actor": {
+    "model": {
+      "model_type": "openpi",
+      "model_path": "/home/ubuntu/qualia/assets/pi05_base",
+      "precision": null,
+      "num_action_chunks": 10,
+      "action_dim": 8,
+      "is_lora": false,
+      "lora_rank": 32,
+      "use_proprio": true,
+      "num_steps": 5,
+      "add_value_head": false,
+      "openpi": {
+        "config_name": "pi05_rlt_maniskill_joint",
+        "num_images_in_input": 2,
+        "noise_level": 0.5,
+        "action_chunk": 10,
+        "num_steps": 5,
+        "train_expert_only": false,
+        "action_env_dim": 8,
+        "noise_method": "flow_sde",
+        "add_value_head": false,
+        "value_after_vlm": false,
+        "value_vlm_mode": "mean_token",
+        "detach_critic_input": true,
+        "action_horizon": 10,
+        "use_rlt": true,
+        "rlt_alpha": 1.0,
+        "rlt_input_dim": 2048,
+        "rlt_embed_dim": 2048,
+        "rlt_num_rl_tokens": 1,
+        "rlt_prefix_seq_len": 1024,
+        "rlt_num_layers": 2,
+        "rlt_num_heads": 8,
+        "rlt_mlp_ratio": 4.0,
+        "rlt_encoder_type": "append_self_attention",
+        "rlt_image_only": false,
+        "rlt_use_mask": true
+      },
+      "openpi_data": {
+        "repo_id": "maniskill_peginsertionside_joint",
+        "default_prompt": "insert the peg in the hole",
+        "norm_stats_path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint/norm_stats.json"
+      }
+    },
+    "fsdp_config": {
+      "strategy": "fsdp",
+      "sharding_strategy": "no_shard",
+      "gradient_checkpointing": false,
+      "cpu_offload": false,
+      "offload_pin_memory": false,
+      "reshard_after_forward": true,
+      "enable_gradient_accumulation": true,
+      "forward_prefetch": false,
+      "limit_all_gathers": false,
+      "backward_prefetch": null,
+      "use_orig_params": false,
+      "use_liger_kernel": false,
+      "mixed_precision": {
+        "param_dtype": null,
+        "reduce_dtype": null,
+        "buffer_dtype": null
+      },
+      "amp_autocast": {
+        "enabled": false,
+        "precision": "bf16"
+      },
+      "grad_scaler": {
+        "enabled": false,
+        "init_scale": null,
+        "growth_interval": null
+      }
+    },
+    "group_name": "ActorGroup",
+    "training_backend": "fsdp",
+    "micro_batch_size": 8,
+    "global_batch_size": 8,
+    "seed": 2026,
+    "optim": {
+      "lr": 2.5e-05,
+      "value_lr": 0.000155,
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.95,
+      "adam_eps": 1e-08,
+      "weight_decay": 1e-10,
+      "clip_grad": 1.0,
+      "total_training_steps": 6,
+      "lr_warmup_steps": 500,
+      "lr_scheduler": "cosine",
+      "num_cycles": 0.5,
+      "min_lr": 2.5e-06
+    }
+  },
+  "cluster": {
+    "num_nodes": 1,
+    "component_placement": {
+      "actor,env,rollout": "all"
+    }
+  },
+  "runner": {
+    "task_type": "sft",
+    "logger": {
+      "log_path": "/home/ubuntu/qualia/ENPIRE/results/d1/stage3-a10-pilot-20260803",
+      "project_name": "qualia-rlt-d1",
+      "experiment_name": "maniskill_rlt_stage1_sft_openpi_pi05",
+      "logger_backends": [
+        "wandb"
+      ]
+    },
+    "max_epochs": -1,
+    "max_steps": 6,
+    "val_check_interval": -1,
+    "save_interval": 5,
+    "per_worker_log": false,
+    "per_worker_log_path": null
+  },
+  "data": {
+    "train_data_paths": [
+      {
+        "dataset_path": "/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint",
+        "weight": 1.0
+      }
+    ]
+  },
+  "reward": {
+    "use_reward_model": false
+  },
+  "critic": {
+    "use_critic_model": false
+  }
+}
+[INFO 09:53:57 FlexiblePlacementStrategy] 
+[INFO 09:53:57 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 09:53:57 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[36m(FSDPVlaSftWorker pid=5335)[0m [INFO 09:54:02 FlexiblePlacementStrategy] 
+[36m(FSDPVlaSftWorker pid=5335)[0m [INFO 09:54:02 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:datasets:PyTorch version 2.6.0 available.
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:datasets:Polars version 1.43.2 available.
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:datasets:TensorFlow version 2.21.0 available.
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:datasets:JAX version 0.5.3 available.
+[36m(FSDPVlaSftWorker pid=5335)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(FSDPVlaSftWorker pid=5335)[0m I0000 00:00:1785750847.539993    5335 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(FSDPVlaSftWorker pid=5335)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(FSDPVlaSftWorker pid=5335)[0m I0000 00:00:1785750852.107570    5335 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:root:Loaded norm stats from /home/ubuntu/qualia/assets/maniskill_peginsertionside_joint
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:root:data_config: DataConfig(repo_id='/home/ubuntu/qualia/assets/maniskill_peginsertionside_joint', asset_id='maniskill_peginsertionside_joint', norm_stats={'state': NormStats(mean=array([-0.09765499,  0.60581845, -0.0281424 , -1.86967432,  0.02873164,
+[36m(FSDPVlaSftWorker pid=5335)[0m         2.47049308, -0.96059084,  0.02660817,  0.02658811]), std=array([0.19002584, 0.19386964, 0.06936736, 0.28648713, 0.07150902,
+[36m(FSDPVlaSftWorker pid=5335)[0m        0.13462402, 0.43239698, 0.01071707, 0.01073213]), q01=array([-0.49567956,  0.25627399, -0.20435829, -2.4130129 , -0.11827035,
+[36m(FSDPVlaSftWorker pid=5335)[0m         2.16118431, -2.03872017,  0.01391668,  0.01388467]), q99=array([ 0.28865065,  1.105597  ,  0.11172209, -1.09861718,  0.22441286,
+[36m(FSDPVlaSftWorker pid=5335)[0m         2.77971042, -0.1590509 ,  0.03999474,  0.03999474])), 'actions': NormStats(mean=array([ 0.08531349,  0.02405764,  0.01127904,  0.03656783, -0.00905097,
+[36m(FSDPVlaSftWorker pid=5335)[0m         0.01098834,  0.09533079, -0.39062503]), std=array([0.27716812, 0.27337387, 0.09148014, 0.34915015, 0.10260999,
+[36m(FSDPVlaSftWorker pid=5335)[0m        0.17985974, 0.47303045, 0.92054987]), q01=array([-0.58104796, -0.75376037, -0.31984209, -1.        , -0.37547388,
+[36m(FSDPVlaSftWorker pid=5335)[0m        -0.5276632 , -1.        , -1.        ]), q99=array([0.70615329, 0.71232443, 0.29005074, 0.9668    , 0.29630415,
+[36m(FSDPVlaSftWorker pid=5335)[0m        0.49221149, 0.9996    , 0.9996    ]))}, repack_transforms=Group(inputs=[RepackTransform(structure={'observation/image': 'image', 'observation/wrist_image': 'wrist_image', 'observation/state': 'state', 'actions': 'actions'})], outputs=()), data_transforms=Group(inputs=[ManiSkillInputs(model_type=<ModelType.PI05: 'pi05'>, use_wrist_image=True, default_prompt='insert the peg in the hole')], outputs=[ManiSkillOutputs(output_action_dim=8)]), model_transforms=Group(inputs=[InjectDefaultPrompt(prompt=None), ResizeImages(height=224, width=224), TokenizePrompt(tokenizer=<openpi.models.tokenizer.PaligemmaTokenizer object at 0x771dd8ceb2d0>, discrete_state_input=True), PadStatesAndActions(model_action_dim=32)], outputs=()), use_quantile_norm=True, action_sequence_keys=('actions',), prompt_from_task=False, rlds_data_dir=None, action_space=None, filter_dict_path=None)
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Downloading data:   0%|          | 0/400 [00:00<?, ?files/s]
+Downloading data: 100%|██████████| 400/400 [00:00<00:00, 27780.07files/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 0 examples [00:00, ? examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 202 examples [00:00, 1323.63 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 447 examples [00:00, 1536.77 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 726 examples [00:00, 1683.96 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 977 examples [00:00, 1779.95 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 1312 examples [00:00, 1838.03 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 1600 examples [00:00, 1874.05 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 1933 examples [00:01, 1844.48 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 2229 examples [00:01, 1858.08 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 2473 examples [00:01, 1849.35 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 2760 examples [00:01, 1890.60 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 3039 examples [00:01, 1895.46 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 3288 examples [00:01, 1930.93 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 3614 examples [00:01, 1952.72 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 3892 examples [00:02, 1947.51 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 4134 examples [00:02, 1943.34 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 4441 examples [00:02, 1930.78 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 4697 examples [00:02, 1959.38 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 5003 examples [00:02, 1978.42 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 5252 examples [00:02, 1960.31 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 5539 examples [00:02, 1980.43 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 5834 examples [00:03, 1988.14 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 6126 examples [00:03, 1917.83 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 6379 examples [00:03, 1936.96 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 6666 examples [00:03, 1955.85 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 6980 examples [00:03, 1998.28 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 7235 examples [00:03, 2026.44 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 7521 examples [00:03, 2003.41 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 7785 examples [00:04, 1945.00 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 8039 examples [00:04, 1864.53 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 8323 examples [00:04, 1824.59 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 8600 examples [00:04, 1833.98 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 8879 examples [00:04, 1887.70 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 9194 examples [00:04, 1940.71 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 9468 examples [00:04, 1971.74 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 9755 examples [00:05, 1989.16 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 10034 examples [00:05, 1956.21 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 10341 examples [00:05, 1949.53 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 10629 examples [00:05, 2006.55 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 10878 examples [00:05, 2027.92 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 11127 examples [00:05, 2068.84 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 11372 examples [00:05, 2036.34 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 11686 examples [00:06, 2027.22 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 11988 examples [00:06, 1990.47 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 12256 examples [00:06, 1988.09 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 12571 examples [00:06, 2002.08 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 12855 examples [00:06, 2020.79 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 13171 examples [00:06, 2050.32 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 13515 examples [00:06, 2073.04 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 13769 examples [00:07, 2079.45 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 14098 examples [00:07, 2040.05 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 14336 examples [00:07, 2043.54 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 14631 examples [00:07, 2078.79 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 14961 examples [00:07, 2096.09 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 15285 examples [00:07, 2095.87 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 15540 examples [00:07, 2063.03 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 15817 examples [00:08, 2056.17 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 16093 examples [00:08, 2022.23 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 16342 examples [00:08, 2006.79 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 16613 examples [00:08, 2041.36 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 16893 examples [00:08, 2070.17 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 17158 examples [00:08, 2072.79 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 17467 examples [00:08, 2069.65 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 17730 examples [00:09, 2077.50 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 18015 examples [00:09, 2052.90 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 18287 examples [00:09, 2029.43 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 18507 examples [00:09, 2035.83 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 18751 examples [00:09, 2065.14 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 18969 examples [00:09, 2080.08 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 19275 examples [00:09, 2091.39 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 19589 examples [00:09, 2103.48 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 19872 examples [00:10, 2086.33 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 20162 examples [00:10, 2089.82 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 20432 examples [00:10, 2008.54 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 20684 examples [00:10, 2014.94 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 20921 examples [00:10, 1988.46 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 21217 examples [00:10, 2033.76 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 21493 examples [00:10, 2054.29 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 21754 examples [00:10, 2082.92 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 22046 examples [00:11, 2061.98 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 22372 examples [00:11, 2002.15 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 22650 examples [00:11, 2020.93 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 22937 examples [00:11, 2032.70 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 23204 examples [00:11, 2058.97 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 23468 examples [00:11, 2090.76 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 23766 examples [00:11, 2085.59 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 24046 examples [00:12, 2095.95 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 24336 examples [00:12, 2041.41 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 24618 examples [00:12, 2034.34 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 24928 examples [00:12, 2019.08 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 25215 examples [00:12, 2021.50 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 25485 examples [00:12, 2047.58 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 25771 examples [00:12, 2046.59 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 26070 examples [00:13, 2065.60 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 26386 examples [00:13, 2015.01 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 26706 examples [00:13, 2000.84 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 27015 examples [00:13, 2008.69 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 27302 examples [00:13, 2018.55 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 27613 examples [00:13, 2042.82 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 27915 examples [00:13, 2042.45 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 28218 examples [00:14, 2041.85 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 28451 examples [00:14, 1996.91 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m 
+Generating train split: 28681 examples [00:14, 2002.89 examples/s]
+Generating train split: 28681 examples [00:14, 1995.49 examples/s]
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:root:local_batch_size: 8
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:2026-08-03 09:54:29,868:jax._src.xla_bridge:925: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:jax._src.xla_bridge:Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:2026-08-03 09:54:29,872:jax._src.xla_bridge:925: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+[36m(FSDPVlaSftWorker pid=5335)[0m INFO:jax._src.xla_bridge:Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: Tracking run with wandb version 0.25.0
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /home/ubuntu/qualia/ENPIRE/results/d1/stage3-a10-pilot-20260803/wandb/wandb/offline-run-20260803_095431-9wbhwzmh
+[36m(ActorGroup(rank=0) pid=5335)[0m INFO:root:Loaded norm stats from /home/ubuntu/qualia/assets/maniskill_peginsertionside_joint
+[36m(FSDPVlaSftWorker pid=5335)[0m [WARNING 09:54:02 ActorGroup-Rank-0][fsdp_model_manager.py:70] Provided there is sufficient GPU memory, set the actor.model.precision parameter to fp32 to allow the optimizer to run in fp32 for better convergence. Meanwhile, setting mixed_precision.param_dtype to 16-bit dtype can help maximize speed, as it will automatically convert fp32 to fp16 during operator execution.
+[36m(FSDPVlaSftWorker pid=5335)[0m [INFO 09:54:02 ActorGroup-Rank-0][fsdp_model_manager.py:124] [FSDP] AMP is disabled.
+[36m(ActorGroup(rank=0) pid=5335)[0m [INFO 09:55:43 ActorGroup-Rank-0][fsdp_model_manager.py:282] [FSDP] Gradient checkpointing is disabled
+Exception occurred while running FSDPVlaSftWorker's function init_worker: exception is [36mray::FSDPVlaSftWorker.init_worker()[39m (pid=5335, ip=10.19.80.94, actor_id=3882d110d3331e3917839f4801000000, repr=ActorGroup(rank=0))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/scheduler/worker/worker.py", line 74, in sync_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/workers/sft/fsdp_sft_worker.py", line 85, in init_worker
+    self.setup_model_and_optimizer()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py", line 292, in setup_model_and_optimizer
+    self.optimizer = self.build_optimizer(
+                     ^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py", line 577, in build_optimizer
+    warmup_optimizer_state(optimizer)
+  File "/home/ubuntu/qualia/RLinf/rlinf/utils/utils.py", line 625, in warmup_optimizer_state
+    optimizer.step()
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+    out = func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/optim/optimizer.py", line 91, in _use_grad
+    ret = func(self, *args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/optim/adamw.py", line 232, in step
+    has_complex = self._init_group(
+                  ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/qualia/RLinf/.venv/lib/python3.11/site-packages/torch/optim/adamw.py", line 171, in _init_group
+    state["exp_avg"] = torch.zeros_like(
+                       ^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.24 GiB. GPU 0 has a total capacity of 22.07 GiB of which 1.92 GiB is free. Including non-PyTorch memory, this process has 20.15 GiB memory in use. Of the allocated memory 18.66 GiB is allocated by PyTorch, and 1.10 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Exiting main process due to a failure upon worker execution.
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /home/ubuntu/qualia/ENPIRE/results/d1/stage3-a10-pilot-20260803/wandb/wandb/offline-run-20260803_095431-9wbhwzmh
+wandb: Find logs at: /home/ubuntu/qualia/ENPIRE/results/d1/stage3-a10-pilot-20260803/wandb/wandb/offline-run-20260803_095431-9wbhwzmh/logs

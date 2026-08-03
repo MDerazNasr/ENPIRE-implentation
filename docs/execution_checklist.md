@@ -47,6 +47,8 @@ local evidence.
 
 ## Stage 3 — Representative Stage-1 pilot
 
+- [x] Test the declared profile on the minimum 24 GB tier; A10 failed during
+  AdamW-state initialization with measured OOM evidence.
 - [ ] Run bounded checkpoint-producing training.
 - [ ] Capture startup and steady-state timing separately.
 - [ ] Capture peak VRAM/RAM and disk use.
