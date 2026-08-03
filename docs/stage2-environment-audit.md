@@ -1,8 +1,7 @@
 # Stage 2 Environment and Upstream Audit
 
-Status: partially complete; the replacement pod passes the source, CUDA, and
-ManiSkill runtime checks. The asset gate is currently blocked by the pod's
-storage quota. No paid training was launched.
+Status: acceptance evidence complete except W&B authentication and final
+provider-spend capture. No Stage-3 checkpoint pilot was launched.
 
 ## Connectivity result
 
@@ -21,6 +20,16 @@ Replacement pod verified on 2026-08-02:
 - root filesystem: 20 GiB;
 - `/workspace`: network-mounted storage whose global `df` capacity does not
   expose the pod's smaller write quota.
+
+Final Stage-2 instance verified on 2026-08-03:
+
+- SSH user/endpoint: `ubuntu@193.122.155.40:22`;
+- GPU: NVIDIA A100 SXM4, 40,960 MiB VRAM;
+- system RAM: 216 GiB;
+- CPU: 30 logical CPUs;
+- local filesystem: 497 GiB, with 422 GiB free after installation and assets;
+- provider price: `$1.99/hour`; provider UI reported `$0.45` spent when Stage 2
+  resumed.
 
 ## Pinned source audit
 
@@ -92,16 +101,16 @@ Resource snapshots now include Linux `/proc/meminfo` total/available system RAM
 in addition to GPU, VRAM, utilization, disk, and cumulative cost. A portable
 fallback records total RAM when `/proc` is unavailable.
 
-## Live installation and simulator verification
+## Final live installation and simulator verification
 
 RLinf was installed with the repository's official custom-environment command
 at commit `c90951a0c799a750cb5294ed10587c61cc2af8bf`, using PyTorch
-`2.8.0+cu128`. After the installer completed, the checkout was clean and its
-temporary `pyproject.toml` backup was removed.
+`2.6.0+cu124`. After the installer completed, the checkout was clean and its
+temporary manifest backup was removed.
 
 Verified runtime evidence:
 
-- CUDA 12.8 recognizes the RTX PRO 4000 Blackwell and advertises `sm_120`;
+- CUDA 12.4 recognizes the A100 SXM4;
 - a CUDA tensor operation completed successfully;
 - `rlinf` and ManiSkill import successfully;
 - RLinf's custom `PegInsertionSideWideClearance-v1` task registered;
@@ -109,11 +118,13 @@ Verified runtime evidence:
 - one sampled `pd_joint_delta_pos` step succeeded and the environment closed
   with exit code zero.
 
-SAPIEN required the NVIDIA Vulkan ICD to be selected explicitly with
-`VK_ICD_FILENAMES=/etc/vulkan/icd.d/nvidia_icd.json`. The file was installed by
-the official installer; no RLinf source was modified.
+The provider image initially exposed only the NVIDIA compute libraries. The
+matching `libnvidia-gl-570-server` userspace package was installed and the
+instance rebooted once, producing an aligned 570.195.03 kernel/userspace driver.
+`vulkaninfo` then identified the A100 through the NVIDIA proprietary driver and
+the ManiSkill RGB smoke passed. No RLinf source was modified.
 
-## Asset verification blocker
+## Asset verification
 
 The official RLT guide confirms this aligned asset set:
 
@@ -122,23 +133,42 @@ The official RLT guide confirms this aligned asset set:
 - OpenPI dataconfig: `pi05_rlt_maniskill_joint`;
 - normalization: the `norm_stats.json` shipped/computed for that same dataset.
 
-Parallel resumable downloads were started under `/workspace/qualia/assets`.
-The model reached a 2.8 GiB partial weight and the dataset reached 24 of 400
-episode parquet files before Hugging Face failed with `Disk quota exceeded`.
-The incomplete files are intentionally retained for resume. The RunPod UI's
-configured volume size must be obtained and enlarged if necessary before asset
-verification can pass.
+The assets were downloaded under `/home/ubuntu/qualia/assets` and verified:
+
+- π0.5 directory: 14 GiB; `model.safetensors` is 14,467,165,872 bytes;
+- dataset directory: 9.2 GiB;
+- 400 episode parquet files, 28,681 frames, Panda robot, 10 Hz;
+- matched `norm_stats.json` present and loaded by the upstream smoke;
+- installed RLinf virtual environment: 13 GiB.
+
+All six D1 Hydra profiles composed with `--cfg job --resolve`; the resolved
+files are stored under `results/stage2-a100/resolved-configs/`.
+
+## Bounded upstream logging smoke
+
+The unmodified upstream Stage-1 entrypoint ran for one optimizer step with the
+official model, full dataset, and matched norm stats. Smoke-only runtime
+overrides used batch size one, disabled checkpointing/W&B output, and enabled
+the supported `train_expert_only`/`use_orig_params` memory path. This is logging
+evidence, not a representative timing or performance result.
+
+Visible metrics:
+
+- `train/loss=4.12`;
+- `train/rlt_loss=4.11`;
+- `train/vla_loss=0.00979`;
+- `train/grad_norm=2.22`;
+- `time/step=87.3s`;
+- observed VRAM during loading/training: approximately 19.1 GiB.
+
+The optimizer step completed before DataLoader shared-memory cleanup warnings.
+After exit, no RLinf/Ray training process remained and the GPU was idle. The
+raw log is stored at `results/stage2-a100/run.log`.
 
 ## Remaining live-pod gate
 
-Before Stage 2 can pass:
+Before Stage 2 can be closed:
 
-1. obtain the current RunPod hourly price and configured volume size;
-2. enlarge the volume if needed and resume the base-model/dataset downloads;
-3. verify the full 400-episode dataset, matched `norm_stats.json`, base model,
-   identifiers, and disk use;
-4. authenticate W&B directly on the pod;
-5. compose/print the six resolved Hydra configurations in the installed
-   environment;
-6. run only the bounded upstream logging smoke required by Stage 2;
-7. record actual provider spend and confirm pod billing state.
+1. authenticate W&B directly on the instance without placing the API key in
+   chat or repository files;
+2. record the provider UI's final spend immediately before shutdown.
