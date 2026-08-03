@@ -1,7 +1,7 @@
 # Stage 2 Environment and Upstream Audit
 
-Status: acceptance evidence complete except W&B authentication and final
-provider-spend capture. No Stage-3 checkpoint pilot was launched.
+Status: complete. Final provider spend should be copied from the UI immediately
+before shutdown. No Stage-3 checkpoint pilot was launched.
 
 ## Connectivity result
 
@@ -165,10 +165,12 @@ The optimizer step completed before DataLoader shared-memory cleanup warnings.
 After exit, no RLinf/Ray training process remained and the GPU was idle. The
 raw log is stored at `results/stage2-a100/run.log`.
 
-## Remaining live-pod gate
+## Completion and shutdown
 
-Before Stage 2 can be closed:
+W&B login was completed directly on the instance. The credential is stored in
+`/home/ubuntu/.netrc` with mode `0600`, and `wandb.Api()` loaded the account
+successfully. The API key is not stored in the repository or logs.
 
-1. authenticate W&B directly on the instance without placing the API key in
-   chat or repository files;
-2. record the provider UI's final spend immediately before shutdown.
+Stage 2 is closed. Record the provider UI's final spend, then shut down the
+instance. Stage 3 requires a new explicit start decision and must not begin as
+part of this session.
