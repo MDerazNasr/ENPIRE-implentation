@@ -1,0 +1,59 @@
+# Stage 5 Scientific Baseline Readiness
+
+Status: no-cost readiness gate complete; paid execution pending a GPU endpoint
+and explicit approval of the reduced-budget horizon below.
+
+## Why the full profile cannot start silently
+
+The checked-in `stage1_scientific.yaml` preserves the upstream Stage-1 values:
+2,000 optimizer steps, micro batch 8, global batch 256, and a checkpoint every
+250 steps. On one GPU, each optimizer step therefore requires 32 micro-batches.
+The Stage-3 H100 pilot measured about 0.947 seconds per global-batch-8 step,
+135.6 seconds of startup, and 59 seconds per full checkpoint.
+
+At `$3.29/hour`, the evidence-based estimates are:
+
+| Stage-1 horizon | Saves | Estimated time | Estimated GPU cost |
+| ---: | ---: | ---: | ---: |
+| 250 steps | final only | 2.16 hours | `$7.10` |
+| 500 steps | final only | 4.26 hours | `$14.03` |
+| 2,000 steps | final only | 16.89 hours | `$55.57` |
+| 2,000 steps | every 250 | 17.00 hours | `$55.94` |
+
+These estimates apply the required accumulation factor:
+`global_batch / micro_batch = 256 / 8 = 32`. The earlier Stage-3 table omitted
+that factor and is not valid for the upstream global-batch-256 scientific
+profile. Provider setup time and storage/transfer charges remain additional.
+
+The full profile exceeds the project's `$25` hard approval gate. It must not
+start under the existing authorization.
+
+## Recommended staged execution
+
+1. **Stage 5A — reduced-budget Stage 1:** run seed 2026 for 250 steps on H100,
+   save only the final complete checkpoint, and label it reduced-budget rather
+   than upstream-complete. Expected compute is about `$7.10`.
+2. **Preserve before shutdown:** put the approximately 10 GB inference actor
+   weights in durable/object storage accessible to the A10. Do not repeat the
+   slow live H100-to-A10 stream.
+3. **Stage 5B — representative Stage-2 probe:** on A10, use upstream 64 train
+   environments and 256 fixed-ID evaluation environments for a bounded step to
+   measure actual VRAM, rollout/evaluation time, and cost. Stage 4's one-env
+   timing is not a valid projection for this workload.
+4. **Reference A:** evaluate the frozen Stage-1 reference on the fixed 256 IDs.
+5. **Control B:** choose the Stage-2 training horizon only after the
+   representative probe. Run seed 2026 first; add seeds only after checking
+   whether the baseline is non-degenerate and the projected cumulative spend.
+6. Report at `$5`, `$10`, `$15`, `$20`, and every further `$5`; stop before
+   crossing `$25` without Mohamed's approval.
+
+## Scientific interpretation boundary
+
+A 250-step Stage-1 checkpoint is a budget-limited discovery baseline. It may
+be sufficient to reveal whether the downstream pipeline is non-degenerate,
+but it is not equivalent to the upstream 2,000-step training contract. Any
+comparison and manager update must state this deviation explicitly.
+
+Stage 6 must remain blocked until Reference A and Control B have comparable,
+fixed-ID evidence and Control B is non-degenerate enough to supply a tuning
+signal.

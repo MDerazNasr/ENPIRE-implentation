@@ -81,7 +81,7 @@ Compact evidence is stored under `results/stage3-h100/`. The 75 GB checkpoint
 payload remains on the provider volume; the repository retains the file sizes
 and SHA-256 hashes instead of duplicating it.
 
-## Longer-run cost projection
+## Longer-run cost projection (superseded for global batch 256)
 
 Using the measured 0.947-second steady-state step time, about 135.6 seconds of
 one-time startup, a 59-second save, and the H100 price of `$3.29/hour`:
@@ -92,6 +92,11 @@ one-time startup, a 59-second save, and the H100 price of `$3.29/hour`:
 | 500 | about 11.1 min / `$0.61` | about 108.5 min / `$5.95` |
 | 1,000 | about 19.0 min / `$1.04` | about 214.7 min / `$11.77` |
 | 2,000 | about 34.8 min / `$1.91` | about 427.2 min / `$23.42` |
+
+These original estimates treat each optimizer step like the pilot's global
+batch 8 and therefore omit the 32-way accumulation required by the scientific
+global batch 256 profile. They must not be used to budget Stage 5. See
+`docs/stage5-readiness.md` for the corrected projection.
 
 These are engineering projections, not provider invoices. Frequent saves are
 both time- and storage-dominant: saving every five steps would create roughly
