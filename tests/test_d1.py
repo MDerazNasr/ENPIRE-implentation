@@ -125,6 +125,26 @@ class D1ConfigTests(unittest.TestCase):
             )
             self.assertIn("env.eval.use_fixed_reset_state_ids=true", command)
 
+    def test_batched_eval_preserves_declared_trajectory_count(self):
+        for name in (
+            "stage2_batched_eval_probe.yaml",
+            "reference.yaml",
+            "control.yaml",
+            "candidate_bc_080.yaml",
+        ):
+            with self.subTest(profile=name):
+                config = load_d1_config(CONFIG_ROOT / name)
+                self.assertIn("env.eval.total_num_envs=64", config["hydra_overrides"])
+                self.assertIn("env.eval.rollout_epoch=4", config["hydra_overrides"])
+                self.assertEqual(config["evaluation"]["num_trajectories"], 256)
+
+    def test_mismatched_batched_eval_count_is_rejected(self):
+        config = load_d1_config(CONFIG_ROOT / "stage2_batched_eval_probe.yaml")
+        broken = json.loads(json.dumps(config))
+        broken["evaluation"]["num_trajectories"] = 255
+        with self.assertRaisesRegex(D1ConfigError, "trajectories must equal"):
+            validate_d1_config(broken)
+
     def test_stage1_and_stage2_use_their_upstream_launchers(self):
         with tempfile.TemporaryDirectory() as temporary:
             env = environment(Path(temporary))

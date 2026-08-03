@@ -98,6 +98,13 @@ IDs used by the upstream Stage-2 evaluation configuration. This measures
 Stage-2 variance; Stage-1 seed variance remains an explicit limitation unless
 multiple Stage-1 checkpoints are later approved.
 
+The 256 evaluations are executed as four sequential epochs of 64 parallel RGB
+environments. RLinf advances the same seed-2026 reset-ID generator between
+epochs and aggregates all four epochs, so the declared evaluation budget
+remains 256 trajectories while avoiding a single 256-camera allocation. This
+is an execution-batching adaptation applied identically to Reference A,
+Control B, and Candidate C; it is not a tuning variable.
+
 ## Keep, revert, and inconclusive rule
 
 If mean Control B success is below `90%`, keep Candidate C only when:
@@ -152,4 +159,3 @@ model/dataset/checkpoint identifiers, hardware, command, timestamps, exit
 status, raw logs, W&B URL, local JSONL record, metrics, artifacts, resource use,
 and cost. Completed run directories are immutable and negative/null results are
 not deleted.
-

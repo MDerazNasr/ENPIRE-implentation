@@ -30,6 +30,7 @@ The following are controls, not tuning variables:
 - ManiSkill task, observation/state/action semantics, and episode horizon;
 - training iterations, batch semantics, rollout count, and evaluation cadence;
 - evaluation reset IDs and number of trajectories;
+- evaluation execution batching (`64` parallel environments x `4` epochs);
 - actor/critic architecture, optimizer, learning rate, Q weights, and dropout;
 - precision and hardware class where practical;
 - expert/intervention policy, logging, metric parser, and success definition.
@@ -72,4 +73,3 @@ forced actor control, used one replay transition, and evaluated one 20-step
 trajectory. Its keep/revert rule selected only on immediate success. It remains
 valid integration evidence but is not Reference A, Control B, or Candidate C
 and must not be pooled with D1 results.
-

@@ -1,6 +1,7 @@
-# Stage 5B A10 Resource Probe
+# Stage 5B Stage-2 Resource Probes
 
-Status: complete with a hardware-feasibility failure. This is resource evidence,
+Status: the unchanged 256-parallel-eval contract failed on both A10 and H100.
+A preregistered 64-parallel x 4-epoch probe is next. This is resource evidence,
 not policy-performance evidence.
 
 ## Purpose
@@ -37,7 +38,7 @@ would answer a different feasibility question.
   step both passed before launch.
 - All 27 dependency-free harness tests passed on the pod.
 
-## Result
+## A10 result
 
 The run failed during creation of the parallel evaluation camera group, before
 rollout or evaluation metrics could be produced.
@@ -55,23 +56,50 @@ diagnostic that the GPU-parallel camera group could not be created with the
 current camera/environment load. GPU memory returned to idle after RLinf
 terminated, and no worker remained.
 
-The eight retained D1 manifests sum to `$5.7241` of launcher-attributed GPU
-time, so this checkpoint crosses the required `$5` notification threshold.
+## H100 unchanged-contract result
+
+The exact same 64-train/256-eval/500-horizon profile was then run on an NVIDIA
+H100 80 GB HBM3 at `$3.29/hour`, using project commit `a6a68b5`, the same pinned
+RLinf commit, matched norm stats, and the verified step-250 actor.
+
+| Field | Result |
+| --- | ---: |
+| Manifest status | `failed` |
+| Exit code | `255` |
+| Elapsed time | 105.79 seconds |
+| Peak sampled VRAM | 2,725 MiB / 81,559 MiB |
+| Launcher-attributed cost | `$0.0967` |
+
+This failure also occurred before rollout. Vulkan reported
+`vk::Device::waitForFences: ErrorDeviceLost`, after which ManiSkill raised its
+parallel-camera-group diagnostic. Host memory remained above 1.28 TiB
+available and the GPU returned to idle. The low sampled VRAM peak means the
+H100 failure cannot be explained as ordinary capacity exhaustion.
+
+The retained D1 manifests now sum to approximately `$5.8208` of
+launcher-attributed GPU time, so the required `$5` notification remains active.
 Provider setup, download, transfer, and idle billing are not represented in
-that sum; reconcile the provider dashboards before approving the next GPU.
+that sum; reconcile the provider dashboards before approving later long runs.
 
 ## Interpretation and next gate
 
 An A10/24 GB GPU is not viable for the unchanged representative 64-train,
-256-eval RGB configuration. This does not show that RLT training fails or that
-the Stage-1 actor is ineffective; the run ended before a rollout.
+256-parallel-eval RGB configuration. The H100 result shows that merely adding
+VRAM does not make that monolithic camera group reliable on the current stack.
+Neither result shows that RLT training fails or that the Stage-1 actor is
+ineffective; both runs ended before rollout.
 
-The next unchanged-contract resource test should use an A100 40 GB or larger.
-If cost pressure requires retaining the A10, first preregister a distinct
-reduced-parallelism profile and document how its timing and evaluation protocol
-will be extrapolated. Do not silently reduce environment counts or image memory
-inside Control B.
+RLinf supports sequential evaluation epochs and advances its deterministic
+reset-ID generator after each epoch. The next explicit profile therefore uses
+64 parallel evaluation environments for four epochs. It still evaluates 256
+fixed-ID trajectories, and the same batching is now declared for Reference A,
+Control B, and Candidate C. A config validator rejects profiles where parallel
+environments x rollout epochs does not equal the declared trajectory count.
+This is an operational batching adaptation, not a policy hyperparameter.
 
 Reference A and Control B remain unrun. Stage 6 remains blocked.
 
-Evidence: `results/stage5b-a10/stage5b-a10-probe-20260804/`.
+Evidence:
+
+- `results/stage5b-a10/stage5b-a10-probe-20260804/`
+- `results/stage5b-h100/stage5b-h100-probe-20260804/`

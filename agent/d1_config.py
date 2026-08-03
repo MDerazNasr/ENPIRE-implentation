@@ -100,6 +100,27 @@ def validate_d1_config(config: Mapping[str, Any]) -> None:
         raise D1ConfigError("evaluation must be an object")
     if config["stage"] == "stage2" and evaluation.get("fixed_reset_state_ids") is not True:
         raise D1ConfigError("Stage-2 evaluation must use fixed reset state IDs")
+    if config["stage"] == "stage2":
+        overrides = {
+            value.split("=", 1)[0]: value.split("=", 1)[1]
+            for value in config["hydra_overrides"]
+        }
+        try:
+            parallel_envs = int(overrides["env.eval.total_num_envs"])
+            rollout_epochs = int(overrides.get("env.eval.rollout_epoch", "1"))
+            trajectories = int(evaluation["num_trajectories"])
+        except (KeyError, TypeError, ValueError) as error:
+            raise D1ConfigError(
+                "Stage-2 profiles must declare integer eval environments, "
+                "rollout epochs, and trajectories"
+            ) from error
+        if parallel_envs <= 0 or rollout_epochs <= 0 or trajectories <= 0:
+            raise D1ConfigError("Stage-2 evaluation counts must be positive")
+        if parallel_envs * rollout_epochs != trajectories:
+            raise D1ConfigError(
+                "Stage-2 evaluation trajectories must equal "
+                "env.eval.total_num_envs * env.eval.rollout_epoch"
+            )
     budget = config["budget"]
     if not isinstance(budget, dict):
         raise D1ConfigError("budget must be an object")

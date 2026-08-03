@@ -74,6 +74,9 @@ Gate: end-to-end contract passes; label result as smoke only.
 - [x] Train and verify the 250-step reduced-budget Stage-1 checkpoint.
 - [x] Probe upstream-scale Stage-2 environment feasibility on the A10; record
   the measured camera-buffer/VRAM failure without changing the contract.
+- [x] Retry the unchanged probe on H100; record the low-VRAM `ErrorDeviceLost`
+  camera-group failure without claiming a hardware-capacity result.
+- [ ] Validate 256 fixed-ID evaluations as 64 parallel environments x 4 epochs.
 - [ ] Evaluate Reference A on the fixed set.
 - [ ] Train/evaluate Control B across approved seeds.
 - [ ] Compute per-seed results and uncertainty.
