@@ -55,6 +55,11 @@ diagnostic that the GPU-parallel camera group could not be created with the
 current camera/environment load. GPU memory returned to idle after RLinf
 terminated, and no worker remained.
 
+The eight retained D1 manifests sum to `$5.7241` of launcher-attributed GPU
+time, so this checkpoint crosses the required `$5` notification threshold.
+Provider setup, download, transfer, and idle billing are not represented in
+that sum; reconcile the provider dashboards before approving the next GPU.
+
 ## Interpretation and next gate
 
 An A10/24 GB GPU is not viable for the unchanged representative 64-train,

@@ -53,6 +53,9 @@ start under the existing authorization.
 6. Report at `$5`, `$10`, `$15`, `$20`, and every further `$5`; stop before
    crossing `$25` without Mohamed's approval.
 
+The retained D1 run manifests now total `$5.7241`, so the `$5` notification
+threshold has been crossed. Provider-billed setup/idle time remains additional.
+
 The smallest tier proven insufficient for the unchanged Stage-2 environment
 scale is now 24 GB. Re-run the same bounded probe on an A100 40 GB or larger
 before choosing the Control-B horizon. A reduced-parallelism A10 profile would
