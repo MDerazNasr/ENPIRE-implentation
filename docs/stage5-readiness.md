@@ -3,6 +3,9 @@
 Status: no-cost readiness gate complete; paid execution pending a GPU endpoint
 and explicit approval of the reduced-budget horizon below.
 
+Stage 5A has since completed successfully. See
+`docs/stage5a-reduced-checkpoint.md` for its measured result and checkpoint.
+
 ## Why the full profile cannot start silently
 
 The checked-in `stage1_scientific.yaml` preserves the upstream Stage-1 values:

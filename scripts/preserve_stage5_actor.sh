@@ -30,8 +30,8 @@ if (( source_size < 9000000000 )); then
 fi
 
 source_sha="$(sha256sum "${source_weights}" | awk '{print $1}')"
-mkdir -p "$(dirname "${dest_weights}")"
 rm -f "${reclaim_weights}" "${dest_weights}" "${dest_weights}.partial"
+mkdir -p "$(dirname "${dest_weights}")"
 cp "${source_weights}" "${dest_weights}.partial"
 sync
 

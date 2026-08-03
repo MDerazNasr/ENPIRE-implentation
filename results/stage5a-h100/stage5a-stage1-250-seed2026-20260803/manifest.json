@@ -1,0 +1,117 @@
+{
+  "command": [
+    "/workspace/qualia/RLinf/.venv/bin/python",
+    "/workspace/qualia/RLinf/examples/sft/train_vla_sft.py",
+    "--config-path",
+    "/workspace/qualia/RLinf/examples/sft/config",
+    "--config-name",
+    "maniskill_rlt_stage1_sft_openpi_pi05",
+    "runner.logger.logger_backends=[wandb]",
+    "runner.logger.project_name=qualia-rlt-d1",
+    "runner.max_steps=250",
+    "runner.save_interval=250",
+    "actor.model.model_path=/dev/shm/qualia-assets/pi05_base",
+    "actor.model.openpi_data.norm_stats_path=/dev/shm/qualia-assets/maniskill_peginsertionside_joint/norm_stats.json",
+    "data.train_data_paths.0.dataset_path=/dev/shm/qualia-assets/maniskill_peginsertionside_joint",
+    "actor.micro_batch_size=8",
+    "actor.global_batch_size=256",
+    "actor.seed=2026",
+    "actor.optim.total_training_steps=250",
+    "runner.logger.log_path=/tmp/ENPIRE/results/d1/stage5a-stage1-250-seed2026-20260803"
+  ],
+  "condition": "scientific_stage1",
+  "config_path": "/tmp/ENPIRE/configs/d1/stage1_reduced_250.yaml",
+  "config_sha256": "3575b124da09bfb7efb7fffe456b36a43b0054f0e9bbdcaa4f9fc6cae62a3b4c",
+  "created_at": "2026-08-03T17:49:36+00:00",
+  "cumulative_cost_usd": 4.8050296757610615,
+  "elapsed_seconds": 5257.783221419901,
+  "exit_code": 0,
+  "experiment_id": "d1-stage1-reduced-250",
+  "final_cost_usd": 4.80502967205356,
+  "finished_at": "2026-08-03T19:17:14+00:00",
+  "host": "f7eee264a44a",
+  "hourly_price_usd": 3.29,
+  "platform": "Linux-6.8.0-65-generic-x86_64-with-glibc2.35",
+  "project_commit": null,
+  "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+  "resolved_config": {
+    "budget": {
+      "max_cost_usd": 15,
+      "report_thresholds_usd": [
+        5,
+        10,
+        15
+      ]
+    },
+    "condition": "scientific_stage1",
+    "config_path": "examples/sft/config",
+    "entrypoint": "examples/sft/train_vla_sft.py",
+    "evaluation": {
+      "fixed_reset_state_ids": false,
+      "num_trajectories": 0,
+      "primary_metric": "train/loss"
+    },
+    "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "experiment_id": "d1-stage1-reduced-250",
+    "hydra_overrides": [
+      "runner.logger.logger_backends=[wandb]",
+      "runner.logger.project_name=qualia-rlt-d1",
+      "runner.max_steps=250",
+      "runner.save_interval=250",
+      "actor.model.model_path=/dev/shm/qualia-assets/pi05_base",
+      "actor.model.openpi_data.norm_stats_path=/dev/shm/qualia-assets/maniskill_peginsertionside_joint/norm_stats.json",
+      "data.train_data_paths.0.dataset_path=/dev/shm/qualia-assets/maniskill_peginsertionside_joint",
+      "actor.micro_batch_size=8",
+      "actor.global_batch_size=256",
+      "actor.seed=2026",
+      "actor.optim.total_training_steps=250"
+    ],
+    "monitor_interval_seconds": 10,
+    "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+    "required_paths": {
+      "dataset": {
+        "kind": "directory",
+        "path": "/dev/shm/qualia-assets/maniskill_peginsertionside_joint"
+      },
+      "model": {
+        "kind": "directory",
+        "path": "/dev/shm/qualia-assets/pi05_base"
+      },
+      "norm_stats": {
+        "kind": "file",
+        "path": "/dev/shm/qualia-assets/maniskill_peginsertionside_joint/norm_stats.json"
+      },
+      "rlinf_home": {
+        "kind": "directory",
+        "path": "/workspace/qualia/RLinf"
+      }
+    },
+    "rlinf_config": "maniskill_rlt_stage1_sft_openpi_pi05",
+    "runtime_environment": {
+      "EMBODIED_PATH": "/workspace/qualia/RLinf/examples/sft",
+      "MUJOCO_GL": "egl",
+      "PYOPENGL_PLATFORM": "egl",
+      "PYTHONPATH": "/workspace/qualia/RLinf"
+    },
+    "schema_version": 1,
+    "scientific_values": {
+      "dataset_scope": "full",
+      "global_batch_size": 256,
+      "learning_rate": 2.5e-05,
+      "max_steps": 250,
+      "micro_batch_size": 8,
+      "reduced_budget_deviation": "250 of upstream 2000 optimizer steps",
+      "save_interval": 250
+    },
+    "stage": "stage1"
+  },
+  "rlinf_commit_actual": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "rlinf_commit_expected": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "run_cost_usd": 4.80502967205356,
+  "run_directory": "/dev/shm/qualia-stage5/results/d1/stage5a-stage1-250-seed2026-20260803",
+  "schema_version": 1,
+  "started_at": "2026-08-03T17:49:36+00:00",
+  "status": "complete",
+  "wandb_run_url": null,
+  "working_directory": "/workspace/qualia/RLinf"
+}
