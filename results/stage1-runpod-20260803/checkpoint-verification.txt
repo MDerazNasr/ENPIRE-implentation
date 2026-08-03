@@ -1,0 +1,24 @@
+Run date: 2026-08-03
+Provider: RunPod
+GPU: NVIDIA H100 80 GB
+RLinf commit: c90951a0c799a750cb5294ed10587c61cc2af8bf
+Training contract: upstream Stage-1 RLT, FP32, micro/global batch 8, seed 2026
+Bounded horizon: 5 optimizer steps
+
+Final metrics:
+train/loss=4.22
+train/rlt_loss=4.14808
+train/vla_loss=0.07191
+steady_state_training_time_seconds=0.612
+checkpoint_save_time_seconds=52.9
+
+Persistent actor checkpoint:
+/workspace/qualia-checkpoints/stage1-step5/actor/model_state_dict/full_weights.pt
+size_bytes=10015912759
+sha256=6b57b89beeaa4a6d5ee30f1a94caa7fc7cacbf9a7c8f9ef6c6043eeab302a7cf
+
+Full run log:
+/workspace/stage1-step5.log
+
+Interpretation: This is a systems/checkpoint validation only. Five training
+steps do not establish convergence or policy improvement.

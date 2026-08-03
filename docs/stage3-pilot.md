@@ -105,3 +105,22 @@ Stage 3 is complete. Stage 4 must not start without explicit approval. The
 next decision is whether to test the 48 GB boundary or accept the H100 as the
 known-working tier, then define the first meaningful baseline horizon and
 checkpoint cadence within the cost cap.
+
+## External RunPod checkpoint preservation (2026-08-03)
+
+A second bounded upstream Stage-1 run completed for five optimizer steps on an
+external H100 80 GB pod. It used the same FP32 micro/global batch-size-8
+contract and seed 2026, but stopped at step 5 so one complete checkpoint and
+the official assets would fit in the pod's 88 GB RAM-backed workspace. Final
+logged losses were `train/loss=4.22`, `train/rlt_loss=4.14808`, and
+`train/vla_loss=0.07191`.
+
+The inference actor weights were copied to persistent storage at
+`/workspace/qualia-checkpoints/stage1-step5/actor/model_state_dict/full_weights.pt`.
+The persisted file is 10,015,912,759 bytes and its SHA-256 is
+`6b57b89beeaa4a6d5ee30f1a94caa7fc7cacbf9a7c8f9ef6c6043eeab302a7cf`,
+exactly matching the source artifact. Compact verification evidence is in
+`results/stage1-runpod-20260803/checkpoint-verification.txt`. The attempted
+cross-provider copy to the A10 was cancelled after roughly 1 GB because the
+route was too slow; its partial file was deleted. No Stage-4 rollout was
+started.
