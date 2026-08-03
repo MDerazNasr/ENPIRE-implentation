@@ -126,16 +126,24 @@ class D1ConfigTests(unittest.TestCase):
             self.assertIn("env.eval.use_fixed_reset_state_ids=true", command)
 
     def test_batched_eval_preserves_declared_trajectory_count(self):
-        for name in (
-            "stage2_batched_eval_probe.yaml",
-            "reference.yaml",
-            "control.yaml",
-            "candidate_bc_080.yaml",
-        ):
+        profiles = {
+            "stage2_batched_eval_probe.yaml": (64, 4),
+            "stage2_batched_eval_probe_32.yaml": (32, 8),
+            "reference.yaml": (64, 4),
+            "control.yaml": (64, 4),
+            "candidate_bc_080.yaml": (64, 4),
+        }
+        for name, (parallel_envs, rollout_epochs) in profiles.items():
             with self.subTest(profile=name):
                 config = load_d1_config(CONFIG_ROOT / name)
-                self.assertIn("env.eval.total_num_envs=64", config["hydra_overrides"])
-                self.assertIn("env.eval.rollout_epoch=4", config["hydra_overrides"])
+                self.assertIn(
+                    f"env.eval.total_num_envs={parallel_envs}",
+                    config["hydra_overrides"],
+                )
+                self.assertIn(
+                    f"env.eval.rollout_epoch={rollout_epochs}",
+                    config["hydra_overrides"],
+                )
                 self.assertEqual(config["evaluation"]["num_trajectories"], 256)
 
     def test_mismatched_batched_eval_count_is_rejected(self):

@@ -78,7 +78,12 @@ Gate: end-to-end contract passes; label result as smoke only.
   camera-group failure without claiming a hardware-capacity result.
 - [x] Reject the first batched attempt after a one-environment preflight proves
   the H100 Vulkan device remained lost; require a provider-level restart.
-- [ ] Validate 256 fixed-ID evaluations as 64 parallel environments x 4 epochs.
+- [x] Reject an A100 40 GB after CUDA passes but NVIDIA Vulkan and SAPIEN's CPU
+  rendering fallback both fail before RLinf launch.
+- [x] Repeat 64 parallel environments x 4 epochs on a clean A10; record the
+  measured 21,979/23,028 MiB camera-buffer failure before rollout.
+- [ ] Validate 256 fixed-ID evaluations as 32 parallel environments x 8 epochs
+  while retaining all 64 training environments.
 - [ ] Evaluate Reference A on the fixed set.
 - [ ] Train/evaluate Control B across approved seeds.
 - [ ] Compute per-seed results and uncertainty.

@@ -1,10 +1,13 @@
 # Stage 5B Stage-2 Resource Probes
 
 Status: the unchanged 256-parallel-eval contract failed on A10 and triggered a
-Vulkan device loss on H100. The preregistered 64-parallel x 4-epoch probe must
-be repeated after a provider-level H100 restart because even a subsequent
-one-environment RGB preflight fails on the poisoned device. This is resource
-evidence, not policy-performance evidence.
+Vulkan device loss on H100. A clean A10 then passed the one-environment RGB/GPU
+preflight but the 64-parallel x 4-epoch probe still exhausted its camera-buffer
+capacity. A separate A100 40 GB was rejected because it exposed CUDA but no
+usable Vulkan render device. The next bounded profile uses 32 parallel
+evaluation environments across eight epochs while retaining 64 training
+environments and all 256 fixed-ID trajectories. This is resource evidence, not
+policy-performance evidence.
 
 ## Purpose
 
@@ -100,7 +103,7 @@ Control B, and Candidate C. A config validator rejects profiles where parallel
 environments x rollout epochs does not equal the declared trajectory count.
 This is an operational batching adaptation, not a policy hyperparameter.
 
-## Invalid pre-restart batched attempt
+## Invalid pre-restart H100 batched attempt
 
 The committed 64-parallel x 4-epoch profile was launched at project commit
 `7bcf0c9`, but it encountered the same `ErrorDeviceLost` before rollout:
@@ -124,6 +127,42 @@ The retained D1 manifests now sum to approximately `$5.9084` in
 launcher-attributed runtime. Provider billing remains higher because setup,
 installation, transfer, restart, and idle time are outside these manifests.
 
+## A100 renderer incompatibility
+
+Lambda instance `480a114573c7494c99afad2f166097b9` provided an A100 SXM4
+40 GB at `$1.99/hour`. CUDA passed, and aligned NVIDIA 570.195.03 userspace and
+kernel packages were tested with both the provider's open module and the
+proprietary module. In both cases the NVIDIA Vulkan ICD returned
+`ERROR_INCOMPATIBLE_DRIVER`. Mesa llvmpipe exposed a CPU Vulkan device, but
+SAPIEN rejected it with `Failed to find a supported physical device "cpu"`.
+No RLinf run was launched. This instance class is unsuitable for the required
+RGB ManiSkill renderer even though its CUDA and VRAM capacity are adequate.
+
+## Clean A10 64 x 4 result
+
+The 64-parallel x 4-epoch profile was repeated on the clean A10 after all 29
+harness tests and an exact one-environment RGB/GPU reset and step passed. The
+actor checksum again matched
+`26995a81d44f2c035e4da40ccdbbeab65552d390d402f0594fa746e975d4b018`.
+The run failed during construction of the evaluation camera group, before
+rollout or a policy metric:
+
+| Field | Result |
+| --- | ---: |
+| Manifest status | `failed` |
+| Exit code | `255` |
+| Elapsed time | 35.19 seconds |
+| Peak sampled VRAM | 21,979 MiB / 23,028 MiB (95.4%) |
+| Launcher-attributed cost | `$0.0126` |
+
+The GPU returned to idle and no RLinf/Ray worker remained. This clean failure
+shows that 64 evaluation environments are still too large alongside the 64
+resident training environments on a 24 GB A10; it is not evidence about the
+RLT actor. The next resource-only profile keeps the upstream 64 training
+environments and evaluates the same 256 deterministic reset IDs as 32 parallel
+environments x 8 sequential epochs. Reference A, Control B, and Candidate C
+remain unchanged until that profile reaches rollout.
+
 Reference A and Control B remain unrun. Stage 6 remains blocked.
 
 Evidence:
@@ -131,3 +170,4 @@ Evidence:
 - `results/stage5b-a10/stage5b-a10-probe-20260804/`
 - `results/stage5b-h100/stage5b-h100-probe-20260804/`
 - `results/stage5b-h100-batched/stage5b-h100-batched-probe-20260804/`
+- `results/stage5b-a10-batched/stage5b-a10-batched-probe-20260804/`
