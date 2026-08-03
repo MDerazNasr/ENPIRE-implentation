@@ -4,9 +4,10 @@ Status: the unchanged 256-parallel-eval contract failed on A10 and triggered a
 Vulkan device loss on H100. A clean A10 then passed the one-environment RGB/GPU
 preflight but the 64-parallel x 4-epoch probe still exhausted its camera-buffer
 capacity. A separate A100 40 GB was rejected because it exposed CUDA but no
-usable Vulkan render device. The next bounded profile uses 32 parallel
-evaluation environments across eight epochs while retaining 64 training
-environments and all 256 fixed-ID trajectories. This is resource evidence, not
+usable Vulkan render device. A final A10 profile with 32 parallel evaluation
+environments across eight epochs failed at the same camera-allocation boundary
+while retaining all 64 training environments. The next valid hardware target
+is a graphics-capable 48 GB GPU. This is resource evidence, not
 policy-performance evidence.
 
 ## Purpose
@@ -158,10 +159,32 @@ rollout or a policy metric:
 The GPU returned to idle and no RLinf/Ray worker remained. This clean failure
 shows that 64 evaluation environments are still too large alongside the 64
 resident training environments on a 24 GB A10; it is not evidence about the
-RLT actor. The next resource-only profile keeps the upstream 64 training
-environments and evaluates the same 256 deterministic reset IDs as 32 parallel
-environments x 8 sequential epochs. Reference A, Control B, and Candidate C
-remain unchanged until that profile reaches rollout.
+RLT actor.
+
+## Clean A10 32 x 8 result
+
+A separately committed resource profile kept all 64 training environments and
+all 256 deterministic reset IDs, but reduced each evaluation camera group to
+32 environments and ran eight sequential epochs. It failed at the same camera
+allocation boundary before rollout:
+
+| Field | Result |
+| --- | ---: |
+| Manifest status | `failed` |
+| Exit code | `255` |
+| Elapsed time | 30.46 seconds |
+| Peak sampled VRAM | 21,977 MiB / 23,028 MiB (95.4%) |
+| Launcher-attributed cost | `$0.0109` |
+
+The repeated near-capacity peak shows that the A10 cannot host the upstream 64
+training environments, a representative RGB evaluation group, and the Stage-2
+runtime. Further reducing training environments would change the scientific
+training contract and is not authorized as an infrastructure-only adaptation.
+The next target must combine at least 48 GB VRAM with a working graphics/Vulkan
+stack: prefer A6000 48 GB, then L40/L40S 48 GB or RTX 6000 Ada 48 GB. A100 and
+H100 are not substitutes on providers where their compute-only Vulkan path is
+missing or unstable. Reference A, Control B, and Candidate C remain unchanged
+until that hardware reaches rollout.
 
 Reference A and Control B remain unrun. Stage 6 remains blocked.
 
@@ -171,3 +194,4 @@ Evidence:
 - `results/stage5b-h100/stage5b-h100-probe-20260804/`
 - `results/stage5b-h100-batched/stage5b-h100-batched-probe-20260804/`
 - `results/stage5b-a10-batched/stage5b-a10-batched-probe-20260804/`
+- `results/stage5b-a10-batched32/stage5b-a10-batched32-probe-20260804/`
