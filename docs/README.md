@@ -17,4 +17,6 @@ The gated D1 scientific-baseline work is specified in:
 
 The completed coding-agent supervisor and final meeting delivery are documented
 under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`
-and `agent-supervisor/ludvig-demo-runbook.md`.
+and `agent-supervisor/ludvig-demo-runbook.md`. The companion
+`agent-supervisor/real-policy-demo.md` and presenter guide document the real
+CPU toy-policy demonstration and its strict non-RLT claim boundary.

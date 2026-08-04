@@ -74,6 +74,22 @@ agent-superiority claim. See
 [`docs/agent-supervisor/ludvig-demo-runbook.md`](docs/agent-supervisor/ludvig-demo-runbook.md)
 for the meeting flow and fallback.
 
+For a nontechnical audience, the companion real-policy demo trains a small
+residual reacher on the CPU and runs its recorded one-setting proposal through
+the same enforcement, Git isolation, worker evidence, and frozen evaluator
+boundaries:
+
+```bash
+python3 scripts/run_real_policy_demo.py \
+  --output /tmp/enpire-real-policy-demo
+python3 scripts/verify_real_policy_demo.py \
+  /tmp/enpire-real-policy-demo
+```
+
+This produces a visible, real improvement on the toy task only; it remains
+explicitly non-RLT evidence. See
+[`docs/agent-supervisor/real-policy-demo-presenter-guide.md`](docs/agent-supervisor/real-policy-demo-presenter-guide.md).
+
 Phase 1 is deliberately a planned stand-in for ENPIRE's coding-agent Policy
 Improvement module. It does not claim to reproduce that module.
 

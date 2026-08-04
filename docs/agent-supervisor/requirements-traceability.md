@@ -186,6 +186,15 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-028–R-029 | One command demonstrates the preregistered arms, deterministic selection/confirmation, two-worker recovery, static report, artifact verification, and unavailable-D1 fallback in a rehearsed 10–15 minute sequence. |
 | R-030–R-032 | ADR 0008, delivery contract, verification, presenter runbook, final research handoff, complete claim boundary, and Obsidian handoff document the narrow RLT-specific deliverable. |
 
+## Real toy-policy companion coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-001, R-016, R-024 | One recorded proposal passes the existing independent enforcer, isolated Git candidate manager, subprocess workers, `TrialEvidence`, and frozen evaluator; the proposer never decides its own result. |
+| R-019–R-020, R-027 | Six real training traces, policies, paired metrics, decision, commands, elapsed time, zero costs, and 14 curated artifact hashes are retained and tamper-checked. |
+| R-026, R-029 | A one-command CPU run demonstrates real worker overlap, stable HEAD, before/after trajectories, mechanical reporting, and a verified rehearsal fallback. |
+| R-030–R-032 | ADR 0009, implementation guide, presenter guide, verification report, page banner, and tests prohibit any RLinf/RLT, π0.5, robot, general-agent, or live-provider inference. |
+
 ## Change control
 
 A future implementation may refine an interface, but it may not weaken an

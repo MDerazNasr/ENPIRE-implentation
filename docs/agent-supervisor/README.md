@@ -44,6 +44,12 @@ labels inside a run.
 - [`m9-delivery-contract.md`](m9-delivery-contract.md) documents the unified
   demo, optional read-only D1 replay, semantic fingerprint, presentation, and
   artifact verification boundary.
+- [`real-policy-demo.md`](real-policy-demo.md) documents the companion real CPU
+  learning task, one-command runner, evidence, and non-RLT boundary.
+- [`real-policy-demo-presenter-guide.md`](real-policy-demo-presenter-guide.md)
+  provides the nontechnical talk track, commands, questions, and fallback.
+- [`real-policy-demo-verification.md`](real-policy-demo-verification.md)
+  records its learning, isolation, evidence, integrity, and visual checks.
 - [`ludvig-demo-runbook.md`](ludvig-demo-runbook.md) provides the rehearsed
   10–15 minute talk track, commands, expected questions, and fallback.
 - [`final-research-handoff.md`](final-research-handoff.md) summarizes the final
@@ -104,6 +110,8 @@ baseline and must not be used to claim RLT improvement.
   study D1-gated).
 - M9: Ludvig demo and final research deliverable (offline-first implementation
   complete; real/scientific execution remains D1-gated).
+- Post-M9 companion: real CPU toy-policy demonstration complete; this improves
+  presentation clarity but creates no RLinf/RLT evidence.
 
 ## Milestone gate
 
