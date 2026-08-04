@@ -96,3 +96,7 @@ Milestone 2 does not:
 - launch RL, GPU, simulator, SSH, or W&B work;
 - use D1 evidence; or
 - make performance or scientific claims.
+
+Milestone 3 now independently enforces and prepares accepted proposals as
+documented in [`enforcement-git-contract.md`](enforcement-git-contract.md).
+M2 acceptance by itself remains non-executable.

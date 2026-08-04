@@ -95,6 +95,19 @@ this matrix before implementation.
 | R-027 | Attempt audits retain provider/model, duration timestamps, costs, token counts when available, validity outcome, validation errors, and response/proposal hashes. Aggregate reporting remains M4/M8–M9. |
 | R-030 | Proposal/context contract, fixtures, tests, verification report, requirement update, and Obsidian handoff added. |
 
+## Milestone 3 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-003–R-005 | Actual diff paths must exactly equal campaign paths; noncanonical paths, symlinks, submodules, and any undeclared changes are rejected. Campaign boundaries keep the VLA, simulator/evaluator, and canonical RLinf outside scope. Live pinned-layout checks remain M5. |
+| R-006 | Config JSON and actor-objective Python follow separate enforcement/materialization paths, both tested against valid and malicious fixtures. |
+| R-008 | Initial code policy permits one campaign-allowlisted Python file and rejects obvious filesystem, shell, network/import, environment, dynamic-code, and dunder capabilities. The real project-owned overlay arrives in M4. |
+| R-012–R-013 | Declared paths are independently parsed; renames, deletes, modes, binaries, multiple files, untrusted tests, and excess estimated budget fail before worktree creation. |
+| R-014–R-015 | Exact-incumbent branch/worktree per proposal, stable-HEAD proof, retained failures, independent hypotheses, no auto-merge, and restart discovery implemented with real temporary Git repositories. |
+| R-021 | Proposal resource estimates are rechecked against campaign caps before Git work begins. Campaign activation remains M5. |
+| R-026 | Deterministic discovery prevents duplicate preparation and trial-ledger binding is idempotent. Worker-message idempotency remains M4/M7. |
+| R-030 | Enforcement/Git contract, ADR 0005, adversarial tests, verification report, traceability, and Obsidian handoff added. |
+
 ## Change control
 
 A future implementation may refine an interface, but it may not weaken an

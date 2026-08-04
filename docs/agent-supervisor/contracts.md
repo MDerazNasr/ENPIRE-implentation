@@ -110,3 +110,11 @@ contracts are documented separately in
 [`proposal-context-contract.md`](proposal-context-contract.md). Acceptance by
 that layer means only that a proposal is structurally compatible with its
 campaign; it does not authorize patch application or experiment execution.
+
+## Milestone 3 extension
+
+Independent proposal enforcement, deterministic configuration materialization,
+candidate preparation records, and hypothesis Git lifecycle are documented in
+[`enforcement-git-contract.md`](enforcement-git-contract.md). A `ready`
+preparation authorizes later worker queuing only; it is not a performance
+decision or permission to merge.
