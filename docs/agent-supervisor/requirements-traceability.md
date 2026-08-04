@@ -121,6 +121,16 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-027 | Offline report includes attempt/decision counts, success evidence, failures, elapsed time, GPU/LLM costs, tokens, and an explicit unavailable utilization value. Live utilization and human-intervention capture remain M8–M9. |
 | R-030–R-031 | One-command demo, contracts, test evidence, limitations, and milestone handoff are documented; every output is labeled synthetic and no performance claim is made before D1. |
 
+## D1 integration-gate coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-002 | Read-only repository audit requires a clean, tracked Stage-7 pack and an explicitly non-degenerate baseline. The live gate currently blocks because D1 stopped at a degenerate Stage-5 result. |
+| R-004–R-005 | Pack embeds the full campaign and each normalized record inherits its pinned RLinf commit, reset-set hash, evaluator version, config hash, and command hash. Git source commits must be ancestors of the reviewed pack HEAD. |
+| R-017 | The gate runs both the frozen legacy rule and M4 evaluator, requiring equal declared/replayed decisions, means, delta, and CI95 before returning `ready`. |
+| R-018–R-020 | Failed/missing/duplicated/mismatched evidence blocks; Reference A, all paired seeds, and seven hashed Stage-7 artifact roles are mandatory. |
+| R-030–R-031 | CLI, contract, current audit, fixtures, verification report, and Obsidian handoff distinguish complete software from unavailable scientific evidence. M5 remains prohibited while blocked. |
+
 ## Change control
 
 A future implementation may refine an interface, but it may not weaken an

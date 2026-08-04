@@ -26,12 +26,16 @@ labels inside a run.
   Milestone 3 independent policy, materialization, worktree, and ledger gates.
 - [`offline-loop-contract.md`](offline-loop-contract.md) documents the M4 fake
   worker, deterministic evaluator, per-arm pointers, reports, and demo.
+- [`d1-integration-gate.md`](d1-integration-gate.md) defines the strict Stage-7
+  pack, Git binding, evidence normalization, and replay equivalence gate.
 - [`milestone-2-verification.md`](milestone-2-verification.md) records the M2
   implementation, tests, boundaries, and remaining limitations.
 - [`milestone-3-verification.md`](milestone-3-verification.md) records the M3
   enforcement, real-Git isolation tests, limitations, and M4 handoff.
 - [`milestone-4-verification.md`](milestone-4-verification.md) records the M4
   offline end-to-end verification and D1 integration gate.
+- [`d1-integration-gate-verification.md`](d1-integration-gate-verification.md)
+  records the implemented gate and the current honest `blocked` result.
 - [`adr/`](adr/) records decisions that future implementation must not silently
   reverse.
 
@@ -58,7 +62,8 @@ baseline and must not be used to claim RLT improvement.
 - M3: proposal validation and Git worktree lifecycle (complete).
 - M4: fake workers, evaluator/report integration, and objective overlay
   (complete).
-- Integration gate: replay against the completed D1 Stage-7 evidence pack.
+- Integration gate: implementation complete; live replay blocked because D1
+  Stage 7 and its non-degenerate evidence pack do not yet exist.
 - M5: live configuration-only loop.
 - M6: live code-enabled loop.
 - M7: two-worker multi-GPU orchestration.
