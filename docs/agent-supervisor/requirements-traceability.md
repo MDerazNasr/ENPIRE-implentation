@@ -1,7 +1,7 @@
 # Coding-Agent Supervisor Requirements Traceability
 
 Status: requirements frozen; implementation coverage updated through Milestone
-6. Future scope changes require an ADR and matrix update before implementation.
+7. Future scope changes require an ADR and matrix update before implementation.
 
 ## Sources
 
@@ -45,9 +45,9 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-020 | Record commands, commits, configs, metrics, resources, costs, artifacts, and decisions for every run. | D1, Ludvig | Evidence store | Required-field completeness test | M1 |
 | R-021 | Require one human approval for a bounded campaign envelope; run autonomously only inside the approved paths, trials, time, GPU cost, and LLM cost. | Approved plan | Campaign approval and budget guard | Missing/expired envelope blocks execution; cap cancels future work | M1, M5 |
 | R-022 | Dry-run is the default and paid execution requires an explicit acknowledgement in addition to campaign approval. | D1 | Experiment backend | CLI integration tests | M5 |
-| R-023 | Use separate GPU workers for independent hypotheses rather than distributing one initial trial across GPUs. | Ludvig, ENPIRE, approved plan | Scheduler | Two-worker concurrency test and live demonstration | M4, M7 |
+| R-023 | Use separate GPU workers for independent hypotheses rather than distributing one initial trial across GPUs. | Ludvig, ENPIRE, approved plan | Scheduler | Two-worker concurrency test and synthetic demonstration; live GPU acceptance at integration | M4, M7, integration gate |
 | R-024 | A local master coordinator compares worker results with the same evaluator and chooses the next verified incumbent. | Ludvig | Coordinator | Concurrent trials cannot self-promote or cross-contaminate artifacts | M4, M7 |
-| R-025 | Worker execution is provider-neutral and uses exact commits over SSH. | Approved plan | Worker interface | Fake-worker contract followed by two real SSH workers | M4, M7 |
+| R-025 | Worker execution is provider-neutral and uses exact commits over SSH. | Approved plan | Worker interface | Fake-worker contract and mocked fixed SSH RPC; two live SSH/GPU workers after D1 handoff | M4, M7, integration gate |
 | R-026 | Recover from coordinator restart and worker loss without duplicate runs or decisions. | Approved plan; ENPIRE reliability requirement | Event state machine and worker protocol | Crash/replay and duplicate-completion tests | M1, M4, M7 |
 | R-027 | Report policy, systems, and agent efficiency: success, losses, wall time, utilization, cost, tokens, invalid proposals, and interventions. | Ludvig, ENPIRE, D1 | Report generator | Report completeness test against fixture campaign | M4, M8–M9 |
 | R-028 | Evaluate three preregistered arms: fixed rule, Claude config-only, and Claude code-enabled. Give each three discovery trials and confirm each best valid candidate across paired seeds. | Approved plan | Study protocol | Preregistration hash, equal-budget audit, complete run table | M8 |
@@ -153,6 +153,17 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-018–R-020 | Objective path, contract version, source hash, command hash, manifest record, and evidence artifact must agree. Tampering fails closed before evaluation. |
 | R-024 | The code-aware factory runs three real fixture subprocesses through the existing worker, evidence, evaluator, ledger, and per-arm incumbent path. |
 | R-030–R-031 | Contract/verification documents and tests explicitly label metrics synthetic and record that real PyTorch/RLinf attachment belongs to the D1 compatibility handoff. |
+
+## Milestone 7 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-023–R-024 | Two independent workers execute different immutable trials concurrently in real threads. Capability and campaign concurrency limits are deterministic; only the frozen evaluator updates named incumbents. |
+| R-025 | Existing provider-neutral worker methods are implemented by a fixed SSH RPC client with exact run-contract payloads, endpoint validation, timeouts, capped output, and strict identity/hash parsing. Tests use a mock executor; live endpoints remain the D1 handoff. |
+| R-021, R-026 | Atomic campaign-bound state retains queues, workers, leases, attempts, reservations, evidence, and errors. Restart polling renews live work or reconciles terminal work; loss/expiry retries receive new leases and stale results cannot reclaim authority. |
+| R-015, R-018–R-020 | Cancellation revokes durable authority before transport cancellation. Cross-trial evidence, terminal mismatches, malformed responses, and late completions fail closed and cannot reach evaluation. |
+| R-027 | The demo records observed parallelism, batches, retry count, final states, decisions, incumbents, stable HEAD, and explicit unavailable live utilization/cost limitations. Full study aggregation remains M8–M9. |
+| R-030–R-031 | Contract, verification report, one-command synthetic demo, regression tests, and Obsidian handoff distinguish orchestration evidence from unavailable GPU/RLT scientific evidence. |
 
 ## Change control
 

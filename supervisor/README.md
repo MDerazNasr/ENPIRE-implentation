@@ -1,10 +1,10 @@
 # Coding-Agent Supervisor
 
 This dependency-light package implements the audited, bounded outer loop around
-RLT experiments. Milestones 1–4, the M5 backend, and the M6 synthetic
-code-enabled path are complete on this branch. Exact live objective attachment
-is a D1 compatibility handoff; no paid model, GPU, SSH worker, W&B API, or
-RLinf training process was called.
+RLT experiments. Milestones 1–4, the M5 backend, M6 code path, and M7 durable
+multi-worker synthetic orchestration are complete on this branch. Exact live
+objective and SSH/GPU attachment are a D1 compatibility handoff; no paid model,
+GPU, SSH connection, W&B API, or RLinf training process was called.
 
 ## Implemented layers
 
@@ -24,6 +24,11 @@ RLinf training process was called.
   narrowly editable actor-objective boundary with default-equivalence tests.
 - `objective_validation.py`: the versioned M6 objective ABI, strict source
   contract, isolated value/gradient proof, and no-op rejection.
+- `scheduler.py`: M7 worker capabilities, durable queue, conservative budgets,
+  leases, heartbeat/recovery, concurrent dispatch, cancellation, and strict
+  completion reconciliation.
+- `ssh_worker.py`: fixed, mockable SSH RPC client implementing the existing
+  worker interface without accepting agent-controlled commands.
 - `reporting.py`: canonical JSON, CSV, Markdown, and static HTML reports.
 - `d1_gate.py`: strict Stage-7 pack, read-only repository audit, evidence
   normalization, and legacy-versus-supervisor decision replay.
@@ -42,6 +47,16 @@ RESEARCH EVIDENCE**. M5/M6 also exercise D1-shaped artifacts and a genuine
 objective-code delta through real local fixture subprocesses. Live D1
 execution, real RLinf objective wiring, SSH/GPU workers, and scientific
 comparisons remain integration/later work.
+
+Run the M7 synthetic two-worker loss/retry demo outside the repository:
+
+```bash
+demo_dir="$(mktemp -d)/m7-demo"
+python3 scripts/run_m7_scheduler_demo.py --output "$demo_dir"
+```
+
+Its JSON artifact is explicitly labeled synthetic and includes concurrency,
+retry, stale-result, evaluator, incumbent, and stable-HEAD evidence.
 
 Audit the live D1 gate without modifying the baseline worktree:
 

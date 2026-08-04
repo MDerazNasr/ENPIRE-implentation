@@ -268,6 +268,41 @@ class WorkerSnapshot:
     heartbeat_count: int
     evidence_hash: str | None
 
+    @classmethod
+    def from_dict(cls, value: Any) -> "WorkerSnapshot":
+        if not isinstance(value, dict):
+            raise WorkerError("worker snapshot must be an object")
+        expected = {
+            "worker_id",
+            "trial_id",
+            "state",
+            "contract_hash",
+            "heartbeat_count",
+            "evidence_hash",
+        }
+        if set(value) != expected:
+            raise WorkerError("worker snapshot fields are invalid")
+        try:
+            state = WorkerState(value["state"])
+        except (TypeError, ValueError) as error:
+            raise WorkerError("worker snapshot state is unsupported") from error
+        count = value["heartbeat_count"]
+        if isinstance(count, bool) or not isinstance(count, int) or count < 0:
+            raise WorkerError("worker heartbeat count must be non-negative")
+        evidence_hash = value["evidence_hash"]
+        if evidence_hash is not None:
+            evidence_hash = require_sha256(evidence_hash, "worker evidence hash")
+        return cls(
+            worker_id=require_identifier(value["worker_id"], "worker snapshot ID"),
+            trial_id=require_identifier(value["trial_id"], "worker snapshot trial"),
+            state=state,
+            contract_hash=require_sha256(
+                value["contract_hash"], "worker snapshot contract hash"
+            ),
+            heartbeat_count=count,
+            evidence_hash=evidence_hash,
+        )
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "worker_id": self.worker_id,

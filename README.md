@@ -44,6 +44,12 @@ finite value/gradient change before execution. The three-seed subprocess demo
 is synthetic; the exact PyTorch/RLinf attachment will be reconciled with the
 separately owned D1 workstream.
 
+M7 adds durable scheduling for independent hypotheses across independent
+workers: capability filtering, conservative reservations, attempt leases,
+heartbeat/restart recovery, cancellation, stale-result rejection, and a fixed
+mockable SSH RPC client. Its two-worker demo is synthetic and makes no GPU or
+RLT scaling claim.
+
 Phase 1 is deliberately a planned stand-in for ENPIRE's coding-agent Policy
 Improvement module. It does not claim to reproduce that module.
 

@@ -1,9 +1,10 @@
 # D2 Coding-Agent Supervisor Contract
 
-Status: Milestone 6 synthetic code-enabled implementation complete; exact live
-RLinf attachment remains a compatibility handoff with the separately owned D1
-workstream. No paid agent, RLinf training, GPU, SSH worker, W&B API, or
-scientific experiment has been launched from this branch.
+Status: Milestone 7 durable multi-worker synthetic implementation complete;
+exact live RLinf/SSH/GPU acceptance remains a compatibility handoff with the
+separately owned D1 workstream. No paid agent, RLinf training, GPU, SSH
+connection, W&B API, or scientific experiment has been launched from this
+branch.
 
 This directory freezes the requirements and architecture for the
 ENPIRE-inspired coding-agent supervisor that will wrap the reproducible
@@ -34,6 +35,9 @@ labels inside a run.
 - [`m6-code-objective-contract.md`](m6-code-objective-contract.md) documents
   the versioned objective ABI, mandatory behavioral proof, provenance, and live
   compatibility boundary.
+- [`m7-distributed-orchestration-contract.md`](m7-distributed-orchestration-contract.md)
+  documents worker capabilities, leases, restart/loss recovery, conservative
+  budgets, cancellation, and the fixed SSH RPC boundary.
 - [`d1-integration-gate.md`](d1-integration-gate.md) defines the strict Stage-7
   pack, Git binding, evidence normalization, and replay equivalence gate.
 - [`milestone-2-verification.md`](milestone-2-verification.md) records the M2
@@ -46,6 +50,8 @@ labels inside a run.
   implementation, subprocess fixture, live blocker, and honest demo boundary.
 - [`milestone-6-verification.md`](milestone-6-verification.md) records the M6
   code-enabled tests, subprocess demonstration, and remaining live attachment.
+- [`milestone-7-verification.md`](milestone-7-verification.md) records the M7
+  two-worker, restart, retry, stale-result, SSH-client, and evaluator evidence.
 - [`d1-integration-gate-verification.md`](d1-integration-gate-verification.md)
   records the implemented gate and the current honest `blocked` result.
 - [`adr/`](adr/) records decisions that future implementation must not silently
@@ -78,7 +84,7 @@ baseline and must not be used to claim RLT improvement.
   Stage 7 and its non-degenerate evidence pack do not yet exist.
 - M5: configuration-only D1 adapter complete; live acceptance blocked.
 - M6: synthetic code-enabled loop complete; live attachment is a D1 handoff.
-- M7: two-worker multi-GPU orchestration.
+- M7: durable two-worker synthetic orchestration complete; live GPU/SSH gated.
 - M8: preregistered three-arm study.
 - M9: Ludvig demo and final research deliverable.
 
