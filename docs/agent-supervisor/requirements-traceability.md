@@ -1,7 +1,7 @@
 # Coding-Agent Supervisor Requirements Traceability
 
 Status: requirements frozen; implementation coverage updated through Milestone
-8. Future scope changes require an ADR and matrix update before implementation.
+9. Future scope changes require an ADR and matrix update before implementation.
 
 ## Sources
 
@@ -175,6 +175,16 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-021, R-027 | Per-candidate caps are enforced and reports reconcile wall time, GPU/LLM costs, tokens, invalid/failed/inconclusive results, decisions, and interventions for every arm. |
 | R-028 | Exact three-arm preregistration, three discovery slots each, matched worker budgets, deterministic within-arm selection, and independent three-seed confirmation are implemented and rehearsed. |
 | R-030–R-031 | Protocol, ADR 0007, verification report, one-command synthetic study, limitations, and D1 compatibility seam are documented without touching or claiming the external D1 work. |
+
+## Milestone 9 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-001, R-016, R-024 | The unified demo composes proposal, isolated execution, central evaluation, worker recovery, and study selection without granting agent/worker promotion authority. |
+| R-019–R-020, R-027 | Curated component/final artifacts are mechanically summarized and raw-SHA-256 indexed; reports expose failures, decisions, counts, costs/tokens where fixtures provide them, interventions, commands, commits, and limitations. Synthetic policy plots are intentionally omitted as misleading. |
+| R-026 | M7 loss/retry/stale rejection is included in the unified run and final report; repeated M9 runs retain a stable semantic fingerprint. |
+| R-028–R-029 | One command demonstrates the preregistered arms, deterministic selection/confirmation, two-worker recovery, static report, artifact verification, and unavailable-D1 fallback in a rehearsed 10–15 minute sequence. |
+| R-030–R-032 | ADR 0008, delivery contract, verification, presenter runbook, final research handoff, complete claim boundary, and Obsidian handoff document the narrow RLT-specific deliverable. |
 
 ## Change control
 

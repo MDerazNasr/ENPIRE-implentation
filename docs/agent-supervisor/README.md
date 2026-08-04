@@ -1,6 +1,6 @@
 # D2 Coding-Agent Supervisor Contract
 
-Status: Milestone 8 preregistered three-arm synthetic study complete;
+Status: Milestone 9 final offline-first supervisor delivery complete;
 exact live RLinf/SSH/GPU acceptance remains a compatibility handoff with the
 separately owned D1 workstream. No paid agent, RLinf training, GPU, SSH
 connection, W&B API, or scientific experiment has been launched from this
@@ -41,6 +41,13 @@ labels inside a run.
 - [`m8-three-arm-study-contract.md`](m8-three-arm-study-contract.md) documents
   preregistration, equal allocation, arm isolation, selection, paired
   confirmation, reporting, and the live claim boundary.
+- [`m9-delivery-contract.md`](m9-delivery-contract.md) documents the unified
+  demo, optional read-only D1 replay, semantic fingerprint, presentation, and
+  artifact verification boundary.
+- [`ludvig-demo-runbook.md`](ludvig-demo-runbook.md) provides the rehearsed
+  10–15 minute talk track, commands, expected questions, and fallback.
+- [`final-research-handoff.md`](final-research-handoff.md) summarizes the final
+  system, demonstrated evidence, D1 seam, limitations, and recommended study.
 - [`d1-integration-gate.md`](d1-integration-gate.md) defines the strict Stage-7
   pack, Git binding, evidence normalization, and replay equivalence gate.
 - [`milestone-2-verification.md`](milestone-2-verification.md) records the M2
@@ -58,6 +65,8 @@ labels inside a run.
 - [`milestone-8-verification.md`](milestone-8-verification.md) records the M8
   three-arm protocol, synthetic study, adverse-outcome retention, report
   reconciliation, and D1 handoff.
+- [`milestone-9-verification.md`](milestone-9-verification.md) records the final
+  unified demo, fallback, determinism, manifest, and acceptance evidence.
 - [`d1-integration-gate-verification.md`](d1-integration-gate-verification.md)
   records the implemented gate and the current honest `blocked` result.
 - [`adr/`](adr/) records decisions that future implementation must not silently
@@ -93,7 +102,8 @@ baseline and must not be used to claim RLT improvement.
 - M7: durable two-worker synthetic orchestration complete; live GPU/SSH gated.
 - M8: preregistered three-arm study (synthetic implementation complete; live
   study D1-gated).
-- M9: Ludvig demo and final research deliverable.
+- M9: Ludvig demo and final research deliverable (offline-first implementation
+  complete; real/scientific execution remains D1-gated).
 
 ## Milestone gate
 

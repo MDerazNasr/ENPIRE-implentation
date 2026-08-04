@@ -14,3 +14,7 @@ The gated D1 scientific-baseline work is specified in:
   resource monitoring, and known verification boundary.
 - `stage2-environment-audit.md` — pinned-source findings, corrected launch
   boundaries, and the remaining live-pod gate.
+
+The completed coding-agent supervisor and final meeting delivery are documented
+under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`
+and `agent-supervisor/ludvig-demo-runbook.md`.

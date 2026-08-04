@@ -57,6 +57,23 @@ independent paired-seed confirmation; and reconciled static reports. Its
 one-command rehearsal is synthetic. A live study and any arm-performance claim
 remain blocked on the separately owned D1 Stage-7 evidence gate.
 
+M9 packages M4, M7, and M8 into one offline-first Ludvig demo with a static
+presentation, architecture visual, optional read-only D1 replay, stable-commit
+proof, semantic delivery fingerprint, and independently verified artifact
+manifest. Run it from a clean checkout:
+
+```bash
+python3 scripts/run_m9_ludvig_demo.py \
+  --output /tmp/enpire-m9-ludvig-demo
+python3 scripts/verify_m9_bundle.py \
+  /tmp/enpire-m9-ludvig-demo
+```
+
+The final bundle is intentionally synthetic and permits no RLT-performance or
+agent-superiority claim. See
+[`docs/agent-supervisor/ludvig-demo-runbook.md`](docs/agent-supervisor/ludvig-demo-runbook.md)
+for the meeting flow and fallback.
+
 Phase 1 is deliberately a planned stand-in for ENPIRE's coding-agent Policy
 Improvement module. It does not claim to reproduce that module.
 
