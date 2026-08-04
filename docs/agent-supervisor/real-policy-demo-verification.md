@@ -2,8 +2,8 @@
 
 Date: 2026-08-04
 
-Status: implementation and repository regression verification complete; final
-clean-commit rehearsal pending.
+Status: implementation, repository regression verification, visual QA, and
+clean-commit rehearsal complete.
 
 ## Acceptance coverage
 
@@ -34,6 +34,15 @@ clean-commit rehearsal pending.
 
 These numbers are real for the deterministic public toy task and have no RLT or
 robotics interpretation.
+
+## Final clean-commit rehearsal
+
+- implementation commit: `28fc951`;
+- result fingerprint:
+  `9ae476d209b1f69c368cf084e01ce283df49961e377e0b5c7373ee711ec6ce15`;
+- curated artifacts: 14, independently rehashed successfully;
+- supervisor HEAD/worktree after execution: unchanged and clean; and
+- output: `/tmp/enpire-real-policy-demo-28fc951`.
 
 ## Visual QA
 
