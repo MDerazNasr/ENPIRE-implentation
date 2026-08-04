@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "proposal_id": "proposal-config-01",
+  "campaign_id": "m2-config-campaign",
+  "arm_id": "claude-config",
+  "base_commit": "8ae2aad5ebfd2153119994f60ada285834e1318e",
+  "edit_mode": "config_only",
+  "hypothesis": "A lower actor learning rate will reduce unstable updates.",
+  "evidence_ids": ["control-b-summary"],
+  "expected_effect": "Lower actor-loss variance without reducing success.",
+  "falsification_condition": "Success drops or loss variance does not improve.",
+  "rollback_condition": "Revert when the deterministic evaluator does not keep it.",
+  "changed_paths": ["candidates/config_override.json"],
+  "requested_tests": ["config-contract", "dry-run"],
+  "estimated_budget": {
+    "wall_time_seconds": 1800,
+    "gpu_cost_usd": "2.5",
+    "llm_cost_usd": "0.2"
+  },
+  "config_overrides": {
+    "actor.optim.lr": 0.00005
+  }
+}

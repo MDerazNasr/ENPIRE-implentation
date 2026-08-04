@@ -102,3 +102,11 @@ zero; a failed trial requires a non-zero exit code.
 Decision records bind one or more trial-evidence hashes to the evaluator,
 reason, timestamp, and incumbent transition. Only `KEEP` can change the
 incumbent, and `KEEP` must select a new incumbent.
+
+## Milestone 2 extension
+
+The version-1 proposal, curated-context, provider-attempt, and repair-session
+contracts are documented separately in
+[`proposal-context-contract.md`](proposal-context-contract.md). Acceptance by
+that layer means only that a proposal is structurally compatible with its
+campaign; it does not authorize patch application or experiment execution.

@@ -82,6 +82,19 @@ this matrix before implementation.
 | R-026 | Deterministic event replay, partial-record rejection, and external head anchoring implemented. Worker idempotency remains M4/M7. |
 | R-030 | Contracts, ADR 0004, verification report, tests, and Obsidian handoff added. |
 
+## Milestone 2 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-009 | Claude CLI calls are tool-free, non-persistent, capped at ten minutes, and bound to a recorded context hash. |
+| R-010 | Deterministic 64-KiB context builder accepts only bounded baseline/delta/prior summaries and approved source excerpts; raw logs and credential-like text are rejected. |
+| R-011 | Provider-neutral protocol, deterministic fake provider, and Claude-first adapter implemented and contract-tested without a real provider call. |
+| R-012 | Canonical structured-output schema requires a config or diff proposal; Claude receives no shell, Git, SSH, W&B, or filesystem tools. M3 still owns independent patch enforcement. |
+| R-013 | Proposal requires one hypothesis, evidence IDs, expected effect, falsification, rollback, bounded changed paths, tests, and estimated resources. |
+| R-021 | Each call receives the remaining decimal-safe LLM session budget; over-reported cost is recorded and stops the slot. Campaign activation remains M5. |
+| R-027 | Attempt audits retain provider/model, duration timestamps, costs, token counts when available, validity outcome, validation errors, and response/proposal hashes. Aggregate reporting remains M4/M8–M9. |
+| R-030 | Proposal/context contract, fixtures, tests, verification report, requirement update, and Obsidian handoff added. |
+
 ## Change control
 
 A future implementation may refine an interface, but it may not weaken an

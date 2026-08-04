@@ -20,6 +20,10 @@ labels inside a run.
   documentation contract.
 - [`contracts.md`](contracts.md) documents the implemented version-1 wire
   contracts and lifecycle split.
+- [`proposal-context-contract.md`](proposal-context-contract.md) documents the
+  Milestone 2 context, structured proposal, provider, and repair contracts.
+- [`milestone-2-verification.md`](milestone-2-verification.md) records the M2
+  implementation, tests, boundaries, and remaining limitations.
 - [`adr/`](adr/) records decisions that future implementation must not silently
   reverse.
 
@@ -42,7 +46,7 @@ baseline and must not be used to claim RLT improvement.
 
 - M0: requirements, isolation, and research contract (this milestone).
 - M1: schemas, state machine, approval, budgets, and evidence ledger.
-- M2: Claude-first structured proposal backend and context builder.
+- M2: Claude-first structured proposal backend and context builder (complete).
 - M3: proposal validation and Git worktree lifecycle.
 - M4: fake workers, evaluator/report integration, and objective overlay.
 - Integration gate: replay against the completed D1 Stage-7 evidence pack.
