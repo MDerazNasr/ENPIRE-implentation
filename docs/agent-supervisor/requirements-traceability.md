@@ -68,6 +68,20 @@ this matrix before implementation.
 | D-006 | Distributed multi-GPU training for a single candidate | First milestone uses one independent hypothesis per worker. |
 | D-007 | Automatic fine-tuning of the base VLA from residual interventions | Relevant to EXPO-FT/long-term transfer, but outside the first supervisor study. |
 
+## Milestone 1 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-001, R-002 | Separate versioned campaign/trial lifecycles and an explicit D1 baseline commit in every campaign. |
+| R-004, R-005 | Reset-set and pinned RLinf hashes are required campaign/evidence fields. |
+| R-006, R-008 | Edit mode, safe editable paths, and typed allowlisted parameters are required by the campaign contract. Full patch enforcement remains M3. |
+| R-014, R-015 | Parent/candidate commits and incumbent transitions are required evidence; Git worktree enforcement remains M3. |
+| R-016–R-018 | Versioned decision/evidence records prevent non-keep promotion and require explicit non-finite metric errors. The D1 evaluator adapter remains gated. |
+| R-019, R-020 | Hash-chained event ledger, artifact references, provenance, metric, cost, and decision records implemented. W&B linkage remains M4. |
+| R-021, R-022 | Exact campaign-fingerprint approval, expiration, and decimal-safe budget preflight implemented. Paid-launch acknowledgement remains in D1/M5. |
+| R-026 | Deterministic event replay, partial-record rejection, and external head anchoring implemented. Worker idempotency remains M4/M7. |
+| R-030 | Contracts, ADR 0004, verification report, tests, and Obsidian handoff added. |
+
 ## Change control
 
 A future implementation may refine an interface, but it may not weaken an

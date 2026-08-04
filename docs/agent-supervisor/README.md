@@ -18,6 +18,8 @@ labels inside a run.
   boundaries, data flow, lifecycle, and baseline dependencies.
 - [`artifact-policy.md`](artifact-policy.md) defines the durable evidence and
   documentation contract.
+- [`contracts.md`](contracts.md) documents the implemented version-1 wire
+  contracts and lifecycle split.
 - [`adr/`](adr/) records decisions that future implementation must not silently
   reverse.
 

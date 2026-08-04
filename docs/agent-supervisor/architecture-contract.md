@@ -61,18 +61,25 @@ tests.
 
 ### Campaign coordinator
 
-Owns the append-only state machine:
+Owns two related append-only state machines. Campaign approval and trial
+execution are separate because one approved campaign can contain several
+independent hypotheses:
 
 ```text
-draft -> validated -> approved -> proposing -> proposal_validated
-      -> queued -> running -> evaluated
-      -> kept | reverted | inconclusive | failed | cancelled
+campaign: draft -> validated -> approved -> active -> completed
+             \---------- cancellation/failure boundaries --------/
+
+trial:    proposing -> proposal_validated -> queued -> running -> evaluated
+                                                        -> kept
+                                                        -> reverted
+                                                        -> inconclusive
+                                                        -> failed/cancelled
 ```
 
 Only the coordinator transitions state. Every transition records the previous
-event hash, actor, timestamp, reason, and relevant artifact hashes. Replaying
-the ledger reconstructs the same state. Repeated worker messages are
-idempotent.
+event hash, actor, timestamp, reason, and relevant artifact hashes. A trial's
+terminal decision does not terminate its parent campaign. Replaying either
+ledger reconstructs the same state. Repeated worker messages are idempotent.
 
 ### Proposal provider
 
