@@ -1,9 +1,9 @@
 # Coding-Agent Supervisor
 
 This dependency-light package implements the audited, bounded outer loop around
-RLT experiments. Milestones 1–4 are complete on this branch. M4 execution is
-strictly synthetic: it calls no paid model, GPU, SSH worker, W&B API, or RLinf
-training process.
+RLT experiments. Milestones 1–4 and the M5 backend implementation are complete
+on this branch. Live M5 acceptance is blocked by the D1 evidence gate; no paid
+model, GPU, SSH worker, W&B API, or RLinf training process was called.
 
 ## Implemented layers
 
@@ -24,6 +24,8 @@ training process.
 - `reporting.py`: canonical JSON, CSV, Markdown, and static HTML reports.
 - `d1_gate.py`: strict Stage-7 pack, read-only repository audit, evidence
   normalization, and legacy-versus-supervisor decision replay.
+- `d1_backend.py`: authorization-gated config planning, local D1 subprocess
+  execution, manifest/log normalization, and the coordinator worker adapter.
 
 Run the complete offline demonstration from the repository root:
 
@@ -33,9 +35,9 @@ python3 scripts/run_m4_offline_demo.py --output "$demo_dir"
 ```
 
 Every report is prominently marked **SYNTHETIC OFFLINE DEMONSTRATION — NOT
-RESEARCH EVIDENCE**. The D1 replay gate, real RLinf objective wiring, paid-agent
-execution, W&B reconciliation, SSH/GPU workers, and scientific comparisons
-remain later milestones.
+RESEARCH EVIDENCE**. M5 also exercises D1-shaped artifacts through real local
+fixture subprocesses in the test suite. Live D1 execution, real RLinf objective
+wiring, SSH/GPU workers, and scientific comparisons remain gated/later work.
 
 Audit the live D1 gate without modifying the baseline worktree:
 

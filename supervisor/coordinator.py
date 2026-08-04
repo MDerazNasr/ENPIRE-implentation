@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any, Mapping, Protocol, Sequence
 
 from supervisor.attempts import ProposalSessionResult
 from supervisor.canonical import ContractError, fingerprint, require_identifier
@@ -31,7 +31,27 @@ from supervisor.workers import (
 
 
 class CoordinatorError(ContractError):
-    """Raised when offline coordinator inputs or state are inconsistent."""
+    """Raised when coordinator inputs or state are inconsistent."""
+
+
+class RunContractFactory(Protocol):
+    """Create and register a backend-specific immutable run contract."""
+
+    synthetic: bool
+
+    def create(
+        self,
+        *,
+        campaign: CampaignSpec,
+        proposal: Any,
+        preparation: PreparationRecord,
+        trial_id: str,
+        seed: int,
+        incumbent_commit: str,
+        candidate_commit: str,
+        default_config_hash: str,
+        max_gpu_cost_usd: str,
+    ) -> RunContract: ...
 
 
 class IterationStatus(str, Enum):
@@ -109,6 +129,8 @@ class OfflineCampaignCoordinator:
         evaluator: OfflineD1Evaluator,
         incumbents: ArmIncumbentStore,
         ledger_root: Path,
+        run_contract_factory: RunContractFactory | None = None,
+        synthetic: bool = True,
     ) -> None:
         self.campaign = campaign
         self.git_manager = git_manager
@@ -116,9 +138,15 @@ class OfflineCampaignCoordinator:
         self.evaluator = evaluator
         self.incumbents = incumbents
         self.ledger_root = ledger_root
+        self.run_contract_factory = run_contract_factory
+        self.synthetic = synthetic
         self.ledger_root.mkdir(parents=True, exist_ok=True)
         if incumbents.campaign_id != campaign.campaign_id:
             raise CoordinatorError("incumbent store campaign does not match coordinator")
+        if run_contract_factory is not None and run_contract_factory.synthetic != synthetic:
+            raise CoordinatorError(
+                "run-contract factory synthetic label does not match coordinator"
+            )
 
     def run(
         self,
@@ -148,6 +176,7 @@ class OfflineCampaignCoordinator:
                 incumbent_after=None,
                 ledger_anchors=(),
                 errors=("proposal session did not produce an accepted proposal",),
+                synthetic=self.synthetic,
             )
         if proposal.campaign_id != self.campaign.campaign_id:
             raise CoordinatorError("proposal session campaign does not match coordinator")
@@ -183,6 +212,7 @@ class OfflineCampaignCoordinator:
                 incumbent_after=incumbent,
                 ledger_anchors=(),
                 errors=preparation.errors,
+                synthetic=self.synthetic,
             )
         candidate = preparation.candidate_commit
         if candidate is None:
@@ -212,29 +242,27 @@ class OfflineCampaignCoordinator:
             )
             ledgers[trial_id] = ledger
             append_preparation_to_ledger(ledger, preparation)
-            command_hash = fingerprint(
-                {
-                    "backend": "offline-fake-worker-v1",
-                    "candidate_commit": candidate,
-                    "config_hash": config_hash,
-                    "seed": seed,
-                }
-            )
-            contract = RunContract.create(
-                campaign_id=self.campaign.campaign_id,
-                trial_id=trial_id,
-                arm_id=arm_id,
-                parent_commit=incumbent,
-                candidate_commit=candidate,
-                rlinf_commit=self.campaign.rlinf_commit,
-                config_hash=config_hash,
-                command_hash=command_hash,
-                seed=seed,
-                reset_set_hash=self.campaign.reset_set_hash,
-                evaluator_version=self.campaign.evaluator_version,
-                max_wall_time_seconds=proposal.estimated_budget.wall_time_seconds,
-                max_gpu_cost_usd=per_trial_gpu_cap,
-            )
+            try:
+                contract = self._create_run_contract(
+                    proposal=proposal,
+                    preparation=preparation,
+                    trial_id=trial_id,
+                    seed=seed,
+                    incumbent=incumbent,
+                    candidate=candidate,
+                    config_hash=config_hash,
+                    max_gpu_cost_usd=per_trial_gpu_cap,
+                )
+            except ContractError as error:
+                worker_errors.append(
+                    f"run-contract planning failed for trial {trial_id}: {error}"
+                )
+                ledger.append_transition(
+                    TrialState.FAILED,
+                    actor=self._actor("coordinator"),
+                    reason="backend rejected the immutable run plan",
+                )
+                continue
             contracts.append(contract)
             try:
                 prepared = self.worker.prepare(contract)
@@ -249,14 +277,18 @@ class OfflineCampaignCoordinator:
                 worker_errors.append(f"worker rejected trial {trial_id}: {error}")
                 ledger.append_transition(
                     TrialState.FAILED,
-                    actor="offline-coordinator",
+                    actor=self._actor("coordinator"),
                     reason="worker rejected the immutable run contract",
                 )
                 continue
             ledger.append_transition(
                 TrialState.RUNNING,
                 actor=self.worker.worker_id,
-                reason="offline worker launched synthetic trial",
+                reason=(
+                    "worker launched synthetic trial"
+                    if self.synthetic
+                    else "worker launched authorized D1 trial"
+                ),
                 metadata={
                     "worker_id": self.worker.worker_id,
                     "run_contract_hash": contract.fingerprint(),
@@ -278,7 +310,7 @@ class OfflineCampaignCoordinator:
                 worker_errors.append(f"worker failed trial {trial_id}: {error}")
                 ledger.append_transition(
                     TrialState.FAILED,
-                    actor="offline-coordinator",
+                    actor=self._actor("coordinator"),
                     reason="worker returned an invalid terminal response",
                 )
                 continue
@@ -296,7 +328,7 @@ class OfflineCampaignCoordinator:
                     )
                     ledger.append_transition(
                         TrialState.FAILED,
-                        actor="offline-coordinator",
+                        actor=self._actor("coordinator"),
                         reason="worker evidence failed contract validation",
                     )
                     continue
@@ -308,11 +340,11 @@ class OfflineCampaignCoordinator:
                 )
                 ledger.append_transition(
                     target,
-                    actor="offline-evidence-normalizer",
+                    actor=self._actor("evidence-normalizer"),
                     reason=(
-                        "strict synthetic evidence is ready for evaluation"
+                        "strict evidence is ready for evaluation"
                         if target == TrialState.EVALUATED
-                        else "synthetic worker reported a failed trial"
+                        else "worker reported a failed trial"
                     ),
                     metadata={"evidence_hash": item.fingerprint()},
                 )
@@ -322,7 +354,7 @@ class OfflineCampaignCoordinator:
                 )
                 ledger.append_transition(
                     TrialState.FAILED,
-                    actor="offline-coordinator",
+                    actor=self._actor("coordinator"),
                     reason="worker did not return terminal evidence",
                     metadata={"worker_state": terminal.state.value},
                 )
@@ -365,7 +397,7 @@ class OfflineCampaignCoordinator:
             if ledger.read().state == TrialState.EVALUATED:
                 ledger.append_transition(
                     terminal_state,
-                    actor="offline-deterministic-evaluator",
+                    actor=self._actor("deterministic-evaluator"),
                     reason=evaluation.decision_record.reason,
                     metadata={
                         "decision_hash": evaluation.decision_record.fingerprint(),
@@ -397,6 +429,54 @@ class OfflineCampaignCoordinator:
         )
         return str(total / Decimal(count))
 
+    def _create_run_contract(
+        self,
+        *,
+        proposal: Any,
+        preparation: PreparationRecord,
+        trial_id: str,
+        seed: int,
+        incumbent: str,
+        candidate: str,
+        config_hash: str,
+        max_gpu_cost_usd: str,
+    ) -> RunContract:
+        if self.run_contract_factory is not None:
+            return self.run_contract_factory.create(
+                campaign=self.campaign,
+                proposal=proposal,
+                preparation=preparation,
+                trial_id=trial_id,
+                seed=seed,
+                incumbent_commit=incumbent,
+                candidate_commit=candidate,
+                default_config_hash=config_hash,
+                max_gpu_cost_usd=max_gpu_cost_usd,
+            )
+        command_hash = fingerprint(
+            {
+                "backend": "offline-fake-worker-v1",
+                "candidate_commit": candidate,
+                "config_hash": config_hash,
+                "seed": seed,
+            }
+        )
+        return RunContract.create(
+            campaign_id=self.campaign.campaign_id,
+            trial_id=trial_id,
+            arm_id=proposal.arm_id,
+            parent_commit=incumbent,
+            candidate_commit=candidate,
+            rlinf_commit=self.campaign.rlinf_commit,
+            config_hash=config_hash,
+            command_hash=command_hash,
+            seed=seed,
+            reset_set_hash=self.campaign.reset_set_hash,
+            evaluator_version=self.campaign.evaluator_version,
+            max_wall_time_seconds=proposal.estimated_budget.wall_time_seconds,
+            max_gpu_cost_usd=max_gpu_cost_usd,
+        )
+
     def _validate_worker_snapshot(
         self,
         snapshot: WorkerSnapshot,
@@ -414,17 +494,20 @@ class OfflineCampaignCoordinator:
         if snapshot.state not in allowed_states:
             raise CoordinatorError("worker status lifecycle mismatch")
 
-    @staticmethod
     def _fail_evaluated_ledgers(
+        self,
         ledgers: Mapping[str, EventLedger], reason: str
     ) -> None:
         for ledger in ledgers.values():
             if ledger.read().state == TrialState.EVALUATED:
                 ledger.append_transition(
                     TrialState.FAILED,
-                    actor="offline-coordinator",
+                    actor=self._actor("coordinator"),
                     reason=reason,
                 )
+
+    def _actor(self, role: str) -> str:
+        return f"{'synthetic' if self.synthetic else 'd1'}-{role}"
 
     def _result(
         self,
@@ -469,4 +552,9 @@ class OfflineCampaignCoordinator:
             incumbent_after=incumbent_after,
             ledger_anchors=tuple(anchors),
             errors=tuple(errors),
+            synthetic=self.synthetic,
         )
+
+
+# M5 makes the coordinator backend-neutral; keep the established name compatible.
+CampaignCoordinator = OfflineCampaignCoordinator

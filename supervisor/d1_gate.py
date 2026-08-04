@@ -373,6 +373,7 @@ class D1EvidencePack:
 class D1ReplayResult:
     status: D1GateStatus
     pack_hash: str
+    campaign_hash: str
     legacy_declared: str
     legacy_replayed: str
     supervisor_decision: str
@@ -387,6 +388,7 @@ class D1ReplayResult:
             "schema_version": SCHEMA_VERSION,
             "status": self.status.value,
             "pack_hash": self.pack_hash,
+            "campaign_hash": self.campaign_hash,
             "legacy_declared": self.legacy_declared,
             "legacy_replayed": self.legacy_replayed,
             "supervisor_decision": self.supervisor_decision,
@@ -509,6 +511,7 @@ def replay_d1_pack(pack: D1EvidencePack) -> D1ReplayResult:
             else D1GateStatus.BLOCKED
         ),
         pack_hash=pack.fingerprint(),
+        campaign_hash=pack.campaign.fingerprint(),
         legacy_declared=pack.legacy_decision.value,
         legacy_replayed=legacy.decision,
         supervisor_decision=supervisor_decision,

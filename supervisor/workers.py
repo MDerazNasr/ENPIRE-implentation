@@ -105,6 +105,52 @@ class RunContract:
             ),
         )
 
+    @classmethod
+    def from_dict(cls, value: Any) -> "RunContract":
+        if not isinstance(value, dict):
+            raise WorkerError("run contract must be an object")
+        expected = {
+            "schema_version",
+            "campaign_id",
+            "trial_id",
+            "arm_id",
+            "parent_commit",
+            "candidate_commit",
+            "rlinf_commit",
+            "config_hash",
+            "command_hash",
+            "seed",
+            "reset_set_hash",
+            "evaluator_version",
+            "max_wall_time_seconds",
+            "max_gpu_cost_usd",
+        }
+        if set(value) != expected:
+            missing = sorted(expected - value.keys())
+            unknown = sorted(value.keys() - expected)
+            raise WorkerError(
+                f"run contract fields are invalid; missing={missing}, unknown={unknown}"
+            )
+        if value["schema_version"] != SCHEMA_VERSION:
+            raise WorkerError(
+                f"run contract schema_version must be {SCHEMA_VERSION}"
+            )
+        return cls.create(
+            campaign_id=value["campaign_id"],
+            trial_id=value["trial_id"],
+            arm_id=value["arm_id"],
+            parent_commit=value["parent_commit"],
+            candidate_commit=value["candidate_commit"],
+            rlinf_commit=value["rlinf_commit"],
+            config_hash=value["config_hash"],
+            command_hash=value["command_hash"],
+            seed=value["seed"],
+            reset_set_hash=value["reset_set_hash"],
+            evaluator_version=value["evaluator_version"],
+            max_wall_time_seconds=value["max_wall_time_seconds"],
+            max_gpu_cost_usd=value["max_gpu_cost_usd"],
+        )
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "schema_version": self.schema_version,

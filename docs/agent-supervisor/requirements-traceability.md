@@ -129,7 +129,18 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-004–R-005 | Pack embeds the full campaign and each normalized record inherits its pinned RLinf commit, reset-set hash, evaluator version, config hash, and command hash. Git source commits must be ancestors of the reviewed pack HEAD. |
 | R-017 | The gate runs both the frozen legacy rule and M4 evaluator, requiring equal declared/replayed decisions, means, delta, and CI95 before returning `ready`. |
 | R-018–R-020 | Failed/missing/duplicated/mismatched evidence blocks; Reference A, all paired seeds, and seven hashed Stage-7 artifact roles are mandatory. |
-| R-030–R-031 | CLI, contract, current audit, fixtures, verification report, and Obsidian handoff distinguish complete software from unavailable scientific evidence. M5 remains prohibited while blocked. |
+| R-030–R-031 | CLI, contract, current audit, fixtures, verification report, and Obsidian handoff distinguish complete software from unavailable scientific evidence. M5 paid/live acceptance remains prohibited while blocked. |
+
+## Milestone 5 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-001, R-023–R-024 | Backend-neutral coordinator factory registers seed-specific D1 plans with a real subprocess worker while preserving the M4 fake-worker path. |
+| R-003–R-006 | M5 rechecks a clean exact-commit worktree, permits exactly one campaign config, synchronizes allowlisted scientific values to actual Hydra keys, and leaves the VLA/simulator/RLinf checkout unedited. |
+| R-016–R-020 | D1 manifest/log normalization binds commits, config, command, seed, reset set, evaluator, trajectories, terminal status, costs, metrics, artifacts, and W&B URL before evaluation. Tampering fails closed. |
+| R-021–R-022 | Dry-run is non-executing. Paid mode requires campaign approval, a ready equivalent D1 replay gate, and an explicit paid acknowledgement; wall-time and cost caps remain immutable. |
+| R-026 | Plan registration, prepare, terminal launch replay, heartbeat, and evidence retrieval are idempotent for the same immutable contract. Conflicting trial reuse is rejected. |
+| R-030–R-031 | Contract and verification documents plus a three-seed real-subprocess fixture distinguish executable integration evidence from unavailable RLT performance evidence. |
 
 ## Change control
 

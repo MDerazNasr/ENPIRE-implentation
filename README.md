@@ -32,6 +32,12 @@ Stage 6 is blocked until they provide comparable fixed-ID evidence.
 3. **Phase 3 — real hardware:** hardware rollout, reset, and verification after
    simulation results justify transfer.
 
+The Phase-2 supervisor has now reached M5 engineering integration on branch
+`feature/d2-agent-supervisor`: its guarded configuration-only backend can run
+the full coordinator through real local subprocesses and normalize D1-shaped
+artifacts. Those demonstrations are explicitly synthetic. Paid/live D1 runs
+remain blocked until the reviewed Stage-7 evidence gate is ready.
+
 Phase 1 is deliberately a planned stand-in for ENPIRE's coding-agent Policy
 Improvement module. It does not claim to reproduce that module.
 
