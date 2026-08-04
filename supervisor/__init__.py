@@ -95,6 +95,17 @@ from supervisor.objective_adapter import (
     ObjectiveError,
     frozen_reference_objective,
 )
+from supervisor.objective_validation import (
+    OBJECTIVE_CONTRACT_VERSION,
+    OBJECTIVE_FUNCTION,
+    OBJECTIVE_RELATIVE_PATH,
+    ObjectiveSourceIssue,
+    ObjectiveValidationError,
+    ObjectiveValidationResult,
+    ObjectiveValidationRunner,
+    evaluate_objective_plugin,
+    validate_actor_objective_source,
+)
 from supervisor.reporting import (
     SYNTHETIC_NOTICE,
     ReportArtifact,
@@ -207,6 +218,13 @@ __all__ = [
     "MaterializedConfig",
     "M5Authorization",
     "ObjectiveError",
+    "ObjectiveSourceIssue",
+    "ObjectiveValidationError",
+    "ObjectiveValidationResult",
+    "ObjectiveValidationRunner",
+    "OBJECTIVE_CONTRACT_VERSION",
+    "OBJECTIVE_FUNCTION",
+    "OBJECTIVE_RELATIVE_PATH",
     "OfflineCampaignCoordinator",
     "OfflineD1Evaluator",
     "OfflineIterationResult",
@@ -252,6 +270,7 @@ __all__ = [
     "build_context",
     "build_report_payload",
     "frozen_reference_objective",
+    "evaluate_objective_plugin",
     "materialize_config",
     "load_d1_pack",
     "parse_unified_diff",
@@ -261,5 +280,6 @@ __all__ = [
     "normalize_d1_evidence",
     "synchronize_d1_config",
     "validate_python_source",
+    "validate_actor_objective_source",
     "write_report_bundle",
 ]

@@ -362,6 +362,7 @@ class GitExperimentManager:
         worktree_root: Path,
         enforcer: ProposalEnforcer,
         trusted_checks: Mapping[str, HarnessCheck],
+        objective_check: HarnessCheck | None = None,
     ) -> None:
         self.repository = repository.resolve()
         self.worktree_root = worktree_root.resolve()
@@ -373,6 +374,7 @@ class GitExperimentManager:
             raise GitOperationError("worktree root must be outside the stable repository")
         self.enforcer = enforcer
         self.trusted_checks = dict(trusted_checks)
+        self.objective_check = objective_check
         if set(self.trusted_checks) != set(enforcer.policy.trusted_test_ids):
             raise GitOperationError(
                 "trusted check registry must exactly match the enforcement policy"
@@ -380,6 +382,11 @@ class GitExperimentManager:
         for check_id, check in self.trusted_checks.items():
             if check_id != check.check_id:
                 raise GitOperationError("trusted check registry key does not match check ID")
+        if (
+            objective_check is not None
+            and objective_check.check_id in self.trusted_checks
+        ):
+            raise GitOperationError("objective check must be separate from requested tests")
         top = self._git(("rev-parse", "--show-toplevel")).stdout_text().strip()
         if Path(top).resolve() != self.repository:
             raise GitOperationError("repository path is not its Git worktree root")
@@ -391,6 +398,7 @@ class GitExperimentManager:
             "LANG": "C",
             "LC_ALL": "C",
             "GIT_TERMINAL_PROMPT": "0",
+            "PYTHONDONTWRITEBYTECODE": "1",
         }
         if "TMPDIR" in os.environ:
             environment["TMPDIR"] = os.environ["TMPDIR"]
@@ -796,6 +804,16 @@ class GitExperimentManager:
             )
             if violations:
                 raise GitOperationError(self._violation_message(violations))
+
+            if proposal.edit_mode == EditMode.ACTOR_OBJECTIVE_CODE:
+                if self.objective_check is None:
+                    raise GitOperationError(
+                        "code candidates require the mandatory M6 objective check"
+                    )
+                objective_result = self._run_check(self.objective_check, worktree)
+                checks.append(objective_result)
+                if not objective_result.passed:
+                    raise GitOperationError("mandatory M6 objective check failed")
 
             for check_id in proposal.requested_tests:
                 result = self._run_check(self.trusted_checks[check_id], worktree)

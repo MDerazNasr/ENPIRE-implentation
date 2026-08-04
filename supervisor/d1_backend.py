@@ -37,6 +37,7 @@ from supervisor.contracts import (
     ApprovalEnvelope,
     ArtifactRef,
     CampaignSpec,
+    EditMode,
     TrialEvidence,
 )
 from supervisor.d1_gate import D1GateStatus, D1IntegrationGateResult
@@ -46,6 +47,12 @@ from supervisor.workers import (
     WorkerError,
     WorkerSnapshot,
     WorkerState,
+)
+from supervisor.objective_validation import (
+    OBJECTIVE_CONTRACT_VERSION,
+    OBJECTIVE_RELATIVE_PATH,
+    ObjectiveValidationResult,
+    validate_actor_objective_source,
 )
 
 
@@ -185,6 +192,10 @@ class D1LaunchPlan:
     execution_argv_hash: str
     logical_rlinf_command: tuple[str, ...]
     source_config_hash: str
+    objective_path: str | None
+    objective_relative_path: str | None
+    objective_sha256: str | None
+    objective_contract_version: str | None
     synthetic: bool
 
     def to_dict(self) -> dict[str, Any]:
@@ -204,6 +215,10 @@ class D1LaunchPlan:
             "execution_argv_hash": self.execution_argv_hash,
             "logical_rlinf_command": list(self.logical_rlinf_command),
             "source_config_hash": self.source_config_hash,
+            "objective_path": self.objective_path,
+            "objective_relative_path": self.objective_relative_path,
+            "objective_sha256": self.objective_sha256,
+            "objective_contract_version": self.objective_contract_version,
             "synthetic": self.synthetic,
         }
 
@@ -241,6 +256,7 @@ class D1PlanBuilder:
         max_wall_time_seconds: int,
         max_gpu_cost_usd: str,
         mode: ExecutionMode,
+        objective_relative_path: str | None = None,
     ) -> D1LaunchPlan:
         workspace = workspace.resolve()
         self._validate_workspace(workspace, candidate_commit)
@@ -256,6 +272,32 @@ class D1PlanBuilder:
         ):
             raise D1BackendError("M5 source config must be a regular tracked file")
         source_path = resolved_source
+        objective_path: Path | None = None
+        objective_hash: str | None = None
+        if objective_relative_path is not None:
+            objective_relative = require_safe_relative_path(
+                objective_relative_path, "M6 objective path"
+            )
+            candidate_objective = workspace / objective_relative
+            resolved_objective = candidate_objective.resolve()
+            if (
+                resolved_objective != candidate_objective
+                or not resolved_objective.is_relative_to(workspace)
+                or not resolved_objective.is_file()
+            ):
+                raise D1BackendError("M6 objective must be a regular tracked file")
+            issues = validate_actor_objective_source(resolved_objective.read_bytes())
+            if issues:
+                raise D1BackendError(
+                    "M6 objective violates its ABI: "
+                    + "; ".join(f"{item.code}:{item.message}" for item in issues)
+                )
+            objective_path = resolved_objective
+            objective_hash = hashlib.sha256(objective_path.read_bytes()).hexdigest()
+            if mode != ExecutionMode.FIXTURE:
+                raise D1BackendError(
+                    "live M6 objective attachment awaits the D1 compatibility handoff"
+                )
         if self.results_root == workspace or self.results_root.is_relative_to(workspace):
             raise D1BackendError("M5 results root must be outside the candidate worktree")
         try:
@@ -290,10 +332,18 @@ class D1PlanBuilder:
         self._write_idempotent(derived_path, derived_file_text)
         run_directory = self.results_root / "d1" / trial
         if mode == ExecutionMode.FIXTURE:
-            logical_command = ("fixture-rlt", f"actor.seed={seed}")
+            logical_parts = ["fixture-rlt", f"actor.seed={seed}"]
+            if objective_hash is not None:
+                logical_parts.extend(
+                    [
+                        f"objective.contract={OBJECTIVE_CONTRACT_VERSION}",
+                        f"objective.sha256={objective_hash}",
+                    ]
+                )
+            logical_command = tuple(logical_parts)
             if self.fixture_launcher is None or not self.fixture_launcher.is_file():
                 raise D1BackendError("fixture mode requires a fixture launcher")
-            execution = (
+            execution_parts = [
                 str(self.python_executable),
                 str(self.fixture_launcher),
                 "--config",
@@ -305,7 +355,21 @@ class D1PlanBuilder:
                 "--logical-command-json",
                 canonical_json(list(logical_command)),
                 "--fixture-execute",
-            )
+            ]
+            if objective_path is not None and objective_hash is not None:
+                execution_parts.extend(
+                    [
+                        "--objective-plugin",
+                        str(objective_path),
+                        "--objective-display-path",
+                        objective_relative,
+                        "--objective-sha256",
+                        objective_hash,
+                        "--objective-contract-version",
+                        OBJECTIVE_CONTRACT_VERSION,
+                    ]
+                )
+            execution = tuple(execution_parts)
         else:
             logical, _ = build_d1_command(derived, run_directory)
             logical_command = tuple(logical)
@@ -353,6 +417,14 @@ class D1PlanBuilder:
             execution_argv_hash=fingerprint(list(execution)),
             logical_rlinf_command=logical_command,
             source_config_hash=source_hash,
+            objective_path=str(objective_path) if objective_path else None,
+            objective_relative_path=(
+                objective_relative if objective_path is not None else None
+            ),
+            objective_sha256=objective_hash,
+            objective_contract_version=(
+                OBJECTIVE_CONTRACT_VERSION if objective_hash else None
+            ),
             synthetic=mode == ExecutionMode.FIXTURE,
         )
 
@@ -601,6 +673,24 @@ class D1ExperimentBackend:
             raise D1BackendError("M5 run contract campaign is missing")
         if plan.synthetic != authorization.synthetic:
             raise D1BackendError("M5 plan synthetic label disagrees with authorization")
+        objective_fields = (
+            plan.objective_path,
+            plan.objective_relative_path,
+            plan.objective_sha256,
+            plan.objective_contract_version,
+        )
+        if any(item is not None for item in objective_fields) and not all(
+            item is not None for item in objective_fields
+        ):
+            raise D1BackendError("M6 objective provenance is incomplete")
+        if plan.objective_path is not None:
+            if plan.objective_contract_version != OBJECTIVE_CONTRACT_VERSION:
+                raise D1BackendError("M6 objective contract version is unsupported")
+            objective_hash = hashlib.sha256(
+                Path(plan.objective_path).read_bytes()
+            ).hexdigest()
+            if objective_hash != plan.objective_sha256:
+                raise D1BackendError("M6 objective source hash mismatch")
         if fingerprint(list(plan.execution_argv)) != plan.execution_argv_hash:
             raise D1BackendError("M5 execution argv hash mismatch")
         if fingerprint(list(plan.logical_rlinf_command)) != plan.contract.command_hash:
@@ -766,6 +856,7 @@ class D1CoordinatorContractFactory:
         builder: D1PlanBuilder,
         worker: D1ProcessWorker,
         authorization: M5Authorization,
+        code_base_config_relative_path: str | None = None,
     ) -> None:
         if authorization.mode == ExecutionMode.DRY_RUN:
             raise D1BackendError(
@@ -774,6 +865,7 @@ class D1CoordinatorContractFactory:
         self.builder = builder
         self.worker = worker
         self.authorization = authorization
+        self.code_base_config_relative_path = code_base_config_relative_path
         self.synthetic = authorization.synthetic
 
     def create(
@@ -797,13 +889,33 @@ class D1CoordinatorContractFactory:
             raise D1BackendError("D1 candidate preparation has no isolated worktree")
         changed_paths = tuple(proposal.changed_paths)
         if len(changed_paths) != 1:
-            raise D1BackendError("M5 D1 execution requires exactly one config path")
+            raise D1BackendError("D1 execution requires exactly one candidate path")
         if not isinstance(default_config_hash, str) or not default_config_hash:
             raise D1BackendError("M5 coordinator config hash is missing")
+        objective_path: str | None = None
+        if proposal.edit_mode == EditMode.CONFIG_ONLY:
+            source_config_path = changed_paths[0]
+        elif proposal.edit_mode == EditMode.ACTOR_OBJECTIVE_CODE:
+            if self.code_base_config_relative_path is None:
+                raise D1BackendError("M6 code execution requires a frozen base config path")
+            source_config_path = self.code_base_config_relative_path
+            objective_path = changed_paths[0]
+            if objective_path != OBJECTIVE_RELATIVE_PATH:
+                raise D1BackendError(
+                    "M6 code execution permits only the project-owned actor objective"
+                )
+            objective_checks = {
+                item.check_id: item for item in preparation.checks
+            }
+            required = objective_checks.get("m6-objective-contract")
+            if required is None or not required.passed:
+                raise D1BackendError("M6 candidate lacks its mandatory objective check")
+        else:
+            raise D1BackendError("D1 proposal edit mode is unsupported")
         plan = self.builder.build(
             campaign=campaign,
             workspace=Path(preparation.worktree_path),
-            source_config_relative_path=changed_paths[0],
+            source_config_relative_path=source_config_path,
             trial_id=trial_id,
             arm_id=proposal.arm_id,
             parent_commit=incumbent_commit,
@@ -812,6 +924,7 @@ class D1CoordinatorContractFactory:
             max_wall_time_seconds=proposal.estimated_budget.wall_time_seconds,
             max_gpu_cost_usd=max_gpu_cost_usd,
             mode=self.authorization.mode,
+            objective_relative_path=objective_path,
         )
         self.worker.register(plan, self.authorization)
         return plan.contract
@@ -842,9 +955,41 @@ def normalize_d1_evidence(
         ),
         "config hash": (manifest.get("config_sha256"), contract.config_hash),
     }
+    if plan.objective_sha256 is not None:
+        checks.update(
+            {
+                "objective hash": (
+                    manifest.get("objective_sha256"),
+                    plan.objective_sha256,
+                ),
+                "objective contract": (
+                    manifest.get("objective_contract_version"),
+                    plan.objective_contract_version,
+                ),
+            }
+        )
+    elif manifest.get("objective_sha256") is not None:
+        raise D1BackendError("D1 manifest contains an unexpected objective")
     for label, (actual, expected) in checks.items():
         if actual != expected:
             raise D1BackendError(f"D1 manifest {label} mismatch")
+    if plan.objective_path is not None:
+        if hashlib.sha256(Path(plan.objective_path).read_bytes()).hexdigest() != (
+            plan.objective_sha256
+        ):
+            raise D1BackendError("D1 objective artifact changed after planning")
+        objective_validation = ObjectiveValidationResult.from_dict(
+            manifest.get("objective_validation")
+        )
+        if (
+            not objective_validation.passed
+            or not objective_validation.behavior_changed
+            or objective_validation.source_sha256 != plan.objective_sha256
+            or objective_validation.plugin_path != plan.objective_relative_path
+            or objective_validation.contract_version
+            != plan.objective_contract_version
+        ):
+            raise D1BackendError("D1 objective validation record is inconsistent")
     command = manifest.get("command")
     if not isinstance(command, list) or not all(isinstance(item, str) for item in command):
         raise D1BackendError("D1 manifest command is invalid")
@@ -924,6 +1069,14 @@ def normalize_d1_evidence(
         _local_artifact(plan.contract.trial_id, "manifest", manifest_path),
         _local_artifact(plan.contract.trial_id, "run-log", log_path),
     ]
+    if plan.objective_path is not None:
+        artifacts.append(
+            _local_artifact(
+                plan.contract.trial_id,
+                "actor-objective",
+                Path(plan.objective_path),
+            )
+        )
     if wandb_url:
         artifacts.append(
             ArtifactRef.from_dict(

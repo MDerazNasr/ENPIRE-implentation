@@ -1,7 +1,7 @@
 # Coding-Agent Supervisor Requirements Traceability
 
 Status: requirements frozen; implementation coverage updated through Milestone
-4. Future scope changes require an ADR and matrix update before implementation.
+6. Future scope changes require an ADR and matrix update before implementation.
 
 ## Sources
 
@@ -29,7 +29,7 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-004 | Preserve simulator, reset, success-verification, and evaluation definitions. In simulation these provide ENPIRE's environment/reset and verification layer. | Ludvig, ENPIRE, D1 | Campaign contract and scope validator | Reset IDs, evaluator version, and success definition are hashed; edits are rejected | M1, M3 |
 | R-005 | RLinf remains pinned and canonical upstream source remains unmodified. | D1, RLT | Experiment backend | Commit/layout check plus clean upstream tree recorded before every run | M5 |
 | R-006 | Begin with allowlisted RLT configuration edits, then permit narrow training-code edits. | Approved plan, Ludvig | Proposal validator | Separate config-only and code-enabled capability tests | M3, M6 |
-| R-007 | Code mode must genuinely change training behavior, not merely prompt or configuration text. | Ludvig, ENPIRE | Project-owned actor-objective overlay | Default-equivalence test and one live modified-objective trial | M4, M6 |
+| R-007 | Code mode must genuinely change training behavior, not merely prompt or configuration text. | Ludvig, ENPIRE | Project-owned actor-objective overlay | Default-equivalence test, synthetic modified-objective trial, and live trial after the D1 compatibility handoff | M4, M6, integration gate |
 | R-008 | Restrict code edits to a project-owned RLT actor-objective plugin; the agent cannot edit orchestration, evaluation, budgets, infrastructure, or canonical RLinf. | Approved plan; inferred from pinned RLinf worker lacking a safe external objective hook | Objective overlay and path validator | Path allowlist and gradient/finite-loss tests | M3, M4, M6 |
 | R-009 | Use short, clean agent sessions to prevent context drift and scope creep. | Ludvig, ENPIRE | Claude adapter | Non-persistent session, ten-minute timeout, context hash, no session resume | M2 |
 | R-010 | Pass compact delta/context summaries between sessions instead of unbounded raw history. | Ludvig, ENPIRE | Context builder | Snapshot test proves only approved summaries/source excerpts are included | M2 |
@@ -141,6 +141,18 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-021–R-022 | Dry-run is non-executing. Paid mode requires campaign approval, a ready equivalent D1 replay gate, and an explicit paid acknowledgement; wall-time and cost caps remain immutable. |
 | R-026 | Plan registration, prepare, terminal launch replay, heartbeat, and evidence retrieval are idempotent for the same immutable contract. Conflicting trial reuse is rejected. |
 | R-030–R-031 | Contract and verification documents plus a three-seed real-subprocess fixture distinguish executable integration evidence from unavailable RLT performance evidence. |
+
+## Milestone 6 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-006–R-008 | Code mode is limited to one project-owned actor-objective plugin with an exact versioned ABI. Canonical RLinf and every unrelated training/system component remain immutable. |
+| R-007 | A mandatory isolated check rejects behaviorally equivalent patches and proves the accepted candidate changes approved forward values and gradients. |
+| R-008, R-012 | Objective-specific AST rules reject wrong structure/signature, state, control flow, arbitrary calls, imports, filesystem-capable tensor calls, and missing mandatory validation. |
+| R-014–R-015 | The code candidate is retained on its exact-incumbent hypothesis branch; only the plugin is committed and stable `HEAD` remains unchanged. |
+| R-018–R-020 | Objective path, contract version, source hash, command hash, manifest record, and evidence artifact must agree. Tampering fails closed before evaluation. |
+| R-024 | The code-aware factory runs three real fixture subprocesses through the existing worker, evidence, evaluator, ledger, and per-arm incumbent path. |
+| R-030–R-031 | Contract/verification documents and tests explicitly label metrics synthetic and record that real PyTorch/RLinf attachment belongs to the D1 compatibility handoff. |
 
 ## Change control
 

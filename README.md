@@ -38,6 +38,12 @@ the full coordinator through real local subprocesses and normalize D1-shaped
 artifacts. Those demonstrations are explicitly synthetic. Paid/live D1 runs
 remain blocked until the reviewed Stage-7 evidence gate is ready.
 
+M6 adds the code-enabled arm: an agent may change only a versioned
+project-owned actor-objective function, and the harness requires a measurable
+finite value/gradient change before execution. The three-seed subprocess demo
+is synthetic; the exact PyTorch/RLinf attachment will be reconciled with the
+separately owned D1 workstream.
+
 Phase 1 is deliberately a planned stand-in for ENPIRE's coding-agent Policy
 Improvement module. It does not claim to reproduce that module.
 

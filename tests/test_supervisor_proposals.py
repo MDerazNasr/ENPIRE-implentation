@@ -89,7 +89,7 @@ def code_campaign_data() -> dict:
     data = config_campaign_data()
     data["campaign_id"] = "m2-code-campaign"
     data["edit_mode"] = "actor_objective_code"
-    data["editable_paths"] = ["candidates/actor_objective.py"]
+    data["editable_paths"] = ["supervisor/objectives/actor_objective.py"]
     data["allowed_parameters"] = {}
     return data
 
@@ -100,12 +100,13 @@ def code_proposal_data() -> dict:
     data["campaign_id"] = "m2-code-campaign"
     data["arm_id"] = "claude-code"
     data["edit_mode"] = "actor_objective_code"
-    data["changed_paths"] = ["candidates/actor_objective.py"]
+    data["changed_paths"] = ["supervisor/objectives/actor_objective.py"]
     del data["config_overrides"]
     data["unified_diff"] = (
-        "diff --git a/candidates/actor_objective.py b/candidates/actor_objective.py\n"
-        "--- a/candidates/actor_objective.py\n"
-        "+++ b/candidates/actor_objective.py\n"
+        "diff --git a/supervisor/objectives/actor_objective.py "
+        "b/supervisor/objectives/actor_objective.py\n"
+        "--- a/supervisor/objectives/actor_objective.py\n"
+        "+++ b/supervisor/objectives/actor_objective.py\n"
         "@@ -1 +1 @@\n-old = 1\n+new = 1\n"
     )
     return data

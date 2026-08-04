@@ -30,11 +30,13 @@ from tests.test_supervisor_proposals import (
 )
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
 BASE_SOURCE = (
-    "import torch\n"
+    '"""Default objective fixture."""\n'
     "\n"
-    "def objective(actor_loss, bc_loss, weight):\n"
-    "    return actor_loss + weight * bc_loss\n"
+    "def combine_actor_objective(actor_loss, bc_loss, bc_weight):\n"
+    "    return actor_loss + bc_weight * bc_loss\n"
 )
 
 
@@ -59,8 +61,8 @@ class GitManagerIntegrationTests(unittest.TestCase):
         self.repository.mkdir()
         self.worktrees.mkdir()
         run_git(self.repository, "init", "-q", "-b", "main")
-        (self.repository / "candidates").mkdir()
-        (self.repository / "candidates" / "actor_objective.py").write_text(
+        (self.repository / "supervisor" / "objectives").mkdir(parents=True)
+        (self.repository / "supervisor" / "objectives" / "actor_objective.py").write_text(
             BASE_SOURCE,
             encoding="utf-8",
         )
@@ -102,22 +104,24 @@ class GitManagerIntegrationTests(unittest.TestCase):
         self,
         *,
         proposal_id: str = "code-01",
-        replacement: str = "    return actor_loss + torch.clamp(weight, max=1.0) * bc_loss",
+        replacement: str = (
+            "    return actor_loss + bc_weight * bc_loss + 0.1 * bc_loss"
+        ),
     ) -> Proposal:
         raw = code_proposal_data()
         raw["proposal_id"] = proposal_id
         raw["campaign_id"] = "m3-code-campaign"
         raw["base_commit"] = self.base_commit
         raw["unified_diff"] = (
-            "diff --git a/candidates/actor_objective.py "
-            "b/candidates/actor_objective.py\n"
-            "--- a/candidates/actor_objective.py\n"
-            "+++ b/candidates/actor_objective.py\n"
+            "diff --git a/supervisor/objectives/actor_objective.py "
+            "b/supervisor/objectives/actor_objective.py\n"
+            "--- a/supervisor/objectives/actor_objective.py\n"
+            "+++ b/supervisor/objectives/actor_objective.py\n"
             "@@ -1,4 +1,4 @@\n"
-            " import torch\n"
+            ' \"\"\"Default objective fixture.\"\"\"\n'
             " \n"
-            " def objective(actor_loss, bc_loss, weight):\n"
-            "-    return actor_loss + weight * bc_loss\n"
+            " def combine_actor_objective(actor_loss, bc_loss, bc_weight):\n"
+            "-    return actor_loss + bc_weight * bc_loss\n"
             f"+{replacement}\n"
         )
         return Proposal.from_dict(raw)
@@ -135,6 +139,7 @@ class GitManagerIntegrationTests(unittest.TestCase):
         *,
         config_script: str = "pass",
         dry_run_script: str = "pass",
+        include_objective_check: bool = True,
     ) -> GitExperimentManager:
         checks = {
             "config-contract": self.check("config-contract", config_script),
@@ -146,6 +151,21 @@ class GitManagerIntegrationTests(unittest.TestCase):
             worktree_root=self.worktrees,
             enforcer=ProposalEnforcer(policy),
             trusted_checks=checks,
+            objective_check=(
+                HarnessCheck.create(
+                    check_id="m6-objective-contract",
+                    argv=(
+                        sys.executable,
+                        str(ROOT / "scripts" / "validate_m6_objective.py"),
+                        "--plugin",
+                        "supervisor/objectives/actor_objective.py",
+                        "--require-behavior-change",
+                    ),
+                    timeout_seconds=10,
+                )
+                if include_objective_check
+                else None
+            ),
         )
 
     def test_config_candidate_is_committed_without_moving_stable_head(self) -> None:
@@ -183,15 +203,32 @@ class GitManagerIntegrationTests(unittest.TestCase):
             incumbent_commit=self.base_commit,
         )
         self.assertEqual(record.status, PreparationStatus.READY)
-        target = Path(record.worktree_path) / "candidates" / "actor_objective.py"
-        self.assertIn("torch.clamp", target.read_text(encoding="utf-8"))
-        self.assertEqual(record.changed_paths, ("candidates/actor_objective.py",))
+        target = (
+            Path(record.worktree_path)
+            / "supervisor"
+            / "objectives"
+            / "actor_objective.py"
+        )
+        self.assertIn("0.1 * bc_loss", target.read_text(encoding="utf-8"))
+        self.assertEqual(
+            record.changed_paths,
+            ("supervisor/objectives/actor_objective.py",),
+        )
         self.assertEqual(run_git(self.repository, "rev-parse", "HEAD"), self.base_commit)
         snapshot = self.manager().discover("m3-code-campaign", "code-01")
         self.assertTrue(snapshot.exists)
         self.assertEqual(snapshot.branch_commit, record.candidate_commit)
         self.assertEqual(snapshot.worktree_head, record.candidate_commit)
         self.assertFalse(snapshot.changed_paths)
+
+    def test_code_candidate_requires_harness_owned_objective_check(self) -> None:
+        record = self.manager(include_objective_check=False).prepare(
+            self.code_proposal(proposal_id="missing-m6-check"),
+            self.campaign("code"),
+            incumbent_commit=self.base_commit,
+        )
+        self.assertEqual(record.status, PreparationStatus.FAILED)
+        self.assertIn("mandatory M6 objective check", record.errors[0])
 
     def test_failed_check_retains_hypothesis_and_preserves_incumbent(self) -> None:
         record = self.manager(dry_run_script="raise SystemExit(7)").prepare(
@@ -230,7 +267,8 @@ class GitManagerIntegrationTests(unittest.TestCase):
         proposal = self.code_proposal(replacement="    return os.getenv('SECRET')")
         raw = proposal.to_dict()
         raw["unified_diff"] = raw["unified_diff"].replace(
-            " import torch\n", " import torch\n+import os\n"
+            ' \"\"\"Default objective fixture.\"\"\"\n',
+            ' \"\"\"Default objective fixture.\"\"\"\n+import os\n',
         ).replace("@@ -1,4 +1,4 @@", "@@ -1,4 +1,5 @@")
         record = self.manager().prepare(
             Proposal.from_dict(raw),
@@ -244,7 +282,7 @@ class GitManagerIntegrationTests(unittest.TestCase):
     def test_static_rejection_creates_no_branch_or_worktree(self) -> None:
         raw = self.code_proposal().to_dict()
         raw["unified_diff"] = raw["unified_diff"].replace(
-            "candidates/actor_objective.py", "agent/d1_rules.py"
+            "supervisor/objectives/actor_objective.py", "agent/d1_rules.py"
         )
         record = self.manager().prepare(
             Proposal.from_dict(raw),
@@ -298,7 +336,7 @@ class GitManagerIntegrationTests(unittest.TestCase):
 
         raw = self.code_proposal(proposal_id="bad-patch").to_dict()
         raw["unified_diff"] = raw["unified_diff"].replace(
-            "-    return actor_loss + weight * bc_loss",
+            "-    return actor_loss + bc_weight * bc_loss",
             "-    return a line that does not exist",
         )
         failed = self.manager().prepare(
@@ -336,10 +374,10 @@ class GitManagerIntegrationTests(unittest.TestCase):
     def test_symlink_target_is_rejected_without_touching_external_file(self) -> None:
         external = Path(self.temp.name) / "outside.py"
         external.write_text("outside = True\n", encoding="utf-8")
-        target = self.repository / "candidates" / "actor_objective.py"
+        target = self.repository / "supervisor" / "objectives" / "actor_objective.py"
         target.unlink()
         target.symlink_to(external)
-        run_git(self.repository, "add", "candidates/actor_objective.py")
+        run_git(self.repository, "add", "supervisor/objectives/actor_objective.py")
         run_git(
             self.repository,
             "-c",
@@ -391,7 +429,7 @@ class GitManagerIntegrationTests(unittest.TestCase):
     def test_static_rejection_advances_trial_directly_to_failed(self) -> None:
         raw = self.code_proposal().to_dict()
         raw["unified_diff"] = raw["unified_diff"].replace(
-            "candidates/actor_objective.py", "agent/d1_rules.py"
+            "supervisor/objectives/actor_objective.py", "agent/d1_rules.py"
         )
         record = self.manager().prepare(
             Proposal.from_dict(raw),

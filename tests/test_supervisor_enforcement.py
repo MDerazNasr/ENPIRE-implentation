@@ -43,7 +43,10 @@ def base_config() -> dict:
 class DiffParserTests(unittest.TestCase):
     def test_valid_patch_returns_exact_paths_and_hunks(self) -> None:
         files = parse_unified_diff(code_proposal_data()["unified_diff"])
-        self.assertEqual([item.path for item in files], ["candidates/actor_objective.py"])
+        self.assertEqual(
+            [item.path for item in files],
+            ["supervisor/objectives/actor_objective.py"],
+        )
         self.assertEqual(files[0].hunk_count, 1)
 
     def test_renames_binary_modes_submodules_and_duplicate_sections_fail(self) -> None:
@@ -126,7 +129,7 @@ class ProposalEnforcerTests(unittest.TestCase):
     def test_declared_and_parsed_paths_must_match_exactly(self) -> None:
         raw = code_proposal_data()
         raw["unified_diff"] = raw["unified_diff"].replace(
-            "candidates/actor_objective.py", "agent/d1_rules.py"
+            "supervisor/objectives/actor_objective.py", "agent/d1_rules.py"
         )
         report = self.enforcer.validate(
             Proposal.from_dict(raw),
@@ -135,6 +138,24 @@ class ProposalEnforcerTests(unittest.TestCase):
         )
         self.assertFalse(report.accepted)
         self.assertIn("path_mismatch", {item.code for item in report.violations})
+
+    def test_code_mode_rejects_noncanonical_objective_even_when_campaign_allows_it(self) -> None:
+        raw_campaign = code_campaign_data()
+        raw_campaign["editable_paths"] = ["experiments/actor_objective.py"]
+        campaign = CampaignSpec.from_dict(raw_campaign)
+        raw = code_proposal_data()
+        raw["changed_paths"] = ["experiments/actor_objective.py"]
+        raw["unified_diff"] = raw["unified_diff"].replace(
+            "supervisor/objectives/actor_objective.py",
+            "experiments/actor_objective.py",
+        )
+        report = self.enforcer.validate(
+            Proposal.from_dict(raw),
+            campaign,
+            incumbent_commit=BASE_COMMIT,
+        )
+        self.assertFalse(report.accepted)
+        self.assertIn("objective_target", {item.code for item in report.violations})
 
     def test_multiple_files_and_non_json_config_target_are_rejected(self) -> None:
         campaign_data = config_campaign_data()
@@ -153,9 +174,14 @@ class ProposalEnforcerTests(unittest.TestCase):
 
 class SourcePolicyTests(unittest.TestCase):
     def test_safe_actor_objective_source_is_accepted(self) -> None:
-        source = b"import torch\n\ndef objective(a, b):\n    return torch.add(a, b)\n"
+        source = (
+            b"def combine_actor_objective(actor_loss, bc_loss, bc_weight):\n"
+            b"    return actor_loss + bc_weight * bc_loss\n"
+        )
         self.assertEqual(
-            validate_python_source("candidates/actor_objective.py", source, policy()),
+            validate_python_source(
+                "supervisor/objectives/actor_objective.py", source, policy()
+            ),
             (),
         )
 
@@ -172,7 +198,7 @@ class SourcePolicyTests(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertTrue(
                     validate_python_source(
-                        "candidates/actor_objective.py", source, policy()
+                        "supervisor/objectives/actor_objective.py", source, policy()
                     )
                 )
 

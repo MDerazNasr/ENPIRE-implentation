@@ -1,9 +1,9 @@
 # D2 Coding-Agent Supervisor Contract
 
-Status: Milestone 5 D1 backend implementation complete; live acceptance is
-blocked by the separate D1 evidence gate. No paid agent, RLinf training, GPU,
-SSH worker, W&B API, or scientific experiment has been launched from this
-branch.
+Status: Milestone 6 synthetic code-enabled implementation complete; exact live
+RLinf attachment remains a compatibility handoff with the separately owned D1
+workstream. No paid agent, RLinf training, GPU, SSH worker, W&B API, or
+scientific experiment has been launched from this branch.
 
 This directory freezes the requirements and architecture for the
 ENPIRE-inspired coding-agent supervisor that will wrap the reproducible
@@ -31,6 +31,9 @@ labels inside a run.
 - [`m5-live-backend-contract.md`](m5-live-backend-contract.md) documents the
   guarded D1 subprocess adapter, authorization modes, evidence normalization,
   and coordinator seam.
+- [`m6-code-objective-contract.md`](m6-code-objective-contract.md) documents
+  the versioned objective ABI, mandatory behavioral proof, provenance, and live
+  compatibility boundary.
 - [`d1-integration-gate.md`](d1-integration-gate.md) defines the strict Stage-7
   pack, Git binding, evidence normalization, and replay equivalence gate.
 - [`milestone-2-verification.md`](milestone-2-verification.md) records the M2
@@ -41,6 +44,8 @@ labels inside a run.
   offline end-to-end verification and D1 integration gate.
 - [`milestone-5-verification.md`](milestone-5-verification.md) records the M5
   implementation, subprocess fixture, live blocker, and honest demo boundary.
+- [`milestone-6-verification.md`](milestone-6-verification.md) records the M6
+  code-enabled tests, subprocess demonstration, and remaining live attachment.
 - [`d1-integration-gate-verification.md`](d1-integration-gate-verification.md)
   records the implemented gate and the current honest `blocked` result.
 - [`adr/`](adr/) records decisions that future implementation must not silently
@@ -72,7 +77,7 @@ baseline and must not be used to claim RLT improvement.
 - Integration gate: implementation complete; live replay blocked because D1
   Stage 7 and its non-degenerate evidence pack do not yet exist.
 - M5: configuration-only D1 adapter complete; live acceptance blocked.
-- M6: live code-enabled loop.
+- M6: synthetic code-enabled loop complete; live attachment is a D1 handoff.
 - M7: two-worker multi-GPU orchestration.
 - M8: preregistered three-arm study.
 - M9: Ludvig demo and final research deliverable.

@@ -20,9 +20,13 @@ from supervisor.canonical import (
 )
 from supervisor.contracts import SCHEMA_VERSION, CampaignSpec, EditMode
 from supervisor.proposals import Proposal
+from supervisor.objective_validation import (
+    OBJECTIVE_RELATIVE_PATH,
+    validate_actor_objective_source,
+)
 
 
-POLICY_VERSION = "m3-enforcement-v1"
+POLICY_VERSION = "m6-enforcement-v2"
 MAX_CANDIDATE_FILE_BYTES = 131_072
 MAX_CHANGED_FILES = 1
 
@@ -367,9 +371,15 @@ def validate_python_source(
         )
     visitor = _SourcePolicyVisitor(policy.allowed_import_roots)
     visitor.visit(tree)
-    return tuple(
+    violations = [
         PolicyViolation(item.code, item.message, path) for item in visitor.violations
-    )
+    ]
+    if path.endswith("actor_objective.py"):
+        violations.extend(
+            PolicyViolation(item.code, item.message, path)
+            for item in validate_actor_objective_source(content)
+        )
+    return tuple(violations)
 
 
 class ProposalEnforcer:
@@ -446,11 +456,11 @@ class ProposalEnforcer:
                     )
                 )
             for path in parsed_paths:
-                if not path.endswith(".py"):
+                if path != OBJECTIVE_RELATIVE_PATH:
                     violations.append(
                         PolicyViolation(
-                            "non_python_code",
-                            "actor-objective code targets must be Python files",
+                            "objective_target",
+                            "code mode may edit only the project-owned actor objective",
                             path,
                         )
                     )
