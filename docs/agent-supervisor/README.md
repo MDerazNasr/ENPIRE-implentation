@@ -1,7 +1,7 @@
 # D2 Coding-Agent Supervisor Contract
 
-Status: Milestone 0 contract. No coding-agent or paid experiment has been
-implemented or launched from this branch.
+Status: Milestone 4 offline supervisor complete. No paid agent, RLinf training,
+GPU, SSH worker, or scientific experiment has been launched from this branch.
 
 This directory freezes the requirements and architecture for the
 ENPIRE-inspired coding-agent supervisor that will wrap the reproducible
@@ -24,10 +24,14 @@ labels inside a run.
   Milestone 2 context, structured proposal, provider, and repair contracts.
 - [`enforcement-git-contract.md`](enforcement-git-contract.md) documents the
   Milestone 3 independent policy, materialization, worktree, and ledger gates.
+- [`offline-loop-contract.md`](offline-loop-contract.md) documents the M4 fake
+  worker, deterministic evaluator, per-arm pointers, reports, and demo.
 - [`milestone-2-verification.md`](milestone-2-verification.md) records the M2
   implementation, tests, boundaries, and remaining limitations.
 - [`milestone-3-verification.md`](milestone-3-verification.md) records the M3
   enforcement, real-Git isolation tests, limitations, and M4 handoff.
+- [`milestone-4-verification.md`](milestone-4-verification.md) records the M4
+  offline end-to-end verification and D1 integration gate.
 - [`adr/`](adr/) records decisions that future implementation must not silently
   reverse.
 
@@ -52,7 +56,8 @@ baseline and must not be used to claim RLT improvement.
 - M1: schemas, state machine, approval, budgets, and evidence ledger.
 - M2: Claude-first structured proposal backend and context builder (complete).
 - M3: proposal validation and Git worktree lifecycle (complete).
-- M4: fake workers, evaluator/report integration, and objective overlay.
+- M4: fake workers, evaluator/report integration, and objective overlay
+  (complete).
 - Integration gate: replay against the completed D1 Stage-7 evidence pack.
 - M5: live configuration-only loop.
 - M6: live code-enabled loop.

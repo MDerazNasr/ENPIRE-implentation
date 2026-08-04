@@ -1,7 +1,7 @@
 # Coding-Agent Supervisor Requirements Traceability
 
-Status: frozen for Milestone 0. Future changes require an ADR and an update to
-this matrix before implementation.
+Status: requirements frozen; implementation coverage updated through Milestone
+4. Future scope changes require an ADR and matrix update before implementation.
 
 ## Sources
 
@@ -107,6 +107,19 @@ this matrix before implementation.
 | R-021 | Proposal resource estimates are rechecked against campaign caps before Git work begins. Campaign activation remains M5. |
 | R-026 | Deterministic discovery prevents duplicate preparation and trial-ledger binding is idempotent. Worker-message idempotency remains M4/M7. |
 | R-030 | Enforcement/Git contract, ADR 0005, adversarial tests, verification report, traceability, and Obsidian handoff added. |
+
+## Milestone 4 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-001, R-024 | `OfflineCampaignCoordinator` composes an accepted proposal, isolated Git candidate, per-seed runs, strict evidence, the frozen evaluator, a terminal decision, and a per-arm incumbent update. |
+| R-007–R-008 | Project-owned `actor_objective.py` is the only intended training-code overlay. Scalar, NumPy shape/dtype, and framework-independent dual-number gradient fixtures prove default algebraic equivalence. Live RLinf/autograd wiring remains M6. |
+| R-016–R-018 | The evaluator accepts evidence rather than agent prose, uses the frozen D1 rule, and fails closed for missing seeds, missing metrics, failed runs, metric errors, and provenance mismatches. D1 evidence replay remains the integration gate. |
+| R-019–R-020 | Candidate evidence is bound to immutable run-contract hashes and hash-chained ledgers. JSON/CSV/Markdown/HTML reports retain numerical results, failures, costs, tokens, commits, and decision hashes. W&B reconciliation remains M5. |
+| R-023, R-025 | Provider-neutral worker protocol and deterministic fake worker are implemented. True concurrent hypotheses and exact-commit SSH workers remain M7. |
+| R-026 | Duplicate fake-worker messages and incumbent decision application are idempotent; worker loss cannot promote. Full coordinator crash/lease recovery remains M7. |
+| R-027 | Offline report includes attempt/decision counts, success evidence, failures, elapsed time, GPU/LLM costs, tokens, and an explicit unavailable utilization value. Live utilization and human-intervention capture remain M8–M9. |
+| R-030–R-031 | One-command demo, contracts, test evidence, limitations, and milestone handoff are documented; every output is labeled synthetic and no performance claim is made before D1. |
 
 ## Change control
 
