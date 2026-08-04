@@ -1,6 +1,6 @@
 # D2 Coding-Agent Supervisor Contract
 
-Status: Milestone 7 durable multi-worker synthetic implementation complete;
+Status: Milestone 8 preregistered three-arm synthetic study complete;
 exact live RLinf/SSH/GPU acceptance remains a compatibility handoff with the
 separately owned D1 workstream. No paid agent, RLinf training, GPU, SSH
 connection, W&B API, or scientific experiment has been launched from this
@@ -38,6 +38,9 @@ labels inside a run.
 - [`m7-distributed-orchestration-contract.md`](m7-distributed-orchestration-contract.md)
   documents worker capabilities, leases, restart/loss recovery, conservative
   budgets, cancellation, and the fixed SSH RPC boundary.
+- [`m8-three-arm-study-contract.md`](m8-three-arm-study-contract.md) documents
+  preregistration, equal allocation, arm isolation, selection, paired
+  confirmation, reporting, and the live claim boundary.
 - [`d1-integration-gate.md`](d1-integration-gate.md) defines the strict Stage-7
   pack, Git binding, evidence normalization, and replay equivalence gate.
 - [`milestone-2-verification.md`](milestone-2-verification.md) records the M2
@@ -52,6 +55,9 @@ labels inside a run.
   code-enabled tests, subprocess demonstration, and remaining live attachment.
 - [`milestone-7-verification.md`](milestone-7-verification.md) records the M7
   two-worker, restart, retry, stale-result, SSH-client, and evaluator evidence.
+- [`milestone-8-verification.md`](milestone-8-verification.md) records the M8
+  three-arm protocol, synthetic study, adverse-outcome retention, report
+  reconciliation, and D1 handoff.
 - [`d1-integration-gate-verification.md`](d1-integration-gate-verification.md)
   records the implemented gate and the current honest `blocked` result.
 - [`adr/`](adr/) records decisions that future implementation must not silently
@@ -85,7 +91,8 @@ baseline and must not be used to claim RLT improvement.
 - M5: configuration-only D1 adapter complete; live acceptance blocked.
 - M6: synthetic code-enabled loop complete; live attachment is a D1 handoff.
 - M7: durable two-worker synthetic orchestration complete; live GPU/SSH gated.
-- M8: preregistered three-arm study.
+- M8: preregistered three-arm study (synthetic implementation complete; live
+  study D1-gated).
 - M9: Ludvig demo and final research deliverable.
 
 ## Milestone gate

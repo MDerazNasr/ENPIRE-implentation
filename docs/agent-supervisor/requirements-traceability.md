@@ -1,7 +1,7 @@
 # Coding-Agent Supervisor Requirements Traceability
 
 Status: requirements frozen; implementation coverage updated through Milestone
-7. Future scope changes require an ADR and matrix update before implementation.
+8. Future scope changes require an ADR and matrix update before implementation.
 
 ## Sources
 
@@ -164,6 +164,17 @@ Status: requirements frozen; implementation coverage updated through Milestone
 | R-015, R-018–R-020 | Cancellation revokes durable authority before transport cancellation. Cross-trial evidence, terminal mismatches, malformed responses, and late completions fail closed and cannot reach evaluation. |
 | R-027 | The demo records observed parallelism, batches, retry count, final states, decisions, incumbents, stable HEAD, and explicit unavailable live utilization/cost limitations. Full study aggregation remains M8–M9. |
 | R-030–R-031 | Contract, verification report, one-command synthetic demo, regression tests, and Obsidian handoff distinguish orchestration evidence from unavailable GPU/RLT scientific evidence. |
+
+## Milestone 8 coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| R-001, R-016–R-018 | M8 accepts only externally evaluated candidate records; proposal prose has no selection or promotion authority. Failed and inconclusive outcomes remain terminal and visible. |
+| R-014–R-015, R-024 | Three independent arm incumbents start at the same baseline and advance only on their own evaluator `KEEP`. Cross-arm parents, candidates, edit modes, and confirmation replacement fail closed. |
+| R-019–R-020 | Atomic hash-wrapped study state retains every result and binds exact commits, seeds, reset set, evaluator, evidence, costs, tokens, decisions, and selection source hashes. |
+| R-021, R-027 | Per-candidate caps are enforced and reports reconcile wall time, GPU/LLM costs, tokens, invalid/failed/inconclusive results, decisions, and interventions for every arm. |
+| R-028 | Exact three-arm preregistration, three discovery slots each, matched worker budgets, deterministic within-arm selection, and independent three-seed confirmation are implemented and rehearsed. |
+| R-030–R-031 | Protocol, ADR 0007, verification report, one-command synthetic study, limitations, and D1 compatibility seam are documented without touching or claiming the external D1 work. |
 
 ## Change control
 

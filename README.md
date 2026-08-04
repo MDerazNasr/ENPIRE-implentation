@@ -50,6 +50,13 @@ heartbeat/restart recovery, cancellation, stale-result rejection, and a fixed
 mockable SSH RPC client. Its two-worker demo is synthetic and makes no GPU or
 RLT scaling claim.
 
+M8 adds the frozen three-arm study: three discovery candidate experiments each
+for a fixed rule, Claude configuration proposals, and Claude actor-objective
+proposals; isolated per-arm incumbents; deterministic best-valid selection;
+independent paired-seed confirmation; and reconciled static reports. Its
+one-command rehearsal is synthetic. A live study and any arm-performance claim
+remain blocked on the separately owned D1 Stage-7 evidence gate.
+
 Phase 1 is deliberately a planned stand-in for ENPIRE's coding-agent Policy
 Improvement module. It does not claim to reproduce that module.
 
