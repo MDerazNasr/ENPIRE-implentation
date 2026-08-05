@@ -63,6 +63,19 @@ and runner-step count needed to measure learner throughput. Its output cannot
 be used as Control-B evidence; the final Control B must retain every upstream
 schedule value listed above.
 
+That calibration completed with 431 replay transitions, 400 critic updates,
+and 100 actor updates. Total step time was 283.4 seconds versus 271.5 seconds
+spent receiving rollout trajectories, so the complete learner block added
+approximately 11.9 seconds. It cost `$0.24`, bringing cumulative tracked spend
+to `$9.54`. This confirms that the full run is rollout-bound.
+
+`configs/d1/stage2_5d_control_seed2026.yaml` is the launch-ready full protocol:
+120 uninterrupted runner steps, the unchanged upstream RLT schedule, one final
+256-fixed-ID evaluation, and a checkpoint at step 120. The 120-step bound gives
+margin above the approximately 104--107 steps implied by both calibrations.
+It must run on the persistent project volume so the selected Stage-1 artifact,
+ledger, and resulting evidence remain together.
+
 ## Resume limitation
 
 Pinned RLinf checkpoints save the Stage-2 model, optimizers, target model, and
