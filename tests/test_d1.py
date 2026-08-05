@@ -201,6 +201,31 @@ class D1ConfigTests(unittest.TestCase):
             30000,
         )
 
+    def test_stage5d_update_calibration_changes_only_bounded_schedule(self):
+        def overrides_for(name):
+            config = load_d1_config(CONFIG_ROOT / name)
+            return {
+                value.split("=", 1)[0]: value.split("=", 1)[1]
+                for value in config["hydra_overrides"]
+            }
+
+        transition = overrides_for("stage2_5d_transition_calibration.yaml")
+        update = overrides_for("stage2_5d_update_throughput_calibration.yaml")
+        changed = {
+            key: (transition.get(key), update.get(key))
+            for key in set(transition) | set(update)
+            if transition.get(key) != update.get(key)
+        }
+        self.assertEqual(
+            changed,
+            {
+                "algorithm.rlt_schedule.max_updates_per_train_step": (None, "400"),
+                "algorithm.rlt_schedule.warmup_min_size": (None, "1"),
+                "algorithm.rlt_schedule.warmup_post_collect_updates": (None, "400"),
+                "runner.max_steps": ("3", "1"),
+            },
+        )
+
     def test_mismatched_batched_eval_count_is_rejected(self):
         config = load_d1_config(CONFIG_ROOT / "stage2_batched_eval_probe.yaml")
         broken = json.loads(json.dumps(config))

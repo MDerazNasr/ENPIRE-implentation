@@ -1,7 +1,8 @@
 # Stage 5D Trained Control B
 
-Status: started on 2026-08-05 with a three-runner-step transition-rate
-calibration. The full trained Control B has not launched yet.
+Status: the transition-rate calibration completed successfully on 2026-08-05.
+The full trained Control B has not launched yet because the current-GPU
+projection exceeds the cumulative `$25` approval boundary.
 
 ## Objective
 
@@ -38,6 +39,29 @@ The calibration measures:
 - peak GPU memory;
 - whether the selected reference changes critical-phase reachability;
 - revised uninterrupted warm-up time and cost.
+
+## Transition calibration result
+
+The three runner steps recorded 255, 274, and 426 replay transitions: 955
+total, or 318.3 per step on average. Their train-route success counts were
+10/64, 7/64, and 10/64. The run reached the actor phase during rollout and
+correctly performed zero learner updates while below the unchanged 10,000
+transition gate. It completed with exit code zero in 939.9 seconds and cost
+`$0.52`; cumulative tracked spend became `$9.29`.
+
+At the measured mean, the replay gate is approximately 32 runner steps away.
+The upstream 30,000-update warm-up then needs at least 75 update-bearing runner
+steps at the 400-update cap, making approximately 107 steps the optimistic
+minimum. Rollout time alone projects to about 8.1 hours and `$16.1` on the
+current `$1.99/hour` RTX PRO 6000, before learner-update and final-evaluation
+time. That would exceed the remaining `$15.71` budget.
+
+`configs/d1/stage2_5d_update_throughput_calibration.yaml` is a separate,
+non-scientific one-step calibration that schedules exactly 400 warm-up updates
+after one normal rollout. It changes only the three bounded RLT schedule values
+and runner-step count needed to measure learner throughput. Its output cannot
+be used as Control-B evidence; the final Control B must retain every upstream
+schedule value listed above.
 
 ## Resume limitation
 
