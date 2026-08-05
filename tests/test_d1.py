@@ -42,6 +42,10 @@ def environment(root: Path) -> dict[str, str]:
         "NORM_STATS_PATH": str(dataset / "norm_stats.json"),
         "STAGE1_CHECKPOINT": str(checkpoint),
         "WANDB_PROJECT": "qualia-d1-test",
+        "WANDB_MODE": "offline",
+        "WANDB_DIR": str(root / "wandb"),
+        "HF_HOME": str(root / "hf-home"),
+        "HF_DATASETS_CACHE": str(root / "hf-datasets"),
         "D1_SEED": "2026",
     }
 
@@ -129,9 +133,11 @@ class D1ConfigTests(unittest.TestCase):
         profiles = {
             "stage2_batched_eval_probe.yaml": (64, 4),
             "stage2_batched_eval_probe_32.yaml": (32, 8),
-            "reference.yaml": (64, 4),
-            "control.yaml": (64, 4),
-            "candidate_bc_080.yaml": (64, 4),
+            "stage2_l40s_cpu_transport_probe.yaml": (16, 16),
+            "stage2_5d_transition_calibration.yaml": (16, 16),
+            "reference.yaml": (16, 16),
+            "control.yaml": (16, 16),
+            "candidate_bc_080.yaml": (16, 16),
         }
         for name, (parallel_envs, rollout_epochs) in profiles.items():
             with self.subTest(profile=name):
@@ -145,6 +151,55 @@ class D1ConfigTests(unittest.TestCase):
                     config["hydra_overrides"],
                 )
                 self.assertEqual(config["evaluation"]["num_trajectories"], 256)
+
+    def test_l40s_batching_preserves_train_and_eval_trajectory_counts(self):
+        config = load_d1_config(
+            CONFIG_ROOT / "stage2_l40s_cpu_transport_probe.yaml"
+        )
+
+        self.assertIn("env.train.total_num_envs=16", config["hydra_overrides"])
+        self.assertIn("env.train.rollout_epoch=4", config["hydra_overrides"])
+        self.assertEqual(
+            config["scientific_values"]["train_trajectories_per_step"], 64
+        )
+        self.assertEqual(config["evaluation"]["num_trajectories"], 256)
+        self.assertIn("actor.enable_offload=true", config["hydra_overrides"])
+        self.assertIn(
+            "+weight_syncer.patch.transport_device=cpu",
+            config["hydra_overrides"],
+        )
+        self.assertEqual(
+            config["runtime_environment"]["PYTORCH_CUDA_ALLOC_CONF"],
+            "expandable_segments:True",
+        )
+
+    def test_stage5d_calibration_preserves_upstream_warmup(self):
+        config = load_d1_config(
+            CONFIG_ROOT / "stage2_5d_transition_calibration.yaml"
+        )
+        overrides = {
+            value.split("=", 1)[0]: value.split("=", 1)[1]
+            for value in config["hydra_overrides"]
+        }
+
+        self.assertEqual(overrides["runner.max_steps"], "3")
+        self.assertEqual(overrides["runner.val_check_interval"], "-1")
+        self.assertEqual(overrides["runner.save_interval"], "-1")
+        self.assertNotIn("algorithm.rlt_schedule.warmup_min_size", overrides)
+        self.assertNotIn(
+            "algorithm.rlt_schedule.warmup_post_collect_updates", overrides
+        )
+        self.assertNotIn(
+            "algorithm.rlt_schedule.max_updates_per_train_step", overrides
+        )
+        self.assertNotIn("env.train.rlt_policy_switch.enable", overrides)
+        self.assertEqual(
+            config["scientific_values"]["upstream_warmup_min_size"], 10000
+        )
+        self.assertEqual(
+            config["scientific_values"]["upstream_warmup_post_collect_updates"],
+            30000,
+        )
 
     def test_mismatched_batched_eval_count_is_rejected(self):
         config = load_d1_config(CONFIG_ROOT / "stage2_batched_eval_probe.yaml")
@@ -169,6 +224,27 @@ class D1ConfigTests(unittest.TestCase):
                 "examples/embodiment/train_embodied_agent.py",
             )
             self.assertEqual(stage2["config_path"], "examples/embodiment/config")
+
+    def test_l40s_recovery_changes_only_micro_batch_and_horizon(self):
+        original = load_d1_config(CONFIG_ROOT / "stage1_reduced_250.yaml")
+        recovery = load_d1_config(CONFIG_ROOT / "stage1_l40s_recovery_250.yaml")
+
+        def override_map(config):
+            return {
+                value.split("=", 1)[0]: value.split("=", 1)[1]
+                for value in config["hydra_overrides"]
+            }
+
+        original_overrides = override_map(original)
+        recovery_overrides = override_map(recovery)
+        changed = {
+            key
+            for key in original_overrides
+            if original_overrides[key] != recovery_overrides[key]
+        }
+        self.assertEqual(changed, {"actor.micro_batch_size"})
+        self.assertEqual(recovery_overrides["actor.global_batch_size"], "256")
+        self.assertEqual(recovery["scientific_values"]["learning_rate"], 0.000025)
 
     def test_rlinf_layout_requires_entrypoint_config_and_python(self):
         with tempfile.TemporaryDirectory() as temporary:

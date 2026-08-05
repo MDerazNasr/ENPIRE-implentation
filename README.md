@@ -17,11 +17,13 @@ This is an integration smoke result, not evidence about RLT performance. Both
 `0.8` produced no meaningful difference.
 
 D1 baseline work now lives on `experiment/d1-rlt-baseline`. Stages 0–4 and the
-reduced-budget Stage-5A checkpoint are complete. The Stage-5B representative
-A10 probe reached 22,598/23,028 MiB VRAM and failed while allocating the
-256-environment camera group, before rollout; this is hardware-feasibility
-evidence, not a policy result. Reference A and Control B remain unrun, and
-Stage 6 is blocked until they provide comparable fixed-ID evidence.
+reduced-budget Stage-5A checkpoint are complete. Stage 5B reached the complete
+rollout/evaluation path but its 250-step reference was degenerate. Stage 5C
+extended Stage 1 to 500 steps and measured `33/256` (`12.89%`) fixed-set
+Reference-A success with zero Stage-2 updates. The step-500 checkpoint is now
+selected for a bounded, genuinely trained Control B. This is a measurable
+reference baseline, not evidence of RLT improvement; Stage 6 remains blocked
+until Control B crosses warm-up and performs real actor/critic updates.
 
 ## Three-phase plan
 
@@ -120,6 +122,8 @@ one-transition smoke. It validates the orchestration path only.
 
 - Save and use a trained Stage-1 RLT checkpoint; the smoke currently uses base
   pi0.5 as the feature-model input.
+- Resolve the D1 degenerate-baseline gate: obtain a compatible trained actor or
+  explicitly approve enough Stage-1/Stage-2 training to pass replay warm-up.
 - Train longer and evaluate multiple episodes/seeds before interpreting a
   hyperparameter comparison.
 - Replace the fallback text-log parser in `agent/metrics.py` with RLinf's stable

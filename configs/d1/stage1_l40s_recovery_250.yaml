@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+  "experiment_id": "d1-stage1-l40s-recovery-250",
+  "stage": "stage1",
+  "condition": "scientific_stage1",
+  "entrypoint": "examples/sft/train_vla_sft.py",
+  "config_path": "examples/sft/config",
+  "runtime_environment": {
+    "EMBODIED_PATH": "${RLINF_HOME}/examples/sft",
+    "PYTHONPATH": "${RLINF_HOME}",
+    "MUJOCO_GL": "egl",
+    "PYOPENGL_PLATFORM": "egl",
+    "HF_HOME": "${HF_HOME}",
+    "HF_DATASETS_CACHE": "${HF_DATASETS_CACHE}",
+    "WANDB_MODE": "${WANDB_MODE}",
+    "WANDB_DIR": "${WANDB_DIR}"
+  },
+  "rlinf_config": "maniskill_rlt_stage1_sft_openpi_pi05",
+  "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "required_paths": {
+    "rlinf_home": {
+      "path": "${RLINF_HOME}",
+      "kind": "directory"
+    },
+    "model": {
+      "path": "${MODEL_PATH}",
+      "kind": "directory"
+    },
+    "dataset": {
+      "path": "${DATASET_PATH}",
+      "kind": "directory"
+    },
+    "norm_stats": {
+      "path": "${NORM_STATS_PATH}",
+      "kind": "file"
+    }
+  },
+  "hydra_overrides": [
+    "runner.logger.logger_backends=[wandb]",
+    "runner.logger.project_name=${WANDB_PROJECT}",
+    "runner.max_steps=250",
+    "runner.save_interval=250",
+    "actor.model.model_path=${MODEL_PATH}",
+    "actor.model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
+    "data.train_data_paths.0.dataset_path=${DATASET_PATH}",
+    "actor.micro_batch_size=2",
+    "actor.global_batch_size=256",
+    "actor.seed=${D1_SEED}",
+    "actor.optim.total_training_steps=250"
+  ],
+  "evaluation": {
+    "fixed_reset_state_ids": false,
+    "num_trajectories": 0,
+    "primary_metric": "train/loss"
+  },
+  "scientific_values": {
+    "dataset_scope": "full",
+    "max_steps": 250,
+    "save_interval": 250,
+    "micro_batch_size": 2,
+    "global_batch_size": 256,
+    "learning_rate": 0.000025,
+    "reduced_budget_deviation": "250 of upstream 2000 optimizer steps",
+    "recovery_deviation": "micro batch 2 instead of 8; effective global batch and objective unchanged; 45013 MiB capacity-pilot peak and 45521 MiB full-run peak on one L40S"
+  },
+  "budget": {
+    "max_cost_usd": 15,
+    "report_thresholds_usd": [
+      5,
+      10,
+      15
+    ]
+  },
+  "monitor_interval_seconds": 10
+}

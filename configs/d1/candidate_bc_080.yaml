@@ -9,6 +9,7 @@
   "runtime_environment": {
     "EMBODIED_PATH": "${RLINF_HOME}/examples/embodiment",
     "PYTHONPATH": "${RLINF_HOME}",
+    "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
     "VK_ICD_FILENAMES": "/etc/vulkan/icd.d/nvidia_icd.json",
     "SAPIEN_RENDER_SYSTEM": "egl",
     "MUJOCO_GL": "egl",
@@ -39,9 +40,13 @@
     "rollout.expert_model=null",
     "rollout.rlt_feature_model.model_path=${STAGE1_CHECKPOINT}",
     "+rollout.rlt_feature_model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
+    "actor.enable_offload=true",
+    "+weight_syncer.patch.transport_device=cpu",
     "env.eval.use_fixed_reset_state_ids=true",
-    "env.eval.total_num_envs=64",
-    "env.eval.rollout_epoch=4",
+    "env.train.total_num_envs=16",
+    "env.train.rollout_epoch=4",
+    "env.eval.total_num_envs=16",
+    "env.eval.rollout_epoch=16",
     "actor.seed=${D1_SEED}",
     "algorithm.actor_weight_schedule.warmup_bc_weight=5.6",
     "algorithm.actor_weight_schedule.online_bc_weight=2",
@@ -51,8 +56,8 @@
   "evaluation": {
     "fixed_reset_state_ids": true,
     "num_trajectories": 256,
-    "parallel_environments": 64,
-    "rollout_epochs": 4,
+    "parallel_environments": 16,
+    "rollout_epochs": 16,
     "primary_metric": "eval/success_once"
   },
   "scientific_values": {
@@ -61,7 +66,14 @@
     "warmup_q_weight": 0.05,
     "online_q_weight": 0.45,
     "expert_takeover": false,
-    "fixed_eval_trajectories": 256
+    "train_trajectories_per_step": 64,
+    "train_parallel_environments": 16,
+    "train_rollout_epochs": 4,
+    "fixed_eval_trajectories": 256,
+    "eval_parallel_environments": 16,
+    "eval_rollout_epochs": 16,
+    "actor_offload": true,
+    "weight_transport_device": "cpu"
   },
   "budget": {
     "max_cost_usd": 15,

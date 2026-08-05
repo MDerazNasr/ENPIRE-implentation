@@ -18,6 +18,8 @@ results/**
 !results/**/*.csv
 !results/**/*.log
 !results/**/command.sh
+!results/stage5a-l40s/**/*.jsonl
+!results/stage5b-l40s/**/*.jsonl
 !results/phase1_runs.jsonl
 *.ckpt
 *.pt

@@ -30,7 +30,8 @@ The following are controls, not tuning variables:
 - ManiSkill task, observation/state/action semantics, and episode horizon;
 - training iterations, batch semantics, rollout count, and evaluation cadence;
 - evaluation reset IDs and number of trajectories;
-- evaluation execution batching (`64` parallel environments x `4` epochs);
+- evaluation execution batching (`16` parallel environments x `16` epochs);
+- training rollout batching (`16` parallel environments x `4` epochs);
 - actor/critic architecture, optimizer, learning rate, Q weights, and dropout;
 - precision and hardware class where practical;
 - expert/intervention policy, logging, metric parser, and success definition.

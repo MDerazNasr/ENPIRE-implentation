@@ -1,14 +1,13 @@
 # Stage 5B Stage-2 Resource Probes
 
-Status: the unchanged 256-parallel-eval contract failed on A10 and triggered a
-Vulkan device loss on H100. A clean A10 then passed the one-environment RGB/GPU
-preflight but the 64-parallel x 4-epoch probe still exhausted its camera-buffer
-capacity. A separate A100 40 GB was rejected because it exposed CUDA but no
-usable Vulkan render device. A final A10 profile with 32 parallel evaluation
-environments across eight epochs failed at the same camera-allocation boundary
-while retaining all 64 training environments. The next valid hardware target
-is a graphics-capable 48 GB GPU. This is resource evidence, not
-policy-performance evidence.
+Status: the Stage-2 execution gate passed on a graphics-capable L40S after the
+trajectory batches were reduced to 16 parallel environments. The bounded
+scratch-RLT probe completed 64 train trajectories and 256 fixed-ID evaluation
+trajectories, but it collected only 41 of the 10,000 replay transitions needed
+to start training. Its 1/256 evaluation success is therefore not evidence of a
+learned improvement. Reference A then completed with 0/256 success. The
+hardware/resource question is resolved; the scientific baseline is
+degenerate, so Stage 6 remains blocked.
 
 ## Purpose
 
@@ -16,7 +15,8 @@ Stage 4 proved that one train/eval environment could load the Stage-1 actor and
 exercise rollout, replay, actor/critic updates, weight synchronization, and
 fixed-ID evaluation. It did not measure the upstream Stage-2 environment scale.
 
-This probe kept the intended representative settings for one runner step:
+The initial probes kept the intended representative settings for one runner
+step:
 
 - 64 training environments;
 - 256 fixed-ID evaluation environments;
@@ -25,9 +25,11 @@ This probe kept the intended representative settings for one runner step:
 - expert takeover disabled and no expert model;
 - seed 2026 and the reduced-budget Stage-1 step-250 actor.
 
-It was intentionally not allowed to reduce environment counts, camera size, or
-shader memory after launch. Any such change would require a separate profile and
-would answer a different feasibility question.
+Those profiles were intentionally not changed after launch. The eventual L40S
+run used a separately named and validated batching profile: 16 parallel train
+environments x 4 epochs and 16 parallel evaluation environments x 16 epochs.
+This retained 64 train and 256 evaluation trajectories while avoiding a
+monolithic camera group.
 
 ## Environment and preflight
 
@@ -88,7 +90,7 @@ launcher-attributed GPU time, so the required `$5` notification remains active.
 Provider setup, download, transfer, and idle billing are not represented in
 that sum; reconcile the provider dashboards before approving later long runs.
 
-## Interpretation and next gate
+## Earlier interpretation and batching gate
 
 An A10/24 GB GPU is not viable for the unchanged representative 64-train,
 256-parallel-eval RGB configuration. The H100 result shows that merely adding
@@ -180,13 +182,60 @@ The repeated near-capacity peak shows that the A10 cannot host the upstream 64
 training environments, a representative RGB evaluation group, and the Stage-2
 runtime. Further reducing training environments would change the scientific
 training contract and is not authorized as an infrastructure-only adaptation.
-The next target must combine at least 48 GB VRAM with a working graphics/Vulkan
-stack: prefer A6000 48 GB, then L40/L40S 48 GB or RTX 6000 Ada 48 GB. A100 and
-H100 are not substitutes on providers where their compute-only Vulkan path is
-missing or unstable. Reference A, Control B, and Candidate C remain unchanged
-until that hardware reaches rollout.
+The next target therefore had to combine at least 48 GB VRAM with a working
+graphics/Vulkan stack. The L40S result below closed that infrastructure gate.
 
-Reference A and Control B remain unrun. Stage 6 remains blocked.
+## L40S 16-environment resolution
+
+The final probe ran on an NVIDIA L40S with 46,068 MiB usable VRAM at
+`$0.99/hour`. It used pinned RLinf commit
+`c90951a0c799a750cb5294ed10587c61cc2af8bf`, harness commit `8ae2aad`, the
+verified step-250 Stage-1 actor, CPU weight transport, actor offload, and
+`PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`. RLinf itself remained
+unmodified.
+
+| Field | Result |
+| --- | ---: |
+| Manifest status | `complete` |
+| Exit code | `0` |
+| Elapsed time | 1,984.83 seconds |
+| Operating VRAM | approximately 25,186 / 46,068 MiB |
+| Train trajectories | 64 (`16 x 4`) |
+| Fixed-ID evaluation trajectories | 256 (`16 x 16`) |
+| Train success | `0/64` |
+| Evaluation success | `1/256` (`0.00390625`) |
+| Replay transitions | `41/10,000` warm-up requirement |
+| Actor / critic updates | `0 / 0` |
+| Launcher-attributed cost | `$0.5458` |
+
+This run proves that the complete rollout/evaluation path is reproducible on
+the L40S profile. It does not constitute Control B training: the one-step run
+never passed replay warm-up, so the randomly initialized residual actor did not
+receive an optimizer update.
+
+## Reference A result and Stage-5 decision
+
+Reference A disabled the residual-policy switch and evaluated the frozen
+Stage-1 reference on the same 256 fixed reset-state IDs. It completed in
+1,935.51 seconds with exit code zero, used the same batching/hardware, and
+synced to W&B. Both its 64 train-route trajectories and 256 evaluation
+trajectories had zero success; every episode reached the 500-step horizon.
+Launcher-attributed cost was `$0.5323` and the retained launcher ledger reached
+`$6.2688`. Its immutable online tracker is W&B run
+[`fmfb666c`](https://wandb.ai/mderaznasr-n-a/qualia-rlt-d1/runs/fmfb666c).
+
+The honest result is that the reduced-budget 250-step Stage-1 checkpoint does
+not provide a usable task-success baseline. The scratch-RLT probe's single
+success is noise-level evidence and cannot justify a hyperparameter
+comparison. At the observed 41 recorded transitions per runner step, reaching
+the unchanged 10,000-transition warm-up would require roughly 244 comparable
+steps before RLT learning begins. No compatible public Stage-2 actor checkpoint
+is available from the official RLinf RLT collection.
+
+The Stage-5 gate therefore ends with an honest degenerate/null result. Do not
+launch Candidate C or Stage 6 unless the baseline contract is explicitly
+revised—for example by obtaining a compatible trained checkpoint, approving a
+longer Stage-1/Stage-2 budget, or preregistering a different warm-up protocol.
 
 Evidence:
 
@@ -195,3 +244,5 @@ Evidence:
 - `results/stage5b-h100-batched/stage5b-h100-batched-probe-20260804/`
 - `results/stage5b-a10-batched/stage5b-a10-batched-probe-20260804/`
 - `results/stage5b-a10-batched32/stage5b-a10-batched32-probe-20260804/`
+- `results/stage5b-l40s/stage5b-l40s-batched16-success/`
+- `results/stage5b-l40s/stage5b-reference-a-l40s-success/`

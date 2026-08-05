@@ -14,3 +14,9 @@ The gated D1 scientific-baseline work is specified in:
   resource monitoring, and known verification boundary.
 - `stage2-environment-audit.md` — pinned-source findings, corrected launch
   boundaries, and the remaining live-pod gate.
+- `stage5b-resource-probe.md` — failed A10/H100 paths, viable L40S batching,
+  Reference-A result, cost, and the degenerate-baseline decision.
+- `stage5c-500-checkpoint.md` — revised 500-step checkpoint, fixed-set
+  Reference-A result, cost/resource evidence, and checkpoint-selection gate.
+- `stage5d-control.md` — trained Control-B objective, upstream warm-up
+  contract, calibration boundary, resume limitation, and budget gate.

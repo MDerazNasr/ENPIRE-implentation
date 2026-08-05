@@ -1,14 +1,18 @@
 # Stage 5 Scientific Baseline Readiness
 
-Status: Stage 5A is complete. The unchanged Stage 5B probe failed during the
-256-parallel-camera allocation on A10 and triggered an H100 Vulkan device loss.
-The preregistered batched evaluation probe is pending a clean provider-level
-H100 restart. Reference A and Control B have not started.
+Status: Stage 5A and the Stage-5B execution probe are complete. Their original
+250-step reference was degenerate. Stage 5C then trained a revised 500-step
+checkpoint and measured `33/256` (`12.89%`) fixed-set Reference-A success. The
+checkpoint is selected for a bounded, genuinely trained Control B; Stage 6
+remains blocked until that control crosses warm-up and produces actor/critic
+updates.
 
 Stage 5A has since completed successfully. See
 `docs/stage5a-reduced-checkpoint.md` for its measured result and checkpoint.
 The representative A10 probe is documented in
 `docs/stage5b-resource-probe.md`.
+The revised checkpoint gate is documented in
+`docs/stage5c-500-checkpoint.md`.
 
 ## Why the full profile cannot start silently
 
@@ -43,28 +47,29 @@ start under the existing authorization.
 2. **Preserve before shutdown:** put the approximately 10 GB inference actor
    weights in durable/object storage accessible to the A10. Do not repeat the
    slow live H100-to-A10 stream.
-3. **Stage 5B — representative Stage-2 probes:** the A10 reached
-   22,598/23,028 MiB sampled VRAM and failed while allocating the 256-parallel
-   evaluation camera group. The unchanged H100 retry failed at the same boundary
-   with `ErrorDeviceLost` despite an 81,559 MiB device. Run the explicit
-   64-parallel x 4-epoch profile next; it preserves 256 fixed-ID trajectories.
-4. **Reference A:** evaluate the frozen Stage-1 reference on the fixed 256 IDs.
-5. **Control B:** choose the Stage-2 training horizon only after the
-   representative probe. Run seed 2026 first; add seeds only after checking
-   whether the baseline is non-degenerate and the projected cumulative spend.
-6. Report at `$5`, `$10`, `$15`, `$20`, and every further `$5`; stop before
+3. **Stage 5B — representative Stage-2 probe:** completed on L40S using 16
+   parallel environments and sequential epochs while preserving 64 train and
+   256 fixed-ID evaluation trajectories. Peak operating allocation was about
+   25.2/46.1 GB.
+4. **Reference A:** completed on the same fixed 256 IDs with zero success.
+5. **Stage 5C revision:** the approved 500-step checkpoint produced `33/256`
+   fixed-set success and is selected; no 1,000-step extension is needed before
+   testing Stage 2.
+6. **Control B gate:** the earlier one-step scratch-RLT probe performed zero
+   updates and is not a trained Control B. The next run must retain the
+   unchanged 10,000-transition warm-up, cross it, and record actual actor and
+   critic updates before any candidate comparison.
+7. Report at `$5`, `$10`, `$15`, `$20`, and every further `$5`; stop before
    crossing `$25` without Mohamed's approval.
 
-The retained D1 run manifests now total approximately `$5.9084`, so the `$5`
-notification threshold has been crossed. Provider-billed setup/idle time
-remains additional.
+The Stage-5C launcher ledger reached approximately `$8.77`, so the `$5`
+notification threshold has been crossed and the `$10` threshold has not.
+Provider-billed setup/idle time remains additional.
 
-The failure is no longer treated as a simple GPU-capacity question: the H100
-failed before material VRAM allocation, then failed a one-environment RGB
-preflight. The next valid action is to restart the pod, pass that one-environment
-preflight, and only then repeat the separately named batched probe. Do not start
-Reference A or Control B until that probe reaches rollout and produces the
-complete 256-trajectory evaluation.
+The infrastructure and reference-signal gates are resolved. The remaining
+blocker is a genuinely trained Control B. At the observed 41 replay transitions
+per step, unchanged warm-up would require roughly 244 comparable runner steps
+before learning begins; the next protocol must budget for that explicitly.
 
 ## Scientific interpretation boundary
 
@@ -73,6 +78,5 @@ be sufficient to reveal whether the downstream pipeline is non-degenerate,
 but it is not equivalent to the upstream 2,000-step training contract. Any
 comparison and manager update must state this deviation explicitly.
 
-Stage 6 must remain blocked until Reference A and Control B have comparable,
-fixed-ID evidence and Control B is non-degenerate enough to supply a tuning
-signal.
+Stage 6 must remain blocked until the selected step-500 checkpoint produces a
+non-degenerate, genuinely updated Control B and a defensible comparison signal.

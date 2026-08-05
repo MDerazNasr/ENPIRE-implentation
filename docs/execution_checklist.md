@@ -84,14 +84,29 @@ Gate: end-to-end contract passes; label result as smoke only.
   measured 21,979/23,028 MiB camera-buffer failure before rollout.
 - [x] Reject 32 parallel environments x 8 epochs after it reaches the same A10
   camera-buffer boundary with all 64 training environments retained.
-- [ ] Repeat the bounded probe on a graphics-capable 48 GB GPU (prefer A6000;
+- [x] Repeat the bounded probe on a graphics-capable 48 GB GPU (prefer A6000;
   L40/L40S or RTX 6000 Ada are acceptable) before Reference A or Control B.
-- [ ] Evaluate Reference A on the fixed set.
-- [ ] Train/evaluate Control B across approved seeds.
-- [ ] Compute per-seed results and uncertainty.
+- [x] Evaluate Reference A on the fixed 256-ID set; record `0/256` success.
+- [x] Execute the bounded scratch-RLT control probe; record `1/256` success,
+  41/10,000 replay transitions, and zero actor/critic updates.
+- [x] Apply the non-degenerate-baseline gate and stop with an honest null
+  result.
+- [x] Run the explicitly revised 500-step Stage-1 checkpoint gate and verify
+  its complete actor artifact.
+- [x] Evaluate the step-500 Reference A on all 256 fixed IDs; record `33/256`
+  success with zero Stage-2 actor/critic updates.
+- [x] Select step 500 for the bounded Control-B readiness run; do not extend to
+  1,000 steps before testing the remaining Stage-2 uncertainty.
+- [ ] Train/evaluate Control B across approved seeds. Not started because the
+  revised reference gate passed, but Control B must first cross the unchanged
+  10,000-transition warm-up and demonstrate real actor/critic updates.
+- [ ] Compute per-seed results and uncertainty. Not applicable until a valid
+  trained Control B exists.
 
-Gate: baseline is reproducible and non-degenerate, or stop with an honest
-failure/null report.
+Gate outcome: the original 250-step reference was degenerate, while the revised
+500-step reference is measurable at `33/256` (`12.89%`). Stage 5 can proceed to
+a bounded, genuinely trained Control B. Stage 6 remains blocked until that
+control exists.
 
 ## Stage 6 — One-factor controller experiment
 
