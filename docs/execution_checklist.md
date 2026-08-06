@@ -70,6 +70,11 @@ Gate: end-to-end contract passes; label result as smoke only.
 
 ## Stage 5 — Scientific reference/control baseline
 
+Fresh-workspace recovery contract: execute Stages 5A--5D and Stage 6 on the
+same paid instance before the final export gate. Stage 6 is part of this
+uninterrupted chain because Candidate C needs the same selected step-500
+Stage-1 actor. It does not initialize from Control-B weights.
+
 - [x] Obtain explicit approval for the reduced Stage-1 budget.
 - [x] Train and verify the 250-step reduced-budget Stage-1 checkpoint.
 - [x] Probe upstream-scale Stage-2 environment feasibility on the A10; record
@@ -110,12 +115,18 @@ control exists.
 
 ## Stage 6 — One-factor controller experiment
 
+- [ ] Start from the same verified step-500 Stage-1 actor used by Control B;
+  do not initialize Candidate C from the trained Control-B actor/critic.
 - [ ] Run Candidate C using the matched protocol.
 - [ ] Compute paired candidate-minus-control evidence.
 - [ ] Apply the preregistered decision rule.
 - [ ] Preserve both accepted and rejected artifacts.
+- [ ] Export and hash the Stage-1 actor, Control-B and Candidate-C policies,
+  norm stats, configs, manifests, ledger, and compact raw evidence before the
+  shared instance is terminated.
 
 Gate: immutable evidence supports `KEEP`, `REVERT`, or `INCONCLUSIVE`.
+The GPU/workspace may be released only after the export hashes match.
 
 ## Stage 7 — D1 evidence pack
 

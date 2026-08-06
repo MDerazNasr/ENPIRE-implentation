@@ -76,6 +76,21 @@ margin above the approximately 104--107 steps implied by both calibrations.
 It must run on the persistent project volume so the selected Stage-1 artifact,
 ledger, and resulting evidence remain together.
 
+## Same-instance Stage 6 continuation
+
+The fresh-workspace recovery plan does not stop after Control B. Once its
+step-120 checkpoint and fixed-ID evaluation pass, launch Candidate C on the
+same instance using the same selected step-500 Stage-1 actor and matched
+protocol. Candidate C is an independent Stage-2 training run with only the
+preregistered BC-schedule change; it must not inherit Control-B actor/critic
+weights.
+
+After both runs finish, apply the paired keep/revert rule and complete the
+artifact export gate before terminating the instance. The required export is
+the Stage-1 inference actor, norm stats, both final Stage-2 policies, resolved
+configs, manifests, cost ledger, and compact logs/evidence. Stage 7 packaging
+can then finish locally without GPU access.
+
 ## Resume limitation
 
 Pinned RLinf checkpoints save the Stage-2 model, optimizers, target model, and
