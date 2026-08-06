@@ -91,6 +91,14 @@ the Stage-1 inference actor, norm stats, both final Stage-2 policies, resolved
 configs, manifests, cost ledger, and compact logs/evidence. Stage 7 packaging
 can then finish locally without GPU access.
 
+Local preservation is progressive, not deferred to shutdown. Both Stage-1
+inference actors must already be downloaded and verified before Control B;
+Control B must be downloaded and verified before Candidate C; Candidate C must
+be downloaded and verified before the shutdown gate. See
+`docs/local-artifact-backup.md`. The large Stage-1 optimizer shards are
+excluded because Stage 2 needs the inference actor and the local machine does
+not have space for every reproducible training-state artifact.
+
 ## Resume limitation
 
 Pinned RLinf checkpoints save the Stage-2 model, optimizers, target model, and

@@ -74,6 +74,8 @@ Fresh-workspace recovery contract: execute Stages 5A--5D and Stage 6 on the
 same paid instance before the final export gate. Stage 6 is part of this
 uninterrupted chain because Candidate C needs the same selected step-500
 Stage-1 actor. It does not initialize from Control-B weights.
+The progressive local-download gates in `docs/local-artifact-backup.md` are
+mandatory; a remote-only checkpoint is not preserved.
 
 - [x] Obtain explicit approval for the reduced Stage-1 budget.
 - [x] Train and verify the 250-step reduced-budget Stage-1 checkpoint.
@@ -102,9 +104,13 @@ Stage-1 actor. It does not initialize from Control-B weights.
   success with zero Stage-2 actor/critic updates.
 - [x] Select step 500 for the bounded Control-B readiness run; do not extend to
   1,000 steps before testing the remaining Stage-2 uncertainty.
+- [ ] Download and hash-verify the rebuilt step-250 and step-500 inference
+  actors locally before starting long Control-B training.
 - [ ] Train/evaluate Control B across approved seeds. Not started because the
   revised reference gate passed, but Control B must first cross the unchanged
   10,000-transition warm-up and demonstrate real actor/critic updates.
+- [ ] Download and hash-verify the completed Control-B policy and evidence
+  locally before starting Candidate C.
 - [ ] Compute per-seed results and uncertainty. Not applicable until a valid
   trained Control B exists.
 
@@ -121,6 +127,8 @@ control exists.
 - [ ] Compute paired candidate-minus-control evidence.
 - [ ] Apply the preregistered decision rule.
 - [ ] Preserve both accepted and rejected artifacts.
+- [ ] Download and hash-verify the completed Candidate-C policy and evidence
+  locally.
 - [ ] Export and hash the Stage-1 actor, Control-B and Candidate-C policies,
   norm stats, configs, manifests, ledger, and compact raw evidence before the
   shared instance is terminated.

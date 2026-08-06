@@ -19,4 +19,7 @@ The gated D1 scientific-baseline work is specified in:
 - `stage5c-500-checkpoint.md` — revised 500-step checkpoint, fixed-set
   Reference-A result, cost/resource evidence, and checkpoint-selection gate.
 - `stage5d-control.md` — trained Control-B objective, upstream warm-up
-  contract, calibration boundary, resume limitation, and budget gate.
+  contract, calibration boundary, same-instance Stage-6 continuation, resume
+  limitation, and budget gate.
+- `local-artifact-backup.md` — progressive local weight/evidence download and
+  hash gates required before any workspace termination.
