@@ -244,6 +244,59 @@ class D1ConfigTests(unittest.TestCase):
         )
         self.assertEqual(config["evaluation"]["num_trajectories"], 256)
 
+    def test_fresh_chain_stage1_saves_both_local_backup_gates(self):
+        config = load_d1_config(CONFIG_ROOT / "stage1_fresh_chain_500.yaml")
+        overrides = {
+            value.split("=", 1)[0]: value.split("=", 1)[1]
+            for value in config["hydra_overrides"]
+        }
+        self.assertEqual(overrides["runner.max_steps"], "500")
+        self.assertEqual(overrides["runner.save_interval"], "250")
+        self.assertEqual(overrides["actor.micro_batch_size"], "8")
+        self.assertEqual(overrides["actor.global_batch_size"], "256")
+
+    def test_h100_chain_candidate_changes_only_bc_schedule(self):
+        control = load_d1_config(
+            CONFIG_ROOT / "stage2_5d_control_h100_chain.yaml"
+        )
+        candidate = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_h100_chain.yaml"
+        )
+        self.assertEqual(
+            scientific_diff(control, candidate),
+            {
+                "online_bc_weight": (2.5, 2),
+                "warmup_bc_weight": (7, 5.6),
+            },
+        )
+
+        def overrides(config):
+            return {
+                value.split("=", 1)[0]: value.split("=", 1)[1]
+                for value in config["hydra_overrides"]
+            }
+
+        control_overrides = overrides(control)
+        candidate_overrides = overrides(candidate)
+        changed = {
+            key
+            for key in set(control_overrides) | set(candidate_overrides)
+            if control_overrides.get(key) != candidate_overrides.get(key)
+        }
+        self.assertEqual(
+            changed,
+            {
+                "algorithm.actor_weight_schedule.warmup_bc_weight",
+                "algorithm.actor_weight_schedule.online_bc_weight",
+            },
+        )
+        for config in (control, candidate):
+            config_overrides = overrides(config)
+            self.assertEqual(config_overrides["runner.max_steps"], "120")
+            self.assertEqual(config_overrides["runner.val_check_interval"], "120")
+            self.assertEqual(config_overrides["runner.save_interval"], "120")
+            self.assertEqual(config["evaluation"]["num_trajectories"], 256)
+
     def test_mismatched_batched_eval_count_is_rejected(self):
         config = load_d1_config(CONFIG_ROOT / "stage2_batched_eval_probe.yaml")
         broken = json.loads(json.dumps(config))
