@@ -54,8 +54,8 @@
     "purpose": "one uninterrupted Stage-1 run producing locally backed-up step-250 and step-500 inference actors"
   },
   "budget": {
-    "max_cost_usd": 25,
-    "report_thresholds_usd": [10, 15, 20, 25]
+    "max_cost_usd": 130,
+    "report_thresholds_usd": [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130]
   },
   "monitor_interval_seconds": 10
 }

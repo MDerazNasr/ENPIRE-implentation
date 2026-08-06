@@ -254,6 +254,10 @@ class D1ConfigTests(unittest.TestCase):
         self.assertEqual(overrides["runner.save_interval"], "250")
         self.assertEqual(overrides["actor.micro_batch_size"], "8")
         self.assertEqual(overrides["actor.global_batch_size"], "256")
+        self.assertEqual(config["budget"]["max_cost_usd"], 130)
+        self.assertEqual(
+            config["budget"]["report_thresholds_usd"], list(range(10, 131, 5))
+        )
 
     def test_h100_chain_candidate_changes_only_bc_schedule(self):
         control = load_d1_config(
@@ -296,6 +300,10 @@ class D1ConfigTests(unittest.TestCase):
             self.assertEqual(config_overrides["runner.val_check_interval"], "120")
             self.assertEqual(config_overrides["runner.save_interval"], "120")
             self.assertEqual(config["evaluation"]["num_trajectories"], 256)
+            self.assertEqual(config["budget"]["max_cost_usd"], 130)
+            self.assertEqual(
+                config["budget"]["report_thresholds_usd"], list(range(10, 131, 5))
+            )
 
     def test_mismatched_batched_eval_count_is_rejected(self):
         config = load_d1_config(CONFIG_ROOT / "stage2_batched_eval_probe.yaml")

@@ -71,10 +71,12 @@ Each unique `results/d1/<run-id>/` directory receives:
 - `events.jsonl`: cost-threshold and cap events.
 
 The append-only `results/d1_runs.jsonl` ledger stores completed-run manifests.
-Cumulative spend is reconstructed from that ledger before each launch. Configs
-currently cap cumulative D1 spend at `$15`; reporting events occur at `$5`,
-`$10`, and `$15`. A higher cap cannot exceed `$25` under the Stage-1 schema and
-requires a reviewed config change.
+Cumulative spend is reconstructed from that ledger before each launch. Legacy
+profiles retain their original `$1`--`$25` caps. On 2026-08-07, Mohamed
+explicitly authorized a `$130` cumulative cap for the fresh same-instance
+Stage-1/Control/Candidate chain. Those three profiles emit reporting events at
+every `$5` boundary from `$10` through `$130`; the schema rejects any
+higher cap.
 
 Resource sampling uses `nvidia-smi` when available and remains valid on a
 no-GPU development host. It also records Linux total/available system RAM from

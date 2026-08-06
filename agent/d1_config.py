@@ -125,8 +125,8 @@ def validate_d1_config(config: Mapping[str, Any]) -> None:
     if not isinstance(budget, dict):
         raise D1ConfigError("budget must be an object")
     max_cost = budget.get("max_cost_usd")
-    if not isinstance(max_cost, (int, float)) or not 0 < float(max_cost) <= 25:
-        raise D1ConfigError("max_cost_usd must be positive and may not exceed $25")
+    if not isinstance(max_cost, (int, float)) or not 0 < float(max_cost) <= 130:
+        raise D1ConfigError("max_cost_usd must be positive and may not exceed $130")
     thresholds = budget.get("report_thresholds_usd")
     if thresholds != sorted(set(thresholds or [])):
         raise D1ConfigError("report thresholds must be unique and increasing")
