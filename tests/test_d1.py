@@ -134,6 +134,8 @@ class D1ConfigTests(unittest.TestCase):
             "stage2_batched_eval_probe.yaml": (64, 4),
             "stage2_batched_eval_probe_32.yaml": (32, 8),
             "stage2_l40s_cpu_transport_probe.yaml": (16, 16),
+            "stage2_5b_probe_h100_chain.yaml": (16, 16),
+            "stage2_5c_reference_h100_chain.yaml": (16, 16),
             "stage2_5d_transition_calibration.yaml": (16, 16),
             "reference.yaml": (16, 16),
             "control.yaml": (16, 16),
@@ -151,6 +153,28 @@ class D1ConfigTests(unittest.TestCase):
                     config["hydra_overrides"],
                 )
                 self.assertEqual(config["evaluation"]["num_trajectories"], 256)
+
+    def test_h100_stage5b_and_reference_chain_profiles_are_guarded(self):
+        probe = load_d1_config(CONFIG_ROOT / "stage2_5b_probe_h100_chain.yaml")
+        reference = load_d1_config(
+            CONFIG_ROOT / "stage2_5c_reference_h100_chain.yaml"
+        )
+        for config, source_step in ((probe, 250), (reference, 500)):
+            self.assertEqual(config["budget"]["max_cost_usd"], 130)
+            self.assertEqual(
+                config["budget"]["report_thresholds_usd"], list(range(10, 131, 5))
+            )
+            self.assertEqual(config["scientific_values"]["stage1_source_step"], source_step)
+            self.assertIn("env.train.total_num_envs=16", config["hydra_overrides"])
+            self.assertIn("env.train.rollout_epoch=4", config["hydra_overrides"])
+            self.assertIn("env.eval.total_num_envs=16", config["hydra_overrides"])
+            self.assertIn("env.eval.rollout_epoch=16", config["hydra_overrides"])
+        self.assertNotIn(
+            "env.train.rlt_policy_switch.enable=false", probe["hydra_overrides"]
+        )
+        self.assertIn(
+            "env.train.rlt_policy_switch.enable=false", reference["hydra_overrides"]
+        )
 
     def test_l40s_batching_preserves_train_and_eval_trajectory_counts(self):
         config = load_d1_config(
