@@ -49,6 +49,12 @@ runs two training steps with a diagnostic warm-up override and no evaluation,
 exercising repeated learner blocks before another full paid retry. Its result
 is runtime validation, not Control-B scientific evidence.
 
+The diagnostic completed successfully on 2026-08-08: two runner steps in
+2,018.4 seconds, `$1.844637`, with two learner blocks (800 critic and 200
+actor updates) and no FSDP gradient-device assertion. Peak H100 usage remained
+well below capacity. This validates disabling actor offload as the runtime fix;
+it does not replace the full 100-step Control run.
+
 ## Calibration contract
 
 `configs/d1/stage2_5d_transition_calibration.yaml` runs three training-only
