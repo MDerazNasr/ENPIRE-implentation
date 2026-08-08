@@ -104,7 +104,7 @@ mandatory; a remote-only checkpoint is not preserved.
   success with zero Stage-2 actor/critic updates.
 - [x] Select step 500 for the bounded Control-B readiness run; do not extend to
   1,000 steps before testing the remaining Stage-2 uncertainty.
-- [ ] Download and hash-verify the rebuilt step-250 and step-500 inference
+- [x] Download and hash-verify the rebuilt step-250 and step-500 inference
   actors locally before starting long Control-B training.
 - [ ] Train/evaluate Control B across approved seeds. Not started because the
   revised reference gate passed, but Control B must first cross the unchanged
@@ -114,8 +114,8 @@ mandatory; a remote-only checkpoint is not preserved.
 - [ ] Compute per-seed results and uncertainty. Not applicable until a valid
   trained Control B exists.
 
-Gate outcome: the original 250-step reference was degenerate, while the revised
-500-step reference is measurable at `33/256` (`12.89%`). Stage 5 can proceed to
+Gate outcome: the original 250-step reference was degenerate, while the fresh
+500-step reference is measurable at `35/256` (`13.67%`). Stage 5 can proceed to
 a bounded, genuinely trained Control B. Stage 6 remains blocked until that
 control exists.
 

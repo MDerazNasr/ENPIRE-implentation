@@ -1,8 +1,9 @@
 # Stage 5D Trained Control B
 
-Status: the transition-rate calibration completed successfully on 2026-08-05.
-The full trained Control B has not launched yet because the current-GPU
-projection exceeds the cumulative `$25` approval boundary.
+Status: the fresh-chain transition-rate calibration completed successfully on
+2026-08-08. Control B is approved to launch under the cumulative `$130` hard
+cap; Candidate C remains a separate financial gate because it cannot fit
+inside the same cap after Control B.
 
 ## Objective
 
@@ -42,19 +43,21 @@ The calibration measures:
 
 ## Transition calibration result
 
-The three runner steps recorded 255, 274, and 426 replay transitions: 955
-total, or 318.3 per step on average. Their train-route success counts were
-10/64, 7/64, and 10/64. The run reached the actor phase during rollout and
-correctly performed zero learner updates while below the unchanged 10,000
-transition gate. It completed with exit code zero in 939.9 seconds and cost
-`$0.52`; cumulative tracked spend became `$9.29`.
+The three runner steps recorded 472, 411, and 487 replay transitions: 1,370
+total, or 456.7 per step on average. Their train-route success counts were
+8/64, 11/64, and 6/64. The run correctly performed zero learner updates while
+below the unchanged 10,000-transition gate. It completed with exit code zero
+in 2,958.3 seconds and cost `$2.70`; cumulative launcher-tracked spend became
+`$34.72`.
 
-At the measured mean, the replay gate is approximately 32 runner steps away.
-The upstream 30,000-update warm-up then needs at least 75 update-bearing runner
-steps at the 400-update cap, making approximately 107 steps the optimistic
-minimum. Rollout time alone projects to about 8.1 hours and `$16.1` on the
-current `$1.99/hour` RTX PRO 6000, before learner-update and final-evaluation
-time. That would exceed the remaining `$15.71` budget.
+Using the minimum observed rate of 411 transitions per runner step, crossing
+the replay gate requires at most 25 rollout steps. The upstream 30,000-update
+warm-up then needs 75 update-bearing steps at the 400-update cap. Therefore 100
+uninterrupted steps is the conservative minimum supported by the fresh-chain
+measurements. Mean rollout time was 950.7 seconds per step. Including measured
+learner overhead and the final fixed evaluation, Control B projects to about
+27.7 hours and `$91` on the current `$3.29/hour` H100, bringing cumulative
+launcher-tracked cost close to—but below—the `$130` cap.
 
 `configs/d1/stage2_5d_update_throughput_calibration.yaml` is a separate,
 non-scientific one-step calibration that schedules exactly 400 warm-up updates
@@ -69,17 +72,17 @@ spent receiving rollout trajectories, so the complete learner block added
 approximately 11.9 seconds. It cost `$0.24`, bringing cumulative tracked spend
 to `$9.54`. This confirms that the full run is rollout-bound.
 
-`configs/d1/stage2_5d_control_seed2026.yaml` is the launch-ready full protocol:
-120 uninterrupted runner steps, the unchanged upstream RLT schedule, one final
-256-fixed-ID evaluation, and a checkpoint at step 120. The 120-step bound gives
-margin above the approximately 104--107 steps implied by both calibrations.
-It must run on the persistent project volume so the selected Stage-1 artifact,
-ledger, and resulting evidence remain together.
+`configs/d1/stage2_5d_control_h100_chain.yaml` is the launch-ready full
+protocol: 100 uninterrupted runner steps, the unchanged upstream RLT schedule,
+one final 256-fixed-ID evaluation, and a checkpoint at step 100. The bound is
+derived from the conservative minimum transition rate plus the unchanged
+upstream update schedule. It must run on the same live workspace so the
+selected Stage-1 artifact, ledger, and resulting evidence remain together.
 
 ## Same-instance Stage 6 continuation
 
 The fresh-workspace recovery plan does not stop after Control B. Once its
-step-120 checkpoint and fixed-ID evaluation pass, launch Candidate C on the
+step-100 checkpoint and fixed-ID evaluation pass, launch Candidate C on the
 same instance using the same selected step-500 Stage-1 actor and matched
 protocol. Candidate C is an independent Stage-2 training run with only the
 preregistered BC-schedule change; it must not inherit Control-B actor/critic
@@ -111,8 +114,10 @@ RLinf silently to bypass this constraint.
 
 ## Budget gate
 
-The launcher retains the cumulative `$25` cap and reports `$5` increments.
-The earlier authorization to exceed `$25` applied only to Stages 5A and 5B.
-The calibration may run inside the current cap; the full uninterrupted Control
-B must not launch if its revised projection crosses `$25` without explicit
-approval.
+The launcher retains the explicit cumulative `$130` hard cap and reports `$5`
+increments. Control B may launch because its calibration-based projection fits
+under that cap, and the launcher will terminate it if the cap is reached.
+Candidate C is expected to require a second approximately `$91` run, so it must
+not launch unless a new cumulative cap is explicitly approved or the measured
+Control-B cost leaves enough headroom. Provider auto-shutdown must be extended
+beyond 30 hours because the launcher cannot alter the provider dashboard.

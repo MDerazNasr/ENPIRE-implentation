@@ -320,9 +320,10 @@ class D1ConfigTests(unittest.TestCase):
         )
         for config in (control, candidate):
             config_overrides = overrides(config)
-            self.assertEqual(config_overrides["runner.max_steps"], "120")
-            self.assertEqual(config_overrides["runner.val_check_interval"], "120")
-            self.assertEqual(config_overrides["runner.save_interval"], "120")
+            self.assertEqual(config_overrides["runner.max_steps"], "100")
+            self.assertEqual(config_overrides["runner.val_check_interval"], "100")
+            self.assertEqual(config_overrides["runner.save_interval"], "100")
+            self.assertEqual(config["scientific_values"]["runner_steps"], 100)
             self.assertEqual(config["evaluation"]["num_trajectories"], 256)
             self.assertEqual(config["budget"]["max_cost_usd"], 130)
             self.assertEqual(
