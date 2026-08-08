@@ -1,9 +1,11 @@
 # Stage 5D Trained Control B
 
 Status: the fresh-chain transition-rate calibration completed successfully on
-2026-08-08. Control B is approved to launch under the cumulative `$130` hard
-cap; Candidate C remains a separate financial gate because it cannot fit
-inside the same cap after Control B.
+2026-08-08. The first Control B attempt launched under the cumulative `$130`
+hard cap, crossed the replay gate, and then failed at the first subsequent
+learner block because RLinf FSDP observed a CPU-resident sharded gradient.
+The failed evidence is preserved locally; no retry is approved until the
+offload interaction is validated. Candidate C remains blocked.
 
 ## Objective
 
@@ -23,6 +25,26 @@ This is still Control B. It retains the upstream scheduled weights:
 
 Candidate C and the rule-based keep/revert comparison remain blocked until
 this control exists.
+
+## First Control B attempt (failed, preserved)
+
+Run `stage5d-control-b-h100-chain-100-seed2026-20260808` launched at 01:28 UTC
+on the H100 and ran to global step `21/100`. It collected approximately 10,200
+replay transitions, crossed the unchanged 10,000-transition gate, and completed
+one learner block of 400 critic plus 100 actor updates. The next critic
+backward failed with RLinf's unmodified FSDP assertion:
+`Expects the sharded gradient to be on cuda:0 but got cpu`. The manifest reports
+exit code 255, 20,213.9 seconds elapsed, and `$18.473247` run-attributed cost;
+launcher cumulative cost reached about `$53.18`. This is an RLinf
+offload/gradient-device failure, not a simulator or GPU-capacity failure.
+
+Compact manifest, command, events, metrics, resources, and run log are
+preserved at
+`tmp/fresh-chain-20260807/evidence/stage5d-control-b-failed/`. The H100 GPU is
+idle and residual Ray workers were stopped. The next diagnostic should test
+the same protocol with actor/optimizer offload disabled on the 80 GB H100;
+that changes runtime/resource behavior and must be documented as a protocol
+amendment before any full retry.
 
 ## Calibration contract
 
