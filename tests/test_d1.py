@@ -327,9 +327,9 @@ class D1ConfigTests(unittest.TestCase):
             self.assertEqual(config_overrides["runner.save_interval"], "100")
             self.assertEqual(config["scientific_values"]["runner_steps"], 100)
             self.assertEqual(config["evaluation"]["num_trajectories"], 256)
-            self.assertEqual(config["budget"]["max_cost_usd"], 130)
+            self.assertEqual(config["budget"]["max_cost_usd"], 150)
             self.assertEqual(
-                config["budget"]["report_thresholds_usd"], list(range(10, 131, 5))
+                config["budget"]["report_thresholds_usd"], list(range(10, 151, 5))
             )
 
     def test_mismatched_batched_eval_count_is_rejected(self):

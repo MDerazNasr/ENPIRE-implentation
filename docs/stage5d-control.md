@@ -145,10 +145,10 @@ RLinf silently to bypass this constraint.
 
 ## Budget gate
 
-The launcher retains the explicit cumulative `$130` hard cap and reports `$5`
-increments. Control B may launch because its calibration-based projection fits
-under that cap, and the launcher will terminate it if the cap is reached.
-Candidate C is expected to require a second approximately `$91` run, so it must
-not launch unless a new cumulative cap is explicitly approved or the measured
-Control-B cost leaves enough headroom. Provider auto-shutdown must be extended
+The launcher now retains an explicit cumulative `$150` hard cap and reports
+`$5` increments. This revised cap covers the preserved failed attempt, the
+offload diagnostic, and one full Control retry with a small margin; the launcher
+will terminate the retry if the cap is reached. Candidate C is expected to
+require a second approximately `$91` run, so it remains outside this cap and
+requires separate authorization. Provider auto-shutdown must be extended
 beyond 30 hours because the launcher cannot alter the provider dashboard.
