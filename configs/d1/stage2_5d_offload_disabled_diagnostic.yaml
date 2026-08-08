@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
-  "experiment_id": "d1-stage5d-control-b-h100-chain",
+  "experiment_id": "d1-stage5d-offload-disabled-diagnostic",
   "stage": "stage2",
-  "condition": "control",
+  "condition": "smoke",
   "entrypoint": "examples/embodiment/train_embodied_agent.py",
   "config_path": "examples/embodiment/config",
   "runtime_environment": {
@@ -18,9 +18,18 @@
   "rlinf_config": "maniskill_rlt_stage2_ac_mlp",
   "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
   "required_paths": {
-    "rlinf_home": {"path": "${RLINF_HOME}", "kind": "directory"},
-    "stage1_checkpoint": {"path": "${STAGE1_CHECKPOINT}", "kind": "directory"},
-    "norm_stats": {"path": "${NORM_STATS_PATH}", "kind": "file"}
+    "rlinf_home": {
+      "path": "${RLINF_HOME}",
+      "kind": "directory"
+    },
+    "stage1_checkpoint": {
+      "path": "${STAGE1_CHECKPOINT}",
+      "kind": "directory"
+    },
+    "norm_stats": {
+      "path": "${NORM_STATS_PATH}",
+      "kind": "file"
+    }
   },
   "hydra_overrides": [
     "runner.logger.logger_backends=[wandb]",
@@ -47,16 +56,20 @@
     "algorithm.actor_weight_schedule.online_bc_weight=2.5",
     "algorithm.actor_weight_schedule.warmup_q_weight=0.05",
     "algorithm.actor_weight_schedule.online_q_weight=0.45",
-    "runner.max_steps=100",
-    "runner.val_check_interval=100",
-    "runner.save_interval=100"
+    "algorithm.rlt_schedule.warmup_min_size=1",
+    "algorithm.rlt_schedule.warmup_post_collect_updates=400",
+    "algorithm.rlt_schedule.max_updates_per_train_step=400",
+    "runner.max_steps=2",
+    "runner.val_check_interval=-1",
+    "runner.save_interval=-1"
   ],
   "evaluation": {
     "fixed_reset_state_ids": true,
     "num_trajectories": 256,
     "parallel_environments": 16,
     "rollout_epochs": 16,
-    "primary_metric": "eval/success_once"
+    "primary_metric": "eval/success_once",
+    "executed_during_calibration": false
   },
   "scientific_values": {
     "warmup_bc_weight": 7,
@@ -68,12 +81,13 @@
     "train_parallel_environments": 16,
     "train_rollout_epochs": 4,
     "episode_horizon": 500,
-    "fixed_eval_trajectories": 256,
-    "eval_parallel_environments": 16,
-    "eval_rollout_epochs": 16,
     "actor_offload": false,
     "weight_transport_device": "cpu",
-    "runner_steps": 100,
+    "runner_steps": 2,
+    "calibration_only": true,
+    "calibration_warmup_min_size": 1,
+    "calibration_warmup_post_collect_updates": 400,
+    "calibration_max_updates_per_train_step": 400,
     "upstream_warmup_min_size": 10000,
     "upstream_warmup_post_collect_updates": 30000,
     "upstream_max_updates_per_train_step": 400,
@@ -81,7 +95,33 @@
   },
   "budget": {
     "max_cost_usd": 130,
-    "report_thresholds_usd": [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130]
+    "report_thresholds_usd": [
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130
+    ]
   },
-  "monitor_interval_seconds": 10
+  "monitor_interval_seconds": 5
 }

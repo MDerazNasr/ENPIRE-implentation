@@ -320,6 +320,8 @@ class D1ConfigTests(unittest.TestCase):
         )
         for config in (control, candidate):
             config_overrides = overrides(config)
+            self.assertEqual(config_overrides["actor.enable_offload"], "false")
+            self.assertFalse(config["scientific_values"]["actor_offload"])
             self.assertEqual(config_overrides["runner.max_steps"], "100")
             self.assertEqual(config_overrides["runner.val_check_interval"], "100")
             self.assertEqual(config_overrides["runner.save_interval"], "100")

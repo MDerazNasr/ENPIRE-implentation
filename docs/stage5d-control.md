@@ -41,10 +41,13 @@ offload/gradient-device failure, not a simulator or GPU-capacity failure.
 Compact manifest, command, events, metrics, resources, and run log are
 preserved at
 `tmp/fresh-chain-20260807/evidence/stage5d-control-b-failed/`. The H100 GPU is
-idle and residual Ray workers were stopped. The next diagnostic should test
-the same protocol with actor/optimizer offload disabled on the 80 GB H100;
-that changes runtime/resource behavior and must be documented as a protocol
-amendment before any full retry.
+idle and residual Ray workers were stopped. The checked-in Control/Candidate
+protocols now disable actor offloading on the 80 GB H100; this is the smallest
+configuration-level fix and leaves RLinf's learner code unmodified. The
+diagnostic profile `configs/d1/stage2_5d_offload_disabled_diagnostic.yaml`
+runs two training steps with a diagnostic warm-up override and no evaluation,
+exercising repeated learner blocks before another full paid retry. Its result
+is runtime validation, not Control-B scientific evidence.
 
 ## Calibration contract
 
