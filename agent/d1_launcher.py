@@ -103,14 +103,19 @@ def _execute(
     prior_cost = _prior_cumulative_cost(ledger_path)
     tracker = CostTracker(
         hourly_price_usd=hourly_price_usd,
-        max_cost_usd=float(config["budget"]["max_cost_usd"]),
+        max_cost_usd=(
+            None
+            if config["budget"]["max_cost_usd"] is None
+            else float(config["budget"]["max_cost_usd"])
+        ),
         thresholds_usd=[float(v) for v in config["budget"]["report_thresholds_usd"]],
         initial_cost_usd=prior_cost,
     )
     if tracker.cap_reached():
+        cap = tracker.max_cost_usd
         raise D1ConfigError(
             f"cumulative D1 spend ${prior_cost:.2f} already meets the "
-            f"${tracker.max_cost_usd:.2f} cap"
+            f"${cap:.2f} cap"
         )
     run_dir.mkdir(parents=True, exist_ok=False)
     write_json(run_dir / "manifest.json", manifest)

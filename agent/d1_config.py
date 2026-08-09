@@ -125,12 +125,16 @@ def validate_d1_config(config: Mapping[str, Any]) -> None:
     if not isinstance(budget, dict):
         raise D1ConfigError("budget must be an object")
     max_cost = budget.get("max_cost_usd")
-    if not isinstance(max_cost, (int, float)) or not 0 < float(max_cost) <= 150:
-        raise D1ConfigError("max_cost_usd must be positive and may not exceed $150")
+    if max_cost is not None and (
+        not isinstance(max_cost, (int, float)) or not 0 < float(max_cost)
+    ):
+        raise D1ConfigError("max_cost_usd must be positive or null for no automatic cap")
     thresholds = budget.get("report_thresholds_usd")
     if thresholds != sorted(set(thresholds or [])):
         raise D1ConfigError("report thresholds must be unique and increasing")
-    if any(float(value) <= 0 or float(value) > float(max_cost) for value in thresholds):
+    if max_cost is not None and any(
+        float(value) <= 0 or float(value) > float(max_cost) for value in thresholds
+    ):
         raise D1ConfigError("report thresholds must be within the run cost cap")
     for value in _walk_strings(config):
         lowered = value.lower()

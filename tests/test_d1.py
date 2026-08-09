@@ -327,9 +327,11 @@ class D1ConfigTests(unittest.TestCase):
             self.assertEqual(config_overrides["runner.save_interval"], "100")
             self.assertEqual(config["scientific_values"]["runner_steps"], 100)
             self.assertEqual(config["evaluation"]["num_trajectories"], 256)
-            self.assertEqual(config["budget"]["max_cost_usd"], 150)
+            expected_cap = None if config is control else 150
+            expected_thresholds = list(range(10, 301, 5)) if config is control else list(range(10, 151, 5))
+            self.assertEqual(config["budget"]["max_cost_usd"], expected_cap)
             self.assertEqual(
-                config["budget"]["report_thresholds_usd"], list(range(10, 151, 5))
+                config["budget"]["report_thresholds_usd"], expected_thresholds
             )
 
     def test_mismatched_batched_eval_count_is_rejected(self):

@@ -14,7 +14,7 @@ from typing import Any
 @dataclass
 class CostTracker:
     hourly_price_usd: float
-    max_cost_usd: float
+    max_cost_usd: float | None
     thresholds_usd: list[float]
     initial_cost_usd: float = 0.0
     started_monotonic: float = field(default_factory=time.monotonic)
@@ -43,10 +43,10 @@ class CostTracker:
         return crossed
 
     def cap_reached(self, now: float | None = None) -> bool:
-        return self.cost(now) >= self.max_cost_usd
+        return self.max_cost_usd is not None and self.cost(now) >= self.max_cost_usd
 
     def seconds_until_cap(self) -> float:
-        if self.hourly_price_usd <= 0:
+        if self.max_cost_usd is None or self.hourly_price_usd <= 0:
             return float("inf")
         remaining = max(0.0, self.max_cost_usd - self.cost())
         return remaining / self.hourly_price_usd * 3600.0

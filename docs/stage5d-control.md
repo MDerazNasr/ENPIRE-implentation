@@ -143,12 +143,12 @@ data is restored. Stage 5D must be treated as one uninterrupted run unless a
 separately reviewed state-preservation mechanism is added. We will not modify
 RLinf silently to bypass this constraint.
 
-## Budget gate
+## Budget tracking
 
-The launcher now retains an explicit cumulative `$150` hard cap and reports
-`$5` increments. This revised cap covers the preserved failed attempt, the
-offload diagnostic, and one full Control retry with a small margin; the launcher
-will terminate the retry if the cap is reached. Candidate C is expected to
-require a second approximately `$91` run, so it remains outside this cap and
-requires separate authorization. Provider auto-shutdown must be extended
-beyond 30 hours because the launcher cannot alter the provider dashboard.
+For the recovery run, the user explicitly removed the automatic cumulative
+spend cap. The launcher therefore keeps the full cost ledger and reports every
+`$5` threshold (through `$300`) but does not terminate a healthy run when a
+threshold is crossed. This is a tracking change only; the provider's hourly
+rate and auto-shutdown remain external controls. The provider auto-shutdown
+must be extended beyond the projected runtime because the launcher cannot
+alter the provider dashboard.
