@@ -106,18 +106,21 @@ mandatory; a remote-only checkpoint is not preserved.
   1,000 steps before testing the remaining Stage-2 uncertainty.
 - [x] Download and hash-verify the rebuilt step-250 and step-500 inference
   actors locally before starting long Control-B training.
-- [ ] Train/evaluate Control B across approved seeds. Not started because the
-  revised reference gate passed, but Control B must first cross the unchanged
-  10,000-transition warm-up and demonstrate real actor/critic updates.
-- [ ] Download and hash-verify the completed Control-B policy and evidence
-  locally before starting Candidate C.
-- [ ] Compute per-seed results and uncertainty. Not applicable until a valid
-  trained Control B exists.
+- [ ] Train/evaluate Control B across all approved seeds. Seed 2026 is complete:
+  it crossed the 10,000-transition and 30,000-update gates, performed real
+  actor/critic updates, and scored `18/256` (`7.03%`) on the fixed evaluation.
+  Additional seeds remain if the provisional three-seed confirmation design
+  is retained.
+- [x] Download and hash-verify the completed seed-2026 Control-B policy and
+  full evidence archive locally before starting Candidate C.
+- [ ] Compute across-seed results and uncertainty. The seed-2026 Wilson 95%
+  interval is `4.49%`--`10.84%`; across-seed inference remains unavailable.
 
-Gate outcome: the original 250-step reference was degenerate, while the fresh
-500-step reference is measurable at `35/256` (`13.67%`). Stage 5 can proceed to
-a bounded, genuinely trained Control B. Stage 6 remains blocked until that
-control exists.
+Gate outcome: the fresh 500-step Reference A measured `35/256` (`13.67%`). A
+genuinely trained seed-2026 Control B now exists and measured `18/256`
+(`7.03%`), a `-6.64`-point difference from Reference A. Stage 6 is
+operationally unblocked for a matched seed-2026 Candidate C, but a definitive
+preregistered keep/revert decision still requires the approved seed set.
 
 ## Stage 6 — One-factor controller experiment
 

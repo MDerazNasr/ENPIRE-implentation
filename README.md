@@ -19,11 +19,13 @@ This is an integration smoke result, not evidence about RLT performance. Both
 D1 baseline work now lives on `experiment/d1-rlt-baseline`. Stages 0–4 and the
 reduced-budget Stage-5A checkpoint are complete. Stage 5B reached the complete
 rollout/evaluation path but its 250-step reference was degenerate. Stage 5C
-extended Stage 1 to 500 steps and measured `33/256` (`12.89%`) fixed-set
-Reference-A success with zero Stage-2 updates. The step-500 checkpoint is now
-selected for a bounded, genuinely trained Control B. This is a measurable
-reference baseline, not evidence of RLT improvement; Stage 6 remains blocked
-until Control B crosses warm-up and performs real actor/critic updates.
+extended Stage 1 to 500 steps. The fresh-chain fixed-set Reference A measured
+`35/256` (`13.67%`) with zero Stage-2 updates. Seed-2026 Control B then
+completed 100 uninterrupted Stage-2 steps, crossed both warm-up gates, reached
+`ready_for_online=1`, and evaluated at `18/256` (`7.03%`). This is a valid
+trained one-seed control, but it underperformed the frozen reference by `6.64`
+points. Stage 6 is operationally unblocked for a matched Candidate C; the
+preregistered final decision still requires the approved seed set.
 
 ## Three-phase plan
 

@@ -76,3 +76,32 @@ is not evidence of Stage-2 RLT improvement and is not equivalent to upstream
 2,000-step Stage-1 training.
 
 Detailed evidence: `docs/stage5c-500-checkpoint.md`.
+
+## D1 Stage-5D trained Control B — 2026-08-10
+
+- Run: `stage5d-control-b-h100-recovery-offload-disabled-seed2026-20260809-r2`
+- RLinf commit: `c90951a0c799a750cb5294ed10587c61cc2af8bf`
+- Project commit: `59bd897a4d2c64cf7fc2b3c3fa8024d31d449c67`
+- Hardware: NVIDIA H100 PCIe 80 GB, `$3.29/hour`
+- Stage-2 horizon: 100 runner steps, seed 2026
+- Evaluation: 256 fixed reset-state IDs, 500-step horizon
+
+| Run | Stage-2 updates | Final train success | Fixed eval success | Runtime | Cost |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Control B, seed 2026 | Warm-up crossed; 400 critic + 100 actor on final step | `4/64` (`6.25%`) | `18/256` (`7.03%`) | `27.96 h` | `$91.9730` |
+
+The final replay contained approximately 45,000 transitions,
+`update_step=30,800`, and `ready_for_online=1`. Fixed-evaluation mean episode
+length was `470.30`; the Wilson 95% success interval was `4.49%`--`10.84%`.
+The matched fresh-chain Reference A scored `35/256` (`13.67%`), so this Control
+was `-6.64` percentage points and 17 successes lower.
+
+**Honest result:** Control B is now a reproducible, genuinely trained baseline,
+but seed 2026 provides no evidence that upstream scheduled Stage-2 RLT improves
+the frozen reference. Candidate C can test the preregistered BC-weight change,
+but one matched seed cannot satisfy the final across-seed keep rule.
+
+Local evidence archive SHA-256:
+`c399ebad392c82bb7c13e0be91955c7e5bc72a980ab0fefcab46672a0a978dfc`.
+Final compact policy SHA-256:
+`0090d1f6c9fb1feb43ea459570872d93eeed92e9c2e1cff871ba3e6050cafd34`.

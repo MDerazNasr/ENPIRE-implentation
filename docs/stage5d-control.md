@@ -1,11 +1,13 @@
 # Stage 5D Trained Control B
 
-Status: the fresh-chain transition-rate calibration completed successfully on
-2026-08-08. The first Control B attempt launched under the cumulative `$130`
-hard cap, crossed the replay gate, and then failed at the first subsequent
-learner block because RLinf FSDP observed a CPU-resident sharded gradient.
-The failed evidence is preserved locally; no retry is approved until the
-offload interaction is validated. Candidate C remains blocked.
+Status: complete for seed 2026. The successful recovery run finished on
+2026-08-10 after 100 uninterrupted runner steps, crossed both upstream warm-up
+gates, completed real actor/critic updates, evaluated all 256 fixed reset-state
+IDs, and wrote a verified step-100 checkpoint. Its fixed-evaluation success was
+`18/256` (`7.03%`). This is a valid trained Control B, but it is one-seed
+evidence and performed below the matched frozen Reference A (`35/256`,
+`13.67%`). Candidate C is operationally unblocked but requires a separate
+launch decision; the multi-seed keep/revert rule is not yet satisfiable.
 
 ## Objective
 
@@ -152,3 +154,43 @@ threshold is crossed. This is a tracking change only; the provider's hourly
 rate and auto-shutdown remain external controls. The provider auto-shutdown
 must be extended beyond the projected runtime because the launcher cannot
 alter the provider dashboard.
+
+## Completed recovery Control B
+
+Run
+`stage5d-control-b-h100-recovery-offload-disabled-seed2026-20260809-r2`
+used project commit `59bd897a4d2c64cf7fc2b3c3fa8024d31d449c67` and
+unmodified RLinf commit `c90951a0c799a750cb5294ed10587c61cc2af8bf` on one
+NVIDIA H100 PCIe 80 GB at `$3.29/hour`. It started at 2026-08-09 15:13 UTC and
+finished with exit code zero at 2026-08-10 19:10 UTC.
+
+The launcher recorded 100,639.17 seconds (`27.96` hours), `$91.9730`
+run-attributed cost, and `$189.8249` cumulative tracked project cost. The run
+completed all 100 rollout/update steps without the prior FSDP gradient-device
+error. Replay grew to approximately 45,000 transitions; `update_step` crossed
+the unchanged 30,000-update boundary and `ready_for_online=1` was observed.
+The final update-bearing step ran 400 critic and 100 actor updates.
+
+The final fixed-ID evaluation completed all 16 batches, or 256 trajectories:
+
+- success: `18/256` (`7.03125%`);
+- Wilson 95% interval: `4.49%` to `10.84%`;
+- mean episode length: `470.30` steps;
+- matched frozen Reference A: `35/256` (`13.671875%`);
+- Control-minus-reference difference: `-6.640625` percentage points.
+
+The honest conclusion is that this seed produced a correctly trained and
+fully evaluated Control B, but scheduled Stage-2 RLT did not improve over the
+frozen reference; it was 17 successes lower on the matched fixed set. This
+does not establish the across-seed effect and does not by itself decide whether
+Candidate C should be kept.
+
+The complete step-100 checkpoint is 2,098,689,720 bytes. The compact policy
+`actor/model_state_dict/full_weights.pt` is 8,337,914 bytes with SHA-256
+`0090d1f6c9fb1feb43ea459570872d93eeed92e9c2e1cff871ba3e6050cafd34`;
+it deserializes successfully in the pinned RLinf environment. The complete
+checkpoint, replay, logs, manifest, and W&B-offline evidence are preserved in
+a local 589,529,267-byte archive with SHA-256
+`c399ebad392c82bb7c13e0be91955c7e5bc72a980ab0fefcab46672a0a978dfc` under
+the untracked local evidence root
+`tmp/fresh-chain-20260807/evidence/stage5d-control-b-complete/`.
