@@ -124,6 +124,11 @@ preregistered keep/revert decision still requires the approved seed set.
 
 ## Stage 6 — One-factor controller experiment
 
+- [x] Audit Candidate C without a GPU: exact profile diff, scratch Stage-2
+  initialization, seed/eval parity, local input hashes, and dry-run all pass.
+- [ ] Approve and update the Candidate-C cumulative budget. The preserved
+  ledger is `$189.824932`, above the profile's stale `$150` cap, so the
+  launcher currently blocks paid execution before process creation.
 - [ ] Start from the same verified step-500 Stage-1 actor used by Control B;
   do not initialize Candidate C from the trained Control-B actor/critic.
 - [ ] Run Candidate C using the matched protocol.

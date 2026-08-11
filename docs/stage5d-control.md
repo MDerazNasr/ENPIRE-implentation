@@ -6,8 +6,10 @@ gates, completed real actor/critic updates, evaluated all 256 fixed reset-state
 IDs, and wrote a verified step-100 checkpoint. Its fixed-evaluation success was
 `18/256` (`7.03%`). This is a valid trained Control B, but it is one-seed
 evidence and performed below the matched frozen Reference A (`35/256`,
-`13.67%`). Candidate C is operationally unblocked but requires a separate
-launch decision; the multi-seed keep/revert rule is not yet satisfiable.
+`13.67%`). Candidate C is scientifically unblocked, but its paid launch still
+requires a separate budget decision because the preserved cumulative ledger
+already exceeds its stale `$150` cap. The multi-seed keep/revert rule is not
+yet satisfiable.
 
 ## Objective
 

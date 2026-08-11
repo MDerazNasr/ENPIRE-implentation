@@ -320,6 +320,23 @@ class D1ConfigTests(unittest.TestCase):
         )
         for config in (control, candidate):
             config_overrides = overrides(config)
+            self.assertEqual(
+                config_overrides["rollout.rlt_feature_model.model_path"],
+                "${STAGE1_CHECKPOINT}",
+            )
+            self.assertEqual(config_overrides["rollout.expert_model"], "null")
+            self.assertEqual(config_overrides["actor.seed"], "${D1_SEED}")
+            self.assertFalse(
+                any(
+                    key in config_overrides
+                    for key in (
+                        "runner.resume_dir",
+                        "runner.ckpt_path",
+                        "actor.model.model_path",
+                        "rollout.model.model_path",
+                    )
+                )
+            )
             self.assertEqual(config_overrides["actor.enable_offload"], "false")
             self.assertFalse(config["scientific_values"]["actor_offload"])
             self.assertEqual(config_overrides["runner.max_steps"], "100")

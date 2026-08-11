@@ -21,5 +21,7 @@ The gated D1 scientific-baseline work is specified in:
 - `stage5d-control.md` — trained Control-B objective, upstream warm-up
   contract, calibration boundary, same-instance Stage-6 continuation, resume
   limitation, and budget gate.
+- `stage6-readiness.md` — Candidate-C scientific-diff, scratch initialization,
+  preserved-input, dry-run, and current budget-authorization audit.
 - `local-artifact-backup.md` — progressive local weight/evidence download and
   hash gates required before any workspace termination.
