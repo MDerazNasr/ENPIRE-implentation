@@ -90,3 +90,22 @@ Before a paid launch:
 Seed 2026 can provide a matched provisional comparison with Control B. It
 cannot produce the preregistered three-seed keep/revert conclusion by itself;
 that result must remain `INCONCLUSIVE` until the approved seed set exists.
+
+## Modal provider audit — 2026-08-13
+
+Modal was tested before transferring weights or installing RLinf. One H100
+80 GB HBM3 and one L40S 48 GB container each passed CUDA discovery, but both
+failed the required NVIDIA Vulkan gate. After installing `libvulkan1` and
+`vulkan-tools`, supplying the matching NVIDIA ICD, and testing supported API
+versions, `vulkaninfo` returned `VK_ERROR_INCOMPATIBLE_DRIVER`. The containers
+exposed CUDA devices and NVIDIA user-space libraries but no usable NVIDIA
+Vulkan device/ICD.
+
+This blocks ManiSkill's RGB rendering path independently of VRAM or GPU model.
+Both containers were stopped, no Stage-1 asset was uploaded, and Candidate C
+was not launched. Exploratory compute stayed below the `$5` reporting
+threshold. Modal is therefore rejected for this experiment unless its GPU
+runtime changes and the Vulkan gate is rerun successfully. The next provider
+must expose NVIDIA Vulkan and allow one uninterrupted 30-plus-hour job with
+persistent storage; a single L40S remains the lowest-cost configuration already
+shown to run the representative Stage-2 route.
