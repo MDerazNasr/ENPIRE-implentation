@@ -344,9 +344,12 @@ class D1ConfigTests(unittest.TestCase):
             self.assertEqual(config_overrides["runner.save_interval"], "100")
             self.assertEqual(config["scientific_values"]["runner_steps"], 100)
             self.assertEqual(config["evaluation"]["num_trajectories"], 256)
-            expected_cap = None if config is control else 150
-            expected_thresholds = list(range(10, 301, 5)) if config is control else list(range(10, 151, 5))
-            self.assertEqual(config["budget"]["max_cost_usd"], expected_cap)
+            expected_thresholds = (
+                list(range(10, 301, 5))
+                if config is control
+                else list(range(190, 301, 5))
+            )
+            self.assertIsNone(config["budget"]["max_cost_usd"])
             self.assertEqual(
                 config["budget"]["report_thresholds_usd"], expected_thresholds
             )

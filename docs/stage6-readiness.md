@@ -60,31 +60,24 @@ project commit `32cbfb2fe65931668663b60bbece314767e5fbae`. This hash describes
 the pre-authorization profile with the safe `$150` cap and will change if its
 operational budget fields are explicitly updated.
 
-## Launch blocker and cost decision
+## Launch authorization and cost tracking
 
-The preserved append-only ledger totals `$189.824932`. Candidate C still has
-the earlier cumulative cap of `$150`. The launcher's pre-process cost check
-therefore evaluates `189.824932 >= 150` and rejects the run before creating a
-run directory or starting RLinf.
-
-This is the correct safe behavior. Do not remove or raise the Candidate cap
-without a fresh explicit spend decision. The matched Control B required
-`27.96` hours and `$91.9730` on an H100 PCIe at `$3.29/hour`; using that as the
-best observed estimate, one Candidate seed would bring tracked cumulative
-spend to about `$281.80`. Provider uptime/setup may add cost not attributed by
-the launcher.
+The preserved append-only ledger totals `$189.824932`. Mohamed subsequently
+authorized continuation without an automatic cumulative cap while retaining
+cost tracking. Candidate C therefore uses `max_cost_usd: null` and reports
+cumulative thresholds every `$5` from `$190` through `$300`. This is an
+operational-only change; no scientific field changed. The matched Control B
+required `27.96` hours and `$91.9730` on an H100 PCIe at `$3.29/hour`; provider
+uptime/setup may add cost not attributed by the launcher.
 
 Before a paid launch:
 
-1. Mohamed approves the Candidate-C spend and cumulative cap.
-2. Update only Candidate C's operational budget fields; do not change its
-   scientific fields.
-3. Provision a graphics-capable GPU workspace, restore and hash-check the two
+1. Provision a graphics-capable GPU workspace, restore and hash-check the two
    inputs above, pin RLinf to `c90951a0c799a750cb5294ed10587c61cc2af8bf`,
    and pass the live Vulkan/ManiSkill preflight.
-4. Restore the `$189.824932` ledger, dry-run again, and launch exactly one
+2. Restore the `$189.824932` ledger, dry-run again, and launch exactly one
    seed-2026 Candidate run.
-5. After completion, download and hash the Candidate policy and full compact
+3. After completion, download and hash the Candidate policy and full compact
    evidence before releasing the workspace.
 
 Seed 2026 can provide a matched provisional comparison with Control B. It
