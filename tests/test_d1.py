@@ -354,6 +354,43 @@ class D1ConfigTests(unittest.TestCase):
                 config["budget"]["report_thresholds_usd"], expected_thresholds
             )
 
+    def test_stage6_rtx_capacity_probe_preserves_candidate_runtime_shape(self):
+        candidate = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_h100_chain.yaml"
+        )
+        probe = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_rtxpro6000_capacity.yaml"
+        )
+
+        def overrides(config):
+            return {
+                value.split("=", 1)[0]: value.split("=", 1)[1]
+                for value in config["hydra_overrides"]
+            }
+
+        candidate_overrides = overrides(candidate)
+        probe_overrides = overrides(probe)
+        changed = {
+            key
+            for key in set(candidate_overrides) | set(probe_overrides)
+            if candidate_overrides.get(key) != probe_overrides.get(key)
+        }
+        self.assertEqual(
+            changed,
+            {
+                "runner.max_steps",
+                "runner.val_check_interval",
+                "runner.save_interval",
+            },
+        )
+        self.assertEqual(probe["condition"], "smoke")
+        self.assertTrue(probe["scientific_values"]["calibration_only"])
+        self.assertEqual(probe_overrides["runner.max_steps"], "1")
+        self.assertEqual(probe_overrides["runner.val_check_interval"], "-1")
+        self.assertEqual(probe_overrides["runner.save_interval"], "-1")
+        self.assertFalse(probe["scientific_values"]["actor_offload"])
+        self.assertIsNone(probe["budget"]["max_cost_usd"])
+
     def test_mismatched_batched_eval_count_is_rejected(self):
         config = load_d1_config(CONFIG_ROOT / "stage2_batched_eval_probe.yaml")
         broken = json.loads(json.dumps(config))
