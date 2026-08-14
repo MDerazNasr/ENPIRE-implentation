@@ -13,7 +13,9 @@ the pinned RLinf entry point. It does not import or edit RLinf.
 | `reference.yaml` | Reference-A fixed-ID evaluation contract | Not approved until baseline gate |
 | `control.yaml` | Upstream scheduled-BC Control B | Not approved until baseline gate |
 | `candidate_bc_080.yaml` | Candidate C with only 0.8x scheduled BC weights | Scientific profile valid; paid run requires a new budget decision |
-| `stage2_6_candidate_h100_chain.yaml` | Matched seed-2026 Candidate C after the trained Control | Audited; blocked by its stale `$150` cumulative cap |
+| `stage2_6_candidate_h100_chain.yaml` | Matched seed-2026 Candidate C after the trained Control | Authorized with tracked spend and no automatic cap |
+| `stage2_6_candidate_rtxpro6000_capacity.yaml` | One-rollout Blackwell capacity gate | Completed; non-scientific evidence only |
+| `stage2_6_candidate_rtxpro6000_torch28.yaml` | Candidate C on Blackwell-compatible Torch 2.8/CUDA 12.8 | Launch-ready; runtime differs from Control B and result is provisional |
 
 The `.yaml` files use the JSON subset of YAML so validation requires only the
 Python standard library.
@@ -74,12 +76,12 @@ Each unique `results/d1/<run-id>/` directory receives:
 The append-only `results/d1_runs.jsonl` ledger stores completed-run manifests.
 Cumulative spend is reconstructed from that ledger before each launch. Legacy
 profiles retain their original `$1`--`$25` caps. The fresh-chain cap was raised
-from `$130` to `$150` during the first Control-B recovery, then Mohamed
-explicitly removed Control B's automatic cap for its final recovery while
-retaining `$5` reporting thresholds through `$300`. That permission did not
-authorize Candidate C. Its checked-in profile still caps cumulative spend at
-`$150`; because the completed ledger is `$189.824932`, the launcher rejects
-Candidate execution before process creation. See `stage6-readiness.md`.
+from `$130` to `$150` during the first Control-B recovery. Mohamed later
+explicitly removed the automatic cap for both the final Control recovery and
+Candidate C while retaining `$5` reporting thresholds through `$300`. The
+completed RTX capacity gate brought the ledger to `$190.5672`; Candidate
+execution remains tracked but is no longer rejected by a stale cap. See
+`stage6-readiness.md`.
 
 Resource sampling uses `nvidia-smi` when available and remains valid on a
 no-GPU development host. It also records Linux total/available system RAM from

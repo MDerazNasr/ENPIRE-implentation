@@ -1,8 +1,10 @@
 # Stage 6 Candidate-C Readiness Audit
 
-Status on 2026-08-12: the scientific profile is matched and dry-resolves
-correctly, but a paid Candidate-C launch is **not yet authorized or
-operationally ready**. No GPU was launched during this audit.
+Status on 2026-08-15: the Candidate command, assets, simulator, and one-rollout
+capacity gate pass on the replacement RTX PRO 6000. Paid execution is
+authorized with tracked spend and no automatic cap. The Blackwell-compatible
+Torch 2.8 runtime differs from Control B's Torch 2.6 runtime, so a full result
+from this pod is provisional rather than a strict one-factor estimate.
 
 ## Scientific boundary
 
@@ -126,3 +128,37 @@ restart it with `NVIDIA_DRIVER_CAPABILITIES=all` (or at minimum
 `vulkaninfo --summary` before installing RLinf. Continue only if Vulkan creates
 a device successfully. The GPU model and available capacity are otherwise
 sufficient.
+
+## Replacement RunPod RTX PRO 6000 execution gate — 2026-08-15
+
+The replacement pod at `213.173.102.104:45805` fixed the prior container
+device-cgroup failure. It exposes one RTX PRO 6000 Blackwell with 97,887 MiB
+VRAM, a 50 GB container disk, and a 100 GB persistent volume at `/workspace`.
+The NVIDIA ICD creates a Vulkan logical device, and the exact custom RGB
+PegInsertionSide environment completed a GPU reset and step.
+
+RLinf's documented Torch 2.6/CUDA 12.4 environment can discover this GPU but
+cannot execute an `sm_120` kernel. RLinf's own supported `--torch 2.8.0`
+installer path with `UV_TORCH_BACKEND=cu128` produced Torch 2.8.0+cu128, and a
+CUDA tensor then executed successfully. The pinned RLinf source remains clean
+at `c90951a0c799a750cb5294ed10587c61cc2af8bf`; Hydra 1.3.2 and OmegaConf
+2.3.0 remain pinned. This runtime differs from Control B's Torch 2.6.0+cu124
+runtime. Any Candidate result from this pod is therefore provisional and must
+not be described as a strict one-factor estimate, even though the RLinf source,
+seed, assets, and Hydra command are otherwise matched.
+
+The non-scientific capacity run
+`stage6-candidate-rtxpro6000-capacity-seed2026-20260815` completed with exit
+code zero. It ran all 64 training trajectories, recorded 17.1875% train-route
+success and 275 replay transitions, and correctly performed no learner update
+below the unchanged 10,000-transition gate. The representative rollout took
+310.8 seconds; peak sampled GPU use was 20,374 MiB and 100% utilization. Total
+launcher time including network-volume startup was 1,272.4 seconds, tracked
+cost was `$0.7422`, and the cumulative ledger became `$190.5672`.
+
+`stage2_6_candidate_rtxpro6000_torch28.yaml` preserves the exact Candidate-C
+Hydra command and scientific values while recording the runtime difference in
+its manifest. At the measured rollout rate, 100 steps plus learner and fixed
+evaluation overhead project to roughly 9--10 hours and `$19--21` of additional
+launcher-attributed compute at `$2.10/hour`. The full run remains one-seed,
+provisional evidence.

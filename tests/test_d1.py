@@ -391,6 +391,28 @@ class D1ConfigTests(unittest.TestCase):
         self.assertFalse(probe["scientific_values"]["actor_offload"])
         self.assertIsNone(probe["budget"]["max_cost_usd"])
 
+    def test_stage6_rtx_full_profile_preserves_candidate_command(self):
+        candidate = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_h100_chain.yaml"
+        )
+        rtx_candidate = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_rtxpro6000_torch28.yaml"
+        )
+        self.assertEqual(candidate["hydra_overrides"], rtx_candidate["hydra_overrides"])
+        self.assertEqual(scientific_diff(candidate, rtx_candidate), {})
+        self.assertEqual(
+            rtx_candidate["runtime_provenance"]["candidate_torch"],
+            "2.8.0+cu128",
+        )
+        self.assertEqual(
+            rtx_candidate["runtime_provenance"]["control_torch"],
+            "2.6.0+cu124",
+        )
+        self.assertIn(
+            "not a strict one-factor estimate",
+            rtx_candidate["runtime_provenance"]["comparison_limitation"],
+        )
+
     def test_mismatched_batched_eval_count_is_rejected(self):
         config = load_d1_config(CONFIG_ROOT / "stage2_batched_eval_probe.yaml")
         broken = json.loads(json.dumps(config))
