@@ -109,3 +109,27 @@ runtime changes and the Vulkan gate is rerun successfully. The next provider
 must expose NVIDIA Vulkan and allow one uninterrupted 30-plus-hour job with
 persistent storage; a single L40S remains the lowest-cost configuration already
 shown to run the representative Stage-2 route.
+
+## RunPod RTX PRO 6000 preflight — 2026-08-14
+
+The replacement RunPod endpoint was reachable and exposed one NVIDIA RTX PRO
+6000 Blackwell Server Edition with 97,887 MiB VRAM, driver `580.159.03`, a
+large `/workspace` mount, and the expected NVIDIA and DRI device nodes. CUDA
+discovery passed. The unmodified image initially lacked GLVND/EGL packages;
+after installing the Vulkan tools and required loader packages, the NVIDIA ICD
+could create a Vulkan instance but could not create a logical device.
+
+System-call tracing identified the actual blocker: opening
+`/dev/dri/renderD133` is denied with `EACCES`, and NVIDIA modeset ioctls are
+denied with `EPERM`. Those denials persist for root and the device-node group;
+the container is also prohibited from changing the device permissions. This is
+a container-runtime device-cgroup problem, not an RLinf, ManiSkill, CUDA,
+storage, VRAM, or checkpoint problem. No weights were transferred and no
+Candidate training was launched.
+
+Do not spend setup time on this incarnation of the container. Recreate or
+restart it with `NVIDIA_DRIVER_CAPABILITIES=all` (or at minimum
+`compute,utility,graphics`) applied at container creation, then rerun
+`vulkaninfo --summary` before installing RLinf. Continue only if Vulkan creates
+a device successfully. The GPU model and available capacity are otherwise
+sufficient.
