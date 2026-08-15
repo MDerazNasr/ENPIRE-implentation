@@ -29,7 +29,7 @@
     "runner.logger.logger_backends=[wandb]",
     "runner.logger.project_name=${WANDB_PROJECT}",
     "runner.max_steps=500",
-    "runner.save_interval=250",
+    "runner.save_interval=500",
     "actor.model.model_path=${MODEL_PATH}",
     "actor.model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
     "data.train_data_paths.0.dataset_path=${DATASET_PATH}",
@@ -46,12 +46,12 @@
   "scientific_values": {
     "dataset_scope": "full",
     "max_steps": 500,
-    "save_interval": 250,
+    "save_interval": 500,
     "micro_batch_size": 8,
     "global_batch_size": 256,
     "learning_rate": 0.000025,
     "total_training_steps": 2000,
-    "purpose": "reproduce the matched Stage-1 step-500 actor on A100 after provider-volume loss"
+    "purpose": "reproduce the matched Stage-1 step-500 actor on A100 after provider-volume loss; omit the operational step-250 save to fit the 100 GB persistent volume"
   },
   "budget": {
     "max_cost_usd": null,
