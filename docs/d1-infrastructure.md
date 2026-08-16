@@ -9,6 +9,7 @@ the pinned RLinf entry point. It does not import or edit RLinf.
 | --- | --- | --- |
 | `stage1_pilot.yaml` | Six-step, step-5 checkpoint resource pilot | Approved only after Stage 2 environment review |
 | `stage1_scientific.yaml` | Upstream 2,000-step Stage-1 proposal | Not approved; cost gate required |
+| `stage1_rtxpro6000_recovery_500.yaml` | Step-500 Stage-1 recovery on Blackwell-compatible Torch 2.8/CUDA 12.8 | Authorized recovery run; runtime provenance must be retained |
 | `stage2_smoke.yaml` | Bounded Stage-1-to-Stage-2 contract check | Not approved until pilot checkpoint exists |
 | `reference.yaml` | Reference-A fixed-ID evaluation contract | Not approved until baseline gate |
 | `control.yaml` | Upstream scheduled-BC Control B | Not approved until baseline gate |

@@ -413,6 +413,18 @@ class D1ConfigTests(unittest.TestCase):
             rtx_candidate["runtime_provenance"]["comparison_limitation"],
         )
 
+    def test_stage1_rtx_recovery_preserves_a100_scientific_command(self):
+        a100 = load_d1_config(CONFIG_ROOT / "stage1_a100_recovery_500.yaml")
+        rtx = load_d1_config(CONFIG_ROOT / "stage1_rtxpro6000_recovery_500.yaml")
+        self.assertEqual(a100["hydra_overrides"], rtx["hydra_overrides"])
+        self.assertEqual(scientific_diff(a100, rtx), {})
+        self.assertEqual(rtx["runtime_provenance"]["torch"], "2.8.0+cu128")
+        self.assertEqual(rtx["runtime_provenance"]["gpu_arch"], "sm_120")
+        self.assertIn(
+            "runtime differs",
+            rtx["runtime_provenance"]["comparison_limitation"],
+        )
+
     def test_mismatched_batched_eval_count_is_rejected(self):
         config = load_d1_config(CONFIG_ROOT / "stage2_batched_eval_probe.yaml")
         broken = json.loads(json.dumps(config))
