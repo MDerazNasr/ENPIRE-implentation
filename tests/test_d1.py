@@ -32,7 +32,8 @@ def environment(root: Path) -> dict[str, str]:
     model = root / "model"
     dataset = root / "dataset"
     checkpoint = root / "checkpoint/actor"
-    for path in (rlinf, model, dataset, checkpoint):
+    adapter = root / "adapter"
+    for path in (rlinf, model, dataset, checkpoint, adapter):
         path.mkdir(parents=True, exist_ok=True)
     (dataset / "norm_stats.json").write_text("{}\n")
     return {
@@ -41,6 +42,7 @@ def environment(root: Path) -> dict[str, str]:
         "DATASET_PATH": str(dataset),
         "NORM_STATS_PATH": str(dataset / "norm_stats.json"),
         "STAGE1_CHECKPOINT": str(checkpoint),
+        "MODAL_ADAPTER_ROOT": str(adapter),
         "WANDB_PROJECT": "qualia-d1-test",
         "WANDB_MODE": "offline",
         "WANDB_DIR": str(root / "wandb"),
@@ -411,6 +413,62 @@ class D1ConfigTests(unittest.TestCase):
         self.assertIn(
             "not a strict one-factor estimate",
             rtx_candidate["runtime_provenance"]["comparison_limitation"],
+        )
+
+    def test_modal_candidate_profiles_preserve_counts_and_disclose_protocol(self):
+        smoke = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_modal_multiprocess_smoke.yaml"
+        )
+        full = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_modal_multiprocess.yaml"
+        )
+
+        def overrides(config):
+            return {
+                value.split("=", 1)[0]: value.split("=", 1)[1]
+                for value in config["hydra_overrides"]
+            }
+
+        smoke_overrides = overrides(smoke)
+        full_overrides = overrides(full)
+        changed = {
+            key
+            for key in set(smoke_overrides) | set(full_overrides)
+            if smoke_overrides.get(key) != full_overrides.get(key)
+        }
+        self.assertEqual(
+            changed,
+            {"runner.max_steps", "runner.val_check_interval", "runner.save_interval"},
+        )
+        self.assertEqual(full["evaluation"]["num_trajectories"], 256)
+        self.assertEqual(full["scientific_values"]["train_trajectories_per_step"], 64)
+        self.assertEqual(full_overrides["env.train.total_num_envs"], "16")
+        self.assertEqual(full_overrides["env.eval.total_num_envs"], "16")
+        self.assertEqual(full_overrides["env.train.init_params.sim_backend"], "cpu")
+        self.assertEqual(
+            full_overrides["+env.train.init_params.render_backend"],
+            "pci:0000:00:00.0",
+        )
+        self.assertEqual(full["runtime_environment"]["QUALIA_MODAL_MULTIPROCESS"], "1")
+        self.assertIn(
+            "simulator, renderer, and batching differ",
+            full["runtime_provenance"]["comparison_limitation"],
+        )
+        self.assertTrue(smoke["scientific_values"]["calibration_only"])
+        self.assertEqual(smoke_overrides["runner.max_steps"], "1")
+
+    def test_modal_candidate_explicitly_differs_from_control_protocol(self):
+        control = load_d1_config(CONFIG_ROOT / "stage2_5d_control_h100_chain.yaml")
+        modal_candidate = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_modal_multiprocess.yaml"
+        )
+        differences = scientific_diff(control, modal_candidate)
+        self.assertEqual(differences["warmup_bc_weight"], (7, 5.6))
+        self.assertEqual(differences["online_bc_weight"], (2.5, 2))
+        self.assertEqual(differences["sim_backend"], (None, "cpu"))
+        self.assertEqual(differences["render_backend"], (None, "llvmpipe"))
+        self.assertEqual(
+            differences["environment_batching"], (None, "16-process")
         )
 
     def test_stage1_rtx_recovery_preserves_a100_scientific_command(self):
