@@ -67,7 +67,7 @@
     "algorithm.actor_weight_schedule.online_q_weight=0.45",
     "runner.max_steps=1",
     "runner.val_check_interval=-1",
-    "runner.save_interval=-1"
+    "runner.save_interval=1"
   ],
   "evaluation": {
     "fixed_reset_state_ids": true,
@@ -93,6 +93,7 @@
     "actor_offload": false,
     "weight_transport_device": "cpu",
     "runner_steps": 1,
+    "checkpoint_interval_steps": 1,
     "calibration_only": true,
     "sim_backend": "cpu",
     "render_backend": "llvmpipe",

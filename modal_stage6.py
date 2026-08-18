@@ -112,6 +112,7 @@ def _runtime_environment() -> dict[str, str]:
         "HF_HOME": f"{WORKSPACE}/cache/huggingface",
         "HF_DATASETS_CACHE": f"{WORKSPACE}/cache/huggingface/datasets",
         "D1_SEED": "2026",
+        "CANDIDATE_RESUME_DIR": "null",
         "GPU_HOURLY_PRICE_USD": "3.03",
         "EMBODIED_PATH": f"{RLINF_HOME}/examples/embodiment",
         "PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}",
@@ -191,7 +192,12 @@ def adapter_gate() -> dict[str, object]:
     return result
 
 
-def _run_profile(profile: str, run_id: str) -> int:
+def _run_profile(
+    profile: str,
+    run_id: str,
+    *,
+    extra_environment: dict[str, str] | None = None,
+) -> int:
     _verify_inputs()
     results = _prepare_results()
     command = [
@@ -207,11 +213,52 @@ def _run_profile(profile: str, run_id: str) -> int:
         "--execute",
         "--acknowledge-paid-run",
     ]
-    completed = subprocess.run(command, cwd=PROJECT_ROOT, env=_runtime_environment())
-    workspace.commit()
+    environment = _runtime_environment()
+    if extra_environment:
+        environment.update(extra_environment)
+    try:
+        completed = subprocess.run(command, cwd=PROJECT_ROOT, env=environment)
+    finally:
+        workspace.commit()
     if completed.returncode != 0:
         raise RuntimeError(f"RLinf profile failed with exit {completed.returncode}")
     return completed.returncode
+
+
+def _checkpoint_path(run_id: str, step: int) -> Path:
+    return (
+        Path(WORKSPACE)
+        / "results/d1"
+        / run_id
+        / "maniskill_rlt_stage2_ac_mlp/checkpoints"
+        / f"global_step_{step}"
+    )
+
+
+def _verify_resume_checkpoint(path: Path, expected_step: int) -> dict[str, object]:
+    if path.name != f"global_step_{expected_step}":
+        raise RuntimeError(
+            f"checkpoint step mismatch: expected {expected_step}, got {path.name}"
+        )
+    required = (
+        "actor/dcp_checkpoint/.metadata",
+        "actor/model_state_dict/full_weights.pt",
+        "actor/sac_components/target_model/checkpoint_rank_0.pt",
+        "actor/sac_components/replay_buffer/rank_0/trajectory_index.json",
+    )
+    inventory: dict[str, int] = {}
+    for relative in required:
+        checkpoint_file = path / relative
+        if not checkpoint_file.is_file():
+            raise FileNotFoundError(f"resume checkpoint is incomplete: {checkpoint_file}")
+        inventory[relative] = checkpoint_file.stat().st_size
+    result: dict[str, object] = {
+        "checkpoint": str(path),
+        "step": expected_step,
+        "required_files": inventory,
+    }
+    print(f"QUALIA_MODAL_RESUME_CHECKPOINT={json.dumps(result, sort_keys=True)}")
+    return result
 
 
 @app.function(
@@ -229,6 +276,50 @@ def smoke() -> int:
     )
 
 
+RESUME_SOURCE_RUN_ID = "stage6-modal-resume-gate-source-seed2026-r1"
+RESUME_CONTINUATION_RUN_ID = "stage6-modal-resume-gate-continuation-seed2026-r1"
+
+
+@app.function(
+    image=image,
+    gpu=GPU,
+    cpu=16,
+    memory=131072,
+    timeout=60 * 60 * 4,
+    volumes={WORKSPACE: workspace},
+)
+def resume_source() -> dict[str, object]:
+    _run_profile(
+        "stage2_6_candidate_modal_multiprocess_smoke.yaml",
+        RESUME_SOURCE_RUN_ID,
+    )
+    return _verify_resume_checkpoint(
+        _checkpoint_path(RESUME_SOURCE_RUN_ID, 1), expected_step=1
+    )
+
+
+@app.function(
+    image=image,
+    gpu=GPU,
+    cpu=16,
+    memory=131072,
+    timeout=60 * 60 * 4,
+    volumes={WORKSPACE: workspace},
+)
+def resume_continuation() -> dict[str, object]:
+    source = _checkpoint_path(RESUME_SOURCE_RUN_ID, 1)
+    source_inventory = _verify_resume_checkpoint(source, expected_step=1)
+    _run_profile(
+        "stage2_6_candidate_modal_resume_gate.yaml",
+        RESUME_CONTINUATION_RUN_ID,
+        extra_environment={"RESUME_CHECKPOINT": str(source)},
+    )
+    continued_inventory = _verify_resume_checkpoint(
+        _checkpoint_path(RESUME_CONTINUATION_RUN_ID, 2), expected_step=2
+    )
+    return {"source": source_inventory, "continued": continued_inventory}
+
+
 @app.function(
     image=image,
     gpu=GPU,
@@ -237,20 +328,49 @@ def smoke() -> int:
     timeout=60 * 60 * 24,
     volumes={WORKSPACE: workspace},
 )
-def candidate() -> int:
+def candidate(
+    run_id: str = "stage6-candidate-c-modal-multiprocess-seed2026-r2",
+    resume_dir: str = "",
+) -> int:
+    if resume_dir:
+        resume_path = Path(resume_dir)
+        try:
+            resume_step = int(resume_path.name.removeprefix("global_step_"))
+        except ValueError as error:
+            raise ValueError(
+                "resume_dir must end in global_step_<integer>"
+            ) from error
+        _verify_resume_checkpoint(resume_path, expected_step=resume_step)
     return _run_profile(
         "stage2_6_candidate_modal_multiprocess.yaml",
-        "stage6-candidate-c-modal-multiprocess-seed2026",
+        run_id,
+        extra_environment={"CANDIDATE_RESUME_DIR": resume_dir or "null"},
     )
 
 
 @app.local_entrypoint()
-def main(target: str = "gate") -> None:
+def main(
+    target: str = "gate",
+    run_id: str = "stage6-candidate-c-modal-multiprocess-seed2026-r2",
+    resume_dir: str = "",
+) -> None:
     if target == "gate":
-        print(json.dumps(adapter_gate.remote(), indent=2, sort_keys=True))
+        print(json.dumps(adapter_gate.spawn().get(), indent=2, sort_keys=True))
     elif target == "smoke":
-        smoke.remote()
+        smoke.spawn().get()
+    elif target == "resume-gate":
+        source = resume_source.spawn().get()
+        continued = resume_continuation.spawn().get()
+        print(
+            json.dumps(
+                {"source": source, "continued": continued},
+                indent=2,
+                sort_keys=True,
+            )
+        )
     elif target == "candidate":
-        candidate.remote()
+        candidate.spawn(run_id=run_id, resume_dir=resume_dir).get()
     else:
-        raise ValueError("target must be gate, smoke, or candidate")
+        raise ValueError(
+            "target must be gate, smoke, resume-gate, or candidate"
+        )

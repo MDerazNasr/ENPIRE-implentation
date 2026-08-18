@@ -33,7 +33,8 @@ def environment(root: Path) -> dict[str, str]:
     dataset = root / "dataset"
     checkpoint = root / "checkpoint/actor"
     adapter = root / "adapter"
-    for path in (rlinf, model, dataset, checkpoint, adapter):
+    resume_checkpoint = root / "resume/global_step_1"
+    for path in (rlinf, model, dataset, checkpoint, adapter, resume_checkpoint):
         path.mkdir(parents=True, exist_ok=True)
     (dataset / "norm_stats.json").write_text("{}\n")
     return {
@@ -43,6 +44,8 @@ def environment(root: Path) -> dict[str, str]:
         "NORM_STATS_PATH": str(dataset / "norm_stats.json"),
         "STAGE1_CHECKPOINT": str(checkpoint),
         "MODAL_ADAPTER_ROOT": str(adapter),
+        "CANDIDATE_RESUME_DIR": "null",
+        "RESUME_CHECKPOINT": str(resume_checkpoint),
         "WANDB_PROJECT": "qualia-d1-test",
         "WANDB_MODE": "offline",
         "WANDB_DIR": str(root / "wandb"),
@@ -438,7 +441,12 @@ class D1ConfigTests(unittest.TestCase):
         }
         self.assertEqual(
             changed,
-            {"runner.max_steps", "runner.val_check_interval", "runner.save_interval"},
+            {
+                "runner.max_steps",
+                "runner.resume_dir",
+                "runner.val_check_interval",
+                "runner.save_interval",
+            },
         )
         self.assertEqual(full["evaluation"]["num_trajectories"], 256)
         self.assertEqual(full["scientific_values"]["train_trajectories_per_step"], 64)
@@ -456,6 +464,23 @@ class D1ConfigTests(unittest.TestCase):
         )
         self.assertTrue(smoke["scientific_values"]["calibration_only"])
         self.assertEqual(smoke_overrides["runner.max_steps"], "1")
+        self.assertEqual(smoke_overrides["runner.save_interval"], "1")
+        self.assertEqual(full_overrides["runner.save_interval"], "10")
+        self.assertEqual(full_overrides["runner.resume_dir"], "${CANDIDATE_RESUME_DIR}")
+
+    def test_modal_resume_gate_loads_step_one_and_saves_step_two(self):
+        resume = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_modal_resume_gate.yaml"
+        )
+        overrides = {
+            value.split("=", 1)[0]: value.split("=", 1)[1]
+            for value in resume["hydra_overrides"]
+        }
+        self.assertEqual(overrides["runner.resume_dir"], "${RESUME_CHECKPOINT}")
+        self.assertEqual(overrides["runner.max_steps"], "2")
+        self.assertEqual(overrides["runner.save_interval"], "2")
+        self.assertEqual(resume["scientific_values"]["resume_from_step"], 1)
+        self.assertTrue(resume["scientific_values"]["calibration_only"])
 
     def test_modal_candidate_explicitly_differs_from_control_protocol(self):
         control = load_d1_config(CONFIG_ROOT / "stage2_5d_control_h100_chain.yaml")
