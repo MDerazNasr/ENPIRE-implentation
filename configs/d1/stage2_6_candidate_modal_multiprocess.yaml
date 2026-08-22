@@ -66,9 +66,9 @@
     "algorithm.actor_weight_schedule.warmup_q_weight=0.05",
     "algorithm.actor_weight_schedule.online_q_weight=0.45",
     "runner.resume_dir=${CANDIDATE_RESUME_DIR}",
-    "runner.max_steps=100",
-    "runner.val_check_interval=100",
-    "runner.save_interval=10"
+    "runner.max_steps=${CANDIDATE_MAX_STEPS}",
+    "runner.val_check_interval=${CANDIDATE_VAL_CHECK_INTERVAL}",
+    "runner.save_interval=${CANDIDATE_SAVE_INTERVAL}"
   ],
   "evaluation": {
     "fixed_reset_state_ids": true,
@@ -93,7 +93,9 @@
     "actor_offload": false,
     "weight_transport_device": "cpu",
     "runner_steps": 100,
-    "checkpoint_interval_steps": 10,
+    "checkpoint_interval_steps": "${CANDIDATE_SAVE_INTERVAL}",
+    "segment_endpoint_step": "${CANDIDATE_MAX_STEPS}",
+    "segment_evaluation_interval": "${CANDIDATE_VAL_CHECK_INTERVAL}",
     "resume_contract": "native RLinf runner.resume_dir with actor, optimizer, scheduler, target model, and replay buffer state",
     "sim_backend": "cpu",
     "render_backend": "llvmpipe",

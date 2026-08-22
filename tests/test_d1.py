@@ -18,6 +18,7 @@ from agent.d1_config import (
     validate_required_paths,
 )
 from agent.d1_launcher import main, prepare_run
+from agent.d1_modal_schedule import validate_candidate_segment
 from agent.d1_rules import decide_d1_candidate
 from agent.provenance import create_manifest
 from agent.resources import CostTracker, resource_snapshot
@@ -45,6 +46,9 @@ def environment(root: Path) -> dict[str, str]:
         "STAGE1_CHECKPOINT": str(checkpoint),
         "MODAL_ADAPTER_ROOT": str(adapter),
         "CANDIDATE_RESUME_DIR": "null",
+        "CANDIDATE_MAX_STEPS": "60",
+        "CANDIDATE_VAL_CHECK_INTERVAL": "-1",
+        "CANDIDATE_SAVE_INTERVAL": "10",
         "RESUME_CHECKPOINT": str(resume_checkpoint),
         "WANDB_PROJECT": "qualia-d1-test",
         "WANDB_MODE": "offline",
@@ -465,8 +469,36 @@ class D1ConfigTests(unittest.TestCase):
         self.assertTrue(smoke["scientific_values"]["calibration_only"])
         self.assertEqual(smoke_overrides["runner.max_steps"], "1")
         self.assertEqual(smoke_overrides["runner.save_interval"], "1")
-        self.assertEqual(full_overrides["runner.save_interval"], "10")
+        self.assertEqual(
+            full_overrides["runner.save_interval"], "${CANDIDATE_SAVE_INTERVAL}"
+        )
+        self.assertEqual(full_overrides["runner.max_steps"], "${CANDIDATE_MAX_STEPS}")
+        self.assertEqual(
+            full_overrides["runner.val_check_interval"],
+            "${CANDIDATE_VAL_CHECK_INTERVAL}",
+        )
         self.assertEqual(full_overrides["runner.resume_dir"], "${CANDIDATE_RESUME_DIR}")
+
+    def test_modal_candidate_segment_schedule_fails_before_paid_rollout(self):
+        validate_candidate_segment(
+            resume_step=0,
+            max_steps=60,
+            val_check_interval=-1,
+            save_interval=10,
+        )
+        validate_candidate_segment(
+            resume_step=60,
+            max_steps=100,
+            val_check_interval=100,
+            save_interval=100,
+        )
+        with self.assertRaisesRegex(ValueError, "divisible"):
+            validate_candidate_segment(
+                resume_step=0,
+                max_steps=100,
+                val_check_interval=100,
+                save_interval=10,
+            )
 
     def test_modal_resume_gate_loads_step_one_and_saves_step_two(self):
         resume = load_d1_config(

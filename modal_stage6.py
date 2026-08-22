@@ -15,6 +15,8 @@ from pathlib import Path
 
 import modal
 
+from agent.d1_modal_schedule import validate_candidate_segment
+
 
 APP_NAME = "enpire-stage6-modal-multiprocess"
 GPU = "RTX-PRO-6000"
@@ -113,6 +115,9 @@ def _runtime_environment() -> dict[str, str]:
         "HF_DATASETS_CACHE": f"{WORKSPACE}/cache/huggingface/datasets",
         "D1_SEED": "2026",
         "CANDIDATE_RESUME_DIR": "null",
+        "CANDIDATE_MAX_STEPS": "60",
+        "CANDIDATE_VAL_CHECK_INTERVAL": "-1",
+        "CANDIDATE_SAVE_INTERVAL": "10",
         "GPU_HOURLY_PRICE_USD": "3.03",
         "EMBODIED_PATH": f"{RLINF_HOME}/examples/embodiment",
         "PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}",
@@ -329,9 +334,13 @@ def resume_continuation() -> dict[str, object]:
     volumes={WORKSPACE: workspace},
 )
 def candidate(
-    run_id: str = "stage6-candidate-c-modal-multiprocess-seed2026-r2",
+    run_id: str = "stage6-candidate-c-modal-multiprocess-seed2026-r3-train-to-60",
     resume_dir: str = "",
+    max_steps: int = 60,
+    val_check_interval: int = -1,
+    save_interval: int = 10,
 ) -> int:
+    resume_step = 0
     if resume_dir:
         resume_path = Path(resume_dir)
         try:
@@ -341,18 +350,35 @@ def candidate(
                 "resume_dir must end in global_step_<integer>"
             ) from error
         _verify_resume_checkpoint(resume_path, expected_step=resume_step)
-    return _run_profile(
+    validate_candidate_segment(
+        resume_step=resume_step,
+        max_steps=max_steps,
+        val_check_interval=val_check_interval,
+        save_interval=save_interval,
+    )
+    result = _run_profile(
         "stage2_6_candidate_modal_multiprocess.yaml",
         run_id,
-        extra_environment={"CANDIDATE_RESUME_DIR": resume_dir or "null"},
+        extra_environment={
+            "CANDIDATE_RESUME_DIR": resume_dir or "null",
+            "CANDIDATE_MAX_STEPS": str(max_steps),
+            "CANDIDATE_VAL_CHECK_INTERVAL": str(val_check_interval),
+            "CANDIDATE_SAVE_INTERVAL": str(save_interval),
+        },
     )
+    _verify_resume_checkpoint(_checkpoint_path(run_id, max_steps), max_steps)
+    workspace.commit()
+    return result
 
 
 @app.local_entrypoint()
 def main(
     target: str = "gate",
-    run_id: str = "stage6-candidate-c-modal-multiprocess-seed2026-r2",
+    run_id: str = "stage6-candidate-c-modal-multiprocess-seed2026-r3-train-to-60",
     resume_dir: str = "",
+    max_steps: int = 60,
+    val_check_interval: int = -1,
+    save_interval: int = 10,
 ) -> None:
     if target == "gate":
         print(json.dumps(adapter_gate.spawn().get(), indent=2, sort_keys=True))
@@ -369,7 +395,13 @@ def main(
             )
         )
     elif target == "candidate":
-        candidate.spawn(run_id=run_id, resume_dir=resume_dir).get()
+        candidate.spawn(
+            run_id=run_id,
+            resume_dir=resume_dir,
+            max_steps=max_steps,
+            val_check_interval=val_check_interval,
+            save_interval=save_interval,
+        ).get()
     else:
         raise ValueError(
             "target must be gate, smoke, resume-gate, or candidate"
