@@ -11,11 +11,10 @@ import hashlib
 import json
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 import modal
-
-from agent.d1_modal_schedule import validate_candidate_segment
 
 
 APP_NAME = "enpire-stage6-modal-multiprocess"
@@ -340,6 +339,10 @@ def candidate(
     val_check_interval: int = -1,
     save_interval: int = 10,
 ) -> int:
+    if PROJECT_ROOT not in sys.path:
+        sys.path.insert(0, PROJECT_ROOT)
+    from agent.d1_modal_schedule import validate_candidate_segment
+
     resume_step = 0
     if resume_dir:
         resume_path = Path(resume_dir)
