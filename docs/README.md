@@ -23,5 +23,8 @@ The gated D1 scientific-baseline work is specified in:
   limitation, and budget gate.
 - `stage6-readiness.md` — Candidate-C scientific-diff, scratch initialization,
   preserved-input, dry-run, and current budget-authorization audit.
+- `stage6-result.md` — completed Candidate-C execution, fixed-evaluation
+  result, resume-counter validity failure, artifact hashes, and the formal
+  `INCONCLUSIVE` decision.
 - `local-artifact-backup.md` — progressive local weight/evidence download and
   hash gates required before any workspace termination.

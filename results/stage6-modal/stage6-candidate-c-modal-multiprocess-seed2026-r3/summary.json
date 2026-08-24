@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "run_id": "stage6-candidate-c-modal-multiprocess-seed2026-r3",
+  "status": "complete_but_scientifically_inconclusive",
+  "decision": "inconclusive",
+  "operational_action": "do_not_promote_candidate",
+  "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "project_commits": ["e467489", "7b80aa3"],
+  "config_sha256": "28dca649d9bfa0e38113f6c890fb80976d345f59970e33945d850b7efdba48e9",
+  "hardware": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "runtime": {
+    "torch": "2.8.0+cu128",
+    "simulator_backend": "CPU PhysX",
+    "render_backend": "Mesa llvmpipe via Vulkan",
+    "batching": "16 independent one-environment processes"
+  },
+  "segments": [
+    {
+      "run_id": "stage6-candidate-c-modal-multiprocess-seed2026-r3-train-to-60",
+      "start_step": 0,
+      "end_step": 60,
+      "status": "complete",
+      "exit_code": 0,
+      "elapsed_seconds": 56982.656152477,
+      "launcher_estimated_cost_usd": 47.96040226446078,
+      "final_update_step": 16400,
+      "evaluation_trajectories": 0
+    },
+    {
+      "run_id": "stage6-candidate-c-modal-multiprocess-seed2026-r3-final-60-to-100",
+      "start_step": 60,
+      "end_step": 100,
+      "status": "complete",
+      "exit_code": 0,
+      "elapsed_seconds": 52686.711374011,
+      "launcher_estimated_cost_usd": 44.344648743182006,
+      "first_resumed_update_step": 0,
+      "final_update_step": 15600,
+      "final_ready_for_online": 0,
+      "final_replay_samples_approx": 49300,
+      "evaluation_trajectories": 256
+    }
+  ],
+  "combined_segment_elapsed_seconds": 109669.367526488,
+  "combined_segment_launcher_estimated_cost_usd": 92.30505100764279,
+  "modal_workspace_billing_at_audit": {
+    "metered_cost_usd": 153.20,
+    "credits_usd": 30.00,
+    "billed_cost_usd": 123.08,
+    "note": "Workspace-cycle total, not an attribution to Candidate r3 alone."
+  },
+  "final_training_route": {
+    "num_trajectories": 64,
+    "success_count": 6,
+    "success_once": 0.09375,
+    "episode_len": 462.01562
+  },
+  "fixed_evaluation": {
+    "num_trajectories": 256,
+    "success_count": 32,
+    "success_once": 0.125,
+    "wilson_ci95": [0.08995183318684266, 0.17113605913256094],
+    "episode_len": 451.58984
+  },
+  "comparison": {
+    "control_b_success_count": 18,
+    "control_b_num_trajectories": 256,
+    "control_b_success_once": 0.0703125,
+    "candidate_minus_control_percentage_points": 5.46875,
+    "reference_a_success_count": 35,
+    "reference_a_num_trajectories": 256,
+    "reference_a_success_once": 0.13671875,
+    "candidate_minus_reference_percentage_points": -1.171875
+  },
+  "validity_findings": [
+    "RLinf restored the model, optimizer, target model, and replay buffer at step 60, but did not restore the RLT update/warm-up counter.",
+    "The counter was 16400 at step 60 and restarted at 0 at step 61; it ended at 15600 with ready_for_online=0.",
+    "The candidate therefore stayed at warmup_bc_weight=5.6 and never exercised online_bc_weight=2.0.",
+    "The Modal simulator, renderer, batching, and Torch runtime differ from Control B.",
+    "Only seed 2026 is available, while the preregistered decision requires three paired seeds and a 95% interval for the across-seed delta."
+  ],
+  "decision_reason": "The observed +5.46875-point success difference cannot satisfy the preregistered keep rule because the approved seed set is incomplete and the executed resumed schedule is not matched to Control B.",
+  "checkpoint": {
+    "remote_root": "results/d1/stage6-candidate-c-modal-multiprocess-seed2026-r3-final-60-to-100/maniskill_rlt_stage2_ac_mlp/checkpoints/global_step_100/actor",
+    "files": {
+      "dcp_metadata": {"bytes": 60017, "sha256": "d633244d13a7f88aa8b0595003fe5e890f5a1b8c6ba6702d327ecb5634d77def"},
+      "full_weights.pt": {"bytes": 8338321, "sha256": "717b8cad468f24335ed35234a70575602e62e0b9a0d9de0195ceaf4b4e0a8d7c"},
+      "target_model.pt": {"bytes": 8340023, "sha256": "362f09914fc5290df939d7ada23d2b82080eb64f8222f25a2ebae2e0b9333e3f"},
+      "replay_index.json": {"bytes": 8157488, "sha256": "6e4f2b1f18eba28d23ff90b1b92c275f7e2ed3506d6d8fe449d9ea013559a70c"}
+    }
+  },
+  "raw_evidence": {
+    "remote_run_root": "results/d1/stage6-candidate-c-modal-multiprocess-seed2026-r3-final-60-to-100",
+    "local_untracked_backup": "tmp/fresh-chain-20260807/evidence/stage6-candidate-r3-final",
+    "manifest_sha256": "345a1dbd7b381c36ef534496ccc1b0abb546b60a177e7081cb2aaf9c8ba0756c",
+    "metrics_sha256": "aca783f98d35914541d8d39544dc73446d4c11b66060d90c349129097c20ea9b",
+    "run_log_sha256": "02476cd23c856ef831b20a5210d2c315c12d348ad965d93f6cae6e22181cf879",
+    "resources_sha256": "1dd852a9fcb5e4e3be70b897fcbb84a57c6cb7fa43f06b3231d82bd408ae1e33"
+  }
+}

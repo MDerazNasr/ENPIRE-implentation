@@ -105,3 +105,29 @@ Local evidence archive SHA-256:
 `c399ebad392c82bb7c13e0be91955c7e5bc72a980ab0fefcab46672a0a978dfc`.
 Final compact policy SHA-256:
 `0090d1f6c9fb1feb43ea459570872d93eeed92e9c2e1cff871ba3e6050cafd34`.
+
+## D1 Stage-6 Candidate C — 2026-08-24
+
+- Run: `stage6-candidate-c-modal-multiprocess-seed2026-r3`
+- RLinf commit: `c90951a0c799a750cb5294ed10587c61cc2af8bf`
+- Hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition on Modal
+- Stage-2 horizon: segmented `1--60` plus native resume `61--100`, seed 2026
+- Evaluation: 256 fixed reset-state IDs, 500-step horizon
+
+| Condition | Fixed eval success | Difference from Control B | Decision |
+| --- | ---: | ---: | --- |
+| Control B | `18/256` (`7.03%`) | -- | Baseline |
+| Candidate C r3 | `32/256` (`12.50%`) | `+5.47` points | `INCONCLUSIVE`; do not promote |
+
+Candidate C completed and its final checkpoint is verified, but the native
+resume reset `rlt/update_step` from `16,400` at step 60 to `0` at step 61. It
+ended at `15,600` with `ready_for_online=0`, so it never exercised the intended
+online BC weight `2.0`. The run also has only one seed and uses a different
+runtime/simulator path from Control B.
+
+**Honest result:** the observed `+5.47`-point success difference is promising
+but cannot support `KEEP`. The executed schedule was not matched and the
+preregistered three-seed interval is missing, so the formal outcome is
+`INCONCLUSIVE` and the previous configuration remains the operational default.
+
+Detailed evidence: `docs/stage6-result.md`.

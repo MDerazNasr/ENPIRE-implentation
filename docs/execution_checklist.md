@@ -126,23 +126,31 @@ preregistered keep/revert decision still requires the approved seed set.
 
 - [x] Audit Candidate C without a GPU: exact profile diff, scratch Stage-2
   initialization, seed/eval parity, local input hashes, and dry-run all pass.
-- [ ] Approve and update the Candidate-C cumulative budget. The preserved
-  ledger is `$189.824932`, above the profile's stale `$150` cap, so the
-  launcher currently blocks paid execution before process creation.
-- [ ] Start from the same verified step-500 Stage-1 actor used by Control B;
+- [x] Approve and update the Candidate-C cumulative budget. Execution was
+  authorized without an automatic cap while retaining threshold reporting.
+- [x] Start from the same verified step-500 Stage-1 actor used by Control B;
   do not initialize Candidate C from the trained Control-B actor/critic.
-- [ ] Run Candidate C using the matched protocol.
-- [ ] Compute paired candidate-minus-control evidence.
-- [ ] Apply the preregistered decision rule.
-- [ ] Preserve both accepted and rejected artifacts.
-- [ ] Download and hash-verify the completed Candidate-C policy and evidence
+- [x] Run Candidate C to 100 steps and 256 fixed evaluations. Execution
+  completed, but native resume reset the RLT warm-up/update counter, so the
+  realized schedule is not matched to Control B.
+- [x] Compute the seed-2026 observation: Candidate `32/256` (`12.50%`) versus
+  Control `18/256` (`7.03%`), or `+5.46875` percentage points.
+- [x] Apply the preregistered decision rule: `INCONCLUSIVE`. The approved seed
+  set is incomplete, the interval requirement is unmet, and the resumed
+  Candidate never entered its online BC schedule.
+- [x] Preserve the non-promoted Candidate artifact and its validity findings.
+- [x] Download and hash-verify the completed Candidate-C policy and evidence
   locally.
-- [ ] Export and hash the Stage-1 actor, Control-B and Candidate-C policies,
+- [x] Export and hash the Stage-1 actor, Control-B and Candidate-C policies,
   norm stats, configs, manifests, ledger, and compact raw evidence before the
   shared instance is terminated.
 
 Gate: immutable evidence supports `KEEP`, `REVERT`, or `INCONCLUSIVE`.
 The GPU/workspace may be released only after the export hashes match.
+
+Gate outcome: `INCONCLUSIVE`. Candidate execution and artifact preservation
+are complete, but a matched scientific Candidate remains unproven because the
+resume boundary reset the RLT schedule counter. See `docs/stage6-result.md`.
 
 ## Stage 7 — D1 evidence pack
 

@@ -1,10 +1,11 @@
 # Stage 6 Candidate-C Readiness Audit
 
-Status on 2026-08-15: the Candidate command, assets, simulator, and one-rollout
-capacity gate pass on the replacement RTX PRO 6000. Paid execution is
-authorized with tracked spend and no automatic cap. The Blackwell-compatible
-Torch 2.8 runtime differs from Control B's Torch 2.6 runtime, so a full result
-from this pod is provisional rather than a strict one-factor estimate.
+Final status on 2026-08-24: Candidate r3 completed 100 steps and all 256 fixed
+evaluations, but the segmented native resume reset the RLT update/warm-up
+counter at step 61. The formal decision is `INCONCLUSIVE`; the candidate is not
+promoted. See `stage6-result.md` for the verified metrics, artifact hashes,
+cost, and validity analysis. The material below records the pre-run readiness
+and provider history.
 
 ## Scientific boundary
 
