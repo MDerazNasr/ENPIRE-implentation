@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-24",
+  "status": "draft_pending_candidate_r4",
+  "project_branch": "experiment/d1-rlt-baseline",
+  "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "hash_algorithm": "sha256",
+  "artifacts": [
+    {
+      "id": "stage1-matched-step500-actor",
+      "role": "canonical_stage1_input",
+      "path": "tmp/fresh-chain-20260807/stage1-step-500-actor/model_state_dict/full_weights.pt",
+      "tracked_by_git": false,
+      "bytes": 10015912759,
+      "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+      "status": "locally_verified"
+    },
+    {
+      "id": "official-norm-stats",
+      "role": "canonical_dataset_normalization",
+      "path": "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json",
+      "tracked_by_git": true,
+      "bytes": 2149,
+      "sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+      "status": "tracked_and_verified"
+    },
+    {
+      "id": "reference-a-fresh-metrics",
+      "role": "matched_reference_raw_metrics",
+      "path": "results/d1-evidence-pack/raw/reference-a-matched-metrics.log",
+      "tracked_by_git": true,
+      "bytes": 6785,
+      "sha256": "f421ed16f302cfd569352717e876e8b8fec57baca12cefeacce96278a500ce6b",
+      "status": "tracked_and_verified",
+      "note": "Contains the matched 35/256 fixed-evaluation result."
+    },
+    {
+      "id": "reference-a-fresh-run-log",
+      "role": "matched_reference_raw_log",
+      "path": "tmp/fresh-chain-20260807/evidence/stage5c/run.log",
+      "tracked_by_git": false,
+      "bytes": 34245,
+      "sha256": "de0d516083123b737e1eb9432e39ef179fa38797821371b32ff0e2f16813dfb4",
+      "status": "locally_verified"
+    },
+    {
+      "id": "control-b-completion-summary",
+      "role": "valid_control_compact_summary",
+      "path": "results/d1-evidence-pack/raw/control-b-completion-summary.md",
+      "tracked_by_git": true,
+      "bytes": 1781,
+      "sha256": "95df522da5255870dc62f2357eb05966fc53557290236e154e09536aa0a45266",
+      "status": "tracked_and_verified"
+    },
+    {
+      "id": "control-b-gate-report",
+      "role": "valid_control_machine_gate",
+      "path": "results/d1-evidence-pack/raw/control-b-gate-report.json",
+      "tracked_by_git": true,
+      "bytes": 593,
+      "sha256": "eff6759f4f15bc9f61857a9de38e7ee7fd631f5e8c1a00cbf0f34d791d0506f4",
+      "status": "tracked_and_verified"
+    },
+    {
+      "id": "control-b-policy",
+      "role": "valid_control_policy",
+      "path": "tmp/fresh-chain-20260807/evidence/stage5d-control-b-complete/extracted/stage5d-control-b-h100-recovery-offload-disabled-seed2026-20260809-r2-20260810T191115Z/run/maniskill_rlt_stage2_ac_mlp/checkpoints/global_step_100/actor/model_state_dict/full_weights.pt",
+      "tracked_by_git": false,
+      "bytes": 8337914,
+      "sha256": "0090d1f6c9fb1feb43ea459570872d93eeed92e9c2e1cff871ba3e6050cafd34",
+      "status": "locally_verified"
+    },
+    {
+      "id": "control-b-complete-archive",
+      "role": "valid_control_full_evidence",
+      "path": "tmp/fresh-chain-20260807/evidence/stage5d-control-b-complete/stage5d-control-b-h100-recovery-offload-disabled-seed2026-20260809-r2-20260810T191115Z.tar.gz",
+      "tracked_by_git": false,
+      "bytes": 589529267,
+      "sha256": "c399ebad392c82bb7c13e0be91955c7e5bc72a980ab0fefcab46672a0a978dfc",
+      "status": "locally_verified"
+    },
+    {
+      "id": "candidate-r3-policy",
+      "role": "historical_invalid_candidate_policy",
+      "path": "tmp/fresh-chain-20260807/evidence/stage6-candidate-r3-final/checkpoint/full_weights.pt",
+      "tracked_by_git": false,
+      "bytes": 8338321,
+      "sha256": "717b8cad468f24335ed35234a70575602e62e0b9a0d9de0195ceaf4b4e0a8d7c",
+      "status": "locally_verified_do_not_promote"
+    },
+    {
+      "id": "candidate-r3-summary",
+      "role": "historical_invalid_candidate_machine_summary",
+      "path": "results/stage6-modal/stage6-candidate-c-modal-multiprocess-seed2026-r3/summary.json",
+      "tracked_by_git": true,
+      "status": "tracked"
+    },
+    {
+      "id": "stage6r-resume-gate",
+      "role": "corrected_resume_validation",
+      "path": "results/d1-evidence-pack/raw/stage6r-schedule-resume-gate.json",
+      "tracked_by_git": true,
+      "bytes": 17701,
+      "sha256": "3ab830ce67cb6a058b7de8c3d1ee8a5a8f97048f4b1e1719a62726135078d828",
+      "status": "tracked_and_verified",
+      "note": "PASS in stopped app ap-qwHdysi3czho3XNEgCWafX: source sidecar 1, fresh-process restore 1, continuation sidecar 2, replay 1 to 2, online route active."
+    },
+    {
+      "id": "candidate-r4-policy",
+      "role": "corrected_candidate_policy",
+      "path": null,
+      "tracked_by_git": null,
+      "bytes": null,
+      "sha256": null,
+      "status": "pending_run_completion"
+    },
+    {
+      "id": "candidate-r4-summary",
+      "role": "corrected_candidate_machine_summary",
+      "path": null,
+      "tracked_by_git": null,
+      "bytes": null,
+      "sha256": null,
+      "status": "pending_run_completion"
+    }
+  ],
+  "release_blockers": [
+    "Insert Candidate r4 final metrics, decision, costs, paths, and hashes.",
+    "Create and push the known-good commit/tag only after validation passes."
+  ]
+}

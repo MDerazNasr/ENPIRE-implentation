@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">D1 fixed-evaluation success</title>
+  <desc id="desc">Matched Reference A scored 35 of 256, Control B scored 18 of 256, historical invalid Candidate r3 scored 32 of 256, and corrected Candidate r4 is pending.</desc>
+  <defs>
+    <pattern id="pending" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#f4f4f5"/>
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#a1a1aa" stroke-width="3"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="70" y="48" font-family="system-ui, sans-serif" font-size="25" font-weight="700" fill="#18181b">D1 fixed-evaluation success (seed 2026)</text>
+  <text x="70" y="76" font-family="system-ui, sans-serif" font-size="14" fill="#52525b">256 fixed reset-state trajectories; Wilson 95% intervals shown for completed rows</text>
+  <line x1="310" y1="110" x2="310" y2="465" stroke="#27272a" stroke-width="1"/>
+  <line x1="310" y1="465" x2="890" y2="465" stroke="#27272a" stroke-width="1"/>
+  <g font-family="system-ui, sans-serif" font-size="13" fill="#52525b" text-anchor="middle">
+    <text x="310" y="489">0%</text><text x="455" y="489">5%</text><text x="600" y="489">10%</text><text x="745" y="489">15%</text><text x="890" y="489">20%</text>
+  </g>
+  <g stroke="#e4e4e7" stroke-width="1">
+    <line x1="455" y1="110" x2="455" y2="465"/><line x1="600" y1="110" x2="600" y2="465"/><line x1="745" y1="110" x2="745" y2="465"/><line x1="890" y1="110" x2="890" y2="465"/>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="15" fill="#18181b" text-anchor="end">
+    <text x="290" y="159">Reference A (matched 35/256)</text>
+    <text x="290" y="249">Control B (18/256)</text>
+    <text x="290" y="339">Candidate r3 (invalid, 32/256)</text>
+    <text x="290" y="429">Candidate r4 (corrected)</text>
+  </g>
+  <rect x="310" y="128" width="396.5" height="44" rx="4" fill="#2563eb"/>
+  <line x1="599.9" y1="150" x2="844.2" y2="150" stroke="#172554" stroke-width="3"/>
+  <line x1="599.9" y1="141" x2="599.9" y2="159" stroke="#172554" stroke-width="3"/><line x1="844.2" y1="141" x2="844.2" y2="159" stroke="#172554" stroke-width="3"/>
+  <text x="720" y="157" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">13.67%</text>
+  <rect x="310" y="218" width="203.9" height="44" rx="4" fill="#71717a"/>
+  <line x1="440.3" y1="240" x2="624.3" y2="240" stroke="#27272a" stroke-width="3"/>
+  <line x1="440.3" y1="231" x2="440.3" y2="249" stroke="#27272a" stroke-width="3"/><line x1="624.3" y1="231" x2="624.3" y2="249" stroke="#27272a" stroke-width="3"/>
+  <text x="525" y="247" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">7.03%</text>
+  <rect x="310" y="308" width="362.5" height="44" rx="4" fill="#f59e0b"/>
+  <line x1="570.9" y1="330" x2="806.3" y2="330" stroke="#78350f" stroke-width="3"/>
+  <line x1="570.9" y1="321" x2="570.9" y2="339" stroke="#78350f" stroke-width="3"/><line x1="806.3" y1="321" x2="806.3" y2="339" stroke="#78350f" stroke-width="3"/>
+  <text x="680" y="337" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#451a03">12.50%</text>
+  <rect x="310" y="398" width="580" height="44" rx="4" fill="url(#pending)" stroke="#71717a" stroke-dasharray="6 5"/>
+  <text x="600" y="426" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#3f3f46">PENDING — no result or decision inserted</text>
+  <text x="70" y="530" font-family="system-ui, sans-serif" font-size="13" fill="#71717a">r3 is plotted for historical transparency only; its schedule counter reset on resume, so it is not evidence for KEEP.</text>
+</svg>
+

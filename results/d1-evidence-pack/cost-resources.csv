@@ -1,0 +1,11 @@
+record_type,condition,run_id,provider,hardware,hourly_price_usd,elapsed_hours,launcher_cost_usd,provider_metered_usd,provider_billed_usd,peak_gpu_memory_mib,status,attribution_note
+training,Stage 1 older 500-step checkpoint,stage5c-500-seed2026-20260804,RunPod,NVIDIA RTX PRO 6000 Blackwell Server Edition,1.99,3.8721,7.7055,,,,complete,"Historical c779 actor; not the matched fresh-chain b5bf actor"
+evaluation,Reference A older checkpoint,stage5c-step500-reference-a-seed2026-20260804,RunPod,NVIDIA RTX PRO 6000 Blackwell Server Edition,1.99,0.4151,0.8261,,,26286,complete,"33/256 historical measurement"
+evaluation,Reference A matched fresh chain,,RunPod,NVIDIA H100 PCIe 80 GB,,,,,,,complete,"Compact export preserves metrics but not a separately attributable manifest/cost; do not invent one"
+training_and_evaluation,Control B,stage5d-control-b-h100-recovery-offload-disabled-seed2026-20260809-r2,RunPod,NVIDIA H100 PCIe 80 GB,3.29,27.9553,91.9730,,,,complete,"Run-attributed launcher cost"
+training,Candidate C r3 segment 1,stage6-candidate-c-modal-multiprocess-seed2026-r3-train-to-60,Modal,NVIDIA RTX PRO 6000 Blackwell Server Edition,,15.8285,47.9604,,,,complete_invalid_schedule,"Launcher estimate; not provider billing"
+training_and_evaluation,Candidate C r3 segment 2,stage6-candidate-c-modal-multiprocess-seed2026-r3-final-60-to-100,Modal,NVIDIA RTX PRO 6000 Blackwell Server Edition,,14.6352,44.3446,,,,complete_invalid_schedule,"Launcher estimate; not provider billing"
+combined,Candidate C r3 combined,stage6-candidate-c-modal-multiprocess-seed2026-r3,Modal,NVIDIA RTX PRO 6000 Blackwell Server Edition,,30.4637,92.3051,,,,complete_invalid_schedule,"Sum of segment launcher estimates"
+workspace_cycle,Modal workspace at r3 final audit,,Modal,,,,,153.20,123.08,,complete,"Whole workspace cycle; includes other work and 30 USD credits; not attributable solely to r3"
+resume_gate,Stage 6R schedule-resume gate,stage6r-schedule-resume-gate,Modal,NVIDIA RTX PRO 6000 Blackwell Server Edition,,,,0.91,0.91,,complete,"Provider workspace delta across gate attempts: 153.20 to 154.11 metered and 123.08 to 123.99 billed; app ap-qwHdysi3czho3XNEgCWafX is stopped"
+training_and_evaluation,Candidate C r4,,Modal,NVIDIA RTX PRO 6000 Blackwell Server Edition,,,,,,,running,"All cost/resource fields intentionally pending until final manifest and audit"

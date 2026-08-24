@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">RLT update counter across resume</title>
+  <desc id="desc">Historical Candidate r3 reset from 16400 updates at step 60 to zero at step 61. Stage 6R proved the corrected adapter restored update counter one in a fresh process and advanced it to two. Candidate r4 values are pending.</desc>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="70" y="48" font-family="system-ui, sans-serif" font-size="25" font-weight="700" fill="#18181b">RLT schedule counter at the process boundary</text>
+  <text x="70" y="76" font-family="system-ui, sans-serif" font-size="14" fill="#52525b">The r3 discontinuity invalidated the planned warm-up → online schedule comparison</text>
+  <line x1="100" y1="430" x2="895" y2="430" stroke="#27272a"/>
+  <line x1="100" y1="110" x2="100" y2="430" stroke="#27272a"/>
+  <g font-family="system-ui, sans-serif" font-size="12" fill="#52525b" text-anchor="end">
+    <text x="90" y="434">0</text><text x="90" y="354">5k</text><text x="90" y="274">10k</text><text x="90" y="194">15k</text><text x="90" y="114">20k</text>
+  </g>
+  <g stroke="#e4e4e7"><line x1="100" y1="350" x2="895" y2="350"/><line x1="100" y1="270" x2="895" y2="270"/><line x1="100" y1="190" x2="895" y2="190"/><line x1="100" y1="110" x2="895" y2="110"/></g>
+  <text x="63" y="285" transform="rotate(-90 63 285)" font-family="system-ui, sans-serif" font-size="14" fill="#52525b">rlt/update_step</text>
+  <line x1="380" y1="105" x2="380" y2="445" stroke="#dc2626" stroke-width="2" stroke-dasharray="7 6"/>
+  <text x="380" y="472" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#991b1b">resume boundary</text>
+  <polyline points="155,168 340,168 420,430 675,180" fill="none" stroke="#f59e0b" stroke-width="5"/>
+  <circle cx="340" cy="168" r="7" fill="#f59e0b"/><circle cx="420" cy="430" r="7" fill="#dc2626"/><circle cx="675" cy="180" r="7" fill="#f59e0b"/>
+  <g font-family="system-ui, sans-serif" font-size="14" fill="#18181b">
+    <text x="267" y="148">r3 step 60: 16,400</text>
+    <text x="430" y="420" fill="#991b1b">r3 step 61: 0</text>
+    <text x="685" y="176">r3 final: 15,600</text>
+  </g>
+  <line x1="340" y1="168" x2="675" y2="120" stroke="#2563eb" stroke-width="4" stroke-dasharray="9 7"/>
+  <text x="520" y="105" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#1d4ed8">Corrected contract: restore monotonically</text>
+  <rect x="120" y="495" width="720" height="40" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="480" y="514" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">Stage 6R PASS: source sidecar 1 → fresh process restored 1 → continuation sidecar 2</text>
+  <text x="480" y="530" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#1e3a8a">Replay 1→2; warm-up BC/Q 5.6/0.05 → online 2.0/0.45; Candidate r4 full-run counters pending.</text>
+</svg>

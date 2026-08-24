@@ -1,0 +1,18 @@
+{
+  "checkpoint_file_count": 44975,
+  "cumulative_cost_usd": 189.82493226204053,
+  "elapsed_seconds": 100639.17146124999,
+  "error_count": 0,
+  "error_tail": [],
+  "exit_code": 0,
+  "finished_at": "2026-08-10T19:10:25+00:00",
+  "fixed_eval_16_epoch_completion_seen": true,
+  "manifest_status": "complete",
+  "online_phase_seen": true,
+  "preliminary_gate_pass": true,
+  "real_actor_updates_seen": true,
+  "real_critic_updates_seen": true,
+  "run_cost_usd": 91.97302059042643,
+  "run_id": "stage5d-control-b-h100-recovery-offload-disabled-seed2026-20260809-r2",
+  "train_steps_detected": 100
+}
