@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
   <title id="title">RLT update counter across resume</title>
-  <desc id="desc">Historical Candidate r3 reset from 16400 updates at step 60 to zero at step 61. Stage 6R proved the corrected adapter restored update counter one in a fresh process and advanced it to two. Candidate r4 values are pending.</desc>
+  <desc id="desc">Historical Candidate r3 reset from 16400 updates at step 60 to zero at step 61. Stage 6R proved the corrected adapter restored update counter one in a fresh process and advanced it to two. Candidate r4 was preempted before a checkpoint; Candidate r5 values are pending.</desc>
   <rect width="960" height="560" fill="#ffffff"/>
   <text x="70" y="48" font-family="system-ui, sans-serif" font-size="25" font-weight="700" fill="#18181b">RLT schedule counter at the process boundary</text>
   <text x="70" y="76" font-family="system-ui, sans-serif" font-size="14" fill="#52525b">The r3 discontinuity invalidated the planned warm-up → online schedule comparison</text>
@@ -24,5 +24,5 @@
   <text x="520" y="105" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#1d4ed8">Corrected contract: restore monotonically</text>
   <rect x="120" y="495" width="720" height="40" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
   <text x="480" y="514" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">Stage 6R PASS: source sidecar 1 → fresh process restored 1 → continuation sidecar 2</text>
-  <text x="480" y="530" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#1e3a8a">Replay 1→2; warm-up BC/Q 5.6/0.05 → online 2.0/0.45; Candidate r4 full-run counters pending.</text>
+  <text x="480" y="530" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#1e3a8a">Replay 1→2; warm-up BC/Q 5.6/0.05 → online 2.0/0.45; Candidate r5 full-run counters pending.</text>
 </svg>

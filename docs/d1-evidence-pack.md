@@ -1,9 +1,11 @@
 # D1 Evidence Pack
 
-Status: draft assembled on 2026-08-24 while the corrected Candidate-C r4 run
-is in progress. Completed values below are evidence-backed; every r4 field is
-explicitly `PENDING` until the final 256-trajectory evaluation, checkpoint,
-schedule-state audit, cost record, and hashes are available.
+Status: draft assembled on 2026-08-24. Corrected Candidate-C r4 was preempted
+after two steps before its first checkpoint and is preserved as an interrupted
+infrastructure attempt. Candidate r5 is the fresh retry. Completed values below
+are evidence-backed; every r5 result field remains explicitly `PENDING` until
+the final 256-trajectory evaluation, checkpoint, schedule-state audit, cost
+record, and hashes are available.
 
 ## Audit question
 
@@ -35,7 +37,8 @@ it does not inherit Control-B weights.
 | Reference A, matched fresh chain | `35/256` (`13.67%`) | `10.00%--18.42%` | Reference for Control/Candidate comparisons |
 | Control B, seed 2026 | `18/256` (`7.03%`) | `4.49%--10.84%` | Valid trained one-seed control |
 | Candidate C r3, historical | `32/256` (`12.50%`) | `9.00%--17.11%` | Invalid as the planned schedule test; preserve, do not promote |
-| Candidate C r4, corrected | `PENDING` | `PENDING` | In progress; no decision yet |
+| Candidate C r4, interrupted | Not evaluated | Not applicable | Modal preemption during step 3; no checkpoint/result |
+| Candidate C r5, corrected | `PENDING` | `PENDING` | Fresh retry; no decision yet |
 
 The two Reference-A rows are intentionally separate. The August 4 checkpoint
 has actor SHA-256 `c7796339...50468` and scored `33/256`. The matched
@@ -47,7 +50,8 @@ restored model, optimizer, target, and replay state, but reset
 `rlt/update_step` from `16,400` at step 60 to `0` at step 61. Segment 2 ended
 at `15,600` with `ready_for_online=0`; the planned online BC weight `2.0` was
 never exercised. The observed `+5.46875` percentage-point difference from
-Control B must therefore remain historical and cannot be carried into r4.
+Control B must therefore remain historical and cannot be carried into a
+corrected retry.
 
 ## Corrected resume contract
 
@@ -58,8 +62,8 @@ commit/schedule fingerprint on load, and fails closed on missing or mismatched
 state. RLinf's model and optimizer checkpoint implementation remains
 unmodified.
 
-The bounded Stage-6R gate must demonstrate all of the following before r4 is
-accepted as a corrected run:
+The bounded Stage-6R gate must demonstrate all of the following before a
+Candidate retry is accepted as corrected:
 
 - the source checkpoint contains its schedule sidecar;
 - a fresh continuation process reports a restore marker before training;
@@ -83,15 +87,15 @@ volume. The paid gate attempts increased the workspace provider total by
 ## Decision boundary
 
 The preregistered final rule needs three paired seeds and a 95% interval for
-the across-seed success-rate delta. With seed 2026 alone, even a fully valid r4
+the across-seed success-rate delta. With seed 2026 alone, even a fully valid r5
 can close only the engineering checkpoint; the scientific decision remains
 `INCONCLUSIVE` unless the approved seed set is completed.
 
-Operational interpretation after r4:
+Operational interpretation after r5:
 
-1. If resume-state validation or the r4 schedule audit fails, mark r4 invalid,
+1. If resume-state validation or the r5 schedule audit fails, mark r5 invalid,
    do not promote, and retain the prior schedule.
-2. If r4 is valid but only seed 2026 exists, report the observed delta and
+2. If r5 is valid but only seed 2026 exists, report the observed delta and
    keep the formal decision `INCONCLUSIVE`.
 3. Apply `KEEP` or `REVERT` only after the preregistered paired-seed rule is
    actually satisfiable.
@@ -152,7 +156,9 @@ for 30.46 hours and a launcher estimate of `$92.3051`. Modal's final r3-era
 workspace audit showed `$153.20` metered and `$123.08` billed after credits;
 that provider total covers the whole workspace cycle and is not attributable
 to r3 alone. Stage-6R gate attempts added `$0.91` of provider spend. Candidate
-r4 costs stay `PENDING` until its final manifests and provider audit are
+r4 was preempted after step 2 and added `$1.762702`; its stale running manifest
+and missing checkpoint make it an interrupted attempt, not a result. Candidate
+r5 costs stay `PENDING` until its final manifests and provider audit are
 available.
 
 The exact 16-environment Stage-2 route has previously measured more than 24 GB
@@ -164,11 +170,11 @@ inference estimate in isolation.
 
 - Only seed 2026 is complete; no across-seed effect estimate exists.
 - Control B and Candidate r3 ran on different provider/runtime/render paths.
-  Corrected r4 must record the same limitation unless it exactly matches the
+  Corrected r5 must record the same limitation unless it exactly matches the
   Control-B environment.
 - The strict sidecar restores RLT schedule counters and the replay buffer's
   dedicated generator, but a fresh segment-2 process recreates simulator reset,
-  environment-shuffle, and rollout sampling RNG streams. Corrected r4 is
+  environment-shuffle, and rollout sampling RNG streams. Corrected r5 is
   therefore a valid segmented engineering run, not a bitwise-equivalent
   uninterrupted or strict one-factor causal comparison.
 - Candidate r3's result is invalid for the scheduled intervention because of
@@ -183,6 +189,6 @@ inference estimate in isolation.
 ## Honest conclusion
 
 **D1 has a reproducible trained control and a bounded, validated resume-state
-repair, but the corrected Candidate r4 result and the preregistered multi-seed
+repair, but the corrected Candidate r5 result and the preregistered multi-seed
 evidence are still pending, so no hyperparameter improvement claim is
 justified yet.**

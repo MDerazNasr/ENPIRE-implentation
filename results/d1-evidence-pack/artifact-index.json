@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "generated_at": "2026-08-24",
-  "status": "draft_pending_candidate_r4",
+  "status": "draft_pending_candidate_r5",
   "project_branch": "experiment/d1-rlt-baseline",
   "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
   "hash_algorithm": "sha256",
@@ -106,7 +106,17 @@
       "note": "PASS in stopped app ap-qwHdysi3czho3XNEgCWafX: source sidecar 1, fresh-process restore 1, continuation sidecar 2, replay 1 to 2, online route active."
     },
     {
-      "id": "candidate-r4-policy",
+      "id": "candidate-r4-interrupted-attempt",
+      "role": "interrupted_corrected_candidate_attempt",
+      "path": "/workspace/results/d1/stage6-candidate-c-modal-multiprocess-seed2026-r4-train-to-60",
+      "tracked_by_git": false,
+      "bytes": null,
+      "sha256": null,
+      "status": "provider_preempted_no_checkpoint",
+      "note": "Completed two steps, then Modal preempted during step 3; stale running manifest and no result."
+    },
+    {
+      "id": "candidate-r5-policy",
       "role": "corrected_candidate_policy",
       "path": null,
       "tracked_by_git": null,
@@ -115,7 +125,7 @@
       "status": "pending_run_completion"
     },
     {
-      "id": "candidate-r4-summary",
+      "id": "candidate-r5-summary",
       "role": "corrected_candidate_machine_summary",
       "path": null,
       "tracked_by_git": null,
@@ -125,7 +135,7 @@
     }
   ],
   "release_blockers": [
-    "Insert Candidate r4 final metrics, decision, costs, paths, and hashes.",
+    "Insert Candidate r5 final metrics, decision, costs, paths, and hashes.",
     "Create and push the known-good commit/tag only after validation passes."
   ]
 }
