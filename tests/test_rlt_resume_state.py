@@ -9,6 +9,7 @@ from unittest.mock import patch
 from agent.rlt_resume_state import (
     COUNTER_FIELDS,
     RLTResumeStateError,
+    audit_state_file,
     capture_state,
     restore_worker_state,
     save_worker_state,
@@ -141,6 +142,32 @@ class RLTResumeStateTests(unittest.TestCase):
             state = json.loads(path.read_text())
         self.assertEqual(state["schedule_fingerprint"], schedule_fingerprint(worker.cfg))
         self.assertEqual(set(state["counters"]), set(COUNTER_FIELDS))
+
+    def test_saved_sidecar_passes_worker_free_deep_audit(self):
+        worker = _Worker()
+        with tempfile.TemporaryDirectory() as directory:
+            actor = Path(directory) / "global_step_1/actor"
+            path = save_worker_state(worker, actor, 1)
+            audit = audit_state_file(path, expected_step=1)
+        self.assertEqual(audit["counters"]["update_step"], 1)
+        self.assertTrue(audit["replay_generator_state_present"])
+
+    def test_deep_audit_rejects_fingerprint_and_rng_corruption(self):
+        worker = _Worker()
+        with tempfile.TemporaryDirectory() as directory:
+            actor = Path(directory) / "global_step_1/actor"
+            path = save_worker_state(worker, actor, 1)
+            state = json.loads(path.read_text())
+            state["schedule_fingerprint"] = "0" * 64
+            path.write_text(json.dumps(state))
+            with self.assertRaisesRegex(RLTResumeStateError, "self-consistent"):
+                audit_state_file(path, expected_step=1)
+
+            state["schedule_fingerprint"] = schedule_fingerprint(worker.cfg)
+            state["replay_generator_state_b64"] = "not-base64!"
+            path.write_text(json.dumps(state))
+            with self.assertRaisesRegex(RLTResumeStateError, "base64"):
+                audit_state_file(path, expected_step=1)
 
     def test_patch_installation_is_idempotent(self):
         class FakePolicy:

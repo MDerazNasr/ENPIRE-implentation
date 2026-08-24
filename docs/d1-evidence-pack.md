@@ -166,6 +166,11 @@ inference estimate in isolation.
 - Control B and Candidate r3 ran on different provider/runtime/render paths.
   Corrected r4 must record the same limitation unless it exactly matches the
   Control-B environment.
+- The strict sidecar restores RLT schedule counters and the replay buffer's
+  dedicated generator, but a fresh segment-2 process recreates simulator reset,
+  environment-shuffle, and rollout sampling RNG streams. Corrected r4 is
+  therefore a valid segmented engineering run, not a bitwise-equivalent
+  uninterrupted or strict one-factor causal comparison.
 - Candidate r3's result is invalid for the scheduled intervention because of
   the counter reset.
 - The Stage-1 actor is a 500-step budget checkpoint, not the upstream

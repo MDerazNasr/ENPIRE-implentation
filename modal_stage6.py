@@ -286,6 +286,10 @@ def _checkpoint_path(run_id: str, step: int) -> Path:
 
 
 def _verify_resume_checkpoint(path: Path, expected_step: int) -> dict[str, object]:
+    if PROJECT_ROOT not in sys.path:
+        sys.path.insert(0, PROJECT_ROOT)
+    from agent.rlt_resume_state import audit_state_file
+
     if path.name != f"global_step_{expected_step}":
         raise RuntimeError(
             f"checkpoint step mismatch: expected {expected_step}, got {path.name}"
@@ -311,20 +315,13 @@ def _verify_resume_checkpoint(path: Path, expected_step: int) -> dict[str, objec
     schedule_state_path = (
         path / "actor/sac_components/rlt_schedule_state/rank_0.json"
     )
-    schedule_state = json.loads(schedule_state_path.read_text())
-    expected_schedule = {
-        "schema_version": 1,
-        "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
-        "checkpoint_step": expected_step,
-        "rank": 0,
-    }
-    for key, value in expected_schedule.items():
-        if schedule_state.get(key) != value:
-            raise RuntimeError(
-                f"RLT schedule sidecar {key} mismatch: "
-                f"{schedule_state.get(key)!r} != {value!r}"
-            )
-    result["rlt_schedule_state"] = schedule_state
+    result["rlt_schedule_state"] = audit_state_file(
+        schedule_state_path,
+        expected_step=expected_step,
+        expected_rank=0,
+        expected_world_size=1,
+        require_replay_rng=True,
+    )
     print(f"QUALIA_MODAL_RESUME_CHECKPOINT={json.dumps(result, sort_keys=True)}")
     return result
 

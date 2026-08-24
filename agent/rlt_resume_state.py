@@ -151,6 +151,66 @@ def load_state(path: Path) -> dict[str, Any]:
     return state
 
 
+def audit_state_file(
+    path: Path,
+    *,
+    expected_step: int,
+    expected_rank: int = 0,
+    expected_world_size: int = 1,
+    require_replay_rng: bool = True,
+) -> dict[str, Any]:
+    """Deep-validate a saved sidecar without constructing an RLinf worker."""
+
+    state = load_state(path)
+    expected = {
+        "schema_version": SCHEMA_VERSION,
+        "rlinf_commit": RLINF_COMMIT,
+        "checkpoint_step": expected_step,
+        "rank": expected_rank,
+        "world_size": expected_world_size,
+    }
+    for key, value in expected.items():
+        if state.get(key) != value:
+            raise RLTResumeStateError(
+                f"RLT schedule sidecar {key} mismatch: {state.get(key)!r} != {value!r}"
+            )
+    contract = state.get("schedule_contract")
+    if not isinstance(contract, dict):
+        raise RLTResumeStateError("RLT schedule sidecar schedule contract missing")
+    encoded_contract = json.dumps(
+        contract, sort_keys=True, separators=(",", ":")
+    ).encode()
+    fingerprint = hashlib.sha256(encoded_contract).hexdigest()
+    if state.get("schedule_fingerprint") != fingerprint:
+        raise RLTResumeStateError("RLT schedule sidecar fingerprint is not self-consistent")
+    counters = state.get("counters")
+    if not isinstance(counters, dict) or set(counters) != set(COUNTER_FIELDS):
+        raise RLTResumeStateError("RLT schedule sidecar counter schema mismatch")
+    validated = {
+        name: _validated_counter(name, counters[name]) for name in COUNTER_FIELDS
+    }
+    replay_rng = state.get("replay_generator_state_b64")
+    if require_replay_rng and not replay_rng:
+        raise RLTResumeStateError("RLT schedule sidecar replay generator state missing")
+    if replay_rng is not None:
+        if not isinstance(replay_rng, str):
+            raise RLTResumeStateError("replay generator state must be base64 text")
+        try:
+            base64.b64decode(replay_rng, validate=True)
+        except (ValueError, binascii.Error) as error:
+            raise RLTResumeStateError("invalid replay generator base64 state") from error
+    return {
+        "schema_version": state["schema_version"],
+        "rlinf_commit": state["rlinf_commit"],
+        "checkpoint_step": state["checkpoint_step"],
+        "rank": state["rank"],
+        "world_size": state["world_size"],
+        "schedule_fingerprint": fingerprint,
+        "counters": validated,
+        "replay_generator_state_present": replay_rng is not None,
+    }
+
+
 def _restore_replay_rng(worker: Any, encoded: Any) -> None:
     if encoded is None:
         return
