@@ -529,6 +529,12 @@ class D1ConfigTests(unittest.TestCase):
         self.assertEqual(overrides["env.train.total_num_envs"], "1")
         self.assertEqual(overrides["env.train.rollout_epoch"], "1")
         self.assertEqual(overrides["env.train.max_episode_steps"], "20")
+        self.assertEqual(
+            overrides["env.train.rlt_policy_switch.task_mode"], "critical_phase"
+        )
+        self.assertEqual(
+            overrides["env.train.rlt_policy_switch.trigger_mode"], "always_on"
+        )
         self.assertEqual(overrides["algorithm.update_epoch"], "1")
         self.assertEqual(overrides["algorithm.critic_actor_ratio"], "1")
         self.assertEqual(overrides["algorithm.rlt_schedule.warmup_min_size"], "1")

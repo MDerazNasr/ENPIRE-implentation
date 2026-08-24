@@ -41,6 +41,8 @@
     "runner.logger.project_name=${WANDB_PROJECT}",
     "runner.only_eval=false",
     "env.train.rlt_policy_switch.expert_takeover.enable=false",
+    "env.train.rlt_policy_switch.task_mode=critical_phase",
+    "env.train.rlt_policy_switch.trigger_mode=always_on",
     "env.eval.rlt_policy_switch.expert_takeover.enable=false",
     "rollout.expert_model=null",
     "rollout.rlt_feature_model.model_path=${STAGE1_CHECKPOINT}",

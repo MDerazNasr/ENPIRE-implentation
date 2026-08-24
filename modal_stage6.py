@@ -355,8 +355,8 @@ def smoke() -> int:
 RESUME_SOURCE_RUN_ID = "stage6-modal-resume-gate-source-seed2026-r1"
 RESUME_CONTINUATION_RUN_ID = "stage6-modal-resume-gate-continuation-seed2026-r1"
 
-SCHEDULE_SOURCE_RUN_ID = "stage6r-schedule-resume-source-seed2026-r3"
-SCHEDULE_CONTINUATION_RUN_ID = "stage6r-schedule-resume-continuation-seed2026-r3"
+SCHEDULE_SOURCE_RUN_ID = "stage6r-schedule-resume-source-seed2026-r4"
+SCHEDULE_CONTINUATION_RUN_ID = "stage6r-schedule-resume-continuation-seed2026-r4"
 
 
 def _run_log(run_id: str) -> Path:
