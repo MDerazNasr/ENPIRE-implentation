@@ -80,13 +80,8 @@ image = (
     .add_local_dir("scripts", f"{PROJECT_ROOT}/scripts", copy=True)
     .add_local_file("sitecustomize.py", f"{PROJECT_ROOT}/sitecustomize.py", copy=True)
     .add_local_file(
-        "tmp/fresh-chain-20260807/norm_stats.json",
+        "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json",
         NORM_STATS,
-        copy=True,
-    )
-    .add_local_file(
-        "tmp/fresh-chain-20260807/evidence/stage5d-control-b-complete/d1_runs.jsonl",
-        f"{PROJECT_ROOT}/control_d1_runs.jsonl",
         copy=True,
     )
 )
@@ -161,9 +156,6 @@ def _verify_inputs() -> dict[str, object]:
 def _prepare_results() -> Path:
     results = Path(WORKSPACE) / "results"
     results.mkdir(parents=True, exist_ok=True)
-    ledger = results / "d1_runs.jsonl"
-    if not ledger.exists():
-        ledger.write_bytes(Path(f"{PROJECT_ROOT}/control_d1_runs.jsonl").read_bytes())
     return results
 
 
