@@ -167,6 +167,58 @@ def _prepare_results() -> Path:
     return results
 
 
+def _ray_diagnostics() -> str:
+    root = Path("/tmp/ray/session_latest/logs")
+    chunks: list[str] = []
+    for name in ("gcs_server.out", "gcs_server.err", "raylet.out", "raylet.err"):
+        path = root / name
+        if path.is_file():
+            chunks.append(f"===== {path} =====\n{path.read_text(errors='replace')[-12000:]}")
+    return "\n".join(chunks) or "Ray created no diagnostic logs"
+
+
+def _ensure_ray_head() -> None:
+    ray = f"{RLINF_HOME}/.venv/bin/ray"
+    status = subprocess.run(
+        [ray, "status"],
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    if status.returncode == 0:
+        print("QUALIA_RAY_HEAD=existing", flush=True)
+        return
+    started = subprocess.run(
+        [
+            ray,
+            "start",
+            "--head",
+            "--include-dashboard=false",
+            "--disable-usage-stats",
+            "--num-cpus=16",
+        ],
+        env={**os.environ, "RAY_USAGE_STATS_ENABLED": "0"},
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    print(started.stdout, flush=True)
+    if started.returncode != 0:
+        print(_ray_diagnostics(), flush=True)
+        raise RuntimeError(f"explicit Ray head failed with exit {started.returncode}")
+    verified = subprocess.run(
+        [ray, "status"],
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    print(verified.stdout, flush=True)
+    if verified.returncode != 0:
+        print(_ray_diagnostics(), flush=True)
+        raise RuntimeError("explicit Ray head did not become healthy")
+    print("QUALIA_RAY_HEAD=started-and-healthy", flush=True)
+
+
 @app.function(
     image=image,
     gpu=GPU,
@@ -203,6 +255,7 @@ def _run_profile(
     *,
     extra_environment: dict[str, str] | None = None,
 ) -> int:
+    _ensure_ray_head()
     _verify_inputs()
     results = _prepare_results()
     command = [
@@ -302,8 +355,8 @@ def smoke() -> int:
 RESUME_SOURCE_RUN_ID = "stage6-modal-resume-gate-source-seed2026-r1"
 RESUME_CONTINUATION_RUN_ID = "stage6-modal-resume-gate-continuation-seed2026-r1"
 
-SCHEDULE_SOURCE_RUN_ID = "stage6r-schedule-resume-source-seed2026-r2"
-SCHEDULE_CONTINUATION_RUN_ID = "stage6r-schedule-resume-continuation-seed2026-r2"
+SCHEDULE_SOURCE_RUN_ID = "stage6r-schedule-resume-source-seed2026-r3"
+SCHEDULE_CONTINUATION_RUN_ID = "stage6r-schedule-resume-continuation-seed2026-r3"
 
 
 def _run_log(run_id: str) -> Path:
