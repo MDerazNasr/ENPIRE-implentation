@@ -50,6 +50,9 @@ def environment(root: Path) -> dict[str, str]:
         "CANDIDATE_VAL_CHECK_INTERVAL": "-1",
         "CANDIDATE_SAVE_INTERVAL": "10",
         "RESUME_CHECKPOINT": str(resume_checkpoint),
+        "SCHEDULE_GATE_RESUME_DIR": "null",
+        "SCHEDULE_GATE_MAX_STEPS": "1",
+        "SCHEDULE_GATE_SAVE_INTERVAL": "1",
         "WANDB_PROJECT": "qualia-d1-test",
         "WANDB_MODE": "offline",
         "WANDB_DIR": str(root / "wandb"),
@@ -513,6 +516,40 @@ class D1ConfigTests(unittest.TestCase):
         self.assertEqual(overrides["runner.save_interval"], "2")
         self.assertEqual(resume["scientific_values"]["resume_from_step"], 1)
         self.assertTrue(resume["scientific_values"]["calibration_only"])
+
+    def test_schedule_resume_gate_is_bounded_and_uses_strict_sidecar(self):
+        gate = load_d1_config(
+            CONFIG_ROOT / "stage2_6_schedule_resume_gate.yaml"
+        )
+        overrides = {
+            value.split("=", 1)[0]: value.split("=", 1)[1]
+            for value in gate["hydra_overrides"]
+        }
+        self.assertEqual(gate["runtime_environment"]["QUALIA_RLT_RESUME_STATE"], "1")
+        self.assertEqual(overrides["env.train.total_num_envs"], "1")
+        self.assertEqual(overrides["env.train.rollout_epoch"], "1")
+        self.assertEqual(overrides["env.train.max_episode_steps"], "20")
+        self.assertEqual(overrides["algorithm.update_epoch"], "1")
+        self.assertEqual(overrides["algorithm.critic_actor_ratio"], "1")
+        self.assertEqual(overrides["algorithm.rlt_schedule.warmup_min_size"], "1")
+        self.assertEqual(
+            overrides["algorithm.rlt_schedule.max_updates_per_train_step"], "1"
+        )
+        self.assertEqual(
+            overrides["algorithm.actor_weight_schedule.warmup_updates"], "1"
+        )
+        self.assertEqual(overrides["runner.resume_dir"], "${SCHEDULE_GATE_RESUME_DIR}")
+        self.assertEqual(overrides["runner.max_steps"], "${SCHEDULE_GATE_MAX_STEPS}")
+        self.assertTrue(gate["scientific_values"]["calibration_only"])
+
+    def test_corrected_modal_candidate_enables_strict_schedule_resume(self):
+        candidate = load_d1_config(
+            CONFIG_ROOT / "stage2_6_candidate_modal_multiprocess.yaml"
+        )
+        self.assertEqual(
+            candidate["runtime_environment"]["QUALIA_RLT_RESUME_STATE"], "1"
+        )
+        self.assertIn("schedule counters", candidate["scientific_values"]["resume_contract"])
 
     def test_modal_candidate_explicitly_differs_from_control_protocol(self):
         control = load_d1_config(CONFIG_ROOT / "stage2_5d_control_h100_chain.yaml")

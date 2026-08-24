@@ -20,3 +20,9 @@ if os.environ.get("QUALIA_MODAL_MULTIPROCESS") == "1":
         return _original_get_env_cls(env_type, env_cfg)
 
     _rlinf_envs.get_env_cls = _qualia_get_env_cls
+
+
+if os.environ.get("QUALIA_RLT_RESUME_STATE") == "1":
+    from agent.rlt_resume_state import install_patch
+
+    install_patch()
