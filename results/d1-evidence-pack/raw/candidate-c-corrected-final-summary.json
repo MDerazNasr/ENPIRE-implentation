@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-01",
+  "condition": "Candidate C corrected chain",
+  "final_segment_run_id": "stage6-candidate-c-modal-multiprocess-seed2026-r19-resume-96-to-100-eval256",
+  "modal_app_id": "ap-803If8zMw4XookkyW9q99S",
+  "status": "complete",
+  "exit_code": 0,
+  "seed": 2026,
+  "runner_steps": 100,
+  "fixed_evaluation": {
+    "success_count": 17,
+    "trajectories": 256,
+    "success_rate": 0.06640625,
+    "wilson_ci95": [
+      0.0418707229,
+      0.1037621526
+    ]
+  },
+  "comparison": {
+    "control_success_count": 18,
+    "control_trajectories": 256,
+    "success_delta_percentage_points": -0.390625,
+    "observed_interpretation": "no meaningful improvement for seed 2026",
+    "formal_decision": "inconclusive",
+    "formal_reason": "the preregistered rule requires three paired seeds"
+  },
+  "final_checkpoint": {
+    "step": 100,
+    "update_step": 31200,
+    "ready_for_online": true,
+    "replay_entries": 47754,
+    "replay_files": 47754,
+    "replay_missing": 0,
+    "replay_unexpected": 0,
+    "episodes": 582,
+    "pending_update_budget": 36120,
+    "schedule_fingerprint": "a8c2ca5440f136e88ba96c991c97deae2bf20a71af53eaeabaf1661ee897cc98",
+    "replay_rng_present": true,
+    "asset_audit": "DCP metadata/shard, policy, target, sidecar, RNG, replay index/files, and archive CRC checks passed"
+  },
+  "final_segment": {
+    "elapsed_seconds": 10818.847599225,
+    "hourly_price_usd": 3.03,
+    "cost_usd": 9.105863399826262,
+    "launcher_cumulative_cost_usd": 377.82944593287107
+  },
+  "sha256": {
+    "policy_full_weights": "b8a796d365314da565343260687fd8407771aa9e26957fbd057fe3b640bfd87e",
+    "target": "956740234d99d1cebfaf91f54d563523a3def4e00afcbfc794d51e0b98ac2e3e",
+    "dcp_metadata": "e98a046a1a9a6526e51d46e90769ba1a2427f35e22a8ee267cc1e3bbb45b59cf",
+    "schedule_sidecar": "0514cc0c5866ef98d8fbe4e0b371667689754532cd9efea385f3cbc53b5a9bfb",
+    "replay_index": "9c63d364970582bb71e5244d4b38f43a16d86c6446a418c8fff2189e306021b8",
+    "run_log": "b681fb3e3e72246720ef61543594611fe9ec870d5e0e8de39ddfe27928290c12",
+    "metrics_log": "6f7c36c7e5f4abb4d414534009c92c9f0f0162fac6baf2191d0868f84739fd80",
+    "manifest": "bc9804647a9c9b41fd833785f0e548fa98c6ed451a343b019b4d2e67978d6031"
+  },
+  "remote_evidence_root": "/workspace/results/d1/stage6-candidate-c-modal-multiprocess-seed2026-r19-resume-96-to-100-eval256",
+  "limitations": [
+    "Only one paired seed is complete.",
+    "Candidate runtime, simulator, renderer, and batching differ from Control B.",
+    "Segment resumes restore project-owned schedule counters and replay RNG but not bitwise-identical simulator and rollout RNG streams."
+  ]
+}

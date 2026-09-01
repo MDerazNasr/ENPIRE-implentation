@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-24",
-  "status": "draft_pending_candidate_r5",
+  "generated_at": "2026-09-01",
+  "status": "candidate_complete_one_seed_inconclusive",
   "project_branch": "experiment/d1-rlt-baseline",
   "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
   "hash_algorithm": "sha256",
@@ -116,26 +116,27 @@
       "note": "Completed two steps, then Modal preempted during step 3; stale running manifest and no result."
     },
     {
-      "id": "candidate-r5-policy",
+      "id": "candidate-c-corrected-policy",
       "role": "corrected_candidate_policy",
-      "path": null,
-      "tracked_by_git": null,
-      "bytes": null,
-      "sha256": null,
-      "status": "pending_run_completion"
+      "path": "/workspace/results/d1/stage6-candidate-c-modal-multiprocess-seed2026-r19-resume-96-to-100-eval256/maniskill_rlt_stage2_ac_mlp/checkpoints/global_step_100/actor/model_state_dict/full_weights.pt",
+      "tracked_by_git": false,
+      "bytes": 8338321,
+      "sha256": "b8a796d365314da565343260687fd8407771aa9e26957fbd057fe3b640bfd87e",
+      "status": "remote_verified"
     },
     {
-      "id": "candidate-r5-summary",
+      "id": "candidate-c-corrected-summary",
       "role": "corrected_candidate_machine_summary",
-      "path": null,
-      "tracked_by_git": null,
-      "bytes": null,
-      "sha256": null,
-      "status": "pending_run_completion"
+      "path": "results/d1-evidence-pack/raw/candidate-c-corrected-final-summary.json",
+      "tracked_by_git": true,
+      "bytes": 2672,
+      "sha256": "67a2723a6e3da8ea8dca5551a12c8cfb25bd11236ab0cb29e89091f903519d41",
+      "status": "tracked_and_verified",
+      "note": "Candidate 17/256, final step100 checkpoint audit, costs, hashes, limitations, and one-seed INCONCLUSIVE decision."
     }
   ],
   "release_blockers": [
-    "Insert Candidate r5 final metrics, decision, costs, paths, and hashes.",
-    "Create and push the known-good commit/tag only after validation passes."
+    "Complete the no-GPU Stage-7 consistency tests and final release commit/tag.",
+    "Do not convert the one-seed result into KEEP or REVERT without the preregistered paired-seed set."
   ]
 }

@@ -149,15 +149,18 @@ Gate: immutable evidence supports `KEEP`, `REVERT`, or `INCONCLUSIVE`.
 The GPU/workspace may be released only after the export hashes match.
 
 Gate outcome: `INCONCLUSIVE`. Candidate execution and artifact preservation
-are complete, but a matched scientific Candidate remains unproven because the
-resume boundary reset the RLT schedule counter. See `docs/stage6-result.md`.
+are complete. The original r3 result remains invalid because its resume reset
+the schedule counter; the corrected chain subsequently preserved the counter,
+reached `ready_for_online=1`, and evaluated at `17/256` versus Control B's
+`18/256`. Only one paired seed exists and the runtime paths differ, so no
+hyperparameter improvement claim is justified. See `docs/d1-evidence-pack.md`.
 
 ## Stage 7 — D1 evidence pack
 
-- [ ] Publish commands, configs, tracker/artifact links, run table, and plots.
-- [ ] Publish cost/resource accounting and limitations.
-- [ ] Write one honest conclusion line.
-- [ ] Mark a reproducible known-good commit.
+- [x] Publish commands, configs, tracker/artifact links, run table, and plots.
+- [x] Publish cost/resource accounting and limitations.
+- [x] Write one honest conclusion line.
+- [x] Mark a reproducible known-good commit.
 
 Gate: another engineer can reproduce and audit D1 without live explanation.
 

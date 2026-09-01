@@ -131,3 +131,30 @@ preregistered three-seed interval is missing, so the formal outcome is
 `INCONCLUSIVE` and the previous configuration remains the operational default.
 
 Detailed evidence: `docs/stage6-result.md`.
+
+## D1 Stage-6 Corrected Candidate C — 2026-09-01
+
+- Final segment: `stage6-candidate-c-modal-multiprocess-seed2026-r19-resume-96-to-100-eval256`
+- Modal app: `ap-803If8zMw4XookkyW9q99S` (completed and stopped)
+- RLinf commit: `c90951a0c799a750cb5294ed10587c61cc2af8bf`
+- Final state: step 100, `update_step=31,200`, `ready_for_online=1`
+- Evaluation: 256 fixed reset-state IDs, 500-step horizon
+
+| Condition | Fixed eval success | Difference from Control B | Decision |
+| --- | ---: | ---: | --- |
+| Control B | `18/256` (`7.03%`) | -- | Baseline |
+| Corrected Candidate C | `17/256` (`6.64%`) | `-0.39` points | `INCONCLUSIVE` |
+
+The corrected chain preserved the RLT schedule counter through strict audited
+sidecars and exercised the intended online route. The final checkpoint has
+47,754 exact replay entries/files, 582 episodes, and valid DCP, policy, target,
+sidecar, and replay RNG assets. r19 ran 10,818.85 seconds and cost `$9.1059`.
+
+**Honest result:** the 0.8x BC-regularization adjustment produced no meaningful
+observed improvement for seed 2026. The preregistered three-paired-seed rule is
+not satisfiable yet, so the formal outcome remains `INCONCLUSIVE`. The result
+is also provisional because Candidate and Control used different runtime,
+simulator, renderer, and batching paths.
+
+Final compact evidence:
+`results/d1-evidence-pack/raw/candidate-c-corrected-final-summary.json`.

@@ -1,11 +1,10 @@
 # D1 Evidence Pack
 
-Status: draft assembled on 2026-08-24. Corrected Candidate-C r4 was preempted
-after two steps before its first checkpoint and is preserved as an interrupted
-infrastructure attempt. Candidate r5 is the fresh retry. Completed values below
-are evidence-backed; every r5 result field remains explicitly `PENDING` until
-the final 256-trajectory evaluation, checkpoint, schedule-state audit, cost
-record, and hashes are available.
+Status: engineering checkpoint completed on 2026-09-01. The corrected
+Candidate chain recovered from provider interruptions through strict audited
+checkpoints and completed all 100 steps plus the fixed 256-trajectory
+evaluation. The final result and checkpoint are evidence-backed. The formal
+scientific decision remains `INCONCLUSIVE` because only one paired seed exists.
 
 ## Audit question
 
@@ -38,7 +37,7 @@ it does not inherit Control-B weights.
 | Control B, seed 2026 | `18/256` (`7.03%`) | `4.49%--10.84%` | Valid trained one-seed control |
 | Candidate C r3, historical | `32/256` (`12.50%`) | `9.00%--17.11%` | Invalid as the planned schedule test; preserve, do not promote |
 | Candidate C r4, interrupted | Not evaluated | Not applicable | Modal preemption during step 3; no checkpoint/result |
-| Candidate C r5, corrected | `PENDING` | `PENDING` | Fresh retry; no decision yet |
+| Candidate C, corrected chain | `17/256` (`6.64%`) | `4.19%--10.38%` | Valid one-seed engineering result; provisional runtime comparison |
 
 The two Reference-A rows are intentionally separate. The August 4 checkpoint
 has actor SHA-256 `c7796339...50468` and scored `33/256`. The matched
@@ -52,6 +51,12 @@ at `15,600` with `ready_for_online=0`; the planned online BC weight `2.0` was
 never exercised. The observed `+5.46875` percentage-point difference from
 Control B must therefore remain historical and cannot be carried into a
 corrected retry.
+
+The corrected Candidate chain completed in r19 with `17/256` fixed-set
+success (`6.640625%`), one success below Control B's `18/256`. The observed
+delta is `-0.390625` percentage points. This is no meaningful observed
+improvement for seed 2026, but it is not sufficient to apply the preregistered
+multi-seed `KEEP`/`REVERT` rule.
 
 ## Corrected resume contract
 
@@ -87,15 +92,15 @@ volume. The paid gate attempts increased the workspace provider total by
 ## Decision boundary
 
 The preregistered final rule needs three paired seeds and a 95% interval for
-the across-seed success-rate delta. With seed 2026 alone, even a fully valid r5
-can close only the engineering checkpoint; the scientific decision remains
+the across-seed success-rate delta. Seed 2026 closes only the engineering
+checkpoint; the scientific decision remains
 `INCONCLUSIVE` unless the approved seed set is completed.
 
-Operational interpretation after r5:
+Operational interpretation after the corrected Candidate:
 
-1. If resume-state validation or the r5 schedule audit fails, mark r5 invalid,
+1. If resume-state validation or the schedule audit fails, mark the run invalid,
    do not promote, and retain the prior schedule.
-2. If r5 is valid but only seed 2026 exists, report the observed delta and
+2. If the run is valid but only seed 2026 exists, report the observed delta and
    keep the formal decision `INCONCLUSIVE`.
 3. Apply `KEEP` or `REVERT` only after the preregistered paired-seed rule is
    actually satisfiable.
@@ -157,9 +162,11 @@ workspace audit showed `$153.20` metered and `$123.08` billed after credits;
 that provider total covers the whole workspace cycle and is not attributable
 to r3 alone. Stage-6R gate attempts added `$0.91` of provider spend. Candidate
 r4 was preempted after step 2 and added `$1.762702`; its stale running manifest
-and missing checkpoint make it an interrupted attempt, not a result. Candidate
-r5 costs stay `PENDING` until its final manifests and provider audit are
-available.
+and missing checkpoint make it an interrupted attempt, not a result. The final
+r19 step-96--100 plus evaluation segment ran for 10,818.85 seconds and cost
+`$9.1059`; the complete launcher ledger ended at `$377.8294` across all
+recorded project attempts. Segment-level costs remain separately listed in
+`results/d1-evidence-pack/cost-resources.csv`.
 
 The exact 16-environment Stage-2 route has previously measured more than 24 GB
 VRAM, even though VLA inference alone is expected to fit in 24 GB. Resource
@@ -169,12 +176,12 @@ inference estimate in isolation.
 ## Limitations
 
 - Only seed 2026 is complete; no across-seed effect estimate exists.
-- Control B and Candidate r3 ran on different provider/runtime/render paths.
-  Corrected r5 must record the same limitation unless it exactly matches the
-  Control-B environment.
+- Control B and corrected Candidate C ran on different provider/runtime,
+  simulator, renderer, and batching paths. The observed delta is therefore
+  provisional and not a strict one-factor causal estimate.
 - The strict sidecar restores RLT schedule counters and the replay buffer's
   dedicated generator, but a fresh segment-2 process recreates simulator reset,
-  environment-shuffle, and rollout sampling RNG streams. Corrected r5 is
+  environment-shuffle, and rollout sampling RNG streams. The corrected chain is
   therefore a valid segmented engineering run, not a bitwise-equivalent
   uninterrupted or strict one-factor causal comparison.
 - Candidate r3's result is invalid for the scheduled intervention because of
@@ -188,7 +195,8 @@ inference estimate in isolation.
 
 ## Honest conclusion
 
-**D1 has a reproducible trained control and a bounded, validated resume-state
-repair, but the corrected Candidate r5 result and the preregistered multi-seed
-evidence are still pending, so no hyperparameter improvement claim is
-justified yet.**
+**The corrected Candidate completed and scored `17/256` versus Control B's
+`18/256`: the 0.8x BC-regularization adjustment produced no meaningful
+observed improvement for seed 2026. The formal decision remains
+`INCONCLUSIVE` until the preregistered paired-seed set is completed, and the
+runtime-path difference prevents a strict one-factor causal claim.**
