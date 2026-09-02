@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 
 from supervisor.attempts import ProposalSessionResult
+from supervisor.canonical import fingerprint
 from supervisor.contracts import CampaignSpec, Decision, TrialEvidence, TrialState
 from supervisor.coordinator import IterationStatus, OfflineCampaignCoordinator
 from supervisor.enforcement import EnforcementPolicy, ProposalEnforcer
@@ -15,7 +16,12 @@ from supervisor.evaluation import ArmIncumbentStore, OfflineD1Evaluator
 from supervisor.git_manager import GitExperimentManager, HarnessCheck
 from supervisor.proposals import Proposal
 from supervisor.reporting import SYNTHETIC_NOTICE, write_report_bundle
-from supervisor.workers import FakeExperimentWorker, WorkerScenario, WorkerState
+from supervisor.workers import (
+    FakeExperimentWorker,
+    RunContract,
+    WorkerScenario,
+    WorkerState,
+)
 from tests.test_supervisor_enforcement import base_config
 from tests.test_supervisor_proposals import config_campaign_data, config_proposal_data
 
@@ -29,6 +35,47 @@ def run_git(repository: Path, *args: str) -> str:
         text=True,
     )
     return result.stdout.strip()
+
+
+class AcceptanceOnlyFactory:
+    synthetic = False
+    promotion_allowed = False
+
+    def create(
+        self,
+        *,
+        campaign,
+        proposal,
+        preparation,
+        trial_id,
+        seed,
+        incumbent_commit,
+        candidate_commit,
+        default_config_hash,
+        max_gpu_cost_usd,
+    ):
+        return RunContract.create(
+            campaign_id=campaign.campaign_id,
+            trial_id=trial_id,
+            arm_id=proposal.arm_id,
+            parent_commit=incumbent_commit,
+            candidate_commit=candidate_commit,
+            rlinf_commit=campaign.rlinf_commit,
+            config_hash=default_config_hash,
+            command_hash=fingerprint(
+                {"mode": "paid-acceptance-test", "trial_id": trial_id}
+            ),
+            seed=seed,
+            reset_set_hash=campaign.reset_set_hash,
+            evaluator_version=campaign.evaluator_version,
+            max_wall_time_seconds=proposal.estimated_budget.wall_time_seconds,
+            max_gpu_cost_usd=max_gpu_cost_usd,
+        )
+
+
+class NoEvaluationAllowed:
+    def evaluate(self, **kwargs):
+        raise AssertionError("paid acceptance must never call the evaluator")
 
 
 class CoordinatorIntegrationTests(unittest.TestCase):
@@ -211,6 +258,42 @@ class CoordinatorIntegrationTests(unittest.TestCase):
         self.assertEqual(store.snapshot()[self.proposal.arm_id], self.base_commit)
         self.assertTrue(
             all(anchor.state == TrialState.FAILED.value for anchor in result.ledger_anchors)
+        )
+
+    def test_paid_acceptance_records_evidence_without_evaluation_or_promotion(self) -> None:
+        worker = self.worker([0.5, 0.5, 0.5])
+        store = ArmIncumbentStore(
+            self.root / "acceptance-state" / "incumbents.json",
+            campaign_id=self.campaign.campaign_id,
+            initial_incumbents={
+                self.proposal.arm_id: self.base_commit,
+                "code-arm": self.base_commit,
+            },
+        )
+        result = OfflineCampaignCoordinator(
+            campaign=self.campaign,
+            git_manager=self.manager(),
+            worker=worker,
+            evaluator=NoEvaluationAllowed(),
+            incumbents=store,
+            ledger_root=self.root / "acceptance-ledgers",
+            run_contract_factory=AcceptanceOnlyFactory(),
+            synthetic=False,
+            evaluation_enabled=False,
+        ).run(
+            iteration_id="paid-acceptance-iteration",
+            proposal_session=self.session,
+            control_evidence=(),
+            decision_id="must-not-be-used",
+            base_config=base_config(),
+        )
+        self.assertEqual(result.status, IterationStatus.ACCEPTANCE_RECORDED)
+        self.assertIsNone(result.evaluation)
+        self.assertEqual(result.incumbent_before, result.incumbent_after)
+        self.assertEqual(store.snapshot()[self.proposal.arm_id], self.base_commit)
+        self.assertEqual(len(result.evidence), len(self.campaign.seeds))
+        self.assertTrue(
+            all(anchor.state == TrialState.RECORDED.value for anchor in result.ledger_anchors)
         )
 
     def test_report_bundle_contains_machine_and_human_readable_provenance(self) -> None:

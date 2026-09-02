@@ -38,6 +38,7 @@ class RunContractFactory(Protocol):
     """Create and register a backend-specific immutable run contract."""
 
     synthetic: bool
+    promotion_allowed: bool
 
     def create(
         self,
@@ -59,6 +60,7 @@ class IterationStatus(str, Enum):
     PREPARATION_REJECTED = "preparation_rejected"
     PREPARATION_FAILED = "preparation_failed"
     WORKER_FAILED = "worker_failed"
+    ACCEPTANCE_RECORDED = "acceptance_recorded"
     DECIDED = "decided"
 
 
@@ -131,6 +133,7 @@ class OfflineCampaignCoordinator:
         ledger_root: Path,
         run_contract_factory: RunContractFactory | None = None,
         synthetic: bool = True,
+        evaluation_enabled: bool = True,
     ) -> None:
         self.campaign = campaign
         self.git_manager = git_manager
@@ -140,12 +143,22 @@ class OfflineCampaignCoordinator:
         self.ledger_root = ledger_root
         self.run_contract_factory = run_contract_factory
         self.synthetic = synthetic
+        self.evaluation_enabled = evaluation_enabled
         self.ledger_root.mkdir(parents=True, exist_ok=True)
         if incumbents.campaign_id != campaign.campaign_id:
             raise CoordinatorError("incumbent store campaign does not match coordinator")
         if run_contract_factory is not None and run_contract_factory.synthetic != synthetic:
             raise CoordinatorError(
                 "run-contract factory synthetic label does not match coordinator"
+            )
+        factory_promotion = (
+            getattr(run_contract_factory, "promotion_allowed", True)
+            if run_contract_factory is not None
+            else True
+        )
+        if evaluation_enabled != factory_promotion:
+            raise CoordinatorError(
+                "coordinator evaluation authority disagrees with run-contract factory"
             )
 
     def run(
@@ -333,18 +346,24 @@ class OfflineCampaignCoordinator:
                     )
                     continue
                 evidence.append(item)
-                target = (
-                    TrialState.EVALUATED
-                    if terminal.state == WorkerState.COMPLETED
-                    else TrialState.FAILED
-                )
+                target = TrialState.FAILED
+                if terminal.state == WorkerState.COMPLETED:
+                    target = (
+                        TrialState.EVALUATED
+                        if self.evaluation_enabled
+                        else TrialState.RECORDED
+                    )
                 ledger.append_transition(
                     target,
                     actor=self._actor("evidence-normalizer"),
                     reason=(
                         "strict evidence is ready for evaluation"
                         if target == TrialState.EVALUATED
-                        else "worker reported a failed trial"
+                        else (
+                            "strict paid-acceptance evidence was recorded"
+                            if target == TrialState.RECORDED
+                            else "worker reported a failed trial"
+                        )
                     ),
                     metadata={"evidence_hash": item.fingerprint()},
                 )
@@ -375,6 +394,23 @@ class OfflineCampaignCoordinator:
                 incumbent_after=incumbent,
                 ledgers=ledgers,
                 errors=worker_errors or ["worker evidence set is incomplete"],
+            )
+
+        if not self.evaluation_enabled:
+            return self._result(
+                iteration=iteration,
+                status=IterationStatus.ACCEPTANCE_RECORDED,
+                session_hash=session_hash,
+                arm_id=arm_id,
+                preparation=preparation,
+                contracts=contracts,
+                snapshots=snapshots,
+                evidence=evidence,
+                evaluation=None,
+                incumbent_before=incumbent,
+                incumbent_after=incumbent,
+                ledgers=ledgers,
+                errors=[],
             )
 
         evaluation = self.evaluator.evaluate(

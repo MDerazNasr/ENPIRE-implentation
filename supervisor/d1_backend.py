@@ -72,6 +72,7 @@ class D1BackendError(ContractError):
 class ExecutionMode(str, Enum):
     DRY_RUN = "dry_run"
     FIXTURE = "fixture"
+    PAID_ACCEPTANCE = "paid_acceptance"
     PAID = "paid"
 
 
@@ -104,6 +105,7 @@ class M5Authorization:
         gate: D1IntegrationGateResult | None = None,
         acknowledge_paid_run: bool = False,
         allow_fixture_execution: bool = False,
+        allow_paid_acceptance: bool = False,
     ) -> "M5Authorization":
         if not isinstance(campaign, CampaignSpec):
             raise D1BackendError("M5 authorization requires a CampaignSpec")
@@ -135,6 +137,31 @@ class M5Authorization:
                 gate_hash=gate.fingerprint() if gate else None,
                 paid_acknowledged=False,
                 synthetic=True,
+            )
+        if mode == ExecutionMode.PAID_ACCEPTANCE:
+            if not allow_paid_acceptance:
+                raise D1BackendError(
+                    "paid acceptance requires an explicit engineering-test flag"
+                )
+            if gate is not None:
+                raise D1BackendError(
+                    "paid acceptance cannot consume a scientific integration gate"
+                )
+            if approval is None:
+                raise D1BackendError("paid acceptance requires campaign approval")
+            approval.validate_for(campaign, authorized_at)
+            if not acknowledge_paid_run:
+                raise D1BackendError(
+                    "paid acceptance requires explicit acknowledgement"
+                )
+            return cls(
+                campaign_hash=campaign.fingerprint(),
+                mode=mode,
+                authorized_at=authorized_text,
+                approval_hash=fingerprint(approval.to_dict()),
+                gate_hash=None,
+                paid_acknowledged=True,
+                synthetic=False,
             )
         if approval is None:
             raise D1BackendError("paid execution requires campaign approval")
@@ -384,7 +411,7 @@ class D1PlanBuilder:
                 "--run-id",
                 trial,
             ]
-            if mode == ExecutionMode.PAID:
+            if mode in {ExecutionMode.PAID_ACCEPTANCE, ExecutionMode.PAID}:
                 execution_parts.extend(["--execute", "--acknowledge-paid-run"])
             execution = tuple(execution_parts)
         contract = RunContract.create(
@@ -623,7 +650,7 @@ class D1ExperimentBackend:
         try:
             evidence, wandb_url = normalize_d1_evidence(
                 plan,
-                require_wandb=plan.mode == ExecutionMode.PAID,
+            require_wandb=plan.mode == ExecutionMode.PAID,
             )
         except ContractError as error:
             return self._without_evidence(
@@ -660,6 +687,17 @@ class D1ExperimentBackend:
                 raise D1BackendError("M5 paid authorization invariants are invalid")
             require_sha256(authorization.approval_hash, "M5 approval hash")
             require_sha256(authorization.gate_hash, "M5 gate hash")
+        elif authorization.mode == ExecutionMode.PAID_ACCEPTANCE:
+            if (
+                not authorization.paid_acknowledged
+                or authorization.synthetic
+                or authorization.approval_hash is None
+                or authorization.gate_hash is not None
+            ):
+                raise D1BackendError(
+                    "M5 paid-acceptance authorization invariants are invalid"
+                )
+            require_sha256(authorization.approval_hash, "M5 approval hash")
         elif authorization.mode == ExecutionMode.FIXTURE:
             if authorization.paid_acknowledged or not authorization.synthetic:
                 raise D1BackendError("M5 fixture authorization invariants are invalid")
@@ -881,6 +919,7 @@ class D1CoordinatorContractFactory:
         self.authorization = authorization
         self.code_base_config_relative_path = code_base_config_relative_path
         self.synthetic = authorization.synthetic
+        self.promotion_allowed = authorization.mode != ExecutionMode.PAID_ACCEPTANCE
 
     def create(
         self,

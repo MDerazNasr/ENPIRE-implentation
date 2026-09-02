@@ -54,6 +54,7 @@ class TrialState(StringEnum):
     PROPOSAL_VALIDATED = "proposal_validated"
     QUEUED = "queued"
     RUNNING = "running"
+    RECORDED = "recorded"
     EVALUATED = "evaluated"
     KEPT = "kept"
     REVERTED = "reverted"

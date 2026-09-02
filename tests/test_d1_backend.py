@@ -218,6 +218,43 @@ class D1BackendIntegrationTests(unittest.TestCase):
         self.assertIn("--execute", plan.execution_argv)
         self.assertIn("--acknowledge-paid-run", plan.execution_argv)
 
+    def test_paid_acceptance_requires_approval_but_rejects_scientific_gate(self) -> None:
+        approval = ApprovalEnvelope.from_dict(approval_data(self.campaign))
+        at = datetime(2026, 8, 4, 13, tzinfo=timezone.utc)
+        with self.assertRaisesRegex(D1BackendError, "engineering-test flag"):
+            M5Authorization.create(
+                campaign=self.campaign,
+                mode=ExecutionMode.PAID_ACCEPTANCE,
+                authorized_at=at,
+                approval=approval,
+                acknowledge_paid_run=True,
+            )
+        with self.assertRaisesRegex(D1BackendError, "scientific integration gate"):
+            M5Authorization.create(
+                campaign=self.campaign,
+                mode=ExecutionMode.PAID_ACCEPTANCE,
+                authorized_at=at,
+                approval=approval,
+                gate=self.gate,
+                acknowledge_paid_run=True,
+                allow_paid_acceptance=True,
+            )
+        authorization = M5Authorization.create(
+            campaign=self.campaign,
+            mode=ExecutionMode.PAID_ACCEPTANCE,
+            authorized_at=at,
+            approval=approval,
+            acknowledge_paid_run=True,
+            allow_paid_acceptance=True,
+        )
+        plan = self.plan(ExecutionMode.PAID_ACCEPTANCE, "acceptance-plan-2027")
+        D1ExperimentBackend._validate(plan, authorization)
+        self.assertIsNotNone(authorization.approval_hash)
+        self.assertIsNone(authorization.gate_hash)
+        self.assertFalse(authorization.synthetic)
+        self.assertIn("--execute", plan.execution_argv)
+        self.assertIn("--acknowledge-paid-run", plan.execution_argv)
+
     def test_blocked_gate_cannot_authorize_paid_execution(self) -> None:
         (self.repository / "dirty.txt").write_text("dirty\n", encoding="utf-8")
         blocked = run_d1_integration_gate(self.repository)

@@ -89,8 +89,14 @@ TRIAL_STATE_MACHINE = StateMachine(
             {TrialState.RUNNING, TrialState.FAILED, TrialState.CANCELLED}
         ),
         TrialState.RUNNING: frozenset(
-            {TrialState.EVALUATED, TrialState.FAILED, TrialState.CANCELLED}
+            {
+                TrialState.RECORDED,
+                TrialState.EVALUATED,
+                TrialState.FAILED,
+                TrialState.CANCELLED,
+            }
         ),
+        TrialState.RECORDED: frozenset(),
         TrialState.EVALUATED: frozenset(
             {
                 TrialState.KEPT,
