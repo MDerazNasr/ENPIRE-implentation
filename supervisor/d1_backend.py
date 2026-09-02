@@ -630,11 +630,15 @@ class D1ExperimentBackend:
                 errors=(),
                 synthetic=False,
             )
-        outcome = self.transport.run(
-            plan.execution_argv,
-            cwd=Path(plan.workspace),
-            timeout_seconds=plan.contract.max_wall_time_seconds,
-        )
+        plan_runner = getattr(self.transport, "run_plan", None)
+        if plan_runner is not None:
+            outcome = plan_runner(plan)
+        else:
+            outcome = self.transport.run(
+                plan.execution_argv,
+                cwd=Path(plan.workspace),
+                timeout_seconds=plan.contract.max_wall_time_seconds,
+            )
         if outcome.timed_out:
             return self._without_evidence(
                 plan, authorization, outcome, BackendStatus.TIMED_OUT,
@@ -1122,6 +1126,11 @@ def normalize_d1_evidence(
         _local_artifact(plan.contract.trial_id, "manifest", manifest_path),
         _local_artifact(plan.contract.trial_id, "run-log", log_path),
     ]
+    modal_receipt = manifest_path.with_name("modal-receipt.json")
+    if modal_receipt.is_file():
+        artifacts.append(
+            _local_artifact(plan.contract.trial_id, "modal-receipt", modal_receipt)
+        )
     if plan.objective_path is not None:
         artifacts.append(
             _local_artifact(
