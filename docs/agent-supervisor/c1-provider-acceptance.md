@@ -1,11 +1,13 @@
 # C1 Real-Provider Acceptance
 
-Status: **prepared but blocked before the provider call on 2026-09-02**.
+Status: **passed with a fail-safe provider outcome on 2026-09-02**.
 
-The user authorized one paid Claude proposal slot capped at USD `0.5`. The
-curated D1 input is complete and reproducible, but the selected direct
-Anthropic credential is not present in the execution environment. The harness
-therefore made no prompt submission and incurred no provider cost.
+The user authorized one paid Claude proposal slot capped at USD `0.5`. After
+the initial ambient-credential preflight blocked, the user explicitly directed
+the harness to use a credential supplied for this one call. It was passed by
+hidden process stdin and was never placed in a command argument, file, Git,
+audit output, or Obsidian note. The live request returned a provider error; the
+harness failed closed with no proposal, repair, or reported cost.
 
 ## Prepared input
 
@@ -30,6 +32,7 @@ IDs, target path, parameter names, and allowed test IDs.
 | Context | `results/provider-acceptance/c1/context.json` |
 | Context hash | `9088f431d2274c5a350d703798aed32a279824a2227ac753b5af11587fb23bd1` |
 | Credential-safe preflight | `results/provider-acceptance/c1/preflight.json` |
+| Live session | `results/provider-acceptance/c1/session.json` |
 
 The campaign's worker budget fields describe a possible proposal and do not
 approve a GPU run. `gpu_authorized` is explicitly `false`; C1 cannot launch
@@ -59,17 +62,26 @@ initial payload, alongside the normal attempt audits. Malformed envelopes are
 represented by their fail-closed audit because raw CLI stdout/stderr is never
 committed.
 
-## Current preflight result
+## Live result
 
-The credential-safe check returned:
+The historical preflight correctly records that no API credential existed in
+the ambient execution environment. The later one-call execution produced:
 
-- direct Anthropic API credential: absent;
-- provider call made: `false`;
-- GPU authorized/used: `false`;
-- credential value recorded: `false`; and
-- status: `blocked`.
+- provider/model: `claude-cli` / `claude-opus-5`;
+- attempt: one initial request, no repair;
+- provider outcome: exit `1`, represented only by stderr SHA-256
+  `649fc95fa886b93b890664910c0e7e233825d2775c64ecab19c99e371448367a`;
+- structured payload, response hash, and tokens: unavailable/null because no
+  valid provider envelope was returned;
+- reported cost: USD `0`;
+- bounded attempt duration: approximately 20.10 seconds;
+- session hash: `5e519cd1135ade7ab16c8d863ec01a10d7a6fe1254283de449bc6e4bc11f0c2b`;
+- repository HEAD, index hash, and empty-status hash: identical before/after;
+- tools available and GPU used: none / `false`; and
+- credential fragments found in repository artifacts: none.
 
-No login flow was started because authentication is a separate external
-account action. Once the credential is configured in the launching shell, the
-already authorized USD `0.5` slot can proceed through the command above.
-
+Gate C1 passes because a real provider request failed safely through the same
+contract as fixtures. This is not an accepted proposal and does not authorize
+D0 execution. Another live proposal request would require a new explicit
+authorization and, ideally, a newly rotated credential configured outside
+chat.

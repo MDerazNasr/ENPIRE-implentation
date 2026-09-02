@@ -392,22 +392,27 @@ evidence are in `docs/agent-supervisor/c0-provider-contract.md` and
 ### C1. Conduct one no-GPU real-provider acceptance
 
 - [x] Build one curated, hashed D1 context bundle.
-- [ ] Request one configuration-only proposal.
-- [ ] Record provider/model, prompt/context hash, response hash, tokens, cost,
+- [x] Request one configuration-only proposal.
+- [x] Record provider/model, prompt/context hash, response hash, tokens, cost,
   duration, and validation result.
-- [ ] Exercise the bounded repair path only if the first proposal is invalid.
-- [ ] Prove Claude had no tools and caused no repository or external mutation.
-- [ ] Preserve invalid output if produced.
+- [x] Exercise the bounded repair path only if the first proposal is invalid.
+- [x] Prove Claude had no tools and caused no repository or external mutation.
+- [x] Preserve invalid output if produced.
 
 Gate C1: one real provider response passes or fails safely through the same
 contracts as fixtures; no policy-performance claim is made.
 
-C1 progress on 2026-09-02: the user authorized one no-GPU provider slot capped
-at USD `0.5`. The deterministic 6,912-byte D1 context is frozen at hash
-`9088f431d2274c5a350d703798aed32a279824a2227ac753b5af11587fb23bd1`,
-and the runner verifies clean Git state before/after while retaining valid or
-invalid structured payloads. The direct Anthropic credential was absent, so
-the preflight blocked before any prompt, cost, or provider call. See
+Gate C1 result: **passed with a fail-safe provider outcome on 2026-09-02**.
+The user authorized one no-GPU provider slot capped at USD `0.5`. The
+deterministic 6,912-byte D1 context is frozen at hash
+`9088f431d2274c5a350d703798aed32a279824a2227ac753b5af11587fb23bd1`.
+One real `claude-opus-5` initial request exited `1` without a valid envelope;
+the harness retained the stderr hash, explicit null response/token fields,
+approximately 20.10-second duration, and USD `0` reported cost, then correctly
+skipped repair. No structured invalid payload existed. Git HEAD/index/status
+were identical before/after, no tools or GPU were available, and no credential
+fragment entered the repository. This passes provider safety acceptance but
+does not supply the accepted proposal required by D0. See
 `docs/agent-supervisor/c1-provider-acceptance.md`.
 
 ## 8. Workstream D: configuration-mode live attachment
