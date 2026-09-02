@@ -87,7 +87,8 @@ training if either differs.
 
 ## Implemented approval boundary
 
-Commits `50bd6c5`, `9dc0d72`, `b3c772e`, and `9cfa154` implement:
+Commits `50bd6c5`, `9dc0d72`, `b3c772e`, `9cfa154`, and `e922328`
+implement:
 
 1. a `paid_acceptance` authorization that binds a dedicated engineering
    approval and rejects scientific-gate attachment;
@@ -108,6 +109,38 @@ clean commit. It will create the deterministic fixture candidate and emit the
 exact campaign, candidate, plan, logical-command, and Modal-request hashes.
 Those hashes and this USD `3.00` / 1,800-second ceiling must then receive
 explicit user approval. No current instruction authorizes the paid launch.
+
+## Immutable preflight
+
+The no-launch preflight passed from clean implementation commit `e922328`.
+It created one isolated fixture candidate, passed both harness-owned checks,
+generated the worker-owned resolved configuration, and constructed the exact
+Modal request. Stable HEAD, index, and status were identical before and after;
+no Modal command, GPU, or paid resource was invoked.
+
+| Identity | SHA-256 / Git object |
+|---|---|
+| Profile | `7f540dcf3e9a0fd4468a3eed47adf6955ea56efeb6a120637740f8653f815315` |
+| Campaign | `7727823354d20ba704fd5fe41d7ab15741f1b0a29bb3652d2e2d819083c128e4` |
+| Candidate commit | `152cf9028fb8f94a66b352fbcb8f4cc7de2a7bcc` |
+| Candidate tree | `6948f66183ea982fdcbba2980ead6b168f015516` |
+| Resolved config | `6d4d1643c0f845bbc9d5297d3e4987e6ef99f1c4700410900e0c6e82eff33e1e` |
+| Logical RLinf command | `05e70e5ef9615d376f82ed9242e4d18836b02a0d17efb843ee5e4aec3d2088db` |
+| Launch plan | `3be13891068c4f3f8682be6813f8099e19c6a762bc3a8cc4d4fece6d5e811331` |
+| Modal request | `93246272d36f9cc864b1aa0da5fe57010838f443f3d902add2e5268c1de91eb8` |
+| Candidate source bundle | `e8373fb0400bff33fee888b808a59965d202b345294fd67b11721c34f8f843d9` |
+
+The complete preflight is
+[`../../results/provider-acceptance/d2/preflight.json`](../../results/provider-acceptance/d2/preflight.json),
+SHA-256
+`0933067a6d4edde1da78e21a80782bb6b8873f2cbd0e332e2c5c11243655556b`.
+Its `execution_authorized` and `promotion_authorized` fields are both false.
+
+The local system `modal` executable uses its bundled Modal SDK `1.5.3`; the
+generic project Python does not include that SDK. The actual invocation is
+therefore intentionally performed by the `/opt/homebrew/bin/modal` executable,
+whose bundled interpreter successfully imported this application in the
+no-call check.
 
 ## Result reconciliation
 

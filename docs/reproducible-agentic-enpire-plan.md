@@ -484,6 +484,18 @@ immutable Modal adapter must pass no-call tests before exact campaign approval
 can be requested. See
 `docs/agent-supervisor/d2-paid-acceptance-profile.md`.
 
+D2 implementation/preflight status: **ready for explicit approval**. The
+separate non-promotable authority, total-provider-cost approval wrapper,
+immutable Modal request/receipt transport, persistent artifact path, bounded
+configuration, and resumable preflight/execute runner are implemented. The
+full 261-test suite passes. A no-launch preflight from `e922328` created
+candidate `152cf902`, passed both checks, and froze campaign hash
+`7727823354d20ba...`, plan hash `3be13891068c4f3f...`, logical-command hash
+`05e70e5ef9615d37...`, and Modal-request hash `93246272d36f9cc8...`.
+Execution remains unauthorized until the user explicitly approves the exact
+Modal profile, 1,800-second maximum, USD `1.5156` GPU cap, USD `3.00` total
+provider cap, and permanent no-promotion boundary.
+
 ## 9. Workstream E: actor-objective code attachment
 
 ### E0. Locate and freeze the PyTorch seam
