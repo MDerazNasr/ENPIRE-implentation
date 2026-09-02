@@ -204,12 +204,12 @@ def run(output: Path, worktree_root: Path, worker_results: Path) -> dict:
     checks = {
         "config-contract": HarnessCheck.create(
             check_id="config-contract",
-            argv=(python, str(checker), TARGET_PATH),
+            argv=(str(python), str(checker), TARGET_PATH),
             timeout_seconds=30,
         ),
         "dry-run": HarnessCheck.create(
             check_id="dry-run",
-            argv=(python, str(checker), TARGET_PATH, "--dry-resolve"),
+            argv=(str(python), str(checker), TARGET_PATH, "--dry-resolve"),
             timeout_seconds=30,
         ),
     }
@@ -335,4 +335,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
