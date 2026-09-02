@@ -9,6 +9,9 @@ __pycache__/
 .idea/
 .vscode/
 
+# Local preserved evidence and scratch artifacts
+tmp/
+
 # Generated experiment artifacts
 results/**
 !results/**/

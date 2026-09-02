@@ -9,3 +9,9 @@
 dry run by default. An actual run requires both `--execute` and
 `--acknowledge-paid-run`, plus the required path/seed/W&B environment variables
 and `GPU_HOURLY_PRICE_USD`.
+
+`run_real_policy_demo.py` is the meeting-safe, dependency-free CPU demo. It
+trains three control and three candidate residual policies, routes their real
+metrics through the supervisor evaluator, and writes a visual public bundle.
+`toy_policy_worker.py` is its fixed subprocess worker; it is not a general
+command surface. `verify_real_policy_demo.py` rehashes all curated artifacts.

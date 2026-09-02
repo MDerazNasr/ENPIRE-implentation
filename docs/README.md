@@ -4,6 +4,11 @@ This directory holds the project notes, integration record, diagram export when
 available, and benchmark run table. Experiment results are reported honestly,
 including small or null effects.
 
+The cross-workstream execution authority is
+`reproducible-agentic-enpire-plan.md`. It consolidates the current D1 evidence,
+the completed D2 supervisor, the Obsidian documentation protocol, and the gated
+path to the first live three-arm study.
+
 The gated D1 scientific-baseline work is specified in:
 
 - `baseline_protocol.md` — hypothesis, conditions, evaluation, decision, and
@@ -28,3 +33,9 @@ The gated D1 scientific-baseline work is specified in:
   `INCONCLUSIVE` decision.
 - `local-artifact-backup.md` — progressive local weight/evidence download and
   hash gates required before any workspace termination.
+
+The completed coding-agent supervisor and final meeting delivery are documented
+under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`
+and `agent-supervisor/ludvig-demo-runbook.md`. The companion
+`agent-supervisor/real-policy-demo.md` and presenter guide document the real
+CPU toy-policy demonstration and its strict non-RLT claim boundary.

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "proposal_id": "proposal-code-01",
+  "campaign_id": "m2-code-campaign",
+  "arm_id": "claude-code",
+  "base_commit": "8ae2aad5ebfd2153119994f60ada285834e1318e",
+  "edit_mode": "actor_objective_code",
+  "hypothesis": "Normalize the actor Q term before combining it with BC loss.",
+  "evidence_ids": ["control-b-summary"],
+  "expected_effect": "Reduce objective-scale instability without reducing success.",
+  "falsification_condition": "Finite-loss checks fail or confirmed success declines.",
+  "rollback_condition": "Revert when tests fail or the evaluator does not keep it.",
+  "changed_paths": ["supervisor/objectives/actor_objective.py"],
+  "requested_tests": ["objective-gradient", "objective-finite-loss"],
+  "estimated_budget": {
+    "wall_time_seconds": 1800,
+    "gpu_cost_usd": "2.5",
+    "llm_cost_usd": "0.3"
+  },
+  "unified_diff": "diff --git a/supervisor/objectives/actor_objective.py b/supervisor/objectives/actor_objective.py\n--- a/supervisor/objectives/actor_objective.py\n+++ b/supervisor/objectives/actor_objective.py\n@@ -5 +5 @@\n-    return actor_loss + bc_weight * bc_loss\n+    return actor_loss + bc_weight * bc_loss + 0.1 * bc_loss\n"
+}

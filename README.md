@@ -36,6 +36,66 @@ preregistered final decision still requires the approved seed set.
 3. **Phase 3 — real hardware:** hardware rollout, reset, and verification after
    simulation results justify transfer.
 
+The Phase-2 supervisor completed milestones M0-M9 and the companion real CPU
+policy demo on branch `feature/d2-agent-supervisor` at `707b88f`. Its guarded
+backend can run the full coordinator through real local subprocesses and
+normalize D1-shaped artifacts. The control-plane and CPU demonstrations are
+real engineering evidence, but their RLT metrics are explicitly synthetic or
+toy-task-only.
+
+M6 adds the code-enabled arm: an agent may change only a versioned
+project-owned actor-objective function, and the harness requires a measurable
+finite value/gradient change before execution. The three-seed subprocess demo
+is synthetic; the exact PyTorch/RLinf attachment will be reconciled with the
+separately owned D1 workstream.
+
+M7 adds durable scheduling for independent hypotheses across independent
+workers: capability filtering, conservative reservations, attempt leases,
+heartbeat/restart recovery, cancellation, stale-result rejection, and a fixed
+mockable SSH RPC client. Its two-worker demo is synthetic and makes no GPU or
+RLT scaling claim.
+
+M8 provides the frozen three-arm study: three discovery candidate experiments each
+for a fixed rule, Claude configuration proposals, and Claude actor-objective
+proposals; isolated per-arm incumbents; deterministic best-valid selection;
+independent paired-seed confirmation; and reconciled static reports. Its
+one-command rehearsal is synthetic. D1 now has a Stage-7 evidence directory and
+one corrected Control/Candidate seed, but a live study remains blocked until a
+canonical supervisor pack contains matched evidence for the approved seed set.
+
+M9 packages M4, M7, and M8 into one offline-first Ludvig demo with a static
+presentation, architecture visual, optional read-only D1 replay, stable-commit
+proof, semantic delivery fingerprint, and independently verified artifact
+manifest. Run it from a clean checkout:
+
+```bash
+python3 scripts/run_m9_ludvig_demo.py \
+  --output /tmp/enpire-m9-ludvig-demo
+python3 scripts/verify_m9_bundle.py \
+  /tmp/enpire-m9-ludvig-demo
+```
+
+The final bundle is intentionally synthetic and permits no RLT-performance or
+agent-superiority claim. See
+[`docs/agent-supervisor/ludvig-demo-runbook.md`](docs/agent-supervisor/ludvig-demo-runbook.md)
+for the meeting flow and fallback.
+
+For a nontechnical audience, the companion real-policy demo trains a small
+residual reacher on the CPU and runs its recorded one-setting proposal through
+the same enforcement, Git isolation, worker evidence, and frozen evaluator
+boundaries:
+
+```bash
+python3 scripts/run_real_policy_demo.py \
+  --output /tmp/enpire-real-policy-demo
+python3 scripts/verify_real_policy_demo.py \
+  /tmp/enpire-real-policy-demo
+```
+
+This produces a visible, real improvement on the toy task only; it remains
+explicitly non-RLT evidence. See
+[`docs/agent-supervisor/real-policy-demo-presenter-guide.md`](docs/agent-supervisor/real-policy-demo-presenter-guide.md).
+
 Phase 1 is deliberately a planned stand-in for ENPIRE's coding-agent Policy
 Improvement module. It does not claim to reproduce that module.
 
@@ -106,6 +166,35 @@ Run the dependency-free tests with:
 ```bash
 python3 -m unittest discover -s tests -v
 ```
+
+### Modal GPU instance
+
+Install and authenticate the Modal CLI once:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install modal
+.venv/bin/modal setup
+```
+
+Run the GPU diagnostic and test suite on the current GPU selection:
+
+```bash
+.venv/bin/modal run modal_app.py
+```
+
+For an interactive GPU shell with the same image and persistent storage:
+
+```bash
+.venv/bin/modal shell modal_app.py::instance
+cd /root/enpire
+```
+
+The named `enpire-workspace` volume persists `/workspace` across container
+starts. The mounted repository source is at `/root/enpire`. Clone RLinf and
+place model/dataset assets under `/workspace`; do not put persistent data
+elsewhere in the container. Exit the shell to stop billed compute. Change
+`GPU` in `modal_app.py` if a different accelerator is required.
 
 See [`docs/upstream-integration.md`](docs/upstream-integration.md) for the
 validated upstream installation and smoke commands.

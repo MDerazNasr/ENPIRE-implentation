@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "campaign_id": "example-config-campaign",
+  "research_question": "Fixture only: can a bounded RLT configuration proposal improve the frozen control?",
+  "baseline_commit": "8ae2aad5ebfd2153119994f60ada285834e1318e",
+  "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "edit_mode": "config_only",
+  "editable_paths": [
+    "candidates/config_override.json"
+  ],
+  "allowed_parameters": {
+    "actor.optim.lr": {
+      "kind": "number",
+      "minimum": "0.000001",
+      "maximum": "0.001"
+    },
+    "algorithm.actor.update_epoch": {
+      "kind": "integer",
+      "minimum": "1",
+      "maximum": "8"
+    }
+  },
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "reset_set_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "evaluator_version": "d1-rule-v1",
+  "training_budget_steps": 250,
+  "evaluation_trajectories": 256,
+  "max_concurrency": 2,
+  "artifact_namespace": "qualia-rlt-d2-example",
+  "created_at": "2026-08-04T12:00:00Z",
+  "budget": {
+    "max_trials": 3,
+    "max_wall_time_seconds": 10800,
+    "max_gpu_cost_usd": "12.5",
+    "max_llm_cost_usd": "3"
+  }
+}
