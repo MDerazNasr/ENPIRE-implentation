@@ -17,6 +17,7 @@ from supervisor.contracts import (
     Decision,
     DecisionRecord,
     EditMode,
+    EngineeringAcceptanceApproval,
     ParameterKind,
     ParameterRule,
     TrialEvidence,
@@ -250,6 +251,12 @@ from supervisor.d1_backend import (
     normalize_d1_evidence,
     synchronize_d1_config,
 )
+from supervisor.modal_acceptance import (
+    ModalAcceptanceError,
+    ModalAcceptanceReceipt,
+    ModalAcceptanceRequest,
+    ModalAcceptanceTransport,
+)
 
 __all__ = [
     "ApprovalEnvelope",
@@ -306,6 +313,7 @@ __all__ = [
     "DispatchState",
     "DurableScheduler",
     "EditMode",
+    "EngineeringAcceptanceApproval",
     "EnforcementPolicy",
     "EntityType",
     "EvaluationError",
@@ -328,6 +336,10 @@ __all__ = [
     "LeaseState",
     "MaterializedConfig",
     "M5Authorization",
+    "ModalAcceptanceError",
+    "ModalAcceptanceReceipt",
+    "ModalAcceptanceRequest",
+    "ModalAcceptanceTransport",
     "M9_DELIVERY_VERSION",
     "M9_NOTICE",
     "ObjectiveError",

@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from agent.d1_config import load_d1_config
-from supervisor.contracts import ApprovalEnvelope
+from supervisor.contracts import ApprovalEnvelope, EngineeringAcceptanceApproval
 from supervisor.attempts import ProposalSessionResult
 from supervisor.contracts import CampaignSpec, Decision, TrialEvidence
 from supervisor.coordinator import IterationStatus, OfflineCampaignCoordinator
@@ -220,13 +220,24 @@ class D1BackendIntegrationTests(unittest.TestCase):
 
     def test_paid_acceptance_requires_approval_but_rejects_scientific_gate(self) -> None:
         approval = ApprovalEnvelope.from_dict(approval_data(self.campaign))
+        acceptance_approval = EngineeringAcceptanceApproval.from_dict(
+            {
+                "schema_version": 1,
+                "campaign_approval": approval.to_dict(),
+                "profile_hash": "d" * 64,
+                "provider": "Modal",
+                "provider_profile": "fixture-profile",
+                "max_total_cost_usd": "100",
+                "promotion_allowed": False,
+            }
+        )
         at = datetime(2026, 8, 4, 13, tzinfo=timezone.utc)
         with self.assertRaisesRegex(D1BackendError, "engineering-test flag"):
             M5Authorization.create(
                 campaign=self.campaign,
                 mode=ExecutionMode.PAID_ACCEPTANCE,
                 authorized_at=at,
-                approval=approval,
+                acceptance_approval=acceptance_approval,
                 acknowledge_paid_run=True,
             )
         with self.assertRaisesRegex(D1BackendError, "scientific integration gate"):
@@ -234,7 +245,7 @@ class D1BackendIntegrationTests(unittest.TestCase):
                 campaign=self.campaign,
                 mode=ExecutionMode.PAID_ACCEPTANCE,
                 authorized_at=at,
-                approval=approval,
+                acceptance_approval=acceptance_approval,
                 gate=self.gate,
                 acknowledge_paid_run=True,
                 allow_paid_acceptance=True,
@@ -243,7 +254,7 @@ class D1BackendIntegrationTests(unittest.TestCase):
             campaign=self.campaign,
             mode=ExecutionMode.PAID_ACCEPTANCE,
             authorized_at=at,
-            approval=approval,
+            acceptance_approval=acceptance_approval,
             acknowledge_paid_run=True,
             allow_paid_acceptance=True,
         )

@@ -38,6 +38,7 @@ from supervisor.contracts import (
     ArtifactRef,
     CampaignSpec,
     EditMode,
+    EngineeringAcceptanceApproval,
     TrialEvidence,
 )
 from supervisor.d1_gate import D1GateStatus, D1IntegrationGateResult
@@ -102,6 +103,7 @@ class M5Authorization:
         mode: ExecutionMode,
         authorized_at: datetime,
         approval: ApprovalEnvelope | None = None,
+        acceptance_approval: EngineeringAcceptanceApproval | None = None,
         gate: D1IntegrationGateResult | None = None,
         acknowledge_paid_run: bool = False,
         allow_fixture_execution: bool = False,
@@ -147,9 +149,13 @@ class M5Authorization:
                 raise D1BackendError(
                     "paid acceptance cannot consume a scientific integration gate"
                 )
-            if approval is None:
-                raise D1BackendError("paid acceptance requires campaign approval")
-            approval.validate_for(campaign, authorized_at)
+            if approval is not None:
+                raise D1BackendError(
+                    "paid acceptance requires its dedicated approval envelope"
+                )
+            if acceptance_approval is None:
+                raise D1BackendError("paid acceptance requires engineering approval")
+            acceptance_approval.validate_for(campaign, authorized_at)
             if not acknowledge_paid_run:
                 raise D1BackendError(
                     "paid acceptance requires explicit acknowledgement"
@@ -158,7 +164,7 @@ class M5Authorization:
                 campaign_hash=campaign.fingerprint(),
                 mode=mode,
                 authorized_at=authorized_text,
-                approval_hash=fingerprint(approval.to_dict()),
+                approval_hash=acceptance_approval.fingerprint(),
                 gate_hash=None,
                 paid_acknowledged=True,
                 synthetic=False,

@@ -441,6 +441,84 @@ class ApprovalEnvelope:
 
 
 @dataclass(frozen=True)
+class EngineeringAcceptanceApproval:
+    schema_version: int
+    campaign_approval: ApprovalEnvelope
+    profile_hash: str
+    provider: str
+    provider_profile: str
+    max_total_cost_usd: str
+    promotion_allowed: bool
+
+    @classmethod
+    def from_dict(cls, value: Any) -> "EngineeringAcceptanceApproval":
+        fields = {
+            "schema_version",
+            "campaign_approval",
+            "profile_hash",
+            "provider",
+            "provider_profile",
+            "max_total_cost_usd",
+            "promotion_allowed",
+        }
+        data = require_exact_keys(value, "engineering acceptance approval", fields)
+        if data["schema_version"] != SCHEMA_VERSION:
+            raise ContractError(
+                f"engineering acceptance approval schema must be {SCHEMA_VERSION}"
+            )
+        if data["promotion_allowed"] is not False:
+            raise ContractError("engineering acceptance can never allow promotion")
+        total = decimal_text(
+            parse_decimal(
+                data["max_total_cost_usd"],
+                "engineering acceptance total-cost cap",
+                allow_zero=False,
+            )
+        )
+        campaign_approval = ApprovalEnvelope.from_dict(data["campaign_approval"])
+        if parse_decimal(total, "engineering acceptance total-cost cap") < (
+            campaign_approval.budget.gpu_cost()
+        ):
+            raise ContractError(
+                "engineering acceptance total-cost cap cannot be below its GPU cap"
+            )
+        return cls(
+            schema_version=SCHEMA_VERSION,
+            campaign_approval=campaign_approval,
+            profile_hash=require_sha256(
+                data["profile_hash"], "engineering acceptance profile hash"
+            ),
+            provider=require_nonempty_text(
+                data["provider"], "engineering acceptance provider", max_length=128
+            ),
+            provider_profile=require_nonempty_text(
+                data["provider_profile"],
+                "engineering acceptance provider profile",
+                max_length=256,
+            ),
+            max_total_cost_usd=total,
+            promotion_allowed=False,
+        )
+
+    def validate_for(self, campaign: CampaignSpec, at: datetime) -> None:
+        self.campaign_approval.validate_for(campaign, at)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.schema_version,
+            "campaign_approval": self.campaign_approval.to_dict(),
+            "profile_hash": self.profile_hash,
+            "provider": self.provider,
+            "provider_profile": self.provider_profile,
+            "max_total_cost_usd": self.max_total_cost_usd,
+            "promotion_allowed": self.promotion_allowed,
+        }
+
+    def fingerprint(self) -> str:
+        return fingerprint(self.to_dict())
+
+
+@dataclass(frozen=True)
 class ArtifactRef:
     artifact_id: str
     kind: str

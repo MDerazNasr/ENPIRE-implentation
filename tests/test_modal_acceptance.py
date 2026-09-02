@@ -13,7 +13,11 @@ from pathlib import Path
 
 from agent.d1_config import load_d1_config
 from supervisor.canonical import canonical_json, fingerprint
-from supervisor.contracts import ApprovalEnvelope, CampaignSpec
+from supervisor.contracts import (
+    ApprovalEnvelope,
+    CampaignSpec,
+    EngineeringAcceptanceApproval,
+)
 from supervisor.d1_backend import (
     BackendStatus,
     D1ExperimentBackend,
@@ -171,7 +175,17 @@ class ModalAcceptanceContractTests(unittest.TestCase):
             campaign=self.campaign,
             mode=ExecutionMode.PAID_ACCEPTANCE,
             authorized_at=datetime(2026, 9, 2, 20, tzinfo=timezone.utc),
-            approval=approval,
+            acceptance_approval=EngineeringAcceptanceApproval.from_dict(
+                {
+                    "schema_version": 1,
+                    "campaign_approval": approval.to_dict(),
+                    "profile_hash": "d" * 64,
+                    "provider": "Modal",
+                    "provider_profile": "fixture-profile",
+                    "max_total_cost_usd": "3",
+                    "promotion_allowed": False,
+                }
+            ),
             acknowledge_paid_run=True,
             allow_paid_acceptance=True,
         )
