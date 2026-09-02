@@ -163,7 +163,6 @@ def environment() -> dict[str, str]:
         "STAGE1_CHECKPOINT": str(REMOTE_ROOT / "checkpoints/stage1-step-500-actor"),
         "NORM_STATS_PATH": "/opt/qualia/norm_stats.json",
         "WANDB_PROJECT": "qualia-rlt-d2-acceptance",
-        "D2_WANDB_DIR": str(REMOTE_ROOT / f"wandb/{CAMPAIGN_ID}"),
         "D1_SEED": "2026",
     }
 

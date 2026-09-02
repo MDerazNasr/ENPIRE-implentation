@@ -17,7 +17,7 @@
     "QUALIA_RLT_RESUME_STATE": "1",
     "VK_ICD_FILENAMES": "/usr/share/vulkan/icd.d/lvp_icd.x86_64.json",
     "WANDB_MODE": "offline",
-    "WANDB_DIR": "${D2_WANDB_DIR}",
+    "WANDB_DIR": "/private/tmp/enpire-d2-paid-acceptance/wandb/d2-paid-config-attachment-v1",
     "LP_NUM_THREADS": "1",
     "OMP_NUM_THREADS": "1"
   },

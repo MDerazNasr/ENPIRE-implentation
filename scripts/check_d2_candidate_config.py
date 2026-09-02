@@ -27,10 +27,6 @@ ENVIRONMENT = {
     ),
     "NORM_STATS_PATH": "/opt/qualia/norm_stats.json",
     "WANDB_PROJECT": "qualia-rlt-d2-acceptance",
-    "D2_WANDB_DIR": (
-        "/private/tmp/enpire-d2-paid-acceptance/"
-        "wandb/d2-paid-config-attachment-v1"
-    ),
     "D1_SEED": "2026",
 }
 
