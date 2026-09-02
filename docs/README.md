@@ -42,6 +42,11 @@ The gated D1 scientific-baseline work is specified in:
 - `agent-supervisor/d1-pack-gate-compatibility.md` — B2 end-to-end canonical
   pack fixture, exact legacy/supervisor replay comparison, and current live
   gate diagnostic.
+- `agent-supervisor/d0-dry-run-acceptance.md` — deterministic proposal-to-plan
+  acceptance with no external process or execution authority.
+- `agent-supervisor/d1-subprocess-acceptance.md` — real local subprocess,
+  evidence-normalization, failure-containment, and authority-boundary
+  acceptance with no GPU or paid service.
 
 The completed coding-agent supervisor and final meeting delivery are documented
 under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`

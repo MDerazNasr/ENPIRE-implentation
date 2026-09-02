@@ -442,13 +442,24 @@ call, and no GPU use. See
 
 ### D1. Bounded no-GPU subprocess acceptance
 
-- [ ] Execute the D1-shaped local fixture through the real subprocess adapter.
-- [ ] Test timeout, missing artifact, hash mismatch, cost overrun, and failure
+- [x] Execute the D1-shaped local fixture through the real subprocess adapter.
+- [x] Test timeout, missing artifact, hash mismatch, cost overrun, and failure
   normalization.
-- [ ] Confirm invalid evidence cannot reach evaluation or promotion.
+- [x] Confirm invalid evidence cannot reach evaluation or promotion.
 
 Gate D1: the integrated coordinator consumes real subprocess artifacts with
 the correct authority boundary.
+
+Gate D1 result: **passed on 2026-09-02 with local synthetic subprocesses**.
+Six isolated scenarios exercised the real process adapter. The happy path
+produced strict evidence and the frozen one-seed evaluator correctly returned
+`INCONCLUSIVE`; timeout, missing-artifact, config-hash mismatch, and cost-
+overrun outcomes reached neither evaluation nor promotion; consistently
+normalized failed evidence reached only a deterministic `FAILED` decision.
+Every incumbent remained unchanged. The integration repository was identical
+before and after execution, and no GPU, provider, SSH, network, W&B service, or
+paid resource was used. See
+`docs/agent-supervisor/d1-subprocess-acceptance.md`.
 
 ### D2. Small paid configuration acceptance
 
