@@ -33,6 +33,9 @@ The gated D1 scientific-baseline work is specified in:
   `INCONCLUSIVE` decision.
 - `local-artifact-backup.md` — progressive local weight/evidence download and
   hash gates required before any workspace termination.
+- `agent-supervisor/d1-evidence-schema-mapping.md` — complete B0 inventory of
+  the current D1 evidence checkpoint, mapping to the seven strict supervisor
+  artifact roles and separating packaging gaps from scientific gaps.
 
 The completed coding-agent supervisor and final meeting delivery are documented
 under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`

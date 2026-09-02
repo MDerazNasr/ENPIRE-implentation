@@ -298,15 +298,23 @@ evidence tree are unchanged.
 
 ### B0. Map existing evidence to the supervisor schema
 
-- [ ] Inventory every file in `results/d1-evidence-pack/`.
-- [ ] Map existing run table, cost table, hashes, plots, summaries, and raw
+- [x] Inventory every file in `results/d1-evidence-pack/`.
+- [x] Map existing run table, cost table, hashes, plots, summaries, and raw
   evidence to the seven required supervisor artifact roles.
-- [ ] Identify fields unavailable from tracked evidence.
-- [ ] Distinguish missing packaging from missing scientific evidence.
-- [ ] Document whether W&B is authoritative, supplementary, or unavailable for
+- [x] Identify fields unavailable from tracked evidence.
+- [x] Distinguish missing packaging from missing scientific evidence.
+- [x] Document whether W&B is authoritative, supplementary, or unavailable for
   each run.
 
 Gate B0: a complete schema-mapping table exists with no invented fields.
+
+Gate B0 result: **passed on 2026-09-02**. The ten tracked source-pack files,
+fourteen indexed evidence references, seven required artifact roles, strict
+pack/run/campaign fields, and per-run W&B status are mapped in
+`docs/agent-supervisor/d1-evidence-schema-mapping.md`. The mapping confirms
+that deterministic packaging can improve the handoff but cannot manufacture
+the missing matched seeds, reset-set hash, runtime parity, exact provenance,
+or reviewer approval. The current scientific result remains `INCONCLUSIVE`.
 
 ### B1. Implement the canonical pack builder and readiness report
 
