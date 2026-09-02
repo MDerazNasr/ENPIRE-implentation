@@ -105,7 +105,7 @@ def campaign_for(scenario: str, baseline: str) -> CampaignSpec:
                 "max_trials": 1,
                 "max_wall_time_seconds": 30,
                 "max_gpu_cost_usd": "0.3",
-                "max_llm_cost_usd": "0",
+                "max_llm_cost_usd": "0.01",
             },
         }
     )
