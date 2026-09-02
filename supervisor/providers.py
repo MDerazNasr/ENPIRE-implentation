@@ -28,6 +28,7 @@ from supervisor.proposals import PROPOSAL_SCHEMA_JSON
 
 MAX_PROVIDER_OUTPUT_BYTES = 1_048_576
 MAX_REPAIR_FEEDBACK_BYTES = 16_384
+MAX_PROVIDER_TIMEOUT_SECONDS = 600
 
 
 class ProviderError(ContractError):
@@ -145,31 +146,24 @@ class ProposalProvider(Protocol):
     ) -> ProviderCallResult: ...
 
 
-ALLOWED_ENVIRONMENT = {
-    "PATH",
-    "LANG",
-    "LC_ALL",
-    "TMPDIR",
-    "ANTHROPIC_API_KEY",
-    "ANTHROPIC_BASE_URL",
-    "CLAUDE_CODE_USE_BEDROCK",
-    "CLAUDE_CODE_USE_VERTEX",
-    "CLAUDE_CODE_USE_FOUNDRY",
-    "ANTHROPIC_VERTEX_PROJECT_ID",
-    "CLOUD_ML_REGION",
-    "AWS_ACCESS_KEY_ID",
-    "AWS_SECRET_ACCESS_KEY",
-    "AWS_SESSION_TOKEN",
-    "AWS_REGION",
-    "GOOGLE_APPLICATION_CREDENTIALS",
+RUNTIME_ENVIRONMENT = frozenset({"PATH", "LANG", "LC_ALL", "TMPDIR"})
+PROVIDER_CREDENTIAL_ENVIRONMENT = {
+    "anthropic-direct": frozenset({"ANTHROPIC_API_KEY"}),
 }
 
 
-def sanitized_environment(environment: Mapping[str, str]) -> dict[str, str]:
+def sanitized_environment(
+    environment: Mapping[str, str], *, backend: str = "anthropic-direct"
+) -> dict[str, str]:
+    try:
+        credential_names = PROVIDER_CREDENTIAL_ENVIRONMENT[backend]
+    except KeyError as error:
+        raise ContractError(f"unsupported Claude credential backend: {backend}") from error
+    allowed = RUNTIME_ENVIRONMENT | credential_names
     return {
         name: value
         for name, value in environment.items()
-        if name in ALLOWED_ENVIRONMENT and isinstance(value, str)
+        if name in allowed and isinstance(value, str)
     }
 
 
@@ -183,6 +177,7 @@ class ClaudeCliProvider:
         working_directory: Path,
         transport: ProcessTransport | None = None,
         environment: Mapping[str, str] | None = None,
+        credential_backend: str = "anthropic-direct",
         effort: str = "medium",
         clock: Callable[[], Any] | None = None,
     ) -> None:
@@ -199,7 +194,11 @@ class ClaudeCliProvider:
         self.executable = executable
         self.working_directory = working_directory
         self.transport = transport or SubprocessTransport()
-        self.environment = sanitized_environment(environment or os.environ)
+        self.credential_backend = credential_backend
+        source_environment = os.environ if environment is None else environment
+        self.environment = sanitized_environment(
+            source_environment, backend=credential_backend
+        )
         self.effort = effort
         self.clock = clock or (lambda: datetime.now(timezone.utc))
 
@@ -298,8 +297,11 @@ class ClaudeCliProvider:
     ) -> ProviderCallResult:
         if isinstance(timeout_seconds, bool) or not isinstance(timeout_seconds, int):
             raise ContractError("provider timeout must be an integer")
-        if not 1 <= timeout_seconds <= 600:
-            raise ContractError("provider timeout must be between 1 and 600 seconds")
+        if not 1 <= timeout_seconds <= MAX_PROVIDER_TIMEOUT_SECONDS:
+            raise ContractError(
+                "provider timeout must be between 1 and "
+                f"{MAX_PROVIDER_TIMEOUT_SECONDS} seconds"
+            )
         prompt = self._prompt(context, repair_feedback)
         started = self.clock()
         result = self.transport.run(

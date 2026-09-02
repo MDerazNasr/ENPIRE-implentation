@@ -22,6 +22,11 @@ MAX_CONTEXT_BYTES = 65_536
 MAX_EXCERPTS = 8
 MAX_EXCERPT_BYTES = 16_384
 MAX_PRIOR_TRIALS = 16
+MAX_PRIOR_SUMMARY_BYTES = 4_096
+MAX_BOUNDARY_BYTES = 1_024
+MAX_METRIC_DEFINITION_BYTES = 2_048
+MAX_BASELINE_SUMMARY_BYTES = 16_384
+MAX_DELTA_SUMMARY_BYTES = 8_192
 
 
 SECRET_PATTERNS = (
@@ -124,7 +129,9 @@ class PriorTrialSummary:
         return cls(
             trial_id=require_identifier(trial_id, "prior_trial.trial_id"),
             decision=decision,
-            summary=_bounded_text(summary, "prior_trial.summary", max_bytes=4_096),
+            summary=_bounded_text(
+                summary, "prior_trial.summary", max_bytes=MAX_PRIOR_SUMMARY_BYTES
+            ),
             metrics=MappingProxyType(normalized),
         )
 
@@ -174,7 +181,11 @@ def build_context(
     if isinstance(immutable_boundaries, (str, bytes)) or not immutable_boundaries:
         raise ContextRejected("context requires immutable boundaries")
     boundaries = tuple(
-        _bounded_text(item, f"immutable_boundaries[{index}]", max_bytes=1_024)
+        _bounded_text(
+            item,
+            f"immutable_boundaries[{index}]",
+            max_bytes=MAX_BOUNDARY_BYTES,
+        )
         for index, item in enumerate(immutable_boundaries)
     )
     if len(set(boundaries)) != len(boundaries):
@@ -185,12 +196,16 @@ def build_context(
     for name, definition in metric_definitions.items():
         require_nonempty_text(name, "metric definition key", max_length=256)
         metrics[name] = _bounded_text(
-            definition, f"metric_definitions.{name}", max_bytes=2_048
+            definition,
+            f"metric_definitions.{name}",
+            max_bytes=MAX_METRIC_DEFINITION_BYTES,
         )
     if not metrics:
         raise ContextRejected("context requires metric definitions")
     baseline = _bounded_text(
-        baseline_summary, "baseline_summary", max_bytes=16_384
+        baseline_summary,
+        "baseline_summary",
+        max_bytes=MAX_BASELINE_SUMMARY_BYTES,
     )
     if isinstance(prior_trials, (str, bytes)) or not all(
         isinstance(trial, PriorTrialSummary) for trial in prior_trials
@@ -212,7 +227,9 @@ def build_context(
         raise ContextRejected("excerpt IDs must be unique")
     delta = None
     if delta_summary is not None:
-        delta = _bounded_text(delta_summary, "delta_summary", max_bytes=8_192)
+        delta = _bounded_text(
+            delta_summary, "delta_summary", max_bytes=MAX_DELTA_SUMMARY_BYTES
+        )
     payload = {
         "schema_version": SCHEMA_VERSION,
         "campaign": campaign.to_dict(),

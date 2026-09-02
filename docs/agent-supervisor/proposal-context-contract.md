@@ -67,6 +67,11 @@ path, a supplied working directory, a reduced environment allowlist, stdin,
 `shell=False`, JSON structured output, no tools, `dontAsk` permission mode,
 no session persistence, a dollar cap, and a timeout of at most ten minutes.
 
+The C0 acceptance contract selects the `anthropic-direct` credential profile.
+It passes only `ANTHROPIC_API_KEY` plus `PATH`, locale, and temporary-directory
+runtime fields. Cloud-backend credentials and custom base URLs are not part of
+that profile. See [`c0-provider-contract.md`](c0-provider-contract.md).
+
 The adapter does not place credentials in context, command arguments, output,
 or audit errors. Non-zero exits retain only a stderr hash. Provider output is
 limited to 1 MiB and must be strict JSON; NaN and infinity fail closed.

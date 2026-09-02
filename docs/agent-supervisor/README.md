@@ -34,6 +34,9 @@ labels inside a run.
   contracts and lifecycle split.
 - [`proposal-context-contract.md`](proposal-context-contract.md) documents the
   Milestone 2 context, structured proposal, provider, and repair contracts.
+- [`c0-provider-contract.md`](c0-provider-contract.md) freezes the locally
+  verified Claude CLI/model, least-authority environment, invocation, budget,
+  and size/attempt limits for live-provider acceptance.
 - [`enforcement-git-contract.md`](enforcement-git-contract.md) documents the
   Milestone 3 independent policy, materialization, worktree, and ledger gates.
 - [`offline-loop-contract.md`](offline-loop-contract.md) documents the M4 fake

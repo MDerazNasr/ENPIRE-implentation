@@ -370,15 +370,24 @@ absent; the readiness report retains the underlying eleven blockers. See
 
 ### C0. Freeze the provider contract
 
-- [ ] Confirm Claude CLI executable/version and selected model.
-- [ ] Preserve the provider-neutral interface.
-- [ ] Confirm `--tools ""`, safe mode, no session persistence, JSON schema,
+- [x] Confirm Claude CLI executable/version and selected model.
+- [x] Preserve the provider-neutral interface.
+- [x] Confirm `--tools ""`, safe mode, no session persistence, JSON schema,
   ten-minute ceiling, and dollar budget.
-- [ ] Confirm the sanitized environment allowlist contains only required
+- [x] Confirm the sanitized environment allowlist contains only required
   provider credentials and runtime fields.
-- [ ] Freeze context-size, output-size, attempt, and repair limits.
+- [x] Freeze context-size, output-size, attempt, and repair limits.
 
 Gate C0: provider invocation is deterministic in shape and least-authority.
+
+Gate C0 result: **passed on 2026-09-02 without a provider call**. Claude CLI
+`2.1.236` and its binary hash were recorded; the exact `claude-opus-5` model,
+medium effort, USD `0.5` combined slot budget, 600-second ceiling, ordered
+tool-free invocation, schema/system hashes, and all context/output/repair
+limits are frozen. The direct Anthropic environment profile now admits only
+`ANTHROPIC_API_KEY` and four non-secret runtime fields. The no-call audit and
+evidence are in `docs/agent-supervisor/c0-provider-contract.md` and
+`results/provider-acceptance/c0-provider-contract.json`.
 
 ### C1. Conduct one no-GPU real-provider acceptance
 

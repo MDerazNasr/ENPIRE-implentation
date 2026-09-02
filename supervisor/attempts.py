@@ -25,11 +25,16 @@ from supervisor.proposals import (
     Proposal,
 )
 from supervisor.providers import (
+    MAX_PROVIDER_TIMEOUT_SECONDS,
     ProposalProvider,
     ProviderCallResult,
     ProviderError,
     ProviderTimeout,
 )
+
+
+MAX_PROPOSAL_ATTEMPTS = 2
+MAX_REPAIR_REQUEST_BYTES = 12_288
 
 
 @dataclass(frozen=True)
@@ -68,7 +73,7 @@ def _repair_feedback(payload: dict, errors: tuple[str, ...]) -> str:
                 "invalid_response": "omitted: response was not canonical JSON",
             }
         )
-    if len(rendered.encode("utf-8")) > 12_288:
+    if len(rendered.encode("utf-8")) > MAX_REPAIR_REQUEST_BYTES:
         rendered = canonical_json(
             {
                 "validation_errors": list(errors),
@@ -110,8 +115,11 @@ class ProposalAttemptController:
         )
         if isinstance(timeout_seconds, bool) or not isinstance(timeout_seconds, int):
             raise ContractError("attempt_controller.timeout_seconds must be an integer")
-        if not 1 <= timeout_seconds <= 600:
-            raise ContractError("attempt_controller.timeout_seconds must be 1-600")
+        if not 1 <= timeout_seconds <= MAX_PROVIDER_TIMEOUT_SECONDS:
+            raise ContractError(
+                "attempt_controller.timeout_seconds must be 1-"
+                f"{MAX_PROVIDER_TIMEOUT_SECONDS}"
+            )
         if context.campaign_hash != campaign.fingerprint():
             raise ContractError("context does not match campaign")
         if context.incumbent_commit != incumbent_commit:
@@ -165,7 +173,7 @@ class ProposalAttemptController:
         attempts: list[AttemptAudit] = []
         total_cost = Decimal(0)
         repair_feedback: str | None = None
-        for number in (1, 2):
+        for number in range(1, MAX_PROPOSAL_ATTEMPTS + 1):
             attempt_type = AttemptType.INITIAL if number == 1 else AttemptType.REPAIR
             remaining = self.max_total_cost - total_cost
             if remaining <= 0:

@@ -13,6 +13,7 @@ from supervisor.canonical import ContractError, fingerprint
 from supervisor.context import build_context
 from supervisor.contracts import CampaignSpec
 from supervisor.proposals import AttemptStatus
+from supervisor.provider_contract import frozen_contract
 from supervisor.providers import (
     ClaudeCliProvider,
     FakeProposalProvider,
@@ -20,6 +21,7 @@ from supervisor.providers import (
     ProviderCallResult,
     ProviderError,
     ProviderTimeout,
+    sanitized_environment,
 )
 from tests.test_supervisor_context import context_kwargs
 from tests.test_supervisor_proposals import (
@@ -162,6 +164,49 @@ class ClaudeAdapterTests(unittest.TestCase):
         self.assertEqual(result.reported_cost_usd, "0.2")
         self.assertEqual(result.proposal_payload, config_proposal_data())
         self.assertEqual(result.input_tokens, 100)
+
+    def test_direct_backend_environment_is_least_authority(self) -> None:
+        source = {
+            "PATH": "/usr/bin",
+            "LANG": "C.UTF-8",
+            "ANTHROPIC_API_KEY": "direct-secret",
+            "ANTHROPIC_BASE_URL": "https://unapproved.invalid",
+            "CLAUDE_CODE_USE_BEDROCK": "1",
+            "AWS_ACCESS_KEY_ID": "cloud-secret",
+            "GOOGLE_APPLICATION_CREDENTIALS": "/secret.json",
+            "UNRELATED_SECRET": "other-secret",
+        }
+        self.assertEqual(
+            sanitized_environment(source),
+            {
+                "PATH": "/usr/bin",
+                "LANG": "C.UTF-8",
+                "ANTHROPIC_API_KEY": "direct-secret",
+            },
+        )
+        with self.assertRaisesRegex(ContractError, "unsupported.*backend"):
+            sanitized_environment(source, backend="bedrock")
+
+    def test_explicit_empty_environment_does_not_inherit_process_secrets(self) -> None:
+        provider = ClaudeCliProvider(
+            executable=Path(sys.executable),
+            working_directory=self.cwd,
+            environment={},
+        )
+        self.assertEqual(provider.environment, {})
+
+    def test_c0_contract_is_exact_and_does_not_use_a_moving_model_alias(self) -> None:
+        contract = frozen_contract()
+        self.assertEqual(contract["provider"], "claude-cli")
+        self.assertEqual(contract["model"], "claude-opus-5")
+        self.assertNotIn(contract["model"], {"opus", "sonnet", "haiku"})
+        self.assertEqual(contract["timeout_seconds"], 600)
+        self.assertEqual(contract["max_total_cost_usd"], "0.5")
+        self.assertEqual(contract["max_attempts"], 2)
+        self.assertEqual(
+            contract["allowed_environment_names"],
+            ["ANTHROPIC_API_KEY", "LANG", "LC_ALL", "PATH", "TMPDIR"],
+        )
 
     def test_result_string_envelope_is_supported(self) -> None:
         provider, _ = self.provider(
