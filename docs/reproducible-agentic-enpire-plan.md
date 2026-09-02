@@ -260,25 +260,39 @@ Gate A1 result: **passed on 2026-09-02**.
 Gate A2: combined tree contains current D1 and complete D2 without evidence
 regression or undocumented contract changes.
 
-Gate A2 result: **passed on 2026-09-02, pending A3 verification before
-commit**. The history-preserving merge produced one documentation-index
-conflict and no code/evidence conflicts. D1-owned paths compare unchanged with
-`eed314f`; D2 supervisor code compares unchanged with `707b88f` except for
-current-status documentation. See
+Gate A2 result: **passed on 2026-09-02**. The history-preserving merge produced
+one documentation-index conflict and no code/evidence conflicts. D1-owned
+paths compare unchanged with `eed314f`; D2 supervisor code compares unchanged
+with `707b88f` except for current-status documentation. The reconciled tree was
+bound in merge commit `059a130927c99d09c013886bd06cdeb83fc48d18`. See
 `docs/agent-supervisor/d1-d2-reconciliation.md`.
 
 ### A3. Baseline verification after integration
 
-- [ ] Run the complete D1 and D2 test suites.
-- [ ] Run Python compilation checks.
-- [ ] Run `git diff --check`.
-- [ ] Verify relative documentation links.
-- [ ] Run all offline M4, M7, M8, and M9 demonstrations.
-- [ ] Run and verify the real CPU policy demo.
-- [ ] Confirm the original stable branch and active D1 worktree are unchanged.
+- [x] Run the complete D1 and D2 test suites.
+- [x] Run Python compilation checks.
+- [x] Run `git diff --check`.
+- [x] Verify relative documentation links.
+- [x] Run all offline M4, M7, M8, and M9 demonstrations.
+- [x] Run and verify the real CPU policy demo.
+- [x] Confirm the original stable branch and active D1 worktree are unchanged.
 
 Gate A3: all offline regression and artifact-verification gates pass from a
 clean integration commit.
+
+Gate A3 result: **passed on 2026-09-02**. From clean integration commit
+`059a130927c99d09c013886bd06cdeb83fc48d18`, the combined suite passed 236
+tests and 125 subtests; Python compilation, whitespace/conflict checks, and 49
+relative links across 62 Markdown files passed. The M4, M7, M8, and M9 offline
+demos completed without external calls. The M9 bundle verifier accepted 15
+artifacts with delivery fingerprint
+`79c7f7e600a6814d6b95db42c4e4a8c711a47c90b077eaebca48e7fc974a02dd`.
+The real CPU policy demo and verifier accepted 14 artifacts with result
+fingerprint
+`9ae476d209b1f69c368cf084e01ce283df49961e377e0b5c7373ee711ec6ce15`.
+That demo is explicitly toy/non-RLT evidence. The source branches remain at
+`eed314f` and `707b88f`; the original D1 worktree and its 20 GB ignored local
+evidence tree are unchanged.
 
 ## 6. Workstream B: canonical D1 Stage-7 handoff
 

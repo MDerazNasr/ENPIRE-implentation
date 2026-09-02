@@ -2,7 +2,7 @@
 
 Date: 2026-09-02
 
-Status: A2 merge assembled; A3 verification pending
+Status: A2 reconciliation and A3 offline verification passed
 
 ## Inputs
 
@@ -70,15 +70,26 @@ The reconciled status is:
 - Historical reports retain their original dated observations and are labeled
   when a superseding status exists.
 
-## A3 verification still required
+## A3 verification result
 
-- complete combined test suite;
-- Python compilation;
-- diff and conflict-marker hygiene;
-- documentation-link validation;
-- M4, M7, M8, and M9 offline demos and verifiers;
-- real CPU policy demo and verifier; and
-- stable/original worktree invariance checks.
+A3 passed on 2026-09-02 against clean integration commit
+`059a130927c99d09c013886bd06cdeb83fc48d18`:
 
-No merge commit should be created until A3 passes and the final staged diff is
-reviewed.
+- the combined suite passed 236 tests and 125 subtests in 27.64 seconds;
+- Python compilation and Git whitespace/conflict-marker checks passed;
+- 49 relative links across 62 Markdown files resolved;
+- the offline M4, M7, M8, and M9 demonstrations completed without external
+  calls, and the M9 verifier accepted its 15-artifact delivery bundle with
+  fingerprint
+  `79c7f7e600a6814d6b95db42c4e4a8c711a47c90b077eaebca48e7fc974a02dd`;
+- the real CPU policy demo completed with six-worker maximum concurrency and a
+  deterministic `KEEP` decision, and its verifier accepted 14 artifacts with
+  fingerprint
+  `9ae476d209b1f69c368cf084e01ce283df49961e377e0b5c7373ee711ec6ce15`;
+  this remains explicitly toy/non-RLT evidence; and
+- the D1 and D2 source branches remain at their recorded heads, while the
+  original D1 worktree and its 20 GB ignored evidence tree remain unchanged.
+
+The reconciliation and offline regression baseline are therefore ready for
+Workstream B. No paid service, provider, GPU, SSH worker, W&B API, or RLinf
+process was used for A3.
