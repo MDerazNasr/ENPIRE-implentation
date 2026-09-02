@@ -318,18 +318,31 @@ or reviewer approval. The current scientific result remains `INCONCLUSIVE`.
 
 ### B1. Implement the canonical pack builder and readiness report
 
-- [ ] Add a deterministic pack builder or validator rather than hand-maintain
+- [x] Add a deterministic pack builder or validator rather than hand-maintain
   derived values.
-- [ ] Emit a separate readiness report that lists all present and missing
+- [x] Emit a separate readiness report that lists all present and missing
   source evidence without claiming that the canonical gate pack exists.
-- [ ] Make canonical publication refuse incomplete approved seeds, unmatched
+- [x] Make canonical publication refuse incomplete approved seeds, unmatched
   runtime identities, missing artifacts, or unresolved decisions.
-- [ ] Bind reviewed source commits without a self-referential Git hash.
-- [ ] Include all required artifact roles with real sizes and SHA-256 values.
-- [ ] Reject missing, duplicated, non-finite, mismatched, or untracked inputs.
+- [x] Bind reviewed source commits without a self-referential Git hash.
+- [x] Include all required artifact roles with real sizes and SHA-256 values.
+- [x] Reject missing, duplicated, non-finite, mismatched, or untracked inputs.
 
 Gate B1: the builder is reproducible and fails closed on today's one-seed,
 runtime-mismatched evidence; its readiness report explains every blocker.
+
+Gate B1 result: **passed on 2026-09-02**. The strict publisher in
+`supervisor/d1_pack_builder.py` computes all seven artifact hashes/sizes from
+tracked clean inputs and validates the existing version-1 pack contract,
+matched runtime identity, exactly three paired seeds, resolved decision, and
+ancestor commits. `scripts/build_d1_evidence_pack.py` atomically emitted
+`results/d1-stage7/readiness.json`; repeated generation was byte-identical
+(SHA-256
+`2259d0aeea3192869d303913be286cb1eeaf609a0fdb4f48953be98274461c97`).
+Today's evidence exits `2`, lists eleven explicit blockers, sets
+`canonical_pack_claimed: false`, and leaves `evidence_pack.json` absent.
+Adversarial builder tests and the full combined suite passed: 244 tests and
+125 subtests.
 
 ### B2. Update integration-gate compatibility
 

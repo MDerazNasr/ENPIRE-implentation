@@ -36,6 +36,9 @@ The gated D1 scientific-baseline work is specified in:
 - `agent-supervisor/d1-evidence-schema-mapping.md` — complete B0 inventory of
   the current D1 evidence checkpoint, mapping to the seven strict supervisor
   artifact roles and separating packaging gaps from scientific gaps.
+- `agent-supervisor/d1-pack-builder.md` — B1 deterministic readiness envelope,
+  strict source contract, fail-closed publication gates, and self-reference-
+  free Git binding procedure.
 
 The completed coding-agent supervisor and final meeting delivery are documented
 under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`

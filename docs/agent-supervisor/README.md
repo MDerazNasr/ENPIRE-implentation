@@ -8,9 +8,12 @@ the supervisor.
 
 Current integration note (2026-09-02): D1 has advanced to `eed314f`, contains
 a Stage-7 evidence directory, and records one corrected Control/Candidate seed.
-The live gate remains blocked because the strict canonical pack is absent and
-the approved matched seed set is incomplete. Historical milestone reports
-below retain their dated observations rather than rewriting past evidence.
+The B1 builder now emits a deterministic readiness envelope and refuses strict
+publication. The live gate remains blocked because the canonical pack is
+absent, the approved matched seed set is incomplete, and the report records
+the remaining provenance, runtime, tracker, and approval gaps. Historical
+milestone reports below retain their dated observations rather than rewriting
+past evidence.
 
 This directory freezes the requirements and architecture for the
 ENPIRE-inspired coding-agent supervisor that will wrap the reproducible
@@ -62,8 +65,12 @@ labels inside a run.
   system, demonstrated evidence, D1 seam, limitations, and recommended study.
 - [`d1-integration-gate.md`](d1-integration-gate.md) defines the strict Stage-7
   pack, Git binding, evidence normalization, and replay equivalence gate.
+- [`d1-evidence-schema-mapping.md`](d1-evidence-schema-mapping.md) inventories
+  current D1 source evidence and maps all seven required artifact roles.
+- [`d1-pack-builder.md`](d1-pack-builder.md) documents the deterministic
+  readiness report, reviewed source format, and fail-closed publisher.
 - [`d1-d2-reconciliation.md`](d1-d2-reconciliation.md) records the exact source
-  heads, preservation policy, merge result, status corrections, and pending A3
+  heads, preservation policy, merge result, status corrections, and passed A3
   verification.
 - [`milestone-2-verification.md`](milestone-2-verification.md) records the M2
   implementation, tests, boundaries, and remaining limitations.

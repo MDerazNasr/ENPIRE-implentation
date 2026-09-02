@@ -13,6 +13,13 @@ because the D1 worktree is dirty and the strict
 `results/d1-evidence-pack/` directory is valuable source evidence but is not
 the version-1 gate artifact.
 
+B1 now provides `scripts/build_d1_evidence_pack.py`. Its tracked
+`results/d1-stage7/readiness.json` deterministically inventories the source
+evidence and reports every current blocker while explicitly setting
+`canonical_pack_claimed` to false. Strict publication remains refused; no
+placeholder `evidence_pack.json` was created. See `d1-pack-builder.md` and
+`d1-evidence-schema-mapping.md`.
+
 The gate must continue to reject live activation until a clean reviewed commit
 contains matched Control/Candidate evidence for the approved seed set. The
 August audit below is retained as historical evidence and must not be read as

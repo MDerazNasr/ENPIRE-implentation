@@ -32,6 +32,8 @@ SSH connection, W&B API, or RLinf training process.
 - `reporting.py`: canonical JSON, CSV, Markdown, and static HTML reports.
 - `d1_gate.py`: strict Stage-7 pack, read-only repository audit, evidence
   normalization, and legacy-versus-supervisor decision replay.
+- `d1_pack_builder.py`: deterministic readiness reporting and fail-closed
+  publication with computed hashes for all seven Stage-7 artifact roles.
 - `d1_backend.py`: authorization-gated config planning, local D1 subprocess
   execution, manifest/log normalization, and the coordinator worker adapter.
 

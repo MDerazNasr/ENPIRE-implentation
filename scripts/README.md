@@ -15,3 +15,8 @@ trains three control and three candidate residual policies, routes their real
 metrics through the supervisor evaluator, and writes a visual public bundle.
 `toy_policy_worker.py` is its fixed subprocess worker; it is not a general
 command surface. `verify_real_policy_demo.py` rehashes all curated artifacts.
+
+`build_d1_evidence_pack.py` atomically writes a deterministic D1 readiness
+envelope. With `--publish`, it writes the strict Stage-7 pack only when the
+tracked reviewed source, matched runtime identity, three-seed matrix, resolved
+decision, ancestor commits, and all seven real hashed artifacts pass.

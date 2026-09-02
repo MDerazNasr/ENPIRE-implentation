@@ -1,0 +1,278 @@
+{
+  "payload": {
+    "artifact_role_coverage": [
+      {
+        "artifact_id": "commands",
+        "canonical_artifact_materialized": false,
+        "coverage": "source-present",
+        "present_sources": [
+          "configs/d1/stage2_5c_reference_h100_chain.yaml",
+          "configs/d1/stage2_5d_control_h100_chain.yaml",
+          "configs/d1/stage2_6_candidate_modal_multiprocess.yaml",
+          "modal_stage6.py"
+        ],
+        "sources": [
+          "configs/d1/stage2_5c_reference_h100_chain.yaml",
+          "configs/d1/stage2_5d_control_h100_chain.yaml",
+          "configs/d1/stage2_6_candidate_modal_multiprocess.yaml",
+          "modal_stage6.py"
+        ]
+      },
+      {
+        "artifact_id": "configs",
+        "canonical_artifact_materialized": false,
+        "coverage": "source-present",
+        "present_sources": [
+          "configs/d1/stage2_5c_reference_h100_chain.yaml",
+          "configs/d1/stage2_5d_control_h100_chain.yaml",
+          "configs/d1/stage2_6_candidate_modal_multiprocess.yaml",
+          "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json"
+        ],
+        "sources": [
+          "configs/d1/stage2_5c_reference_h100_chain.yaml",
+          "configs/d1/stage2_5d_control_h100_chain.yaml",
+          "configs/d1/stage2_6_candidate_modal_multiprocess.yaml",
+          "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json"
+        ]
+      },
+      {
+        "artifact_id": "cost-report",
+        "canonical_artifact_materialized": false,
+        "coverage": "source-present",
+        "present_sources": [
+          "results/d1-evidence-pack/cost-resources.csv"
+        ],
+        "sources": [
+          "results/d1-evidence-pack/cost-resources.csv"
+        ]
+      },
+      {
+        "artifact_id": "limitations",
+        "canonical_artifact_materialized": false,
+        "coverage": "source-present",
+        "present_sources": [
+          "docs/d1-evidence-pack.md",
+          "results/d1-evidence-pack/raw/candidate-c-corrected-final-summary.json"
+        ],
+        "sources": [
+          "docs/d1-evidence-pack.md",
+          "results/d1-evidence-pack/raw/candidate-c-corrected-final-summary.json"
+        ]
+      },
+      {
+        "artifact_id": "plots",
+        "canonical_artifact_materialized": false,
+        "coverage": "source-present",
+        "present_sources": [
+          "results/d1-evidence-pack/fixed-eval-success.svg",
+          "results/d1-evidence-pack/resume-counter.svg"
+        ],
+        "sources": [
+          "results/d1-evidence-pack/fixed-eval-success.svg",
+          "results/d1-evidence-pack/resume-counter.svg"
+        ]
+      },
+      {
+        "artifact_id": "run-table",
+        "canonical_artifact_materialized": false,
+        "coverage": "source-present",
+        "present_sources": [
+          "results/d1-evidence-pack/run-table.csv"
+        ],
+        "sources": [
+          "results/d1-evidence-pack/run-table.csv"
+        ]
+      },
+      {
+        "artifact_id": "tracker",
+        "canonical_artifact_materialized": false,
+        "coverage": "source-present",
+        "present_sources": [
+          "results/d1-evidence-pack/artifact-index.json"
+        ],
+        "sources": [
+          "results/d1-evidence-pack/artifact-index.json"
+        ]
+      }
+    ],
+    "blockers": [
+      {
+        "category": "packaging",
+        "code": "canonical_source_spec_missing",
+        "detail": "The reviewed strict build specification does not exist.",
+        "evidence": [
+          "results/d1-stage7/evidence_pack.source.json"
+        ]
+      },
+      {
+        "category": "scientific",
+        "code": "paired_seed_count_incomplete",
+        "detail": "Found 1 complete paired seed; exactly 3 are required.",
+        "evidence": [
+          "results/d1-evidence-pack/run-table.csv"
+        ]
+      },
+      {
+        "category": "approval",
+        "code": "approved_seed_values_incomplete",
+        "detail": "Only seed 2026 is recorded; the other two scientific seed values are not approved in project evidence.",
+        "evidence": [
+          "docs/experiment_matrix.md",
+          "docs/baseline_protocol.md"
+        ]
+      },
+      {
+        "category": "scientific",
+        "code": "runtime_identity_mismatch",
+        "detail": "Control and corrected Candidate used different runtime, simulator, renderer, and batching paths.",
+        "evidence": [
+          "results/d1-evidence-pack/raw/candidate-c-corrected-final-summary.json"
+        ]
+      },
+      {
+        "category": "provenance",
+        "code": "reset_set_hash_missing",
+        "detail": "The exact 256 reset IDs and their SHA-256 are not exported.",
+        "evidence": [
+          "docs/baseline_protocol.md"
+        ]
+      },
+      {
+        "category": "approval",
+        "code": "campaign_identity_incomplete",
+        "detail": "Evaluator version, artifact namespace, max concurrency, and frozen GPU/LLM budget envelope are not approved.",
+        "evidence": [
+          "docs/agent-supervisor/d1-evidence-schema-mapping.md"
+        ]
+      },
+      {
+        "category": "provenance",
+        "code": "reference_provenance_incomplete",
+        "detail": "Matched Reference lacks an exact run ID, project commit, command hash, timestamps, elapsed time, and attributable GPU cost.",
+        "evidence": [
+          "results/d1-evidence-pack/raw/reference-a-matched-metrics.log"
+        ]
+      },
+      {
+        "category": "provenance",
+        "code": "candidate_provenance_incomplete",
+        "detail": "Corrected Candidate is not bound to exact per-segment project commits, commands, full-chain timestamps, or a local complete archive.",
+        "evidence": [
+          "results/d1-evidence-pack/raw/candidate-c-corrected-final-summary.json"
+        ]
+      },
+      {
+        "category": "packaging",
+        "code": "tracker_artifact_incomplete",
+        "detail": "W&B is offline and incomplete across eligible runs; no authoritative canonical tracker artifact exists.",
+        "evidence": [
+          "results/d1-evidence-pack/artifact-index.json"
+        ]
+      },
+      {
+        "category": "approval",
+        "code": "review_approval_missing",
+        "detail": "No reviewer-signed strict pack, UTC review time, or resolved keep/revert decision exists.",
+        "evidence": [
+          "docs/d1-evidence-pack.md"
+        ]
+      },
+      {
+        "category": "packaging",
+        "code": "candidate_policy_remote_only",
+        "detail": "The corrected Candidate policy is indexed by a remote absolute path and is not present in this worktree.",
+        "evidence": [
+          "results/d1-evidence-pack/artifact-index.json"
+        ]
+      }
+    ],
+    "canonical_output_path": "results/d1-stage7/evidence_pack.json",
+    "canonical_pack_claimed": false,
+    "canonical_pack_exists": false,
+    "canonical_source_path": "results/d1-stage7/evidence_pack.source.json",
+    "indexed_evidence_count": 14,
+    "paired_seed_summary": {
+      "candidate_seeds": [
+        2026
+      ],
+      "control_seeds": [
+        2026
+      ],
+      "paired_seeds": [
+        2026
+      ],
+      "required_count": 3,
+      "unapproved_seed_values_inferred": false
+    },
+    "schema_version": 1,
+    "scientific_conclusion": "INCONCLUSIVE",
+    "source_evidence_directory": "results/d1-evidence-pack",
+    "source_inventory": [
+      {
+        "path": "results/d1-evidence-pack/artifact-index.json",
+        "sha256": "302296f72614f34008d142b456d8bd7fe61322fb2882a505f2cd7290bac1127c",
+        "size_bytes": 6274,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/cost-resources.csv",
+        "sha256": "3c9395784cca8470746d8d52c433fe95b503feb01e7f8f4973b8577c76cc1ae4",
+        "size_bytes": 7418,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/fixed-eval-success.svg",
+        "sha256": "aaf44f60df6ee99f769a42fa8f7d50ee1b228d89c65c4896b43eafd3a54315a3",
+        "size_bytes": 3996,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/raw/candidate-c-corrected-final-summary.json",
+        "sha256": "67a2723a6e3da8ea8dca5551a12c8cfb25bd11236ab0cb29e89091f903519d41",
+        "size_bytes": 2672,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/raw/control-b-completion-summary.md",
+        "sha256": "95df522da5255870dc62f2357eb05966fc53557290236e154e09536aa0a45266",
+        "size_bytes": 1781,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/raw/control-b-gate-report.json",
+        "sha256": "eff6759f4f15bc9f61857a9de38e7ee7fd631f5e8c1a00cbf0f34d791d0506f4",
+        "size_bytes": 593,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/raw/reference-a-matched-metrics.log",
+        "sha256": "f421ed16f302cfd569352717e876e8b8fec57baca12cefeacce96278a500ce6b",
+        "size_bytes": 6785,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/raw/stage6r-schedule-resume-gate.json",
+        "sha256": "3ab830ce67cb6a058b7de8c3d1ee8a5a8f97048f4b1e1719a62726135078d828",
+        "size_bytes": 17701,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/resume-counter.svg",
+        "sha256": "bbc845b57234bdffee35f08d70e7431d98f3320e61bf831fc87a18b82c07235f",
+        "size_bytes": 3082,
+        "tracked": true
+      },
+      {
+        "path": "results/d1-evidence-pack/run-table.csv",
+        "sha256": "dee91c6aa861abf50c1d9ef8c8d961ff9381640d7b83a84b75b4a563f32afb25",
+        "size_bytes": 3147,
+        "tracked": true
+      }
+    ],
+    "source_inventory_bytes": 53449,
+    "source_inventory_count": 10,
+    "status": "blocked",
+    "tracker_authority": "supplementary-or-unavailable"
+  },
+  "sha256": "ced2fc5f954b751f528a365b8c84430e9cc365fc1898e2712f330504775efd8c"
+}
