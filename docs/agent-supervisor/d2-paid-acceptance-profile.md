@@ -1,6 +1,6 @@
 # D2 Paid Configuration-Attachment Profile
 
-Status: **designed; implementation and explicit paid approval pending**.
+Status: **implemented; no-launch preflight and explicit paid approval pending**.
 
 This profile defines the smallest useful paid test of the configuration-mode
 attachment on the already qualified Modal runtime. It is engineering
@@ -85,23 +85,29 @@ The directory listing is not a fresh content-hash proof. The paid worker must
 rehash the exact actor and norm-stat inputs before RLinf starts and fail without
 training if either differs.
 
-## Required implementation before approval
+## Implemented approval boundary
 
-1. Add a `paid_acceptance` authorization that binds an exact campaign and
-   approval but cannot accept a scientific gate or promotion permission.
-2. Add a coordinator terminal path that retains normalized evidence without
-   calling the evaluator or incumbent store.
-3. Add a Modal adapter that consumes the immutable supervisor plan, verifies
-   candidate source/config identity remotely, and returns manifest, log,
-   resource, cost, and offline-W&B artifacts.
-4. Add adversarial tests for missing approval, missing acknowledgement,
-   changed plan/config, input-hash mismatch, timeout, cost overrun, missing
-   artifacts, and any attempted evaluator/incumbent access.
-5. Run the complete no-call suite and commit the implementation. Only that
-   clean commit may be used to derive the final campaign, approval, plan, and
-   command hashes.
-6. Present those hashes and this USD `3.00` / 1,800-second ceiling for explicit
-   user approval. No current instruction authorizes the paid launch.
+Commits `50bd6c5`, `9dc0d72`, `b3c772e`, and `9cfa154` implement:
+
+1. a `paid_acceptance` authorization that binds a dedicated engineering
+   approval and rejects scientific-gate attachment;
+2. an approval wrapper binding provider, provider profile, profile hash, total
+   provider cost, and permanent `promotion_allowed=false`;
+3. a coordinator terminal `recorded` path that cannot call the evaluator or
+   incumbent store;
+4. an immutable Modal request/receipt adapter binding the plan, resolved
+   config, candidate source bundle, worker, manifest, log, remote inventory,
+   and persistent volume paths by hash;
+5. a one-step D1 configuration plus harness-owned config/command checker; and
+6. a two-stage runner whose preflight cannot carry approval or acknowledgement
+   and whose execution mode cannot run without both.
+
+Focused authority, coordinator, contract, Git replay, configuration, and Modal
+request/receipt tests pass. The next action is the no-launch preflight from a
+clean commit. It will create the deterministic fixture candidate and emit the
+exact campaign, candidate, plan, logical-command, and Modal-request hashes.
+Those hashes and this USD `3.00` / 1,800-second ceiling must then receive
+explicit user approval. No current instruction authorizes the paid launch.
 
 ## Result reconciliation
 

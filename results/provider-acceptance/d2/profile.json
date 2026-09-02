@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "status": "designed_pending_implementation_and_approval",
+  "status": "implemented_pending_preflight_and_approval",
   "profile_id": "d2-paid-config-attachment-v1",
   "claim_scope": "paid engineering attachment acceptance only; not scientific evidence",
   "design_base_commit": "424a6d846a318009e6f6ddc58429075a68dffce9",
-  "implementation_commit": null,
+  "implementation_commit": "9cfa1543877aa8057d7c18c55a83f3ff6f688bcb",
   "campaign_hash": null,
   "approval_hash": null,
   "execution_authorized": false,
@@ -66,11 +66,11 @@
     "incumbent_update_allowed": false,
     "result_retention_required": true
   },
-  "implementation_blockers": [
-    "The existing paid mode requires a ready scientific D1 gate and cannot be reused.",
-    "A separate fail-closed paid_acceptance authorization mode is not implemented.",
-    "The coordinator has no non-promotable terminal acceptance result path.",
-    "The Modal worker has no immutable supervisor plan/artifact return adapter.",
-    "The final campaign, approval, plan, and command hashes do not exist yet."
+  "implementation_blockers": [],
+  "remaining_gates": [
+    "Run the no-launch preflight from a clean implementation commit.",
+    "Commit the exact campaign, candidate, plan, command, and Modal request hashes.",
+    "Obtain explicit user approval for the frozen envelope.",
+    "Execute once and retain the result regardless of success."
   ]
 }
