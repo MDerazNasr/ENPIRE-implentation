@@ -846,6 +846,20 @@ class D1ProcessWorker:
             raise WorkerError("D1 terminal state has no normalized evidence")
         return run.result.evidence
 
+    def fetch_result(self, trial_id: str) -> D1BackendResult:
+        """Return the terminal backend record without weakening evidence access."""
+
+        run = self._run(trial_id)
+        if run.state not in {
+            WorkerState.COMPLETED,
+            WorkerState.FAILED,
+            WorkerState.LOST,
+        }:
+            raise WorkerError("D1 backend result is unavailable before termination")
+        if run.result is None:
+            raise WorkerError("D1 terminal state has no backend result")
+        return run.result
+
 
 class D1CoordinatorContractFactory:
     """Build seed-specific D1 plans at the coordinator contract boundary."""
