@@ -419,15 +419,26 @@ does not supply the accepted proposal required by D0. See
 
 ### D0. Dry-run acceptance
 
-- [ ] Apply an accepted allowlisted proposal in an isolated hypothesis
+- [x] Apply an accepted allowlisted proposal in an isolated hypothesis
   worktree.
-- [ ] Run harness-owned configuration checks.
-- [ ] Generate worker-owned seed configurations outside the candidate tree.
-- [ ] Dry-resolve exact D1/RLinf commands and hashes.
-- [ ] Verify stable HEAD and every other arm remain unchanged.
-- [ ] Verify no GPU or paid process can launch in dry-run mode.
+- [x] Run harness-owned configuration checks.
+- [x] Generate worker-owned seed configurations outside the candidate tree.
+- [x] Dry-resolve exact D1/RLinf commands and hashes.
+- [x] Verify stable HEAD and every other arm remain unchanged.
+- [x] Verify no GPU or paid process can launch in dry-run mode.
 
 Gate D0: proposal-to-D1-plan path passes without external execution.
+
+Gate D0 result: **passed on 2026-09-02 without an external process**. Because
+C1 returned no proposal, the input is explicitly labeled as a deterministic
+fixture rather than Claude output. The fixture passed the real proposal and
+M3 enforcement contracts, materialized in isolated candidate commit
+`a2222498`, passed both harness-owned checks, and produced worker-owned
+seed-2026 configuration and logical-command hashes outside the candidate tree.
+Stable HEAD/index/status and all pre-existing branch refs remained unchanged;
+the backend returned `planned` with `process=null`, no paid flags, no provider
+call, and no GPU use. See
+`docs/agent-supervisor/d0-dry-run-acceptance.md`.
 
 ### D1. Bounded no-GPU subprocess acceptance
 

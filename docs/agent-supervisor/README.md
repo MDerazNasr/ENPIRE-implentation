@@ -38,8 +38,10 @@ labels inside a run.
   verified Claude CLI/model, least-authority environment, invocation, budget,
   and size/attempt limits for live-provider acceptance.
 - [`c1-provider-acceptance.md`](c1-provider-acceptance.md) records the curated
-  D1 provider input, mutation audit, paid-call gate, and current credential
-  blocker.
+  D1 provider input, mutation audit, paid-call gate, and fail-safe live result.
+- [`d0-dry-run-acceptance.md`](d0-dry-run-acceptance.md) records the isolated
+  fixture proposal, harness checks, worker-owned seed plan, exact command
+  hashes, and proof that no process or GPU could launch.
 - [`enforcement-git-contract.md`](enforcement-git-contract.md) documents the
   Milestone 3 independent policy, materialization, worktree, and ledger gates.
 - [`offline-loop-contract.md`](offline-loop-contract.md) documents the M4 fake
