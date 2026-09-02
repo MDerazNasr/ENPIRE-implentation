@@ -202,9 +202,11 @@ def run_scenario(root: Path, scenario: str) -> dict:
         )
         for name in ("config-contract", "dry-run")
     }
+    worktree_root = scenario_root / "worktrees"
+    worktree_root.mkdir()
     manager = GitExperimentManager(
         repository=repository,
-        worktree_root=scenario_root / "worktrees",
+        worktree_root=worktree_root,
         enforcer=ProposalEnforcer(
             EnforcementPolicy.create(trusted_test_ids=list(checks))
         ),
