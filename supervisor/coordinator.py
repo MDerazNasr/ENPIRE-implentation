@@ -169,6 +169,7 @@ class OfflineCampaignCoordinator:
         control_evidence: Sequence[TrialEvidence],
         decision_id: str,
         base_config: Mapping[str, Any] | None = None,
+        prepared_candidate: PreparationRecord | None = None,
     ) -> OfflineIterationResult:
         iteration = require_identifier(iteration_id, "coordinator.iteration_id")
         session_hash = proposal_session.fingerprint()
@@ -198,12 +199,29 @@ class OfflineCampaignCoordinator:
         if arm_id not in current:
             raise CoordinatorError("proposal arm is not registered in incumbent store")
         incumbent = current[arm_id]
-        preparation = self.git_manager.prepare(
-            proposal,
-            self.campaign,
-            incumbent_commit=incumbent,
-            base_config=base_config,
-        )
+        if prepared_candidate is not None:
+            if self.evaluation_enabled:
+                raise CoordinatorError(
+                    "prepared-candidate replay is restricted to non-promotable acceptance"
+                )
+            if (
+                prepared_candidate.status != PreparationStatus.READY
+                or prepared_candidate.campaign_id != self.campaign.campaign_id
+                or prepared_candidate.proposal_id != proposal.proposal_id
+                or prepared_candidate.proposal_hash != proposal.fingerprint()
+                or prepared_candidate.base_commit != incumbent
+            ):
+                raise CoordinatorError(
+                    "prepared candidate does not match the acceptance campaign"
+                )
+            preparation = prepared_candidate
+        else:
+            preparation = self.git_manager.prepare(
+                proposal,
+                self.campaign,
+                incumbent_commit=incumbent,
+                base_config=base_config,
+            )
         if preparation.status != PreparationStatus.READY:
             status = (
                 IterationStatus.PREPARATION_REJECTED

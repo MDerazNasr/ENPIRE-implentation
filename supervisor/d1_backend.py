@@ -26,6 +26,7 @@ from supervisor.canonical import (
     fingerprint,
     parse_decimal,
     parse_timestamp,
+    require_exact_keys,
     require_git_commit,
     require_identifier,
     require_safe_relative_path,
@@ -230,6 +231,83 @@ class D1LaunchPlan:
     objective_sha256: str | None
     objective_contract_version: str | None
     synthetic: bool
+
+    @classmethod
+    def from_dict(cls, value: Any) -> "D1LaunchPlan":
+        fields = {
+            "schema_version",
+            "contract",
+            "campaign_hash",
+            "evaluation_trajectories",
+            "mode",
+            "workspace",
+            "source_config_path",
+            "derived_config_path",
+            "results_root",
+            "manifest_path",
+            "log_path",
+            "execution_argv",
+            "execution_argv_hash",
+            "logical_rlinf_command",
+            "source_config_hash",
+            "objective_path",
+            "objective_relative_path",
+            "objective_sha256",
+            "objective_contract_version",
+            "synthetic",
+        }
+        data = require_exact_keys(value, "D1 launch plan", fields)
+        if data["schema_version"] != SCHEMA_VERSION:
+            raise D1BackendError("D1 launch plan schema is unsupported")
+        try:
+            mode = ExecutionMode(data["mode"])
+        except (TypeError, ValueError) as error:
+            raise D1BackendError("D1 launch plan mode is unsupported") from error
+        for field in ("execution_argv", "logical_rlinf_command"):
+            if not isinstance(data[field], list) or not all(
+                isinstance(item, str) and item for item in data[field]
+            ):
+                raise D1BackendError(f"D1 launch plan {field} is invalid")
+        evaluation = data["evaluation_trajectories"]
+        if isinstance(evaluation, bool) or not isinstance(evaluation, int) or evaluation <= 0:
+            raise D1BackendError("D1 launch plan evaluation count is invalid")
+        if not isinstance(data["synthetic"], bool):
+            raise D1BackendError("D1 launch plan synthetic label is invalid")
+        for field in (
+            "workspace",
+            "source_config_path",
+            "derived_config_path",
+            "results_root",
+            "manifest_path",
+            "log_path",
+        ):
+            if not isinstance(data[field], str) or not Path(data[field]).is_absolute():
+                raise D1BackendError(f"D1 launch plan {field} must be absolute")
+        return cls(
+            contract=RunContract.from_dict(data["contract"]),
+            campaign_hash=require_sha256(data["campaign_hash"], "D1 campaign hash"),
+            evaluation_trajectories=evaluation,
+            mode=mode,
+            workspace=data["workspace"],
+            source_config_path=data["source_config_path"],
+            derived_config_path=data["derived_config_path"],
+            results_root=data["results_root"],
+            manifest_path=data["manifest_path"],
+            log_path=data["log_path"],
+            execution_argv=tuple(data["execution_argv"]),
+            execution_argv_hash=require_sha256(
+                data["execution_argv_hash"], "D1 execution argv hash"
+            ),
+            logical_rlinf_command=tuple(data["logical_rlinf_command"]),
+            source_config_hash=require_sha256(
+                data["source_config_hash"], "D1 source config hash"
+            ),
+            objective_path=data["objective_path"],
+            objective_relative_path=data["objective_relative_path"],
+            objective_sha256=data["objective_sha256"],
+            objective_contract_version=data["objective_contract_version"],
+            synthetic=data["synthetic"],
+        )
 
     def to_dict(self) -> dict[str, Any]:
         return {

@@ -21,6 +21,7 @@ from supervisor.contracts import (
 from supervisor.d1_backend import (
     BackendStatus,
     D1ExperimentBackend,
+    D1LaunchPlan,
     D1PlanBuilder,
     ExecutionMode,
     M5Authorization,
@@ -241,6 +242,7 @@ class ModalAcceptanceContractTests(unittest.TestCase):
 
     def test_request_round_trip_binds_plan_config_and_source_bundle(self) -> None:
         request = self.request()
+        self.assertEqual(D1LaunchPlan.from_dict(self.plan.to_dict()), self.plan)
         self.assertEqual(
             ModalAcceptanceRequest.from_dict(request.to_dict()), request
         )

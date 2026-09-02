@@ -121,6 +121,28 @@ class CheckResult:
     passed: bool
     error: str | None
 
+    @classmethod
+    def from_dict(cls, value: Any) -> "CheckResult":
+        if not isinstance(value, dict):
+            raise GitOperationError("check result must be an object")
+        expected = {
+            "check_id", "argv", "argv_hash", "exit_code", "elapsed_seconds",
+            "stdout_hash", "stderr_hash", "passed", "error",
+        }
+        if set(value) != expected or not isinstance(value["argv"], list):
+            raise GitOperationError("check result fields are invalid")
+        return cls(
+            check_id=value["check_id"],
+            argv=tuple(value["argv"]),
+            argv_hash=value["argv_hash"],
+            exit_code=value["exit_code"],
+            elapsed_seconds=value["elapsed_seconds"],
+            stdout_hash=value["stdout_hash"],
+            stderr_hash=value["stderr_hash"],
+            passed=value["passed"],
+            error=value["error"],
+        )
+
     def __post_init__(self) -> None:
         require_identifier(self.check_id, "check_result.check_id")
         if not isinstance(self.argv, tuple) or not self.argv:
@@ -190,6 +212,57 @@ class PreparationRecord:
     errors: tuple[str, ...]
     started_at: str
     completed_at: str
+
+    @classmethod
+    def from_dict(cls, value: Any) -> "PreparationRecord":
+        if not isinstance(value, dict):
+            raise GitOperationError("preparation record must be an object")
+        expected = {
+            "schema_version", "status", "campaign_id", "proposal_id",
+            "proposal_hash", "validation_hash", "validation_accepted",
+            "base_commit", "stable_head_before", "stable_head_after",
+            "branch_name", "worktree_path", "candidate_commit",
+            "candidate_tree_hash", "staged_diff_hash",
+            "materialized_config_hash", "base_config_hash", "overrides_hash",
+            "resolved_config_hash", "changed_paths", "checks", "errors",
+            "started_at", "completed_at",
+        }
+        if set(value) != expected:
+            raise GitOperationError("preparation record fields are invalid")
+        try:
+            status = PreparationStatus(value["status"])
+        except (TypeError, ValueError) as error:
+            raise GitOperationError("preparation status is unsupported") from error
+        if not isinstance(value["changed_paths"], list):
+            raise GitOperationError("preparation changed paths must be a list")
+        if not isinstance(value["checks"], list) or not isinstance(value["errors"], list):
+            raise GitOperationError("preparation checks or errors are invalid")
+        return cls(
+            schema_version=value["schema_version"],
+            status=status,
+            campaign_id=value["campaign_id"],
+            proposal_id=value["proposal_id"],
+            proposal_hash=value["proposal_hash"],
+            validation_hash=value["validation_hash"],
+            validation_accepted=value["validation_accepted"],
+            base_commit=value["base_commit"],
+            stable_head_before=value["stable_head_before"],
+            stable_head_after=value["stable_head_after"],
+            branch_name=value["branch_name"],
+            worktree_path=value["worktree_path"],
+            candidate_commit=value["candidate_commit"],
+            candidate_tree_hash=value["candidate_tree_hash"],
+            staged_diff_hash=value["staged_diff_hash"],
+            materialized_config_hash=value["materialized_config_hash"],
+            base_config_hash=value["base_config_hash"],
+            overrides_hash=value["overrides_hash"],
+            resolved_config_hash=value["resolved_config_hash"],
+            changed_paths=tuple(value["changed_paths"]),
+            checks=tuple(CheckResult.from_dict(item) for item in value["checks"]),
+            errors=tuple(value["errors"]),
+            started_at=value["started_at"],
+            completed_at=value["completed_at"],
+        )
 
     def __post_init__(self) -> None:
         if self.schema_version != SCHEMA_VERSION:

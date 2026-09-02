@@ -262,6 +262,16 @@ class CoordinatorIntegrationTests(unittest.TestCase):
 
     def test_paid_acceptance_records_evidence_without_evaluation_or_promotion(self) -> None:
         worker = self.worker([0.5, 0.5, 0.5])
+        manager = self.manager()
+        preparation = manager.prepare(
+            self.proposal,
+            self.campaign,
+            incumbent_commit=self.base_commit,
+            base_config=base_config(),
+        )
+        self.assertEqual(
+            type(preparation).from_dict(preparation.to_dict()), preparation
+        )
         store = ArmIncumbentStore(
             self.root / "acceptance-state" / "incumbents.json",
             campaign_id=self.campaign.campaign_id,
@@ -272,7 +282,7 @@ class CoordinatorIntegrationTests(unittest.TestCase):
         )
         result = OfflineCampaignCoordinator(
             campaign=self.campaign,
-            git_manager=self.manager(),
+            git_manager=manager,
             worker=worker,
             evaluator=NoEvaluationAllowed(),
             incumbents=store,
@@ -286,6 +296,7 @@ class CoordinatorIntegrationTests(unittest.TestCase):
             control_evidence=(),
             decision_id="must-not-be-used",
             base_config=base_config(),
+            prepared_candidate=preparation,
         )
         self.assertEqual(result.status, IterationStatus.ACCEPTANCE_RECORDED)
         self.assertIsNone(result.evaluation)

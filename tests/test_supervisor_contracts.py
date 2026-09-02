@@ -12,6 +12,7 @@ from supervisor.contracts import (
     ApprovalEnvelope,
     CampaignSpec,
     DecisionRecord,
+    EngineeringAcceptanceApproval,
     TrialEvidence,
 )
 
@@ -200,6 +201,31 @@ class ApprovalContractTests(unittest.TestCase):
             ApprovalEnvelope.from_dict(expanded).validate_for(
                 campaign, datetime(2026, 8, 4, 13, tzinfo=timezone.utc)
             )
+
+    def test_engineering_acceptance_binds_total_cost_and_forbids_promotion(self) -> None:
+        campaign = CampaignSpec.from_dict(campaign_data())
+        approval = approval_data(campaign)
+        raw = {
+            "schema_version": 1,
+            "campaign_approval": approval,
+            "profile_hash": "f" * 64,
+            "provider": "Modal",
+            "provider_profile": "fixture-profile",
+            "max_total_cost_usd": "15",
+            "promotion_allowed": False,
+        }
+        accepted = EngineeringAcceptanceApproval.from_dict(raw)
+        accepted.validate_for(
+            campaign, datetime(2026, 8, 4, 13, tzinfo=timezone.utc)
+        )
+        promoted = copy.deepcopy(raw)
+        promoted["promotion_allowed"] = True
+        with self.assertRaisesRegex(ContractError, "never allow promotion"):
+            EngineeringAcceptanceApproval.from_dict(promoted)
+        underfunded = copy.deepcopy(raw)
+        underfunded["max_total_cost_usd"] = "1"
+        with self.assertRaisesRegex(ContractError, "below its GPU cap"):
+            EngineeringAcceptanceApproval.from_dict(underfunded)
 
 
 class EvidenceContractTests(unittest.TestCase):
