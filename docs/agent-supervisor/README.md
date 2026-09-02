@@ -37,6 +37,9 @@ labels inside a run.
 - [`c0-provider-contract.md`](c0-provider-contract.md) freezes the locally
   verified Claude CLI/model, least-authority environment, invocation, budget,
   and size/attempt limits for live-provider acceptance.
+- [`c1-provider-acceptance.md`](c1-provider-acceptance.md) records the curated
+  D1 provider input, mutation audit, paid-call gate, and current credential
+  blocker.
 - [`enforcement-git-contract.md`](enforcement-git-contract.md) documents the
   Milestone 3 independent policy, materialization, worktree, and ledger gates.
 - [`offline-loop-contract.md`](offline-loop-contract.md) documents the M4 fake

@@ -391,7 +391,7 @@ evidence are in `docs/agent-supervisor/c0-provider-contract.md` and
 
 ### C1. Conduct one no-GPU real-provider acceptance
 
-- [ ] Build one curated, hashed D1 context bundle.
+- [x] Build one curated, hashed D1 context bundle.
 - [ ] Request one configuration-only proposal.
 - [ ] Record provider/model, prompt/context hash, response hash, tokens, cost,
   duration, and validation result.
@@ -401,6 +401,14 @@ evidence are in `docs/agent-supervisor/c0-provider-contract.md` and
 
 Gate C1: one real provider response passes or fails safely through the same
 contracts as fixtures; no policy-performance claim is made.
+
+C1 progress on 2026-09-02: the user authorized one no-GPU provider slot capped
+at USD `0.5`. The deterministic 6,912-byte D1 context is frozen at hash
+`9088f431d2274c5a350d703798aed32a279824a2227ac753b5af11587fb23bd1`,
+and the runner verifies clean Git state before/after while retaining valid or
+invalid structured payloads. The direct Anthropic credential was absent, so
+the preflight blocked before any prompt, cost, or provider call. See
+`docs/agent-supervisor/c1-provider-acceptance.md`.
 
 ## 8. Workstream D: configuration-mode live attachment
 
