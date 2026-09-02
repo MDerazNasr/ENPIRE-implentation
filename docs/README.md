@@ -47,6 +47,9 @@ The gated D1 scientific-baseline work is specified in:
 - `agent-supervisor/d1-subprocess-acceptance.md` — real local subprocess,
   evidence-normalization, failure-containment, and authority-boundary
   acceptance with no GPU or paid service.
+- `agent-supervisor/d2-paid-acceptance-profile.md` — bounded Modal attachment
+  profile, current cost calculation, non-promotable authority design, and the
+  implementation/approval gates before any paid launch.
 
 The completed coding-agent supervisor and final meeting delivery are documented
 under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`

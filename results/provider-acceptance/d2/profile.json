@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "status": "designed_pending_implementation_and_approval",
+  "profile_id": "d2-paid-config-attachment-v1",
+  "claim_scope": "paid engineering attachment acceptance only; not scientific evidence",
+  "design_base_commit": "424a6d846a318009e6f6ddc58429075a68dffce9",
+  "implementation_commit": null,
+  "campaign_hash": null,
+  "approval_hash": null,
+  "execution_authorized": false,
+  "promotion_authorized": false,
+  "provider": {
+    "name": "Modal",
+    "profile": "deraznasr776",
+    "client_version": "1.5.3",
+    "running_apps_at_preflight": 0,
+    "volume": "enpire-workspace",
+    "stage1_actor_path": "checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "stage1_actor_listed_size": "9.3 GiB",
+    "stage1_actor_expected_size_bytes": 10015912759,
+    "stage1_actor_expected_sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "preflight_checked_at": "2026-09-02T21:09:03Z"
+  },
+  "worker": {
+    "gpu": "Nvidia RTX PRO 6000",
+    "gpu_count": 1,
+    "cpu_physical_cores": 16,
+    "memory_gib": 96,
+    "hard_wall_time_seconds": 1800,
+    "qualification_evidence": "docs/stage6r-resume-repair.md"
+  },
+  "pricing": {
+    "source": "https://modal.com/pricing",
+    "checked_at": "2026-09-02T21:09:03Z",
+    "gpu_usd_per_second": "0.000842",
+    "cpu_core_usd_per_second": "0.0000131",
+    "memory_gib_usd_per_second": "0.00000222",
+    "maximum_gpu_component_usd": "1.5156",
+    "maximum_cpu_component_usd": "0.37728",
+    "maximum_memory_component_usd": "0.383616",
+    "maximum_runtime_resource_usd": "2.276496",
+    "build_and_control_reserve_usd": "0.723504",
+    "maximum_total_approved_usd": "3"
+  },
+  "experiment": {
+    "seed": 2026,
+    "training_runner_steps": 1,
+    "training_parallel_environments": 1,
+    "training_rollout_epochs": 1,
+    "evaluation_trajectories": 1,
+    "episode_horizon": 20,
+    "changed_parameter": "scientific_values.online_bc_weight",
+    "control_value": 2.5,
+    "acceptance_value": 2.25,
+    "wandb_mode": "offline",
+    "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "expected_norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd"
+  },
+  "authority": {
+    "proposal_mode": "deterministic acceptance fixture",
+    "required_execution_mode": "paid_acceptance",
+    "scientific_gate_required": false,
+    "separate_user_approval_required": true,
+    "explicit_paid_acknowledgement_required": true,
+    "deterministic_evaluation_allowed": false,
+    "incumbent_update_allowed": false,
+    "result_retention_required": true
+  },
+  "implementation_blockers": [
+    "The existing paid mode requires a ready scientific D1 gate and cannot be reused.",
+    "A separate fail-closed paid_acceptance authorization mode is not implemented.",
+    "The coordinator has no non-promotable terminal acceptance result path.",
+    "The Modal worker has no immutable supervisor plan/artifact return adapter.",
+    "The final campaign, approval, plan, and command hashes do not exist yet."
+  ]
+}

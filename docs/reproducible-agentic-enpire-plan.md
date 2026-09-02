@@ -463,7 +463,7 @@ paid resource was used. See
 
 ### D2. Small paid configuration acceptance
 
-- [ ] Define a minimal live acceptance profile that tests attachment without
+- [x] Define a minimal live acceptance profile that tests attachment without
   pretending to be a scientific candidate.
 - [ ] Obtain explicit approval for its exact cost and runtime envelope.
 - [ ] Run on one qualified worker.
@@ -472,6 +472,17 @@ paid resource was used. See
 
 Gate D2: one real D2-controlled D1 run completes or fails safely under the
 immutable run contract.
+
+D2 design status on 2026-09-02: the bounded profile is frozen at one RTX PRO
+6000, 16 physical cores, 96 GiB, one seed, one training step, one fixed-reset
+evaluation trajectory, a 1,800-second hard limit, USD `1.52` GPU-component cap,
+and USD `3.00` total provider ceiling. Read-only Modal preflight found no
+running apps and confirmed the existing volume and Stage-1 actor path. The
+existing scientific paid mode cannot be reused because the strict D1 pack gate
+is still blocked. A separate non-promotable `paid_acceptance` authority and
+immutable Modal adapter must pass no-call tests before exact campaign approval
+can be requested. See
+`docs/agent-supervisor/d2-paid-acceptance-profile.md`.
 
 ## 9. Workstream E: actor-objective code attachment
 
