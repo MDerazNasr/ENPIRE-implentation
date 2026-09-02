@@ -266,8 +266,8 @@ def run_scenario(root: Path, scenario: str) -> dict:
         passed = (
             result.status == IterationStatus.DECIDED
             and result.evaluation is not None
-            and result.evaluation.decision_record.decision == Decision.KEEP
-            and result.incumbent_after == result.preparation.candidate_commit
+            and result.evaluation.decision_record.decision == Decision.INCONCLUSIVE
+            and result.incumbent_after == baseline
             and len(result.evidence) == 1
         )
     elif scenario == "failure-normalization":
