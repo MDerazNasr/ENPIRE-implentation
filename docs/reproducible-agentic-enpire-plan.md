@@ -346,15 +346,25 @@ Adversarial builder tests and the full combined suite passed: 244 tests and
 
 ### B2. Update integration-gate compatibility
 
-- [ ] Run the D2 gate against the canonical pack.
-- [ ] Compare legacy D1 and D2 evaluator outputs exactly.
-- [ ] Reconcile genuine schema changes with a versioned adapter.
-- [ ] Do not loosen cleanliness, ancestry, seed, provenance, or baseline gates.
-- [ ] Add fixtures reproducing every newly discovered incompatibility.
+- [x] Run the D2 gate against the canonical pack.
+- [x] Compare legacy D1 and D2 evaluator outputs exactly.
+- [x] Reconcile genuine schema changes with a versioned adapter.
+- [x] Do not loosen cleanliness, ancestry, seed, provenance, or baseline gates.
+- [x] Add fixtures reproducing every newly discovered incompatibility.
 
 Gate B2: evaluator compatibility is covered by fixtures and any valid subset
 diagnostic; the live gate remains `blocked` until a complete canonical pack can
 be published.
+
+Gate B2 result: **passed on 2026-09-02**. An end-to-end clean-Git fixture builds,
+publishes, commits, and opens the unchanged D1 integration gate. The declared
+legacy, replayed legacy, and supervisor decisions are all `KEEP`; control mean,
+candidate mean, mean delta, and both CI95 bounds compare exactly. The B1 wrapper
+materializes the gate's native version-1 `D1EvidencePack`, so no genuine schema
+incompatibility or versioned adapter was required. A real read-only audit from
+clean commit `dead3b1` remains `blocked` solely because the canonical pack is
+absent; the readiness report retains the underlying eleven blockers. See
+`docs/agent-supervisor/d1-pack-gate-compatibility.md`.
 
 ## 7. Workstream C: proposal-provider acceptance
 

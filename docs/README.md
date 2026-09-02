@@ -39,6 +39,9 @@ The gated D1 scientific-baseline work is specified in:
 - `agent-supervisor/d1-pack-builder.md` — B1 deterministic readiness envelope,
   strict source contract, fail-closed publication gates, and self-reference-
   free Git binding procedure.
+- `agent-supervisor/d1-pack-gate-compatibility.md` — B2 end-to-end canonical
+  pack fixture, exact legacy/supervisor replay comparison, and current live
+  gate diagnostic.
 
 The completed coding-agent supervisor and final meeting delivery are documented
 under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`

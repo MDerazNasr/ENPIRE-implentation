@@ -9,6 +9,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from agent.d1_rules import decide_d1_candidate
 from supervisor.canonical import fingerprint
 from supervisor.d1_pack_builder import (
     DEFAULT_BUILD_SPEC,
@@ -19,6 +20,7 @@ from supervisor.d1_pack_builder import (
     readiness_envelope,
     verify_readiness_envelope,
 )
+from supervisor.d1_gate import D1GateStatus, run_d1_integration_gate
 from tests.test_d1_integration_gate import pack_data
 
 
@@ -68,6 +70,16 @@ class CanonicalD1PackBuilderTests(unittest.TestCase):
         self.repository = Path(self.temp.name) / "repository"
         self.repository.mkdir()
         git(self.repository, "init", "-q", "-b", "main")
+        checklist = self.repository / "docs" / "execution_checklist.md"
+        checklist.parent.mkdir()
+        checklist.write_text(
+            "# Checklist\n\n## Stage 7 — D1 evidence pack\n\n"
+            "- [x] Publish commands and configs.\n"
+            "- [x] Publish run table and plots.\n"
+            "- [x] Publish cost and limitations.\n"
+            "- [x] Write conclusion.\n\n## Later\n",
+            encoding="utf-8",
+        )
         (self.repository / "README.md").write_text("incumbent\n", encoding="utf-8")
         self.incumbent = commit(self.repository, "incumbent")
         (self.repository / "candidate.txt").write_text("candidate\n", encoding="utf-8")
@@ -151,6 +163,35 @@ class CanonicalD1PackBuilderTests(unittest.TestCase):
         second = subprocess.run(command, check=False, capture_output=True, text=True)
         self.assertEqual(second.returncode, 0, second.stderr)
         self.assertEqual(first_bytes, pack_path.read_bytes())
+
+    def test_builder_pack_opens_gate_with_exact_evaluator_equivalence(self) -> None:
+        command = [
+            sys.executable,
+            str(ROOT / "scripts" / "build_d1_evidence_pack.py"),
+            "--repository",
+            str(self.repository),
+            "--publish",
+        ]
+        completed = subprocess.run(command, check=False, capture_output=True, text=True)
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        commit(self.repository, "publish canonical pack")
+
+        result = run_d1_integration_gate(self.repository)
+        self.assertEqual(result.status, D1GateStatus.READY)
+        self.assertIsNotNone(result.replay)
+        replay = result.replay
+        assert replay is not None
+        legacy = decide_d1_candidate([0.4, 0.4, 0.4], [0.5, 0.5, 0.5])
+        self.assertTrue(replay.equivalent)
+        self.assertEqual(replay.legacy_declared, legacy.decision)
+        self.assertEqual(replay.legacy_replayed, legacy.decision)
+        self.assertEqual(replay.supervisor_decision, legacy.decision)
+        self.assertEqual(replay.evaluation.control_mean_success, legacy.control_mean_success)
+        self.assertEqual(
+            replay.evaluation.candidate_mean_success, legacy.candidate_mean_success
+        )
+        self.assertEqual(replay.evaluation.mean_success_delta, legacy.mean_success_delta)
+        self.assertEqual(replay.evaluation.success_delta_ci95, legacy.success_delta_ci95)
 
     def test_incomplete_seeds_and_unresolved_decision_are_rejected(self) -> None:
         self.source["pack"]["campaign"]["seeds"] = [2026, 2027]

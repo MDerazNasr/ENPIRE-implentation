@@ -10,6 +10,13 @@ corrected Control/Candidate seed exists. The gate is still blocked by the
 absent canonical pack, a dirty source worktree, and incomplete matched-seed
 evidence; see `d1-integration-gate.md` for the superseding status.
 
+Second superseding notice: B2 reran the gate from clean integrated commit
+`dead3b1`. Stage 7 was complete and no degenerate baseline was detected; the
+only gate-level reason was the absent canonical pack. The separate B1
+readiness report explains the underlying scientific and provenance blockers.
+An end-to-end fixture also proves exact native-schema builder/gate compatibility
+without an adapter. See `d1-pack-gate-compatibility.md`.
+
 ## Outcome
 
 The integration-gate implementation is complete, but the live D1 gate is

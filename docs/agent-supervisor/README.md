@@ -69,6 +69,9 @@ labels inside a run.
   current D1 source evidence and maps all seven required artifact roles.
 - [`d1-pack-builder.md`](d1-pack-builder.md) documents the deterministic
   readiness report, reviewed source format, and fail-closed publisher.
+- [`d1-pack-gate-compatibility.md`](d1-pack-gate-compatibility.md) records the
+  B2 builder-to-gate fixture, exact evaluator equivalence, and current blocked
+  live diagnostic.
 - [`d1-d2-reconciliation.md`](d1-d2-reconciliation.md) records the exact source
   heads, preservation policy, merge result, status corrections, and passed A3
   verification.
