@@ -1,7 +1,7 @@
 # F1 Fixed Modal Worker RPC
 
-Status: **implemented and locally verified; immutable no-launch preflight and
-explicit paid approval pending**.
+Status: **implemented and locally verified; immutable no-launch preflight
+passed; explicit paid approval pending**.
 
 F1 replaces M7's mocked remote boundary with a Modal-native implementation of
 the same provider-neutral `ExperimentWorker` interface. The provider transport
@@ -78,10 +78,14 @@ permanently false.
 
 ## Remaining gate
 
-After this implementation is committed, the no-launch preflight will bind the
-clean commit, F0 contract, deployment command, source bundle, and two exact run
-contracts. Deployment and GPU execution still require explicit approval of
-that preflight and cost ceiling. Live acceptance must then prove the completed
+The clean no-launch preflight passed from implementation commit
+`6a1809362b256ff3bd2fd0f83440c400d77abe8f`. It binds F0 runtime SHA-256
+`26092812...6e0c`, profile SHA-256 `c4e29258...0522`, source-bundle SHA-256
+`4cce0a35...6edb`, the fixed deployment command, and the two exact probe
+contracts. The preflight artifact SHA-256 is `c4a57739...6f90`.
+
+Deployment and GPU execution still require explicit approval of that
+preflight and its USD `2.00` total ceiling. Live acceptance must then prove the completed
 lifecycle, restart recovery, verified transfer, cancellation/late-result
 behavior, spoof rejection, actual telemetry, and tagged provider billing.
 
