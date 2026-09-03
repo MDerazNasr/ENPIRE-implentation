@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "profile_id": "enpire-f1-modal-worker-acceptance-v1",
+  "claim_scope": "remote worker engineering acceptance only; no training, evaluation, promotion, or scientific inference",
+  "provider": "Modal",
+  "provider_profile": "deraznasr776",
+  "app_name": "enpire-f1-worker-rpc-v1",
+  "rpc_function": "rpc",
+  "probe_function": "bounded_gpu_probe",
+  "worker_id": "modal-rtx-pro-6000-f1",
+  "runtime_contract_id": "enpire-matched-scientific-runtime-v1",
+  "runtime_contract_sha256": "260928126f1342b268b9b40eff56d0e4e5d0f57f112d212eb6f081092fdc6e0c",
+  "deployment": {
+    "modal_client": "/opt/homebrew/bin/modal",
+    "modal_client_version": "1.5.3",
+    "application": "modal_f1_worker.py",
+    "strategy": "recreate",
+    "persistent_volume": "enpire-workspace",
+    "volume_create_if_missing": false,
+    "scale_to_zero": true,
+    "app_tags": {
+      "project": "enpire",
+      "phase": "f1-worker-acceptance"
+    }
+  },
+  "fixed_endpoint": {
+    "transport": "Modal Function lookup",
+    "app": "enpire-f1-worker-rpc-v1",
+    "function": "rpc",
+    "client_script": "scripts/modal_f1_rpc_client.py",
+    "agent_endpoint_override_allowed": false,
+    "agent_command_allowed": false,
+    "actions": [
+      "prepare",
+      "launch",
+      "status",
+      "heartbeat",
+      "cancel",
+      "fetch_evidence",
+      "fetch_artifact"
+    ]
+  },
+  "live_probe": {
+    "gpu": "RTX-PRO-6000",
+    "gpu_count": 1,
+    "cpu_physical_cores": 16,
+    "memory_mib": 98304,
+    "probe_seconds": 15,
+    "function_timeout_seconds": 300,
+    "maximum_probe_calls": 2,
+    "maximum_aggregate_gpu_function_seconds": 600,
+    "completed_probe_required": true,
+    "active_cancel_probe_required": true,
+    "coordinator_restart_recovery_required": true,
+    "promotion_allowed": false
+  },
+  "artifacts": {
+    "maximum_single_transfer_bytes": 8388608,
+    "chunk_bytes": 262144,
+    "required": [
+      "gpu-telemetry",
+      "provider-cost-estimate",
+      "probe-log"
+    ],
+    "digest": "sha256",
+    "materialization": "atomic create-only"
+  },
+  "billing": {
+    "gpu_usd_per_second": "0.000842",
+    "cpu_physical_core_usd_per_second": "0.0000131",
+    "memory_gib_usd_per_second": "0.00000222",
+    "selected_runtime_usd_per_hour": "4.552992",
+    "maximum_gpu_resource_cost_usd": "0.758832",
+    "maximum_total_provider_cost_usd": "2.00",
+    "actual_tagged_billing_record_required": true,
+    "pricing_revalidation_required": true
+  },
+  "source_paths": [
+    "modal_f1_worker.py",
+    "scripts/modal_f1_rpc_client.py",
+    "supervisor/modal_worker_rpc.py",
+    "results/runtime-qualification/f0/runtime-contract.json"
+  ],
+  "approval": {
+    "deployment_authorized": false,
+    "gpu_execution_authorized": false,
+    "explicit_approval_required": true
+  }
+}

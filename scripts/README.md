@@ -10,6 +10,11 @@ dry run by default. An actual run requires both `--execute` and
 `--acknowledge-paid-run`, plus the required path/seed/W&B environment variables
 and `GPU_HOURLY_PRICE_USD`.
 
+`modal_f1_rpc_client.py` is the fixed local half of the F1 Modal worker RPC. It
+looks up only `enpire-f1-worker-rpc-v1::rpc`, checks the active provider
+profile, and forwards one canonical request. It has no host, function, command,
+or shell override.
+
 `run_real_policy_demo.py` is the meeting-safe, dependency-free CPU demo. It
 trains three control and three candidate residual policies, routes their real
 metrics through the supervisor evaluator, and writes a visual public bundle.

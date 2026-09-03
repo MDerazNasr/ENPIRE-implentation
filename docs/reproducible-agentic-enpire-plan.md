@@ -607,6 +607,14 @@ See `docs/agent-supervisor/f0-matched-runtime.md` and
 Gate F1: remote workers satisfy the existing M7 contract without general shell
 authority for the agent.
 
+F1 implementation checkpoint: the fixed Modal-native worker, immutable client,
+detached FunctionCall lifecycle, active cancellation, durable recovery,
+bounded digest-verified artifact transfer, exact F0 image/stack probe, profile,
+and adversarial local tests are implemented. No provider app or GPU has been
+launched. A clean no-launch preflight and explicit approval of its bounded live
+acceptance remain required before Gate F1 can pass. See
+`docs/agent-supervisor/f1-fixed-worker-rpc.md`.
+
 ### F2. Matched runtime rehearsal
 
 - [ ] Run one bounded Control-shaped and Candidate-shaped rehearsal on the same

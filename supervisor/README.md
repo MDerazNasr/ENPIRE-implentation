@@ -29,6 +29,10 @@ SSH connection, W&B API, or RLinf training process.
   completion reconciliation.
 - `ssh_worker.py`: fixed, mockable SSH RPC client implementing the existing
   worker interface without accepting agent-controlled commands.
+- `modal_worker_rpc.py`: the F1 production client for the same worker
+  interface, bound to one deployed Modal app/function, one F0 runtime hash,
+  capped canonical responses, durable contract recovery, and verified
+  chunked artifact transfer.
 - `reporting.py`: canonical JSON, CSV, Markdown, and static HTML reports.
 - `d1_gate.py`: strict Stage-7 pack, read-only repository audit, evidence
   normalization, and legacy-versus-supervisor decision replay.
