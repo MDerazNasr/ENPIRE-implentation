@@ -575,14 +575,24 @@ and no improvement claim is made. See
 
 ### F0. Select one matched scientific runtime
 
-- [ ] Choose a graphics-capable GPU class from measured complete-route needs.
-- [ ] Pin OS/image, Python, Torch/CUDA, simulator, renderer, RLinf, and harness
+- [x] Choose a graphics-capable GPU class from measured complete-route needs.
+- [x] Pin OS/image, Python, Torch/CUDA, simulator, renderer, RLinf, and harness
   versions.
-- [ ] Pin batching, actor offload, weight transport, and resume behavior.
-- [ ] Verify model, Stage-1 actor, dataset, and norm-stat hashes.
-- [ ] Record provider storage and billing lifecycle.
+- [x] Pin batching, actor offload, weight transport, and resume behavior.
+- [x] Verify model, Stage-1 actor, dataset, and norm-stat hashes.
+- [x] Record provider storage and billing lifecycle.
 
 Gate F0: Control and all candidate arms can use the same declared runtime.
+
+Gate F0 result: **passed on 2026-09-03 without allocating a GPU**. Control and
+all Candidate arms are bound to `enpire-matched-scientific-runtime-v1`: one
+Modal RTX PRO 6000, 16 physical CPU cores, 96 GiB RAM, an immutable Ubuntu
+22.04/CUDA 12.8.1 amd64 image, Python 3.11.14, Torch 2.8.0+cu128, pinned RLinf
+and ManiSkill/SAPIEN, CPU PhysX plus Mesa llvmpipe, the 16-process batching
+adapter, disabled actor offload, CPU weight transport, and fail-closed resume
+sidecars. Input identities and provider storage/billing lifecycle are recorded.
+See `docs/agent-supervisor/f0-matched-runtime.md` and
+`results/runtime-qualification/f0/runtime-contract.json`.
 
 ### F1. Deploy fixed worker RPC
 

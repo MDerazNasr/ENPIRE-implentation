@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "contract_id": "enpire-matched-scientific-runtime-v1",
+  "status": "selected_not_deployed",
+  "selected_at": "2026-09-03T11:57:31Z",
+  "scope": "F0 runtime selection only; no provider job, training, evaluation, or scientific comparison is authorized",
+  "provider": {
+    "name": "Modal",
+    "profile": "deraznasr776",
+    "gpu_request": "RTX-PRO-6000",
+    "gpu_count": 1,
+    "gpu_model": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "minimum_gpu_memory_bytes": 96000000000,
+    "cpu_physical_cores": 16,
+    "memory_mib": 98304,
+    "maximum_concurrent_scientific_trials": 1
+  },
+  "container": {
+    "platform": "linux/amd64",
+    "os": "Ubuntu 22.04 LTS",
+    "image_tag": "docker.io/nvidia/cuda:12.8.1-devel-ubuntu22.04",
+    "image_index_digest": "sha256:a99a1860ba8e2916e5c3e73b72ec4c4301653a84586e05bfc9a2aa2d58027e97",
+    "image_platform_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+    "python": "3.11.14",
+    "torch": "2.8.0+cu128",
+    "cuda_toolkit": "12.8.1",
+    "cuda_runtime": "12.8",
+    "provider_managed_fields": [
+      "host kernel",
+      "NVIDIA driver patch version"
+    ],
+    "provider_managed_field_policy": "capture before launch and in every receipt; reject if CUDA, GPU model, memory, or smoke gates do not match this contract"
+  },
+  "scientific_stack": {
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "maniskill_release": "v3.0.0b22",
+    "maniskill_commit": "33967b9e3ead1f841eec57cc9f31d0d8b8cf0907",
+    "sapien": "3.0.1",
+    "hydra_core": "1.3.2",
+    "omegaconf": "2.3.0",
+    "simulator_backend": "CPU PhysX; one environment per child process",
+    "renderer_backend": "Mesa llvmpipe via Vulkan",
+    "mesa_vulkan_drivers_amd64": "23.2.1-1ubuntu3.1~22.04.4",
+    "vulkan_loader": "1.3.204.1-2",
+    "vulkan_icd": "/usr/share/vulkan/icd.d/lvp_icd.x86_64.json",
+    "render_device": "pci:0000:00:00.0"
+  },
+  "harness": {
+    "runtime_contract_version": "enpire-matched-scientific-runtime-v1",
+    "compatibility_baseline_commit": "238ebf880a6c9ddd930826dcc5b049bf39404291",
+    "source_sha256": {
+      "agent/rlt_resume_state.py": "e0a21d7594de232a5ec273e8ac7fa49be957037b16445daa3ee0e73bd4e75ec6",
+      "configs/d1/stage2_6_candidate_modal_multiprocess.yaml": "2a15a3ef2bfd68e92d09d7f8f838510f55edea194de899274f55d09acd75b57e",
+      "envs/modal_multiprocess_rlt_env.py": "84b8e65b9d966233f892bda7e71d08a31a1a35e222bd8859f77d84dbe417b23c",
+      "sitecustomize.py": "8f39c3cfffcf839ece8aa9bdce5f798e6fb019fc4e19e5168edc1c1ca3187f74"
+    },
+    "worker_rpc_version": "pending-f1",
+    "worker_policy": "F1 must bind an exact source bundle and must not weaken this runtime contract"
+  },
+  "execution": {
+    "multiprocess_adapter": true,
+    "multiprocessing_start_method": "spawn",
+    "threads_per_worker": 1,
+    "train_parallel_environments": 16,
+    "train_rollout_epochs": 4,
+    "train_trajectories_per_step": 64,
+    "eval_parallel_environments": 16,
+    "eval_rollout_epochs": 16,
+    "fixed_eval_trajectories": 256,
+    "episode_horizon": 500,
+    "actor_offload": false,
+    "weight_transport_device": "cpu",
+    "checkpoint_interval_steps": 10,
+    "environment": {
+      "LP_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "QUALIA_MODAL_MP_START_METHOD": "spawn",
+      "QUALIA_MODAL_MULTIPROCESS": "1",
+      "QUALIA_MODAL_RENDER_DEVICE": "pci:0000:00:00.0",
+      "QUALIA_MODAL_THREADS_PER_WORKER": "1",
+      "QUALIA_MODAL_VULKAN_ICD": "/usr/share/vulkan/icd.d/lvp_icd.x86_64.json",
+      "QUALIA_RLT_RESUME_STATE": "1",
+      "VK_ICD_FILENAMES": "/usr/share/vulkan/icd.d/lvp_icd.x86_64.json"
+    }
+  },
+  "resume": {
+    "mode": "native RLinf checkpoint plus strict project-owned schedule/replay sidecar",
+    "sidecar_required_for_any_resumed_run": true,
+    "missing_or_invalid_sidecar_behavior": "fail before rollout or update",
+    "restored_state": [
+      "RLT update counter",
+      "RLT transition counter",
+      "replay buffer dedicated Torch generator state"
+    ],
+    "known_limit": "simulator state is not claimed bitwise-identical across processes",
+    "definitive_run_segmentation_policy": "pending F2 rehearsal; any segmentation must use this exact fail-closed sidecar contract"
+  },
+  "inputs": {
+    "base_model": {
+      "identity": "official pi0.5 base full_weights.pt",
+      "size_bytes": 14467165872,
+      "sha256": "0eb11ca9587678c1d2ef8cf32807c29f8ce53a2bfdfc1aa4a4c96f16fca59b0f",
+      "verification_basis": "preserved D2 remote inventory"
+    },
+    "stage1_actor": {
+      "path": "/workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt",
+      "size_bytes": 10015912759,
+      "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+      "verification_basis": "Stage 6 preserved-input audit and runtime hash gate"
+    },
+    "dataset": {
+      "identity": "rlt-maniskill-PegInsertionSide-v1-400-succ",
+      "revision": "2b92d5ef3fe274d30219130133f9e34c7ab91ebf",
+      "use_in_stage2": "normalization-stat provenance only"
+    },
+    "norm_stats": {
+      "path": "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json",
+      "size_bytes": 2149,
+      "sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+      "verification_basis": "tracked file rehashed at F0"
+    }
+  },
+  "provider_lifecycle": {
+    "persistent_volume": "enpire-workspace",
+    "volume_confirmed_at": "2026-09-03",
+    "volume_create_if_missing": false,
+    "volume_price_usd_per_gib_month": "0.09",
+    "storage_measurement": "total storage snapshotted once daily",
+    "deletion_billing_lag": "deleted data may remain billable for up to four days",
+    "compute_billing": "per second while resources are used or requested; no reservation required",
+    "gpu_usd_per_second": "0.000842",
+    "cpu_physical_core_usd_per_second": "0.0000131",
+    "memory_gib_usd_per_second": "0.00000222",
+    "selected_runtime_usd_per_hour": "4.552992",
+    "pricing_checked_at": "2026-09-03",
+    "pricing_revalidation": "required before every paid approval and launch",
+    "cleanup": "stop/cancel compute on every terminal path; retain the named volume until evidence and canonical inputs are exported and a separate deletion decision is approved",
+    "paid_execution_authorized": false
+  },
+  "evidence": {
+    "complete_route": "docs/stage6-result.md",
+    "resume_gate": "docs/stage6r-resume-repair.md",
+    "resource_probe": "docs/stage5b-resource-probe.md",
+    "provider_profile": "docs/agent-supervisor/d2-paid-acceptance-profile.md",
+    "official_sources": [
+      "https://modal.com/pricing",
+      "https://modal.com/docs/guide/volumes",
+      "https://modal.com/docs/guide/billing",
+      "https://modal.com/docs/guide/gpu",
+      "https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/",
+      "https://packages.ubuntu.com/jammy/mesa-vulkan-drivers",
+      "https://packages.ubuntu.com/jammy/libvulkan1"
+    ]
+  },
+  "gate": {
+    "control_runtime_contract_id": "enpire-matched-scientific-runtime-v1",
+    "candidate_runtime_contract_id": "enpire-matched-scientific-runtime-v1",
+    "same_runtime_required": true,
+    "passed": true
+  }
+}
