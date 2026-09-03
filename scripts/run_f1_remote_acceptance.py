@@ -11,12 +11,15 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from supervisor.canonical import canonical_json, fingerprint
-from supervisor.modal_worker_rpc import F1_APP_NAME, F1_FUNCTION_NAME
-from supervisor.workers import RunContract
-
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from supervisor.canonical import canonical_json, fingerprint  # noqa: E402
+from supervisor.modal_worker_rpc import F1_APP_NAME, F1_FUNCTION_NAME  # noqa: E402
+from supervisor.workers import RunContract  # noqa: E402
+
+
 DEFAULT_PROFILE = ROOT / "results/runtime-qualification/f1/profile.json"
 DEFAULT_OUTPUT = ROOT / "results/runtime-qualification/f1/preflight.json"
 RUNTIME_CONTRACT = ROOT / "results/runtime-qualification/f0/runtime-contract.json"
