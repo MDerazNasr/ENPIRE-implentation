@@ -531,15 +531,23 @@ and ADR 0010. No GPU run was launched for this gate.
 
 ### E1. Prove default equivalence
 
-- [ ] Run the default `actor_loss + bc_weight * bc_loss` overlay against the
+- [x] Run the default `actor_loss + bc_weight * bc_loss` overlay against the
   native path.
-- [ ] Compare forward values and all relevant gradients.
-- [ ] Test representative shapes, devices, dtypes, zero/edge values, and
+- [x] Compare forward values and all relevant gradients.
+- [x] Test representative shapes, available devices, dtypes, zero/edge values, and
   accumulation behavior.
-- [ ] Define tolerances before viewing candidate results.
-- [ ] Fail closed on disconnected or non-finite gradients.
+- [x] Define tolerances before viewing candidate results.
+- [x] Fail closed on disconnected or non-finite gradients.
 
 Gate E1: default overlay is behaviorally equivalent within frozen tolerances.
+
+Gate E1 result: **passed on 2026-09-03**. Four real PyTorch 2.8 CPU cases
+covering float32, float64, bfloat16, masks, scheduled and zero weights, shapes,
+and accumulation produced exact-zero forward and policy-gradient differences.
+Three malformed-output controls failed closed. The Lambda A10 was offline, so
+CUDA/full-worker qualification remains in Workstream F; no remote process or
+training run launched. See `docs/agent-supervisor/e1-default-objective-equivalence.md`
+and `results/agent-supervisor/e1/default-equivalence.json`.
 
 ### E2. Prove a bounded candidate change
 

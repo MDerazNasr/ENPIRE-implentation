@@ -121,6 +121,26 @@ class ModalAdapterUnitTests(unittest.TestCase):
             self.assertEqual(adapter.__name__, "ModalMultiprocessManiskillRLTEnv")
             self.assertEqual(fake_envs.get_env_cls("libero", "cfg"), ("libero", "cfg"))
 
+    def test_sitecustomize_objective_hook_is_strictly_opt_in(self):
+        calls = []
+        attachment = types.ModuleType("agent.rlt_objective_attachment")
+        attachment.install_patch = lambda: calls.append("installed")
+        with patch.dict(
+            sys.modules,
+            {"agent.rlt_objective_attachment": attachment},
+        ), patch.dict(os.environ, {}, clear=True):
+            runpy.run_path(str(ROOT / "sitecustomize.py"))
+        self.assertEqual(calls, [])
+
+        with patch.dict(
+            sys.modules,
+            {"agent.rlt_objective_attachment": attachment},
+        ), patch.dict(
+            os.environ, {"QUALIA_RLT_OBJECTIVE": "1"}, clear=True
+        ):
+            runpy.run_path(str(ROOT / "sitecustomize.py"))
+        self.assertEqual(calls, ["installed"])
+
 
 if __name__ == "__main__":
     unittest.main()

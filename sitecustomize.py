@@ -1,4 +1,4 @@
-"""Opt-in runtime hook for the provisional Modal multiprocess environment."""
+"""Strictly opt-in runtime hooks around the immutable RLinf checkout."""
 
 from __future__ import annotations
 
@@ -24,5 +24,11 @@ if os.environ.get("QUALIA_MODAL_MULTIPROCESS") == "1":
 
 if os.environ.get("QUALIA_RLT_RESUME_STATE") == "1":
     from agent.rlt_resume_state import install_patch
+
+    install_patch()
+
+
+if os.environ.get("QUALIA_RLT_OBJECTIVE") == "1":
+    from agent.rlt_objective_attachment import install_patch
 
     install_patch()

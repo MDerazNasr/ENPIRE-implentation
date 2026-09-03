@@ -1,0 +1,114 @@
+{
+  "adapter_sha256": "fb51edc77fe1602405d32f6f219ad499fba209efe78e1b9a8ad5b415071418a1",
+  "attachment": {
+    "adapter_sha256": "fb51edc77fe1602405d32f6f219ad499fba209efe78e1b9a8ad5b415071418a1",
+    "attachment_mode": "sitecustomize-rlt-loss-mixin-v1",
+    "installed_target": "RLTACLossMixin.forward_actor",
+    "objective_contract_version": "m6-actor-objective-v1",
+    "objective_relative_path": "supervisor/objectives/actor_objective.py",
+    "objective_sha256": "480eafcad7a1fb01fdf12d4bfc4b39b52696942fb0c9bf9ccbdc4e549b97896c",
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "rlinf_worker_sha256": "b2d5032400a63c2592b6175d524cac936c282f5a287e448dbcc5da7ad42d1fc2",
+    "seam_contract_version": "rlinf-rlt-actor-objective-seam-v1"
+  },
+  "cases": [
+    {
+      "device": "cpu",
+      "dtype": "float32",
+      "gradient_accumulation": 1,
+      "gradient_max_abs_diff": 0.0,
+      "id": "cpu-float32-single",
+      "loss": 2.25,
+      "masked": false,
+      "objective_rank": 0,
+      "shape": [
+        1,
+        1,
+        2
+      ],
+      "value_abs_diff": 0.0,
+      "weights": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "device": "cpu",
+      "dtype": "float64",
+      "gradient_accumulation": 4,
+      "gradient_max_abs_diff": 0.0,
+      "id": "cpu-float64-masked",
+      "loss": 1.045604944229126,
+      "masked": true,
+      "objective_rank": 0,
+      "shape": [
+        3,
+        2,
+        4
+      ],
+      "value_abs_diff": 0.0,
+      "weights": [
+        0.45,
+        2.5
+      ]
+    },
+    {
+      "device": "cpu",
+      "dtype": "float32",
+      "gradient_accumulation": 3,
+      "gradient_max_abs_diff": 0.0,
+      "id": "cpu-float32-zero-weights",
+      "loss": 0.0,
+      "masked": true,
+      "objective_rank": 0,
+      "shape": [
+        2,
+        3,
+        7
+      ],
+      "value_abs_diff": 0.0,
+      "weights": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "device": "cpu",
+      "dtype": "bfloat16",
+      "gradient_accumulation": 2,
+      "gradient_max_abs_diff": 0.0,
+      "id": "cpu-bfloat16-warmup",
+      "loss": 0.08251953125,
+      "masked": false,
+      "objective_rank": 0,
+      "shape": [
+        2,
+        4,
+        7
+      ],
+      "value_abs_diff": 0.0,
+      "weights": [
+        0.05,
+        7.0
+      ]
+    }
+  ],
+  "cuda_available": false,
+  "cuda_device": null,
+  "hermetic_rlinf_stubs": true,
+  "mps_available": false,
+  "negative_controls_rejected": [
+    "disconnected",
+    "non_finite",
+    "wrong_shape"
+  ],
+  "objective_sha256": "480eafcad7a1fb01fdf12d4bfc4b39b52696942fb0c9bf9ccbdc4e549b97896c",
+  "rlinf_root": "/private/tmp/rlinf-e0",
+  "schema_version": 1,
+  "status": "passed",
+  "tolerances": {
+    "gradient_max_abs_diff": 0.0,
+    "value_abs_diff": 0.0
+  },
+  "torch_version": "2.8.0"
+}
