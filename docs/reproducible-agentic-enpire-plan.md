@@ -465,10 +465,10 @@ paid resource was used. See
 
 - [x] Define a minimal live acceptance profile that tests attachment without
   pretending to be a scientific candidate.
-- [ ] Obtain explicit approval for its exact cost and runtime envelope.
-- [ ] Run on one qualified worker.
-- [ ] Reconcile manifest, log, W&B semantics, costs, hashes, and cleanup.
-- [ ] Preserve the result regardless of success.
+- [x] Obtain explicit approval for its exact cost and runtime envelope.
+- [x] Run on one qualified worker.
+- [x] Reconcile manifest, log, W&B semantics, costs, hashes, and cleanup.
+- [x] Preserve the result regardless of success.
 
 Gate D2: one real D2-controlled D1 run completes or fails safely under the
 immutable run contract.
@@ -495,6 +495,19 @@ candidate `152cf902`, passed both checks, and froze campaign hash
 Execution remains unauthorized until the user explicitly approves the exact
 Modal profile, 1,800-second maximum, USD `1.5156` GPU cap, USD `3.00` total
 provider cap, and permanent no-promotion boundary.
+
+D2 execution result on 2026-09-03: **passed by failing safely**. The user
+replaced Modal with already-active Lambda A10 instance
+`249956d9699b4e1d8e57754733f7ac09` at USD `1.29`/hour and approved the existing
+1,800-second, one-trial, no-promotion boundary (USD `0.645` maximum incremental
+GPU cost). The guarded launcher ran once and exited before rollout or training
+because the upstream installer selected incompatible Hydra `1.4.0.dev9`.
+Terminal artifacts were retained, no evaluator ran, no incumbent advanced, and
+the subprocess estimate was USD `0.00720158`. The already-frozen compatibility
+pins were then applied and a no-training Hydra composition passed, but no
+second trial was launched. Detailed evidence is in
+`docs/agent-supervisor/d2-lambda-a10-acceptance.md` and
+`results/provider-acceptance/d2/lambda-a10-attempt-1/`.
 
 ## 9. Workstream E: actor-objective code attachment
 

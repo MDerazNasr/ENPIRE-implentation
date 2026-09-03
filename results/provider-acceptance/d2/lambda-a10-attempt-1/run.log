@@ -1,0 +1,15 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788429757.727548    9347 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1788429757.773090    9347 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788429762.122909    9347 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Traceback (most recent call last):
+  File "/home/ubuntu/enpire-d2/RLinf/examples/embodiment/train_embodied_agent.py", line 32, in <module>
+    @hydra.main(
+     ^^^^^^^^^^^
+  File "/home/ubuntu/enpire-d2/RLinf/.venv/lib/python3.11/site-packages/hydra/main.py", line 63, in main
+    version.setbase(version_base)
+  File "/home/ubuntu/enpire-d2/RLinf/.venv/lib/python3.11/site-packages/hydra/version.py", line 74, in setbase
+    raise HydraException(
+hydra.errors.HydraException: version_base='1.1' is not supported in Hydra 1.4; omit version_base to use the current behavior
