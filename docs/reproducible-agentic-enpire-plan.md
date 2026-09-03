@@ -513,16 +513,21 @@ second trial was launched. Detailed evidence is in
 
 ### E0. Locate and freeze the PyTorch seam
 
-- [ ] Identify the exact pinned-RLinf actor-loss combination site.
-- [ ] Record tensor shapes, reductions, dtype, device, scaling, and autograd
+- [x] Identify the exact pinned-RLinf actor-loss combination site.
+- [x] Record tensor shapes, reductions, dtype, device, scaling, and autograd
   expectations.
-- [ ] Determine a project-owned overlay mechanism that does not modify
+- [x] Determine a project-owned overlay mechanism that does not modify
   canonical RLinf source.
-- [ ] Define the manifest proof that the intended objective was loaded.
-- [ ] Record the design in a new ADR if it changes the M6 contract.
+- [x] Define the manifest proof that the intended objective was loaded.
+- [x] Record the design in a new ADR; the attachment retains the M6 v1 contract.
 
 Gate E0: the live ABI is explicit, reviewable, and compatible with immutable
 RLinf.
+
+Gate E0 result: **passed on 2026-09-03**. The source and tensor ABI, exact
+upstream hashes, fail-closed `sitecustomize` attachment, and required runtime
+manifest proof are frozen in `docs/agent-supervisor/e0-live-objective-seam.md`
+and ADR 0010. No GPU run was launched for this gate.
 
 ### E1. Prove default equivalence
 

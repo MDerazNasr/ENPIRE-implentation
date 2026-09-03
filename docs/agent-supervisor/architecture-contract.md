@@ -159,11 +159,13 @@ Pinned RLinf currently hard-codes the RLT Stage-2 actor objective inside its
 worker rather than exposing a stable external objective plugin. Editing that
 upstream file in place would violate D1's reproducibility boundary.
 
-The planned solution is a project-owned adapter that reproduces the pinned
-worker's objective combination and delegates the differentiable combination to
-one narrow plugin. The default plugin must be numerically/gradient equivalent
-to upstream on fixed fixtures. The agent may edit only the plugin and its
+E0 froze a project-owned, opt-in `sitecustomize` adapter that reproduces the
+pinned worker's `forward_actor` plumbing and delegates the differentiable
+combination to one narrow plugin. The default plugin must be
+numerically/gradient equivalent to upstream on fixed fixtures and real PyTorch
+tensors before activation. The agent may edit only the plugin and its
 candidate-local configuration/tests. The surrounding adapter is harness-owned.
+See `e0-live-objective-seam.md` and ADR 0010.
 
 This provides genuine training-code experiments while keeping canonical RLinf
 clean and making every algorithmic delta explicit.

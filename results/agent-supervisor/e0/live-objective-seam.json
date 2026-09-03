@@ -1,0 +1,19 @@
+{
+  "attachment_decision": {
+    "attachment_mode": "sitecustomize-rlt-loss-mixin-v1",
+    "installed_target": "RLTACLossMixin.forward_actor",
+    "objective_contract_version": "m6-actor-objective-v1",
+    "upstream_modified": false
+  },
+  "files": {
+    "examples/embodiment/config/maniskill_rlt_stage2_ac_mlp.yaml": "bb5c01c0db25fcd962b5fa21d2fe60505ed73ed86bb8875e19167378d6456457",
+    "rlinf/workers/actor/fsdp_rlt_ac_policy_worker.py": "b2d5032400a63c2592b6175d524cac936c282f5a287e448dbcc5da7ad42d1fc2",
+    "rlinf/workers/actor/fsdp_sac_policy_worker.py": "190165b7bac7c934a3d80eb69ebf65f218925c810c91ae29c22e8b8dea267765"
+  },
+  "gate": "E0",
+  "recorded_at": "2026-09-03",
+  "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "schema_version": 1,
+  "seam_contract_version": "rlinf-rlt-actor-objective-seam-v1",
+  "status": "passed"
+}

@@ -95,7 +95,8 @@ versioned harness adapter, not silent RLinf edits or weaker validation.
 
 - No real Claude call, RLinf training, GPU/SSH worker, W&B API, robot, or paid
   service was used by the final supervisor branch.
-- Non-fixture objective execution still awaits the D1 PyTorch/RLinf attachment.
+- E0 froze the non-fixture PyTorch/RLinf seam and attachment design; E1
+  equivalence implementation and E2 launcher/manifest binding remain open.
 - Remote helper deployment, detached-process recovery, active remote
   cancellation, artifact transfer, and real utilization collection require the
   live infrastructure handoff.

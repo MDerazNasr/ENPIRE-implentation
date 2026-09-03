@@ -1,7 +1,7 @@
 # M6 Code-Enabled Objective Contract
 
-Status: synthetic implementation complete; exact live RLinf attachment is a D1
-compatibility handoff owned by the separately developed baseline workstream.
+Status: synthetic implementation complete; E0 froze the exact live RLinf seam
+and attachment design. E1 implementation and PyTorch equivalence remain open.
 
 M6 adds genuine training-code proposals without granting an agent general
 repository or RLinf editing authority. The only editable code surface is the
@@ -75,15 +75,18 @@ hashed `actor-objective` evidence artifact.
 ## Live compatibility boundary
 
 The code-enabled fixture path is executable now. Non-fixture objective plans
-fail with an explicit compatibility-handoff error because the pinned RLinf
-worker does not yet expose a frozen external objective hook.
+continue to fail with an explicit compatibility-handoff error until E1 and E2
+implement and bind the E0 design. Pinned RLinf has no native external objective
+hook; E0 selected a fail-closed, project-owned `sitecustomize` overlay of
+`RLTACLossMixin.forward_actor` without changing this v1 ABI.
 
-When the D1 owner hands off the stable baseline, integration must determine:
+E0 determined and recorded:
 
 - the exact actor-loss combination site;
 - actual PyTorch tensor shapes, reductions, dtype, device, and autograd graph;
 - how the harness-owned adapter is invoked without editing canonical RLinf;
 - the manifest field proving which objective was loaded.
 
-This handoff may add a versioned adapter. It may not silently weaken the ABI,
-source hash, mandatory validation, or immutable RLinf boundary.
+The frozen details, upstream hashes, tensor ABI, and required runtime marker are
+in `e0-live-objective-seam.md` and ADR 0010. E1/E2 may not silently weaken the
+ABI, source hash, mandatory validation, or immutable RLinf boundary.
