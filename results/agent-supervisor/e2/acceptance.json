@@ -1,0 +1,378 @@
+{
+  "authorization": {
+    "approval_hash": null,
+    "authorized_at": "2026-09-03T00:00:00Z",
+    "campaign_hash": "913fd34362c0e1512d2a8b63fd287399be09a9a890e820f1227f9fc3f60bb1f2",
+    "gate_hash": null,
+    "mode": "fixture",
+    "paid_acknowledged": false,
+    "schema_version": 1,
+    "synthetic": true
+  },
+  "candidate": {
+    "candidate_commit": "846e989228210a53d198963536c63221d8184587",
+    "candidate_tree_hash": "daa1a47283b98421f93753686a9a0bd7e4afc41e",
+    "objective_sha256": "8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36",
+    "proposal_hash": "f42d0b301ac3008f27175cbac7293aabe36c2b0e6e5b4d25385eec6f356d87d1",
+    "source_fixture": "examples/agent-supervisor/e2_actor_objective_candidate.py"
+  },
+  "evidence": {
+    "arm_id": "e2-objective-code",
+    "artifacts": [
+      {
+        "artifact_id": "manifest",
+        "kind": "manifest",
+        "sha256": "d1de4145ec4ba86243c2e005695deb6b0dfb89ae908e3b83d48763dd05f06259",
+        "size_bytes": 5286,
+        "uri": "artifact://trials/e2-live-objective-s2026/manifest"
+      },
+      {
+        "artifact_id": "run-log",
+        "kind": "run-log",
+        "sha256": "5c5191b418ff64004a7ef0323d9e2a6f5604149c5072fcb300960a09b4fd2eea",
+        "size_bytes": 204,
+        "uri": "artifact://trials/e2-live-objective-s2026/run-log"
+      },
+      {
+        "artifact_id": "actor-objective",
+        "kind": "actor-objective",
+        "sha256": "8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36",
+        "size_bytes": 185,
+        "uri": "artifact://trials/e2-live-objective-s2026/actor-objective"
+      },
+      {
+        "artifact_id": "wandb-run",
+        "kind": "tracker",
+        "sha256": "bc266417776870156e926ceb1fae11a1aa72924a4ce51b9ed242165242b131b7",
+        "size_bytes": 0,
+        "uri": "https://wandb.ai/fixture/qualia-rlt/runs/e2-live-objective-s2026"
+      }
+    ],
+    "campaign_id": "e2-live-objective-acceptance",
+    "candidate_commit": "846e989228210a53d198963536c63221d8184587",
+    "command_hash": "db990180bd0690d12701007440652c323a50f254ab72cc89e742c9ea6d84db5c",
+    "config_hash": "960d1a68dc654f6f0cdcc4302287c1de9cdb81a9c1a9fe3c1004d045e94ce6f9",
+    "elapsed_seconds": 0.01,
+    "evaluator_version": "e2-attachment-only-v1",
+    "exit_code": 0,
+    "finished_at": "2026-09-03T11:38:17.307616Z",
+    "gpu_cost_usd": "0",
+    "llm_cost_usd": "0",
+    "metric_errors": [],
+    "metrics": {
+      "diagnostic_loss": 0.25,
+      "success_rate": 0.41,
+      "successful_episode_length": 40.0
+    },
+    "parent_commit": "9d2dcb61ae8cc0d43c988f33d205777775fa5a51",
+    "reset_set_hash": "e152b29420e18841c55f81b403640958f196844253d8fc58421fe19b629e907b",
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "schema_version": 1,
+    "seed": 2026,
+    "started_at": "2026-09-03T11:38:17.307162Z",
+    "status": "complete",
+    "trial_id": "e2-live-objective-s2026"
+  },
+  "evidence_hash": "54e28ef062efcff1bdf692a8d85ef383e2f254dc64ca2253807433aa280762bc",
+  "gpu_used": false,
+  "identity_checks": {
+    "evidence": true,
+    "execution_command": true,
+    "logical_command": true,
+    "manifest": true,
+    "manifest_contract": true,
+    "manifest_validation": true,
+    "plan": true,
+    "plan_contract": true,
+    "runtime": true,
+    "runtime_attachment": true
+  },
+  "llm_used": false,
+  "manifest": {
+    "command": [
+      "fixture-rlt",
+      "actor.seed=2026",
+      "objective.contract=m6-actor-objective-v1",
+      "objective.sha256=8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36"
+    ],
+    "condition": "control",
+    "config_path": "/private/tmp/enpire-e2-acceptance-20260903/results/.plans/e2-live-objective-s2026/resolved_config.json",
+    "config_sha256": "960d1a68dc654f6f0cdcc4302287c1de9cdb81a9c1a9fe3c1004d045e94ce6f9",
+    "created_at": "2026-09-03T11:38:17.307162Z",
+    "elapsed_seconds": 0.01,
+    "exit_code": 0,
+    "experiment_id": "d1-control-b",
+    "final_cost_usd": 0,
+    "finished_at": "2026-09-03T11:38:17.307616Z",
+    "host": "m5-fixture",
+    "hourly_price_usd": 0,
+    "objective_contract_version": "m6-actor-objective-v1",
+    "objective_sha256": "8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36",
+    "objective_validation": {
+      "behavior_changed": true,
+      "candidate_gradient": [
+        1.0,
+        0.35,
+        3.0
+      ],
+      "candidate_values": [
+        3.05,
+        0.05
+      ],
+      "contract_version": "m6-actor-objective-v1",
+      "errors": [],
+      "finite": true,
+      "gradients_present": true,
+      "loaded": true,
+      "plugin_path": "supervisor/objectives/actor_objective.py",
+      "reference_gradient": [
+        1.0,
+        0.25,
+        3.0
+      ],
+      "reference_values": [
+        2.75,
+        0.0
+      ],
+      "source_sha256": "8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36",
+      "static_valid": true
+    },
+    "platform": "fixture",
+    "project_commit": "846e989228210a53d198963536c63221d8184587",
+    "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+    "resolved_config": {
+      "budget": {
+        "max_cost_usd": 15,
+        "report_thresholds_usd": [
+          5,
+          10,
+          15
+        ]
+      },
+      "condition": "control",
+      "config_path": "examples/embodiment/config",
+      "entrypoint": "examples/embodiment/train_embodied_agent.py",
+      "evaluation": {
+        "fixed_reset_state_ids": true,
+        "num_trajectories": 256,
+        "parallel_environments": 16,
+        "primary_metric": "eval/success_once",
+        "rollout_epochs": 16
+      },
+      "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+      "experiment_id": "d1-control-b",
+      "fixture_code_success_rate": 0.41,
+      "fixture_episode_length": 40,
+      "fixture_success_rate": 0.4,
+      "hydra_overrides": [
+        "runner.logger.logger_backends=[wandb]",
+        "runner.logger.project_name=${WANDB_PROJECT}",
+        "runner.only_eval=false",
+        "env.train.rlt_policy_switch.expert_takeover.enable=false",
+        "env.eval.rlt_policy_switch.expert_takeover.enable=false",
+        "rollout.expert_model=null",
+        "rollout.rlt_feature_model.model_path=${STAGE1_CHECKPOINT}",
+        "+rollout.rlt_feature_model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
+        "actor.enable_offload=true",
+        "+weight_syncer.patch.transport_device=cpu",
+        "env.eval.use_fixed_reset_state_ids=true",
+        "env.train.total_num_envs=16",
+        "env.train.rollout_epoch=4",
+        "env.eval.total_num_envs=16",
+        "env.eval.rollout_epoch=16",
+        "actor.seed=2026",
+        "algorithm.actor_weight_schedule.warmup_bc_weight=7",
+        "algorithm.actor_weight_schedule.online_bc_weight=2.5",
+        "algorithm.actor_weight_schedule.warmup_q_weight=0.05",
+        "algorithm.actor_weight_schedule.online_q_weight=0.45"
+      ],
+      "monitor_interval_seconds": 10,
+      "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+      "required_paths": {
+        "norm_stats": {
+          "kind": "file",
+          "path": "${NORM_STATS_PATH}"
+        },
+        "rlinf_home": {
+          "kind": "directory",
+          "path": "${RLINF_HOME}"
+        },
+        "stage1_checkpoint": {
+          "kind": "directory",
+          "path": "${STAGE1_CHECKPOINT}"
+        }
+      },
+      "rlinf_config": "maniskill_rlt_stage2_ac_mlp",
+      "runtime_environment": {
+        "EMBODIED_PATH": "${RLINF_HOME}/examples/embodiment",
+        "MUJOCO_GL": "egl",
+        "PYOPENGL_PLATFORM": "egl",
+        "PYTHONPATH": "${RLINF_HOME}",
+        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+        "SAPIEN_RENDER_SYSTEM": "egl",
+        "VK_ICD_FILENAMES": "/etc/vulkan/icd.d/nvidia_icd.json"
+      },
+      "schema_version": 1,
+      "scientific_values": {
+        "actor_offload": true,
+        "eval_parallel_environments": 16,
+        "eval_rollout_epochs": 16,
+        "expert_takeover": false,
+        "fixed_eval_trajectories": 256,
+        "online_bc_weight": 2.5,
+        "online_q_weight": 0.45,
+        "train_parallel_environments": 16,
+        "train_rollout_epochs": 4,
+        "train_trajectories_per_step": 64,
+        "warmup_bc_weight": 7,
+        "warmup_q_weight": 0.05,
+        "weight_transport_device": "cpu"
+      },
+      "stage": "stage2"
+    },
+    "rlinf_commit_actual": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "rlinf_commit_expected": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "run_cost_usd": 0,
+    "run_directory": "/private/tmp/enpire-e2-acceptance-20260903/results/d1/e2-live-objective-s2026",
+    "schema_version": 1,
+    "started_at": "2026-09-03T11:38:17.307162Z",
+    "status": "complete",
+    "wandb_run_url": "https://wandb.ai/fixture/qualia-rlt/runs/e2-live-objective-s2026",
+    "working_directory": "/private/tmp/enpire-e2-acceptance-20260903/worktrees/e2-live-objective-acceptance--e2-bounded-bc-term"
+  },
+  "manifest_sha256": "d1de4145ec4ba86243c2e005695deb6b0dfb89ae908e3b83d48763dd05f06259",
+  "non_promotable": true,
+  "plan": {
+    "campaign_hash": "913fd34362c0e1512d2a8b63fd287399be09a9a890e820f1227f9fc3f60bb1f2",
+    "contract": {
+      "arm_id": "e2-objective-code",
+      "campaign_id": "e2-live-objective-acceptance",
+      "candidate_commit": "846e989228210a53d198963536c63221d8184587",
+      "command_hash": "db990180bd0690d12701007440652c323a50f254ab72cc89e742c9ea6d84db5c",
+      "config_hash": "960d1a68dc654f6f0cdcc4302287c1de9cdb81a9c1a9fe3c1004d045e94ce6f9",
+      "evaluator_version": "e2-attachment-only-v1",
+      "max_gpu_cost_usd": "0.01",
+      "max_wall_time_seconds": 60,
+      "parent_commit": "9d2dcb61ae8cc0d43c988f33d205777775fa5a51",
+      "reset_set_hash": "e152b29420e18841c55f81b403640958f196844253d8fc58421fe19b629e907b",
+      "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+      "schema_version": 1,
+      "seed": 2026,
+      "trial_id": "e2-live-objective-s2026"
+    },
+    "derived_config_path": "/private/tmp/enpire-e2-acceptance-20260903/results/.plans/e2-live-objective-s2026/resolved_config.json",
+    "evaluation_trajectories": 256,
+    "execution_argv": [
+      "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "/private/tmp/enpire-d1-d2-agentic-harness/scripts/m5_fixture_launcher.py",
+      "--config",
+      "/private/tmp/enpire-e2-acceptance-20260903/results/.plans/e2-live-objective-s2026/resolved_config.json",
+      "--results-root",
+      "/private/tmp/enpire-e2-acceptance-20260903/results",
+      "--run-id",
+      "e2-live-objective-s2026",
+      "--logical-command-json",
+      "[\"fixture-rlt\",\"actor.seed=2026\",\"objective.contract=m6-actor-objective-v1\",\"objective.sha256=8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36\"]",
+      "--fixture-execute",
+      "--objective-plugin",
+      "/private/tmp/enpire-e2-acceptance-20260903/worktrees/e2-live-objective-acceptance--e2-bounded-bc-term/supervisor/objectives/actor_objective.py",
+      "--objective-display-path",
+      "supervisor/objectives/actor_objective.py",
+      "--objective-sha256",
+      "8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36",
+      "--objective-contract-version",
+      "m6-actor-objective-v1"
+    ],
+    "execution_argv_hash": "cdcc2f4a5ddd40db528a9383c58db7948073127d18f4ebd019a0c99e86758cbf",
+    "log_path": "/private/tmp/enpire-e2-acceptance-20260903/results/d1/e2-live-objective-s2026/run.log",
+    "logical_rlinf_command": [
+      "fixture-rlt",
+      "actor.seed=2026",
+      "objective.contract=m6-actor-objective-v1",
+      "objective.sha256=8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36"
+    ],
+    "manifest_path": "/private/tmp/enpire-e2-acceptance-20260903/results/d1/e2-live-objective-s2026/manifest.json",
+    "mode": "fixture",
+    "objective_contract_version": "m6-actor-objective-v1",
+    "objective_path": "/private/tmp/enpire-e2-acceptance-20260903/worktrees/e2-live-objective-acceptance--e2-bounded-bc-term/supervisor/objectives/actor_objective.py",
+    "objective_relative_path": "supervisor/objectives/actor_objective.py",
+    "objective_sha256": "8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36",
+    "results_root": "/private/tmp/enpire-e2-acceptance-20260903/results",
+    "schema_version": 1,
+    "source_config_hash": "8e7b09a9711de4fcbcf21f807d8073d79ffb5e849f63fc57ff627dfd6f143925",
+    "source_config_path": "/private/tmp/enpire-e2-acceptance-20260903/worktrees/e2-live-objective-acceptance--e2-bounded-bc-term/configs/d1/control.json",
+    "synthetic": true,
+    "workspace": "/private/tmp/enpire-e2-acceptance-20260903/worktrees/e2-live-objective-acceptance--e2-bounded-bc-term"
+  },
+  "plan_hash": "accd0527b3c04c47696f39ed39f626b8d5eebb592985d949f193342dfae6f514",
+  "proposal_origin": "deterministic-e2-acceptance-fixture",
+  "record_fingerprint": "7c62a031bf31a113393aa73d1be43624503291da49cfbee2f2bf6748c441561b",
+  "rejected_candidates": [
+    {
+      "base_commit": "9d2dcb61ae8cc0d43c988f33d205777775fa5a51",
+      "base_config_hash": null,
+      "branch_name": "hypothesis/e2-live-objective-acceptance/e2-rejected-import",
+      "campaign_id": "e2-live-objective-acceptance",
+      "candidate_commit": null,
+      "candidate_tree_hash": null,
+      "changed_paths": [
+        "supervisor/objectives/actor_objective.py"
+      ],
+      "checks": [],
+      "completed_at": "2026-09-03T11:38:16.568059Z",
+      "errors": [
+        "candidate source policy rejected: forbidden_import:supervisor/objectives/actor_objective.py, objective_import:supervisor/objectives/actor_objective.py"
+      ],
+      "materialized_config_hash": null,
+      "overrides_hash": null,
+      "proposal_hash": "b5c42fd675a3ec501d31f6b0fd7011b99931349fcae2bf7f93d0816b2773bf43",
+      "proposal_id": "e2-rejected-import",
+      "resolved_config_hash": null,
+      "schema_version": 1,
+      "stable_head_after": "9d2dcb61ae8cc0d43c988f33d205777775fa5a51",
+      "stable_head_before": "9d2dcb61ae8cc0d43c988f33d205777775fa5a51",
+      "staged_diff_hash": null,
+      "started_at": "2026-09-03T11:38:16.407329Z",
+      "status": "failed",
+      "validation_accepted": true,
+      "validation_hash": "dcc1ce41679f7dadb5f4aa59843e7f434ce182bc7130639ed3b0f024b291ff5d",
+      "worktree_path": "/private/tmp/enpire-e2-acceptance-20260903/worktrees/e2-live-objective-acceptance--e2-rejected-import"
+    }
+  ],
+  "rlinf_training_steps": 0,
+  "runtime_attachment": {
+    "attachment": {
+      "adapter_sha256": "fb51edc77fe1602405d32f6f219ad499fba209efe78e1b9a8ad5b415071418a1",
+      "attachment_mode": "sitecustomize-rlt-loss-mixin-v1",
+      "installed_target": "RLTACLossMixin.forward_actor",
+      "objective_contract_version": "m6-actor-objective-v1",
+      "objective_relative_path": "supervisor/objectives/actor_objective.py",
+      "objective_sha256": "8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36",
+      "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+      "rlinf_worker_sha256": "b2d5032400a63c2592b6175d524cac936c282f5a287e448dbcc5da7ad42d1fc2",
+      "seam_contract_version": "rlinf-rlt-actor-objective-seam-v1"
+    },
+    "candidate_gradient_max_abs_delta": 0.0031249970197677612,
+    "candidate_loss": 1.0874290466308594,
+    "device": "cpu",
+    "dtype": "float32",
+    "gradient_accumulation": 4,
+    "native_loss": 1.0456048250198364,
+    "objective_sha256": "8aef4f55ddb4c3ed7d3b0ab484752ed72dfb36f3981b5766d33468f7f49bba36",
+    "policy_shape": [
+      3,
+      2,
+      4
+    ],
+    "schema_version": 1,
+    "status": "passed",
+    "torch_version": "2.8.0",
+    "value_delta": 0.04182422161102295
+  },
+  "runtime_attachment_sha256": "549f35680acf053c563405a46cdbe8877fcb8a0c90f4fd0e1b9c8eff2aaf776f",
+  "schema_version": 1,
+  "stable_head_after": "9d2dcb61ae8cc0d43c988f33d205777775fa5a51",
+  "stable_head_before": "9d2dcb61ae8cc0d43c988f33d205777775fa5a51",
+  "status": "passed",
+  "summary": "Engineering provenance acceptance only; no policy performance or promotion conclusion."
+}

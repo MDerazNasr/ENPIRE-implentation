@@ -1,7 +1,7 @@
 # M6 Code-Enabled Objective Contract
 
-Status: live attachment and default PyTorch equivalence complete through E1;
-E2 candidate provenance binding remains open.
+Status: live attachment, default equivalence, and bounded candidate provenance
+are complete through E2. CUDA/full-worker qualification remains in Workstream F.
 
 M6 adds genuine training-code proposals without granting an agent general
 repository or RLinf editing authority. The only editable code surface is the
@@ -75,10 +75,11 @@ hashed `actor-objective` evidence artifact.
 ## Live compatibility boundary
 
 The code-enabled fixture path is executable now. Non-fixture objective plans
-continue to fail with an explicit compatibility-handoff error until E2 binds
-the live plan/launcher path. Pinned RLinf has no native external objective hook;
-E1 implemented E0's fail-closed, project-owned `sitecustomize` overlay of
-`RLTACLossMixin.forward_actor` without changing this v1 ABI.
+continue to fail with an explicit compatibility-handoff error until the live
+scientific launcher adopts the E2 identity binding. Pinned RLinf has no native
+external objective hook; E1 implemented E0's fail-closed, project-owned
+`sitecustomize` overlay of `RLTACLossMixin.forward_actor` without changing this
+v1 ABI, and E2 proved a non-default candidate through the no-GPU route.
 
 E0 determined and recorded:
 
@@ -89,5 +90,6 @@ E0 determined and recorded:
 
 The frozen details, upstream hashes, tensor ABI, runtime marker, and exact
 default-equivalence proof are in `e0-live-objective-seam.md`,
-`e1-default-objective-equivalence.md`, and ADR 0010. E2 may not silently weaken
-the ABI, source hash, mandatory validation, or immutable RLinf boundary.
+`e1-default-objective-equivalence.md`,
+`e2-bounded-objective-acceptance.md`, and ADR 0010. Later work may not silently
+weaken the ABI, source hash, mandatory validation, or immutable RLinf boundary.

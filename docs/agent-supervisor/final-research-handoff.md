@@ -95,9 +95,9 @@ versioned harness adapter, not silent RLinf edits or weaker validation.
 
 - No real Claude call, RLinf training, GPU/SSH worker, W&B API, robot, or paid
   service was used by the final supervisor branch.
-- E1 implemented the non-fixture PyTorch/RLinf attachment and proved exact
-  default CPU forward/gradient equivalence; E2 launcher/manifest binding and
-  later CUDA/full-worker qualification remain open.
+- E2 proved the non-fixture PyTorch/RLinf attachment, exact default CPU
+  equivalence, and bounded candidate identity through plan, command, manifest,
+  runtime marker, and evidence. CUDA/full-worker qualification remains open.
 - Remote helper deployment, detached-process recovery, active remote
   cancellation, artifact transfer, and real utilization collection require the
   live infrastructure handoff.

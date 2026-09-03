@@ -551,15 +551,25 @@ and `results/agent-supervisor/e1/default-equivalence.json`.
 
 ### E2. Prove a bounded candidate change
 
-- [ ] Generate or use one allowed non-no-op objective proposal.
-- [ ] Pass source, AST, import, signature, value, and gradient checks.
-- [ ] Verify the objective source hash appears in plan, command, manifest, and
+- [x] Generate or use one allowed non-no-op objective proposal.
+- [x] Pass source, AST, import, signature, value, and gradient checks.
+- [x] Verify the objective source hash appears in plan, command, manifest, and
   evidence.
-- [ ] Run a no-GPU or smallest possible attachment probe.
-- [ ] Preserve failed and rejected candidates.
+- [x] Run a no-GPU or smallest possible attachment probe.
+- [x] Preserve failed and rejected candidates.
 
 Gate E2: code-mode proposal-to-live-objective provenance is complete; no RLT
 improvement claim is made.
+
+Gate E2 result: **passed on 2026-09-03**. One deterministic bounded BC-term
+fixture passed the standard isolated Git preparation, M6 validation, D1 plan
+and fixture worker, live PyTorch CPU attachment, and ten-way identity
+reconciliation. It changed the finite loss and policy gradient without running
+training or evaluation. A forbidden-import control is retained as failed
+preparation. GPU/provider/LLM use and cost were zero, promotion was impossible,
+and no improvement claim is made. See
+`docs/agent-supervisor/e2-bounded-objective-acceptance.md` and
+`results/agent-supervisor/e2/acceptance.json`.
 
 ## 10. Workstream F: worker/runtime qualification
 
