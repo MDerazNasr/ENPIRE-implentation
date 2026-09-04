@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "approval_id": "enpire-f1-modal-worker-live-acceptance-attempt-2-2026-09-04",
+  "attempt": 2,
+  "approved_by": "Mohamed",
+  "approved_at": "2026-09-04T18:48:59Z",
+  "approval_source": "User replied 'yes' directly to the corrected F1 deployment and USD 2.00 authorization request",
+  "preflight_sha256": "768c0f7987cf897d52e6f682a759987bd5b06cc72c6cb2f093ffd95429bda354",
+  "profile_sha256": "c4e292583bef4688f3281ba891e64092ee704e59cbda070667c25848499f0522",
+  "runtime_contract_sha256": "260928126f1342b268b9b40eff56d0e4e5d0f57f112d212eb6f081092fdc6e0c",
+  "source_bundle_sha256": "9362ec7fa6feef3efa0285e310a9a216047d8eb811270f8afc091046d08b465b",
+  "provider": "Modal",
+  "provider_profile": "deraznasr776",
+  "app_name": "enpire-f1-worker-rpc-v1",
+  "authorized_actions": [
+    "redeploy corrected fixed app",
+    "run one completed fixed GPU probe",
+    "run one actively cancelled fixed GPU probe",
+    "invoke bounded control-plane RPC checks",
+    "query tagged provider billing"
+  ],
+  "maximum_probe_calls": 2,
+  "maximum_aggregate_gpu_function_seconds": 600,
+  "maximum_gpu_resource_cost_usd": "0.758832",
+  "maximum_new_total_provider_cost_usd": "2.00",
+  "previous_attempt_actual_provider_cost_usd": "0.01789599",
+  "training_authorized": false,
+  "evaluation_authorized": false,
+  "promotion_authorized": false,
+  "scientific_claim_authorized": false
+}
