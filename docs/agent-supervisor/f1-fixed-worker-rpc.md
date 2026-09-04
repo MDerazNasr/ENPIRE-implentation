@@ -1,8 +1,8 @@
 # F1 Fixed Modal Worker RPC
 
 Status: **attempts 1 and 2 failed safely before GPU launch; the remaining broad
-package-facade defect is corrected locally and requires a third immutable
-preflight and explicit approval before redeployment**.
+package-facade defect is corrected and a third immutable preflight is ready for
+explicit approval before redeployment**.
 
 F1 replaces M7's mocked remote boundary with a Modal-native implementation of
 the same provider-neutral `ExperimentWorker` interface. The provider transport
@@ -127,9 +127,13 @@ The clean no-launch preflight passed from implementation commit
 contracts. The preflight artifact SHA-256 is `c4a57739...6f90`.
 
 The first two preflights and approvals were consumed by their failed bundles
-and do not authorize changed source. The minimal-namespace correction must pass
-the full suite, be committed, receive a new clean preflight, and obtain explicit
-approval before redeployment. Live acceptance must then prove the completed
+and do not authorize changed source. The minimal-namespace correction is
+committed as `591e64a`; all 288 tests pass. Its clean third preflight binds
+source bundle `88ec43f3...7383a`, preflight artifact `c7d05b91...cfd1`, the
+unchanged F0 runtime/profile, two fixed probes, 600 aggregate GPU-function
+seconds, USD `0.758832` maximum runtime-resource cost, and USD `2.00` maximum
+new provider cost. Execution and GPU authorization remain false pending
+explicit acceptance. Live acceptance must then prove the completed
 lifecycle, restart recovery, verified transfer, cancellation/late-result
 behavior, spoof rejection, actual telemetry, and tagged provider billing.
 

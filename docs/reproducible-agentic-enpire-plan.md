@@ -621,8 +621,11 @@ then failed valid prepare on a third boundary: Python executed the broad
 stack. No launch or GPU probe occurred; attempt-2 billing was USD `0.01439801`,
 bringing cumulative F1 cost to USD `0.03229400`. A marked minimal namespace now
 loads only the four required RPC modules without adding agent authority. The
-new source must pass a clean preflight and explicit approval before another
-deployment. Gate F1 remains open. See
+correction is committed as `591e64a`; all 288 tests pass. The clean third
+preflight binds source `88ec43f3...7383a` and artifact `c7d05b91...cfd1` with
+the unchanged two-probe, 600-second, USD `0.758832` runtime-resource and USD
+`2.00` new-total ceilings. Execution remains false pending explicit approval.
+Gate F1 remains open. See
 `docs/agent-supervisor/f1-fixed-worker-rpc.md` and
 `results/runtime-qualification/f1/attempt-2.json`.
 
