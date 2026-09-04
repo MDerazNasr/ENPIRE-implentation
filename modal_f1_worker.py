@@ -7,8 +7,11 @@ import hashlib
 import json
 import os
 import subprocess
+import sys
 import time
+import types
 from datetime import datetime, timezone
+from importlib.machinery import ModuleSpec
 from pathlib import Path
 from typing import Any
 
@@ -34,6 +37,7 @@ IMAGE_PLATFORM_DIGEST = (
     "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7"
 )
 RLINF_COMMIT = "c90951a0c799a750cb5294ed10587c61cc2af8bf"
+F1_NAMESPACE_MARKER = "enpire-f1-minimal-supervisor-v1"
 
 
 app = modal.App(
@@ -112,6 +116,21 @@ def _sha256(value: bytes) -> str:
 
 def _timestamp() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def _install_f1_supervisor_namespace() -> None:
+    """Load required submodules without executing the broad package facade."""
+    existing = sys.modules.get("supervisor")
+    if existing is not None:
+        if getattr(existing, "_enpire_f1_namespace", None) != F1_NAMESPACE_MARKER:
+            raise RuntimeError("unexpected supervisor package was preloaded")
+        return
+    package = types.ModuleType("supervisor")
+    package.__package__ = "supervisor"
+    package.__path__ = [f"{PROJECT_ROOT}/supervisor"]
+    package.__spec__ = ModuleSpec("supervisor", loader=None, is_package=True)
+    package._enpire_f1_namespace = F1_NAMESPACE_MARKER
+    sys.modules["supervisor"] = package
 
 
 def _runtime_contract() -> tuple[dict[str, Any], str]:
@@ -230,6 +249,7 @@ def _poll(state: dict[str, Any]) -> dict[str, Any]:
 )
 def bounded_gpu_probe(contract_value: dict[str, Any], runtime_hash: str) -> dict[str, Any]:
     """Run only the baked-in bounded CUDA/renderer telemetry probe."""
+    _install_f1_supervisor_namespace()
     from supervisor.contracts import ArtifactRef, TrialEvidence
     from supervisor.workers import RunContract
 
@@ -439,6 +459,7 @@ print(json.dumps({
 )
 def rpc(request_value: dict[str, Any]) -> dict[str, Any]:
     """Handle exactly one allowlisted lifecycle operation."""
+    _install_f1_supervisor_namespace()
     from supervisor.canonical import fingerprint
     from supervisor.modal_worker_rpc import WorkerRpcRequest
     from supervisor.workers import RunContract

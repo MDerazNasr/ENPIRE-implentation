@@ -1,8 +1,8 @@
 # F1 Fixed Modal Worker RPC
 
-Status: **attempt 1 failed safely before GPU launch; both transport packaging
-defects are corrected and the replacement immutable preflight is ready for
-explicit paid approval before redeployment**.
+Status: **attempts 1 and 2 failed safely before GPU launch; the remaining broad
+package-facade defect is corrected locally and requires a third immutable
+preflight and explicit approval before redeployment**.
 
 F1 replaces M7's mocked remote boundary with a Modal-native implementation of
 the same provider-neutral `ExperimentWorker` interface. The provider transport
@@ -99,6 +99,25 @@ approval and complete compact attempt record are retained in
 `results/runtime-qualification/f1/approval-attempt-1.json` and
 `results/runtime-qualification/f1/attempt-1.json`.
 
+## Live attempt 2
+
+The user explicitly approved corrected source bundle `9362ec7f...b465b` and
+the same bounded cost envelope on 2026-09-04. Modal deployed version `v2` from
+commit `2492445`; the identity-spoof control again failed closed. Valid prepare
+then exposed a separate import boundary: Python executes
+`supervisor/__init__.py` before a `supervisor.*` submodule, and that broad facade
+imports unrelated evaluator modules requiring the absent `agent` package.
+Prepare failed in the CPU function, so no launch or GPU probe occurred.
+
+The least-authority correction installs a marked minimal `supervisor` namespace
+before importing only `canonical`, `contracts`, `workers`, and
+`modal_worker_rpc`. It deliberately does not add the agent, evaluator, or
+training stack to the image. A local Modal-interpreter probe confirms those F1
+modules load while `agent` remains absent. Tagged attempt-2 billing is CPU USD
+`0.01375946` plus memory USD `0.00063855`, totaling USD `0.01439801`; no
+accelerator entry exists. The cumulative cost of attempts 1 and 2 is USD
+`0.03229400`.
+
 ## Remaining gate
 
 The clean no-launch preflight passed from implementation commit
@@ -107,14 +126,10 @@ The clean no-launch preflight passed from implementation commit
 `4cce0a35...6edb`, the fixed deployment command, and the two exact probe
 contracts. The preflight artifact SHA-256 is `c4a57739...6f90`.
 
-That preflight and approval were consumed by failed attempt 1 and do not
-authorize changed source. The corrected implementation is committed as
-`070a635`; all 288 tests pass. Its clean replacement preflight binds source
-bundle `9362ec7f...b465b`, preflight artifact `768c0f79...a354`, the unchanged
-F0 runtime/profile, two fixed probes, 600 aggregate GPU-function seconds, USD
-`0.758832` maximum runtime-resource cost, and USD `2.00` maximum total provider
-cost. Execution and GPU authorization remain false until the user explicitly
-accepts this replacement envelope. Live acceptance must then prove the completed
+The first two preflights and approvals were consumed by their failed bundles
+and do not authorize changed source. The minimal-namespace correction must pass
+the full suite, be committed, receive a new clean preflight, and obtain explicit
+approval before redeployment. Live acceptance must then prove the completed
 lifecycle, restart recovery, verified transfer, cancellation/late-result
 behavior, spoof rejection, actual telemetry, and tagged provider billing.
 

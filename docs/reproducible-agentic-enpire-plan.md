@@ -614,14 +614,17 @@ failed in the CPU control function because the copied `supervisor` package was
 not on the image import path. A separate local defect dereferenced Homebrew's
 virtual-environment interpreter symlink. No launch completed, no GPU probe ran,
 and tagged provider billing totaled USD `0.01789599`, including zero accelerator
-cost. Both defects are corrected in commit `070a635`, and all 288 tests pass.
-The replacement clean no-launch preflight binds source bundle
-`9362ec7f...b465b` and artifact `768c0f79...a354`; execution authorization is
-false until the user explicitly accepts the unchanged two-probe, 600-second,
-USD `0.758832` runtime-resource and USD `2.00` total ceilings. Gate F1 remains
-open. See
+cost. Both defects were corrected in commit `070a635`, and all 288 tests passed.
+The approved replacement bundle `9362ec7f...b465b` deployed as version `v2`,
+then failed valid prepare on a third boundary: Python executed the broad
+`supervisor` package facade and imported the intentionally absent agent/evaluator
+stack. No launch or GPU probe occurred; attempt-2 billing was USD `0.01439801`,
+bringing cumulative F1 cost to USD `0.03229400`. A marked minimal namespace now
+loads only the four required RPC modules without adding agent authority. The
+new source must pass a clean preflight and explicit approval before another
+deployment. Gate F1 remains open. See
 `docs/agent-supervisor/f1-fixed-worker-rpc.md` and
-`results/runtime-qualification/f1/attempt-1.json`.
+`results/runtime-qualification/f1/attempt-2.json`.
 
 ### F2. Matched runtime rehearsal
 

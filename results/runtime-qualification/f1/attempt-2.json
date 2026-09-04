@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "attempt_id": "enpire-f1-live-acceptance-attempt-2",
+  "status": "failed_pre_gpu",
+  "claim_scope": "remote worker engineering acceptance only; no training, evaluation, promotion, or scientific inference",
+  "approval_record": "approval-attempt-2.json",
+  "approval_record_sha256": "ed153f2da30cb368dedab8a70de8532ee8a27d8c8a651dc1fadb2dba6087f725",
+  "preflight_sha256": "768c0f7987cf897d52e6f682a759987bd5b06cc72c6cb2f093ffd95429bda354",
+  "source_bundle_sha256": "9362ec7fa6feef3efa0285e310a9a216047d8eb811270f8afc091046d08b465b",
+  "deployment": {
+    "provider": "Modal",
+    "app_id": "ap-Cp71jN9ObZWaMk1I8hD7IY",
+    "app_name": "enpire-f1-worker-rpc-v1",
+    "version": "v2",
+    "state_after_attempt": "deployed",
+    "deployed_at": "2026-09-04T18:55:13Z",
+    "deployed_commit": "2492445",
+    "modal_client_version": "1.5.3",
+    "deployment_elapsed_seconds": 320.440
+  },
+  "operations": {
+    "identity_spoof_rejected": true,
+    "valid_prepare_completed": false,
+    "launch_requests_completed": 0,
+    "gpu_probe_calls": 0,
+    "training_calls": 0,
+    "evaluation_calls": 0,
+    "promotion_calls": 0
+  },
+  "failure": {
+    "boundary": "deployed rpc prepare",
+    "error": "ModuleNotFoundError: No module named 'agent'",
+    "cause": "Importing a supervisor submodule executed the broad supervisor package facade, which imports unrelated evaluator modules",
+    "effect": "failed in the CPU control function before launch"
+  },
+  "provider_billing": {
+    "interval_start": "2026-09-04T18:00:00Z",
+    "tags": {
+      "project": "enpire",
+      "phase": "f1-worker-acceptance"
+    },
+    "resources_usd": {
+      "CPU": "0.01375946",
+      "Memory": "0.00063855"
+    },
+    "accelerator_billing_entry_present": false,
+    "actual_accelerator_cost_usd": "0",
+    "actual_total_provider_cost_usd": "0.01439801",
+    "approved_new_total_provider_cost_usd": "2.00",
+    "within_approved_total": true,
+    "queried_at": "2026-09-04T19:02:26Z",
+    "source": "Modal billing report, hourly resolution, Europe/Copenhagen timezone, project and phase tags"
+  },
+  "cumulative_f1_provider_cost_through_attempt_usd": "0.03229400",
+  "conclusion": "Attempt 2 failed safely before any GPU launch. The exact approval was consumed by source bundle 9362ec7f... and cannot authorize the minimal-namespace correction."
+}

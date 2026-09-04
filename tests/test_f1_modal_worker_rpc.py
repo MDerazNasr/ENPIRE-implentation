@@ -319,6 +319,9 @@ class F1ModalWorkerRpcTests(unittest.TestCase):
         self.assertIn("terminate_containers=True", source)
         self.assertIn('IMAGE_ENVIRONMENT = {"PYTHONPATH": PROJECT_ROOT}', source)
         self.assertEqual(source.count(".env(IMAGE_ENVIRONMENT)"), 2)
+        self.assertIn("def _install_f1_supervisor_namespace()", source)
+        self.assertEqual(source.count("_install_f1_supervisor_namespace()"), 3)
+        self.assertNotIn('.add_local_dir("agent"', source)
 
 
 if __name__ == "__main__":
