@@ -4,6 +4,7 @@ import base64
 import copy
 import hashlib
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -12,6 +13,7 @@ from supervisor.canonical import fingerprint
 from supervisor.contracts import ArtifactRef, TrialEvidence
 from supervisor.modal_worker_rpc import (
     MAX_RPC_OUTPUT_BYTES,
+    FixedModalRpcExecutor,
     ModalExperimentWorker,
     ModalRpcResult,
     ModalWorkerRpcError,
@@ -174,6 +176,24 @@ def worker(executor, *, recovered_contracts=()) -> ModalExperimentWorker:
 
 
 class F1ModalWorkerRpcTests(unittest.TestCase):
+    def test_fixed_executor_preserves_virtual_environment_python_symlink(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            interpreter = root / "modal-python"
+            interpreter.symlink_to("/bin/sh")
+            client = root / "client.py"
+            client.write_text("pass\n")
+            executor = FixedModalRpcExecutor.create(
+                python_executable=interpreter,
+                client_script=client,
+                expected_profile="fixture-profile",
+            )
+            self.assertEqual(
+                executor.python_executable,
+                Path(os.path.abspath(os.fspath(interpreter))),
+            )
+            self.assertNotEqual(executor.python_executable, interpreter.resolve())
+
     def test_complete_lifecycle_and_verified_artifact_transfer(self) -> None:
         contract = run_contract("f1-live-fixture")
         executor = FixtureModalExecutor()
@@ -297,6 +317,8 @@ class F1ModalWorkerRpcTests(unittest.TestCase):
         self.assertNotIn('payload["argv"]', source)
         self.assertIn("bounded_gpu_probe.spawn", source)
         self.assertIn("terminate_containers=True", source)
+        self.assertIn('IMAGE_ENVIRONMENT = {"PYTHONPATH": PROJECT_ROOT}', source)
+        self.assertEqual(source.count(".env(IMAGE_ENVIRONMENT)"), 2)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "attempt_id": "enpire-f1-live-acceptance-attempt-1",
+  "status": "failed_pre_gpu",
+  "claim_scope": "remote worker engineering acceptance only; no training, evaluation, promotion, or scientific inference",
+  "approval_record": "approval-attempt-1.json",
+  "approval_record_sha256": "d3f6db85f18b0109fd69199d60127cd366aef32037780775a7bd7ed30c56d0fb",
+  "preflight_sha256": "c4a577396dee8ed39680a2955198c4b66c022ff9c1d20e0e54c8bf1f15b76f90",
+  "source_bundle_sha256": "4cce0a35a13593044f70bcc0ab9eac4d45874740aa43d364c9514aecf9956edb",
+  "deployment": {
+    "provider": "Modal",
+    "app_id": "ap-Cp71jN9ObZWaMk1I8hD7IY",
+    "app_name": "enpire-f1-worker-rpc-v1",
+    "version": "v1",
+    "state_after_attempt": "deployed",
+    "deployed_at": "2026-09-03T14:15:15Z",
+    "deployed_commit": "2b2c1c0",
+    "modal_client_version": "1.5.3",
+    "deployment_elapsed_seconds": 464.918
+  },
+  "operations": {
+    "identity_spoof_rejected": true,
+    "valid_prepare_completed": false,
+    "launch_requests_completed": 0,
+    "gpu_probe_calls": 0,
+    "training_calls": 0,
+    "evaluation_calls": 0,
+    "promotion_calls": 0
+  },
+  "failures": [
+    {
+      "boundary": "local fixed executor factory",
+      "error": "FixedModalRpcExecutor.create dereferenced the Homebrew virtual-environment Python symlink to a base interpreter without Modal",
+      "effect": "failed before a remote request"
+    },
+    {
+      "boundary": "deployed rpc prepare",
+      "error": "ModuleNotFoundError: No module named 'supervisor'",
+      "effect": "failed in the CPU control function before launch"
+    }
+  ],
+  "provider_billing": {
+    "interval_start": "2026-09-03T14:00:00Z",
+    "tags": {
+      "project": "enpire",
+      "phase": "f1-worker-acceptance"
+    },
+    "resources_usd": {
+      "CPU": "0.01700228",
+      "Memory": "0.00089371",
+      "A10G": "0.00000000"
+    },
+    "actual_total_provider_cost_usd": "0.01789599",
+    "approved_total_provider_cost_usd": "2.00",
+    "within_approved_total": true,
+    "queried_at": "2026-09-04",
+    "source": "Modal billing report, hourly resolution, Europe/Copenhagen timezone, project and phase tags"
+  },
+  "conclusion": "Attempt 1 failed safely before any GPU launch. The original approval was consumed by the deployed source bundle and cannot authorize a corrected bundle."
+}

@@ -19,6 +19,7 @@ APP_NAME = "enpire-f1-worker-rpc-v1"
 WORKER_ID = "modal-rtx-pro-6000-f1"
 RUNTIME_CONTRACT_ID = "enpire-matched-scientific-runtime-v1"
 PROJECT_ROOT = "/opt/qualia"
+IMAGE_ENVIRONMENT = {"PYTHONPATH": PROJECT_ROOT}
 WORKSPACE = "/workspace"
 STATE_ROOT = Path(WORKSPACE) / "f1-worker-rpc"
 RUNTIME_CONTRACT_PATH = Path(PROJECT_ROOT) / "runtime-contract.json"
@@ -43,6 +44,7 @@ workspace = modal.Volume.from_name("enpire-workspace", create_if_missing=False)
 
 control_image = (
     modal.Image.debian_slim(python_version="3.11")
+    .env(IMAGE_ENVIRONMENT)
     .add_local_dir("supervisor", f"{PROJECT_ROOT}/supervisor", copy=True)
     .add_local_file(
         "results/runtime-qualification/f0/runtime-contract.json",
@@ -57,6 +59,7 @@ scientific_image = (
         add_python="3.11",
     )
     .entrypoint([])
+    .env(IMAGE_ENVIRONMENT)
     .apt_install(
         "git",
         "git-lfs",

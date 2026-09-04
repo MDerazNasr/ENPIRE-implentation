@@ -1,7 +1,8 @@
 # F1 Fixed Modal Worker RPC
 
-Status: **implemented and locally verified; immutable no-launch preflight
-passed; explicit paid approval pending**.
+Status: **attempt 1 failed safely before GPU launch; two transport packaging
+defects are corrected locally and require a new immutable preflight and explicit
+paid approval before redeployment**.
 
 F1 replaces M7's mocked remote boundary with a Modal-native implementation of
 the same provider-neutral `ExperimentWorker` interface. The provider transport
@@ -76,6 +77,28 @@ USD `0.758832` maximum runtime-resource cost, and USD `2.00` maximum total
 provider cost including build/control reserve. Promotion and scientific use are
 permanently false.
 
+## Live attempt 1
+
+The user approved the exact `4cce0a35...6edb` source bundle and USD `2.00`
+ceiling on 2026-09-03. Modal deployed version `v1` as app
+`ap-Cp71jN9ObZWaMk1I8hD7IY`. The identity-spoof control was rejected, but the
+valid `prepare` operation failed in the CPU control function because the image
+copied `supervisor/` to `/opt/qualia` without adding that root to `PYTHONPATH`.
+No `launch` request completed and no GPU probe ran.
+
+The attempt also exposed a local client defect: resolving Homebrew's
+virtual-environment `bin/python` symlink selected the base Python interpreter,
+which did not contain Modal. The correction preserves the symlink and adds
+`/opt/qualia` to both image environments. Regression tests now bind both
+conditions.
+
+Modal's tagged hourly billing record reports CPU USD `0.01700228`, memory USD
+`0.00089371`, and accelerator USD `0.00000000`, for an actual attempt total of
+USD `0.01789599`. This is below the approved USD `2.00` ceiling. The immutable
+approval and complete compact attempt record are retained in
+`results/runtime-qualification/f1/approval-attempt-1.json` and
+`results/runtime-qualification/f1/attempt-1.json`.
+
 ## Remaining gate
 
 The clean no-launch preflight passed from implementation commit
@@ -84,8 +107,10 @@ The clean no-launch preflight passed from implementation commit
 `4cce0a35...6edb`, the fixed deployment command, and the two exact probe
 contracts. The preflight artifact SHA-256 is `c4a57739...6f90`.
 
-Deployment and GPU execution still require explicit approval of that
-preflight and its USD `2.00` total ceiling. Live acceptance must then prove the completed
+That preflight and approval were consumed by failed attempt 1 and do not
+authorize changed source. The corrected bundle must pass the full local suite,
+be committed, receive a new clean no-launch preflight, and obtain explicit
+approval before redeployment or GPU execution. Live acceptance must then prove the completed
 lifecycle, restart recovery, verified transfer, cancellation/late-result
 behavior, spoof rejection, actual telemetry, and tagged provider billing.
 

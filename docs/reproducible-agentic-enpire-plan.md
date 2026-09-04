@@ -607,14 +607,18 @@ See `docs/agent-supervisor/f0-matched-runtime.md` and
 Gate F1: remote workers satisfy the existing M7 contract without general shell
 authority for the agent.
 
-F1 implementation/preflight checkpoint: the fixed Modal-native worker, immutable client,
-detached FunctionCall lifecycle, active cancellation, durable recovery,
-bounded digest-verified artifact transfer, exact F0 image/stack probe, profile,
-and adversarial local tests are implemented. The clean no-launch preflight at
-commit `6a18093` binds source bundle `4cce0a35...6edb` and a USD `2.00` maximum
-total provider cost. No provider app or GPU has been launched. Explicit
-approval of this bounded live acceptance remains required before Gate F1 can pass. See
-`docs/agent-supervisor/f1-fixed-worker-rpc.md`.
+F1 attempt-1 checkpoint: the fixed Modal-native worker and immutable client
+were deployed after explicit approval of source bundle `4cce0a35...6edb` and a
+USD `2.00` ceiling. The identity-spoof control passed, but valid preparation
+failed in the CPU control function because the copied `supervisor` package was
+not on the image import path. A separate local defect dereferenced Homebrew's
+virtual-environment interpreter symlink. No launch completed, no GPU probe ran,
+and tagged provider billing totaled USD `0.01789599`, including zero accelerator
+cost. Both defects are corrected locally with regression tests. Because the
+source bundle changed, a new clean preflight and explicit approval are required
+before redeployment; Gate F1 remains open. See
+`docs/agent-supervisor/f1-fixed-worker-rpc.md` and
+`results/runtime-qualification/f1/attempt-1.json`.
 
 ### F2. Matched runtime rehearsal
 

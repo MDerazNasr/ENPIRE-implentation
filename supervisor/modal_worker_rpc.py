@@ -162,7 +162,10 @@ class FixedModalRpcExecutor:
         client_script: Path,
         expected_profile: str,
     ) -> "FixedModalRpcExecutor":
-        executable = python_executable.resolve()
+        # Preserve virtual-environment interpreter symlinks. Resolving a Homebrew
+        # venv's ``bin/python`` selects the base interpreter and drops the venv's
+        # site-packages, including Modal itself.
+        executable = Path(os.path.abspath(os.fspath(python_executable)))
         script = client_script.resolve()
         if not executable.is_file() or not os.access(executable, os.X_OK):
             raise ModalWorkerRpcError("Modal client Python is unavailable")
