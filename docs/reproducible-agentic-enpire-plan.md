@@ -596,13 +596,14 @@ See `docs/agent-supervisor/f0-matched-runtime.md` and
 
 ### F1. Deploy fixed worker RPC
 
-- [ ] Implement/deploy the harness-owned remote helper.
-- [ ] Pin SSH endpoints and commands outside agent control.
-- [ ] Validate prepare, launch, status, heartbeat, cancel, and fetch-evidence.
-- [ ] Test identity spoofing, malformed payloads, late results, worker loss,
+- [x] Implement/deploy the harness-owned remote helper.
+- [x] Pin the provider-native endpoint and operations outside agent control; no
+  SSH or general shell is exposed.
+- [x] Validate prepare, launch, status, heartbeat, cancel, and fetch-evidence.
+- [x] Test identity spoofing, malformed payloads, late results, worker loss,
   coordinator restart, and retry.
-- [ ] Implement artifact transfer and digest verification.
-- [ ] Capture actual GPU utilization and provider cost.
+- [x] Implement artifact transfer and digest verification.
+- [x] Capture actual GPU utilization and provider cost.
 
 Gate F1: remote workers satisfy the existing M7 contract without general shell
 authority for the agent.
@@ -622,12 +623,21 @@ stack. No launch or GPU probe occurred; attempt-2 billing was USD `0.01439801`,
 bringing cumulative F1 cost to USD `0.03229400`. A marked minimal namespace now
 loads only the four required RPC modules without adding agent authority. The
 correction is committed as `591e64a`; all 288 tests pass. The clean third
-preflight binds source `88ec43f3...7383a` and artifact `c7d05b91...cfd1` with
+preflight bound source `88ec43f3...7383a` and artifact `c7d05b91...cfd1` with
 the unchanged two-probe, 600-second, USD `0.758832` runtime-resource and USD
-`2.00` new-total ceilings. Execution remains false pending explicit approval.
-Gate F1 remains open. See
+`2.00` new-total ceilings.
+
+Gate F1 result: **passed on live attempt 3**. Modal version `v3` rejected the
+spoofed identity; completed prepare/heartbeat/launch; recovered running status
+through a reconstructed coordinator; returned completed evidence and three
+digest-verified artifacts; then actively cancelled the second running call and
+retained late `cancelled` status. The fixed 15.019-second CUDA probe verified
+the matched Python/Torch/CUDA/RLinf/ManiSkill/SAPIEN/image/Vulkan identities on
+an NVIDIA RTX PRO 6000 with 560 telemetry samples. Tagged attempt-3 billing was
+USD `0.09696652`, and cumulative F1 cost is USD `0.12926052`. No training,
+evaluation, promotion, or scientific claim occurred. See
 `docs/agent-supervisor/f1-fixed-worker-rpc.md` and
-`results/runtime-qualification/f1/attempt-2.json`.
+`results/runtime-qualification/f1/attempt-3.json`.
 
 ### F2. Matched runtime rehearsal
 

@@ -1,8 +1,7 @@
 # F1 Fixed Modal Worker RPC
 
-Status: **attempts 1 and 2 failed safely before GPU launch; the remaining broad
-package-facade defect is corrected and a third immutable preflight is ready for
-explicit approval before redeployment**.
+Status: **passed on live attempt 3; fixed remote lifecycle, recovery,
+cancellation, artifacts, telemetry, and tagged billing are verified**.
 
 F1 replaces M7's mocked remote boundary with a Modal-native implementation of
 the same provider-neutral `ExperimentWorker` interface. The provider transport
@@ -118,24 +117,33 @@ modules load while `agent` remains absent. Tagged attempt-2 billing is CPU USD
 accelerator entry exists. The cumulative cost of attempts 1 and 2 is USD
 `0.03229400`.
 
-## Remaining gate
+## Live attempt 3 and gate result
 
-The clean no-launch preflight passed from implementation commit
-`6a1809362b256ff3bd2fd0f83440c400d77abe8f`. It binds F0 runtime SHA-256
-`26092812...6e0c`, profile SHA-256 `c4e29258...0522`, source-bundle SHA-256
-`4cce0a35...6edb`, the fixed deployment command, and the two exact probe
-contracts. The preflight artifact SHA-256 is `c4a57739...6f90`.
+The user explicitly approved third source bundle `88ec43f3...7383a`, preflight
+`c7d05b91...cfd1`, two calls, 600 aggregate GPU-function seconds, USD
+`0.758832` GPU-resource cost, and USD `2.00` new total cost. Modal version `v3`
+deployed in 3.121 seconds with image reuse. The fixed client then proved:
 
-The first two preflights and approvals were consumed by their failed bundles
-and do not authorize changed source. The minimal-namespace correction is
-committed as `591e64a`; all 288 tests pass. Its clean third preflight binds
-source bundle `88ec43f3...7383a`, preflight artifact `c7d05b91...cfd1`, the
-unchanged F0 runtime/profile, two fixed probes, 600 aggregate GPU-function
-seconds, USD `0.758832` maximum runtime-resource cost, and USD `2.00` maximum
-new provider cost. Execution and GPU authorization remain false pending
-explicit acceptance. Live acceptance must then prove the completed
-lifecycle, restart recovery, verified transfer, cancellation/late-result
-behavior, spoof rejection, actual telemetry, and tagged provider billing.
+- spoofed worker identity rejection;
+- prepare, heartbeat, detached launch, and terminal polling;
+- status recovery through a new coordinator instance bound to the exact
+  contract;
+- completed evidence and three chunked, digest-verified artifacts;
+- a second call entering `running`, active container cancellation, and durable
+  late `cancelled` status.
 
-Passing those checks will complete F1. F2—not F1—will run bounded
-Control-shaped and Candidate-shaped RLinf rehearsals.
+The completed fixed CUDA probe ran for 15.019342932 seconds on an NVIDIA RTX
+PRO 6000 Blackwell Server Edition with 97,887 MiB reported memory. It verified
+Python 3.11.14, Torch 2.8.0+cu128, CUDA 12.8, RLinf `c90951a0`, SAPIEN 3.0.1,
+ManiSkill 3.0.0b22, the immutable image digest, and Mesa llvmpipe Vulkan. The
+560 telemetry samples recorded nonzero GPU utilization and 59.06--103.69 W.
+
+Modal's tagged record reports RTX PRO 6000 USD `0.06396720`, CPU USD
+`0.01658141`, and memory USD `0.01641791`: USD `0.09696652` for attempt 3,
+well inside both approved ceilings. Cumulative F1 cost including the two safe
+pre-GPU attempts is USD `0.12926052`. The immutable compact gate record is
+`results/runtime-qualification/f1/attempt-3.json`.
+
+Gate F1 is complete. F2—not F1—will run bounded Control-shaped and
+Candidate-shaped RLinf rehearsals; F1 authorizes no training, evaluation,
+promotion, or scientific claim.

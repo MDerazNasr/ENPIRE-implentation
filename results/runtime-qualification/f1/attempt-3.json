@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "attempt_id": "enpire-f1-live-acceptance-attempt-3",
+  "status": "passed",
+  "claim_scope": "remote worker engineering acceptance only; no training, evaluation, promotion, or scientific inference",
+  "approval_record": "approval-attempt-3.json",
+  "approval_record_sha256": "ccdf1e87990cb47e2a21f747c01df64e931c8d2119b13fbad03bb86a6ac8dcc4",
+  "preflight_sha256": "c7d05b9189527aba005f35292661625bd431dd5edd03964f9b24b64e5b1fcfd1",
+  "source_bundle_sha256": "88ec43f31016be6e0f806fe2476cddaa0004de2e73dd15a03bfe75c348b7383a",
+  "deployment": {
+    "provider": "Modal",
+    "app_id": "ap-Cp71jN9ObZWaMk1I8hD7IY",
+    "app_name": "enpire-f1-worker-rpc-v1",
+    "version": "v3",
+    "state_after_attempt": "deployed_scale_to_zero",
+    "deployed_at": "2026-09-04T19:42:28Z",
+    "deployed_commit": "72a2f0b",
+    "modal_client_version": "1.5.3",
+    "deployment_elapsed_seconds": 3.121
+  },
+  "operations": {
+    "identity_spoof_rejected": true,
+    "identity_spoof_stderr_sha256": "1b3aa602d1fa874a646a3f754d69982382b6ced3d638578c7d6027d16a6c0978",
+    "prepare": "passed",
+    "heartbeat": "passed",
+    "launch": "passed",
+    "coordinator_restart_status": "passed_running",
+    "terminal_status": "completed",
+    "fetch_evidence": "passed",
+    "fetch_artifact_digest": "passed_all_three",
+    "active_cancel": "passed",
+    "late_cancelled_status": "cancelled",
+    "gpu_probe_calls": 2,
+    "training_calls": 0,
+    "evaluation_calls": 0,
+    "promotion_calls": 0
+  },
+  "completed_probe": {
+    "trial_id": "f1-complete-probe",
+    "contract_sha256": "2b2e1f6b658160c1c79369e734006cb014fe03f01da3497e45cd205edffd3f17",
+    "evidence_sha256": "031fe7f14e963ccf6dfd5fa0ba6f47e0196d96b0ec49165958e412249f550681",
+    "started_at": "2026-09-04T19:43:53.718807Z",
+    "finished_at": "2026-09-04T19:44:11.155476Z",
+    "probe_elapsed_seconds": 15.019342932,
+    "rate_times_runtime_estimate_usd": "0.018995263393",
+    "gpu_peak_utilization_percent": 3.0,
+    "gpu_peak_memory_used_mib": 745.0,
+    "coordinator_recovery_first_state": "running",
+    "poll_count": 3
+  },
+  "runtime_telemetry": {
+    "runtime_contract_id": "enpire-matched-scientific-runtime-v1",
+    "runtime_contract_sha256": "260928126f1342b268b9b40eff56d0e4e5d0f57f112d212eb6f081092fdc6e0c",
+    "image_platform_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+    "python": "3.11.14",
+    "torch": "2.8.0+cu128",
+    "cuda_runtime": "12.8",
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "sapien": "3.0.1",
+    "maniskill": "3.0.0b22",
+    "gpu_name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "gpu_uuid": "GPU-6f68774e-223d-c46a-d76d-75a9d8c6e513",
+    "gpu_memory_total_mib": 97887.0,
+    "sample_count": 560,
+    "first_sample": "2026/09/04 19:43:56.078",
+    "last_sample": "2026/09/04 19:44:10.738",
+    "utilization_percent_min": 1.0,
+    "utilization_percent_max": 3.0,
+    "power_watts_min": 59.06,
+    "power_watts_max": 103.69,
+    "mesa_llvmpipe_vulkan_gate": "passed",
+    "vulkan_summary_sha256": "08abee29a9cda80f97820fba97c746425d9e872a139b69cc8f39be4bc844c208"
+  },
+  "artifacts": [
+    {
+      "artifact_id": "gpu-telemetry",
+      "uri": "worker://f1-complete-probe/gpu-telemetry",
+      "sha256": "950256250529412fc8f1ccb35a07cb01cf1968a415193ef20efb35225b40c274",
+      "size_bytes": 145313,
+      "retrieved_sha256_matches": true
+    },
+    {
+      "artifact_id": "probe-log",
+      "uri": "worker://f1-complete-probe/probe-log",
+      "sha256": "7aec7909cd927671851d504d1477c3b6c4bc126bfe0a89d51d44028bfba4c0b8",
+      "size_bytes": 260,
+      "retrieved_sha256_matches": true
+    },
+    {
+      "artifact_id": "provider-cost-estimate",
+      "uri": "worker://f1-complete-probe/provider-cost-estimate",
+      "sha256": "ac7610a643ec5c395f6aecb5454b93ade29a78151fc1ea146dcd32fc11a25cd5",
+      "size_bytes": 254,
+      "retrieved_sha256_matches": true
+    }
+  ],
+  "cancel_probe": {
+    "trial_id": "f1-active-cancel-probe",
+    "contract_sha256": "46469e4411bedd78ade5950fb81f13d0b14f83bb25e0a0cc9c6a7e3e9146f9ea",
+    "launch_state": "running",
+    "cancel_delay_seconds": 3,
+    "cancel_state": "cancelled",
+    "late_status_state": "cancelled"
+  },
+  "provider_billing": {
+    "interval_start": "2026-09-04T19:00:00Z",
+    "tags": {
+      "project": "enpire",
+      "phase": "f1-worker-acceptance"
+    },
+    "resources_usd": {
+      "RTX-PRO-6000": "0.06396720",
+      "CPU": "0.01658141",
+      "Memory": "0.01641791"
+    },
+    "provider_billed_gpu_function_seconds": "75.9705463183",
+    "actual_gpu_resource_cost_usd": "0.06396720",
+    "approved_gpu_resource_cost_usd": "0.758832",
+    "actual_total_provider_cost_usd": "0.09696652",
+    "approved_new_total_provider_cost_usd": "2.00",
+    "within_gpu_seconds_cap": true,
+    "within_gpu_cost_cap": true,
+    "within_total_cost_cap": true,
+    "queried_at": "2026-09-04T19:51:37Z",
+    "stable_across_consecutive_reads": true,
+    "source": "Modal billing report, hourly resolution, Europe/Copenhagen timezone, project and phase tags"
+  },
+  "cumulative_f1_provider_cost_usd": "0.12926052",
+  "raw_runner_output": {
+    "sha256": "0076c86515b752e410a71df6319a5de6f5a41327affca57895f0e0a98b766013",
+    "size_bytes": 151617,
+    "retention": "compact verified fields and remote artifact references retained in this record"
+  },
+  "conclusion": "F1 engineering acceptance passed. This record authorizes no training, evaluation, promotion, or scientific claim."
+}
