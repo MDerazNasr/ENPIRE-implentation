@@ -614,9 +614,12 @@ failed in the CPU control function because the copied `supervisor` package was
 not on the image import path. A separate local defect dereferenced Homebrew's
 virtual-environment interpreter symlink. No launch completed, no GPU probe ran,
 and tagged provider billing totaled USD `0.01789599`, including zero accelerator
-cost. Both defects are corrected locally with regression tests. Because the
-source bundle changed, a new clean preflight and explicit approval are required
-before redeployment; Gate F1 remains open. See
+cost. Both defects are corrected in commit `070a635`, and all 288 tests pass.
+The replacement clean no-launch preflight binds source bundle
+`9362ec7f...b465b` and artifact `768c0f79...a354`; execution authorization is
+false until the user explicitly accepts the unchanged two-probe, 600-second,
+USD `0.758832` runtime-resource and USD `2.00` total ceilings. Gate F1 remains
+open. See
 `docs/agent-supervisor/f1-fixed-worker-rpc.md` and
 `results/runtime-qualification/f1/attempt-1.json`.
 

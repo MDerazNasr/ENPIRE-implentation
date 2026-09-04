@@ -1,8 +1,8 @@
 # F1 Fixed Modal Worker RPC
 
-Status: **attempt 1 failed safely before GPU launch; two transport packaging
-defects are corrected locally and require a new immutable preflight and explicit
-paid approval before redeployment**.
+Status: **attempt 1 failed safely before GPU launch; both transport packaging
+defects are corrected and the replacement immutable preflight is ready for
+explicit paid approval before redeployment**.
 
 F1 replaces M7's mocked remote boundary with a Modal-native implementation of
 the same provider-neutral `ExperimentWorker` interface. The provider transport
@@ -108,9 +108,13 @@ The clean no-launch preflight passed from implementation commit
 contracts. The preflight artifact SHA-256 is `c4a57739...6f90`.
 
 That preflight and approval were consumed by failed attempt 1 and do not
-authorize changed source. The corrected bundle must pass the full local suite,
-be committed, receive a new clean no-launch preflight, and obtain explicit
-approval before redeployment or GPU execution. Live acceptance must then prove the completed
+authorize changed source. The corrected implementation is committed as
+`070a635`; all 288 tests pass. Its clean replacement preflight binds source
+bundle `9362ec7f...b465b`, preflight artifact `768c0f79...a354`, the unchanged
+F0 runtime/profile, two fixed probes, 600 aggregate GPU-function seconds, USD
+`0.758832` maximum runtime-resource cost, and USD `2.00` maximum total provider
+cost. Execution and GPU authorization remain false until the user explicitly
+accepts this replacement envelope. Live acceptance must then prove the completed
 lifecycle, restart recovery, verified transfer, cancellation/late-result
 behavior, spoof rejection, actual telemetry, and tagged provider billing.
 
