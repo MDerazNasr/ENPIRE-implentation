@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "status": "authorized_for_user_selected_instance",
+  "claim_scope": "H100 SXM5 F2 engineering rehearsal only; no scientific comparison, G1/G2 execution, or promotion",
+  "source_commit": "bd29d7a906a1e5c4e912dbe5dc04b65e7e8115f4",
+  "source_bundle_sha256": "17efeaebf79e528d00f8fa369e811e525d23be70d0728dd180bda22afcbd9d8b",
+  "runtime_contract_id": "enpire-h100-sxm5-rehearsal-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "7160d3af448d4925b149ab6e9655344d",
+    "region": "Georgia, USA",
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "price_usd_per_hour": "4.29"
+  },
+  "execution": {
+    "image_tag": "enpire-f2-h100:bd29d7a",
+    "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+    "runner": "scripts/run_f2_h100_rehearsal.py",
+    "runner_accepts_arguments": false,
+    "fixed_run_ids": [
+      "f2-h100-sxm5-control-seed2026-attempt1",
+      "f2-h100-sxm5-candidate-seed2026-attempt1",
+      "f2-h100-sxm5-resume-source-seed2026-attempt1",
+      "f2-h100-sxm5-resume-continuation-seed2026-attempt1"
+    ],
+    "in_container_timeout_seconds": 9000,
+    "command": [
+      "sudo",
+      "docker",
+      "run",
+      "--rm",
+      "--gpus",
+      "all",
+      "--ipc=host",
+      "--network=host",
+      "-v",
+      "/home/ubuntu/qualia:/opt/qualia:ro",
+      "-v",
+      "/home/ubuntu/enpire-workspace:/workspace",
+      "enpire-f2-h100:bd29d7a",
+      "timeout",
+      "9000",
+      "/opt/RLinf/.venv/bin/python",
+      "/opt/qualia/scripts/run_f2_h100_rehearsal.py"
+    ]
+  },
+  "billing": {
+    "spent_when_received_usd": "0.14",
+    "maximum_additional_auto_shutdown_exposure_usd": "25.5255",
+    "in_container_maximum_cost_usd": "10.7250",
+    "provider_setup_and_transfer_cost_included_in_container_estimate": false
+  },
+  "authorization": {
+    "user_authorized_instance_use": true,
+    "user_instruction": "use this and proceed, tell me when I can switch it off",
+    "gpu_execution_authorized": true,
+    "scientific_runs_authorized": false,
+    "promotion_authorized": false
+  },
+  "source_hashes": {
+    "Dockerfile.f2-h100": "9aba3bed5e3e3cfec9bfef2dd469ea81ff6de722b9c9a5b0adbc77f1b3137df5",
+    "agent/d1_config.py": "3e7b51928460413694ca56bfc1421130dd1618cecf3bfd15d56d22c0334b3e91",
+    "agent/d1_launcher.py": "8c6b141914e94b6ea1983e2802245a931c9ea9f965ea0cc2b75d8521abf7d054",
+    "agent/metrics.py": "f895bb1c630fd9e8df69e2abbde43b9b9431102b5bcbcc3ffc0a42d261fddc04",
+    "agent/provenance.py": "80417bc02c92129d0fde324dea95cf80db5206bd56ed443a243d04d3e451bcdb",
+    "agent/resources.py": "1724d7114fb024785191f6aacb1876db09dff80e42fb2f8510115db3f0dcfc27",
+    "agent/rlt_resume_state.py": "e0a21d7594de232a5ec273e8ac7fa49be957037b16445daa3ee0e73bd4e75ec6",
+    "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "configs/d1/f2_candidate_rehearsal.yaml": "b8d099135879ea86933729bae1452fe43abe24b0e41c273faafa734e59c0856c",
+    "configs/d1/f2_control_rehearsal.yaml": "40fc4bff7c9abdd804bf53ac4bd1e0c0c8050ff9564103eed2000ec654eccdb8",
+    "configs/d1/stage2_6_schedule_resume_gate.yaml": "cbec2ed9046fd43ba71595c196768a0177c4d60a7abe616a61661a48dee2b7bb",
+    "envs/modal_multiprocess_rlt_env.py": "84b8e65b9d966233f892bda7e71d08a31a1a35e222bd8859f77d84dbe417b23c",
+    "results/runtime-qualification/f0/h100-sxm5-amendment.json": "d108afef07fe118536c83d5c77fa271b74b3a6f7e4a3c956e3559fe92b1333a1",
+    "scripts/run_f2_h100_rehearsal.py": "b0948fd3bdde53504635c5fd5a31a50c9db32553d3e3f71d62c72690dc0a023d",
+    "sitecustomize.py": "8f39c3cfffcf839ece8aa9bdce5f798e6fb019fc4e19e5168edc1c1ca3187f74"
+  }
+}
