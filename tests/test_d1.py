@@ -694,6 +694,39 @@ class D1ProvenanceTests(unittest.TestCase):
             self.assertEqual(manifest["status"], "planned")
             self.assertEqual(manifest["rlinf_commit_expected"], config["expected_rlinf_commit"])
 
+    def test_manifest_uses_validated_exported_project_commit_without_git_metadata(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            env = environment(root)
+            env["QUALIA_PROJECT_COMMIT"] = "a" * 40
+            config_path = CONFIG_ROOT / "control.yaml"
+            config = resolve_d1_config(load_d1_config(config_path), env)
+            command, cwd = build_d1_command(config, root / "run")
+            with patch.dict(os.environ, env, clear=True):
+                manifest = create_manifest(
+                    config=config,
+                    config_path=config_path,
+                    command=command,
+                    cwd=cwd,
+                    run_dir=root / "run",
+                    project_root=root,
+                    hourly_price_usd=None,
+                )
+            self.assertEqual(manifest["project_commit"], "a" * 40)
+
+            env["QUALIA_PROJECT_COMMIT"] = "not-a-git-sha"
+            with patch.dict(os.environ, env, clear=True):
+                with self.assertRaisesRegex(ValueError, "QUALIA_PROJECT_COMMIT"):
+                    create_manifest(
+                        config=config,
+                        config_path=config_path,
+                        command=command,
+                        cwd=cwd,
+                        run_dir=root / "run",
+                        project_root=root,
+                        hourly_price_usd=None,
+                    )
+
     def test_dry_run_does_not_create_run_directory(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

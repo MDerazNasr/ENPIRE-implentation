@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import platform
+import re
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,6 +24,20 @@ def git_revision(repo: Path) -> str | None:
         ["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True, text=True
     )
     return result.stdout.strip() if result.returncode == 0 else None
+
+
+def project_revision(project_root: Path) -> str | None:
+    """Resolve the source revision, including immutable container exports."""
+
+    revision = git_revision(project_root)
+    if revision is not None:
+        return revision
+    exported_revision = os.environ.get("QUALIA_PROJECT_COMMIT")
+    if exported_revision is None:
+        return None
+    if re.fullmatch(r"[0-9a-f]{40}", exported_revision) is None:
+        raise ValueError("QUALIA_PROJECT_COMMIT must be a lowercase 40-character Git SHA")
+    return exported_revision
 
 
 def sha256_file(path: Path) -> str:
@@ -47,7 +63,7 @@ def create_manifest(
         "created_at": utc_now(),
         "experiment_id": config["experiment_id"],
         "condition": config["condition"],
-        "project_commit": git_revision(project_root),
+        "project_commit": project_revision(project_root),
         "project_start_commit": config.get("project_start_commit"),
         "rlinf_commit_expected": config["expected_rlinf_commit"],
         "rlinf_commit_actual": git_revision(cwd),
