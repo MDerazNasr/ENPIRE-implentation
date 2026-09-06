@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "status": "authorized_for_user_selected_instance",
+  "status": "ready_for_explicit_retry_approval",
   "claim_scope": "H100 SXM5 F2 engineering rehearsal only; no scientific comparison, G1/G2 execution, or promotion",
-  "source_commit": "d25bb1b4f9181eadf0485532ae1bc98c3b37ad4a",
-  "source_bundle_sha256": "a23720ed122c8230aaf4a2993df740390fbd11cede24190b5568db8f80b5de58",
+  "source_commit": "0ec3cba722449ed8acbd06ca67c8a6d9e432ef43",
+  "source_bundle_sha256": "4844e849f329b38a5106c33b031bb2dedc48c86330147a8831d66cfaa93f619e",
   "runtime_contract_id": "enpire-h100-sxm5-rehearsal-runtime-v1",
   "provider": {
     "name": "Lambda Cloud",
@@ -20,36 +20,49 @@
     "runner": "scripts/run_f2_h100_rehearsal.py",
     "runner_accepts_arguments": false,
     "fixed_run_ids": [
-      "f2-h100-sxm5-control-seed2026-attempt1",
-      "f2-h100-sxm5-candidate-seed2026-attempt1",
-      "f2-h100-sxm5-resume-source-seed2026-attempt1",
-      "f2-h100-sxm5-resume-continuation-seed2026-attempt1"
+      "f2-h100-sxm5-control-seed2026-attempt2",
+      "f2-h100-sxm5-candidate-seed2026-attempt2",
+      "f2-h100-sxm5-resume-source-seed2026-attempt2",
+      "f2-h100-sxm5-resume-continuation-seed2026-attempt2"
     ],
     "in_container_timeout_seconds": 9000,
     "command": [
       "sudo", "docker", "run", "--rm", "--gpus", "all", "--ipc=host",
       "--network=host", "-e",
-      "QUALIA_PROJECT_COMMIT=d25bb1b4f9181eadf0485532ae1bc98c3b37ad4a",
+      "QUALIA_PROJECT_COMMIT=0ec3cba722449ed8acbd06ca67c8a6d9e432ef43",
       "-v", "/home/ubuntu/qualia:/opt/qualia:ro",
       "-v", "/home/ubuntu/enpire-workspace:/workspace",
+      "-v", "/home/ubuntu/enpire-workspace/f2-h100-norm-stats:/opt/f2-norm-stats:ro",
       "enpire-f2-h100:b864b1c", "timeout", "9000",
       "/opt/RLinf/.venv/bin/python", "/opt/qualia/scripts/run_f2_h100_rehearsal.py"
     ]
   },
+  "attempt_1": {
+    "status": "failed_closed_before_rollout",
+    "elapsed_seconds": 90.41106520199992,
+    "recorded_runtime_cost_usd": 0.10773985638129997,
+    "cause": "Pinned OpenPI required a canonical norm_stats.json child under the configured asset directory.",
+    "evidence": "results/runtime-qualification/f2/h100-sxm5-attempt-1-failed/attempt.json"
+  },
+  "correction": {
+    "scientific_values_changed": false,
+    "actor_changed": false,
+    "norm_stats_changed": false,
+    "norm_stats_alias_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "openpi_probe": "pass: 2149 bytes; keys actions,state",
+    "new_attempt_ids": true
+  },
   "billing": {
-    "spent_when_received_usd": "0.14",
-    "maximum_additional_auto_shutdown_exposure_usd": "25.5255",
-    "in_container_maximum_cost_usd": "10.7250",
-    "provider_setup_and_transfer_cost_included_in_container_estimate": false
+    "retry_maximum_in_container_cost_usd": "10.7250",
+    "attempt_1_recorded_runtime_cost_usd": "0.10773985638129997",
+    "provider_setup_transfer_and_idle_cost_excluded": true
   },
   "authorization": {
-    "user_authorized_instance_use": true,
-    "user_instruction": "use this and proceed, tell me when I can switch it off",
     "actor_export_authorized": true,
-    "actor_export_instruction": "I explicitly approve exporting the specified Stage-1 model actor to this Lambda instance and overwriting the incomplete remote file",
-    "gpu_execution_authorized": true,
+    "retry_gpu_execution_authorized": false,
     "scientific_runs_authorized": false,
-    "promotion_authorized": false
+    "promotion_authorized": false,
+    "required_approval": "Approve source 0ec3cba722449ed8acbd06ca67c8a6d9e432ef43, bundle 4844e849f329b38a5106c33b031bb2dedc48c86330147a8831d66cfaa93f619e, the fixed attempt-2 sequence, 9000-second timeout, and up to USD 10.7250 additional in-container runtime."
   },
   "source_hashes": {
     "Dockerfile.f2-h100": "72b27283e1f76470ebccb04ac12e036ec0698bef3bc4542ea4b596620dfa5f29",
@@ -65,7 +78,7 @@
     "configs/d1/stage2_6_schedule_resume_gate.yaml": "cbec2ed9046fd43ba71595c196768a0177c4d60a7abe616a61661a48dee2b7bb",
     "envs/modal_multiprocess_rlt_env.py": "84b8e65b9d966233f892bda7e71d08a31a1a35e222bd8859f77d84dbe417b23c",
     "results/runtime-qualification/f0/h100-sxm5-amendment.json": "d108afef07fe118536c83d5c77fa271b74b3a6f7e4a3c956e3559fe92b1333a1",
-    "scripts/run_f2_h100_rehearsal.py": "b0948fd3bdde53504635c5fd5a31a50c9db32553d3e3f71d62c72690dc0a023d",
+    "scripts/run_f2_h100_rehearsal.py": "038873c90d83f3c738b0bea4237c8b9b1e4f819a25ab63a0da54eea608e037f2",
     "sitecustomize.py": "8f39c3cfffcf839ece8aa9bdce5f798e6fb019fc4e19e5168edc1c1ca3187f74"
   }
 }
