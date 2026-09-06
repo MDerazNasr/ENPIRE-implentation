@@ -1,0 +1,25 @@
+FROM nvidia/cuda@sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    UV_LINK_MODE=copy
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git git-lfs curl wget unzip build-essential cmake \
+    libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 \
+    libvulkan1=1.3.204.1-2 vulkan-tools=1.3.204.0+dfsg1-1 \
+    mesa-vulkan-drivers=23.2.1-1ubuntu3.1~22.04.4 \
+    libegl1 libgles2 libglvnd0 libx11-6 libx11-xcb1 libxcb1 libgbm1 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/RLinf/RLinf.git /opt/RLinf \
+    && cd /opt/RLinf \
+    && git checkout c90951a0c799a750cb5294ed10587c61cc2af8bf \
+    && UV_TORCH_BACKEND=cu128 bash requirements/install.sh embodied \
+       --model openpi --env maniskill_libero --torch 2.8.0 --python 3.11.14 \
+       --no-root --no-flash-attn --no-apex --install-rlinf \
+    && uv pip install --python .venv/bin/python \
+       hydra-core==1.3.2 omegaconf==2.3.0 sapien==3.0.1 \
+    && test "$(git rev-parse HEAD)" = c90951a0c799a750cb5294ed10587c61cc2af8bf
+
+WORKDIR /opt/qualia

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "contract_id": "enpire-h100-sxm5-rehearsal-runtime-v1",
+  "status": "provisional_pending_f2_live_rehearsal",
+  "scope": "user-selected H100 SXM5 replacement for F2 engineering qualification only; no definitive run or scientific comparison is authorized",
+  "selected_at": "2026-09-06",
+  "supersedes_for_f2_only": "enpire-matched-scientific-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "7160d3af448d4925b149ab6e9655344d",
+    "region": "Georgia, USA",
+    "ip_address_retention": "operator-only; excluded from scientific identity",
+    "gpu_model": "NVIDIA H100 80GB HBM3",
+    "gpu_count": 1,
+    "minimum_gpu_memory_bytes": 80000000000,
+    "host_architecture": "x86_64",
+    "observed_driver": "580.105.08",
+    "observed_gpu_memory_mib": 81559
+  },
+  "container": {
+    "platform": "linux/amd64",
+    "os": "Ubuntu 22.04 LTS",
+    "image": "docker.io/nvidia/cuda@sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+    "python": "3.11.14",
+    "torch": "2.8.0+cu128",
+    "cuda_runtime": "12.8"
+  },
+  "execution": {
+    "cpu_physical_cores_used_by_ray": 16,
+    "host_vcpu_available": 26,
+    "host_memory_gib_available": 225,
+    "simulator_backend": "CPU PhysX; one environment per child process",
+    "renderer_backend": "Mesa llvmpipe via Vulkan",
+    "train_parallel_environments": 16,
+    "train_rollout_epochs": 4,
+    "train_trajectories_per_step": 64,
+    "actor_offload": false,
+    "weight_transport_device": "cpu",
+    "resume": "native RLinf checkpoint plus mandatory strict schedule/replay sidecar"
+  },
+  "inputs": {
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "stage1_actor_size_bytes": 10015912759,
+    "stage1_actor_sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd"
+  },
+  "billing": {
+    "instance_usd_per_hour": "4.29",
+    "spent_when_received_usd": "0.14",
+    "auto_shutdown_remaining_when_received": "5h57m",
+    "maximum_additional_auto_shutdown_exposure_usd": "25.5255",
+    "f2_in_container_timeout_seconds": 9000,
+    "f2_in_container_maximum_cost_usd": "10.7250",
+    "setup_and_transfer_are_billable": true
+  },
+  "authorization": {
+    "user_authorized_instance_use": true,
+    "authorized_message_date": "2026-09-06",
+    "scientific_runs_authorized": false,
+    "promotion_authorized": false,
+    "stop_instruction": "tell the user immediately after evidence is safely copied and no GPU work remains"
+  },
+  "gate": {
+    "passed": false,
+    "requirements": [
+      "exact container and dependency identity",
+      "CUDA tensor and llvmpipe Vulkan probes",
+      "canonical actor and normalization hashes",
+      "matched Control/Candidate full-shape steps",
+      "strict two-process resume chain",
+      "complete local evidence copy before shutdown"
+    ]
+  }
+}

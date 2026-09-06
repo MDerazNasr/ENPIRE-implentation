@@ -78,6 +78,41 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertNotIn("shell=True", source)
         self.assertNotIn("create_if_missing=True", source)
 
+    def test_h100_amendment_and_runner_are_fixed_and_non_promotable(self) -> None:
+        amendment = json.loads(
+            (
+                ROOT
+                / "results/runtime-qualification/f0/h100-sxm5-amendment.json"
+            ).read_text()
+        )
+        self.assertEqual(
+            amendment["provider"]["gpu_model"], "NVIDIA H100 80GB HBM3"
+        )
+        self.assertEqual(amendment["provider"]["minimum_gpu_memory_bytes"], 80_000_000_000)
+        self.assertFalse(amendment["authorization"]["scientific_runs_authorized"])
+        self.assertFalse(amendment["authorization"]["promotion_authorized"])
+        self.assertEqual(
+            amendment["billing"]["maximum_additional_auto_shutdown_exposure_usd"],
+            "25.5255",
+        )
+        runner_path = ROOT / "scripts/run_f2_h100_rehearsal.py"
+        tree = ast.parse(runner_path.read_text())
+        main = next(
+            node
+            for node in tree.body
+            if isinstance(node, ast.FunctionDef) and node.name == "main"
+        )
+        self.assertEqual(main.args.args, [])
+        source = runner_path.read_text()
+        self.assertNotIn("shell=True", source)
+        self.assertIn("f2-h100-sxm5-control-seed2026-attempt1", source)
+        self.assertIn("f2-h100-sxm5-candidate-seed2026-attempt1", source)
+        dockerfile = (ROOT / "Dockerfile.f2-h100").read_text()
+        self.assertIn(
+            "nvidia/cuda@sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+            dockerfile,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
