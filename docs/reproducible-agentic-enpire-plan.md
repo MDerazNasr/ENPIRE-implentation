@@ -650,6 +650,13 @@ evaluation, promotion, or scientific claim occurred. See
 
 Gate F2: runtime differences no longer confound the planned comparison.
 
+Preparation status on 2026-09-06: the two fixed one-step profiles, serialized
+Modal application, strict static comparator, resume-chain assertions, current
+price binding, and local regression tests are implemented. The no-launch
+profile caps runtime resources at USD `11.382480` and the approval envelope at
+USD `12.00`. No deployment or GPU execution is authorized. See
+`docs/agent-supervisor/f2-matched-runtime-rehearsal.md`.
+
 ## 11. Workstream G: complete the reproducible baseline
 
 ### G0. Review the seed and rerun policy
@@ -810,18 +817,18 @@ No simulation result automatically authorizes real-hardware execution.
 
 These are the next actions in order:
 
-1. [ ] Preserve and classify the current dirty-worktree files.
-2. [ ] Create `integration/d1-d2-agentic-harness` in an isolated worktree.
-3. [ ] Reconcile D2 into current D1 without importing stale evidence over the
+1. [x] Preserve and classify the current dirty-worktree files.
+2. [x] Create `integration/d1-d2-agentic-harness` in an isolated worktree.
+3. [x] Reconcile D2 into current D1 without importing stale evidence over the
    current pack.
-4. [ ] Pass the combined offline suite and all demo verifiers.
-5. [ ] Build the canonical versioned D1 Stage-7 evidence pack from tracked
+4. [x] Pass the combined offline suite and all demo verifiers.
+5. [x] Build the canonical versioned D1 Stage-7 evidence pack from tracked
    evidence.
-6. [ ] Run evaluator replay and document the remaining scientific blockers.
-7. [ ] Complete one real, tool-free Claude configuration-proposal acceptance
+6. [x] Run evaluator replay and document the remaining scientific blockers.
+7. [x] Complete one real, tool-free Claude configuration-proposal acceptance
    without GPU execution.
-8. [ ] Complete the configuration-mode D1 dry-run/fixture attachment gate.
-9. [ ] Design and prove the live PyTorch actor-objective overlay.
+8. [x] Complete the configuration-mode D1 dry-run/fixture attachment gate.
+9. [x] Design and prove the live PyTorch actor-objective overlay.
 10. [ ] Qualify one matched worker/runtime with a bounded Control/Candidate
     rehearsal.
 11. [ ] Obtain approval for the final paired-seed D1 run matrix and budget.

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "profile_id": "enpire-f2-matched-runtime-rehearsal-v1",
+  "claim_scope": "bounded matched-runtime and resume rehearsal only; no policy-quality comparison, promotion, or definitive-study evidence",
+  "runtime_contract_id": "enpire-matched-scientific-runtime-v1",
+  "runtime_contract_sha256": "260928126f1342b268b9b40eff56d0e4e5d0f57f112d212eb6f081092fdc6e0c",
+  "app_name": "enpire-f2-matched-runtime-rehearsal-v1",
+  "function_name": "run_fixed_rehearsal",
+  "provider": "Modal",
+  "provider_profile": "deraznasr776",
+  "deployment": {
+    "application": "modal_f2_rehearsal.py",
+    "modal_client": "/opt/homebrew/bin/modal",
+    "modal_client_version": "1.5.3",
+    "strategy": "recreate",
+    "persistent_volume": "enpire-workspace",
+    "volume_create_if_missing": false,
+    "scale_to_zero": true,
+    "app_tags": {
+      "project": "enpire",
+      "phase": "f2-rehearsal"
+    }
+  },
+  "resources": {
+    "gpu": "RTX-PRO-6000",
+    "gpu_count": 1,
+    "cpu_physical_cores": 16,
+    "memory_mib": 98304,
+    "function_timeout_seconds": 9000,
+    "maximum_concurrent_functions": 1
+  },
+  "fixed_sequence": [
+    {
+      "kind": "full-shape-one-step",
+      "arm": "control",
+      "profile": "configs/d1/f2_control_rehearsal.yaml",
+      "run_id": "f2-control-rehearsal-seed2026-attempt1",
+      "training_trajectories": 64,
+      "evaluation_executed": false,
+      "maximum_wall_time_seconds": 3600
+    },
+    {
+      "kind": "full-shape-one-step",
+      "arm": "candidate",
+      "profile": "configs/d1/f2_candidate_rehearsal.yaml",
+      "run_id": "f2-candidate-rehearsal-seed2026-attempt1",
+      "training_trajectories": 64,
+      "evaluation_executed": false,
+      "maximum_wall_time_seconds": 3600
+    },
+    {
+      "kind": "two-process-resume-micro-gate",
+      "arm": "engineering-only",
+      "profile": "configs/d1/stage2_6_schedule_resume_gate.yaml",
+      "run_ids": [
+        "f2-resume-source-seed2026-attempt1",
+        "f2-resume-continuation-seed2026-attempt1"
+      ],
+      "training_trajectories": 2,
+      "evaluation_executed": false,
+      "maximum_wall_time_seconds": 1800
+    }
+  ],
+  "intervention": {
+    "allowed_scientific_fields": [
+      "warmup_bc_weight",
+      "online_bc_weight"
+    ],
+    "control": {
+      "warmup_bc_weight": 7,
+      "online_bc_weight": 2.5
+    },
+    "candidate": {
+      "warmup_bc_weight": 5.6,
+      "online_bc_weight": 2
+    }
+  },
+  "resume": {
+    "required_checks": [
+      "native checkpoint inventory",
+      "strict sidecar schedule fingerprint",
+      "update counter 1 to 2 across a process boundary",
+      "non-regressing transition counters",
+      "replay generator state present",
+      "explicit restore marker"
+    ],
+    "known_limit": "simulator state is not claimed bitwise-identical across processes",
+    "provisional_segmentation_policy": "if the live gate passes, definitive arms may use the same predeclared step-boundary segmentation schedule; every continuation must load the native checkpoint and strict sidecar"
+  },
+  "billing": {
+    "pricing_checked_at": "2026-09-06",
+    "gpu_usd_per_second": "0.000842",
+    "cpu_physical_core_usd_per_second": "0.0000131",
+    "memory_gib_usd_per_second": "0.00000222",
+    "selected_runtime_usd_per_hour": "4.552992",
+    "maximum_runtime_resource_cost_usd": "11.382480",
+    "maximum_total_provider_cost_usd": "12.00",
+    "historical_one_step_wall_seconds": 1272.4,
+    "historical_one_step_basis": "2026-08-15 representative 64-trajectory RTX PRO 6000 capacity rehearsal including startup",
+    "measured_projection_required_after_run": true,
+    "actual_tagged_billing_record_required": true,
+    "pricing_revalidation_required": true
+  },
+  "approval": {
+    "deployment_authorized": false,
+    "gpu_execution_authorized": false,
+    "promotion_authorized": false,
+    "explicit_approval_required": true
+  },
+  "source_paths": [
+    "modal_f2_rehearsal.py",
+    "agent/d1_config.py",
+    "agent/d1_launcher.py",
+    "agent/metrics.py",
+    "agent/provenance.py",
+    "agent/resources.py",
+    "agent/rlt_resume_state.py",
+    "configs/d1/f2_control_rehearsal.yaml",
+    "configs/d1/f2_candidate_rehearsal.yaml",
+    "configs/d1/stage2_6_schedule_resume_gate.yaml",
+    "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json",
+    "envs/modal_multiprocess_rlt_env.py",
+    "sitecustomize.py",
+    "results/runtime-qualification/f0/runtime-contract.json"
+  ]
+}
