@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "failed_closed_before_rollout",
+  "claim_scope": "H100 SXM5 F2 engineering rehearsal only; no scientific result or promotion",
+  "source_commit": "d25bb1b4f9181eadf0485532ae1bc98c3b37ad4a",
+  "image_id": "sha256:114d278874739ba37a4036308a6a8bb7779cdaf4f17f8d92d671d02ae9e48e50",
+  "started_at": "2026-09-06T23:03:56+00:00",
+  "finished_at": "2026-09-06T23:05:26+00:00",
+  "elapsed_seconds": 90.41106520199992,
+  "recorded_runtime_cost_usd": 0.10773985638129997,
+  "completed_arms": [],
+  "rollout_started": false,
+  "training_update_started": false,
+  "failure": {
+    "phase": "control_worker_initialization",
+    "type": "FileNotFoundError",
+    "message": "Norm stats file not found at: /opt/qualia/configs/d1/assets/norm_stats.json",
+    "cause": "Pinned OpenPI treats the configured file as an asset directory and loads its canonical child filename norm_stats.json; the mounted project only exposed maniskill_peginsertionside_joint.norm_stats.json.",
+    "correction_scope": "Add a read-only Docker bind alias for the already-hashed JSON, use new attempt-2 run IDs, and make the runner verify the alias path. Scientific values remain unchanged."
+  },
+  "artifact_sha256": {
+    "console.log": "6efa4466eb8ba592b55b03c912867689a4b255008ebc149fef9da0d3fe400d98",
+    "control/command.sh": "a7ef8e269b2d8bf0f677e63c9e820af626a48a0d9cfab478f12f02df4d3978f7",
+    "control/manifest.json": "3beb55667f89ba9c876bedfc81113eb61c5c87076c0d9e2c9c1632ebe07378de",
+    "control/resources.jsonl": "b94aa62e1267566f00d234f5064c21e0704a0a4d19c5e2f393cb49388f7b6774",
+    "control/run.log": "4617a69ff357317663c181e755463afea24cb31084b0b10edb39c22ec3d0e82d",
+    "generated-configs/candidate.yaml": "50eb5ef98ce6172ab464ec31bda21a7c13d4ba30bb72ddfca8e2846cb7b9f32f",
+    "generated-configs/control.yaml": "79699f3586bb865faabf166efec062834afc507c8f1d3a55d5cd60c0fff7434e",
+    "generated-configs/resume.yaml": "e3d0d06d0f07920fdfada9fd9adbe08c6e6568e8871b798257c36de3f6197e3f"
+  }
+}

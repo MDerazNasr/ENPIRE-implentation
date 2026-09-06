@@ -105,8 +105,9 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(main.args.args, [])
         source = runner_path.read_text()
         self.assertNotIn("shell=True", source)
-        self.assertIn("f2-h100-sxm5-control-seed2026-attempt1", source)
-        self.assertIn("f2-h100-sxm5-candidate-seed2026-attempt1", source)
+        self.assertIn("f2-h100-sxm5-control-seed2026-attempt2", source)
+        self.assertIn("f2-h100-sxm5-candidate-seed2026-attempt2", source)
+        self.assertIn('configs/d1/assets/norm_stats.json', source)
         dockerfile = (ROOT / "Dockerfile.f2-h100").read_text()
         self.assertIn(
             "nvidia/cuda@sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",

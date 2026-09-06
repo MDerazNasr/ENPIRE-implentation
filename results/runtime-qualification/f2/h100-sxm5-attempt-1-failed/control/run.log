@@ -1,0 +1,701 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788735840.344748     556 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1788735840.388545     556 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX512_FP16 AVX_VNNI AMX_TILE AMX_INT8 AMX_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1788735845.074977     556 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'maniskill_rlt_stage2_ac_mlp': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+2026-09-06 23:04:08,351	INFO worker.py:1833 -- Connecting to existing Ray cluster at address: 172.26.135.88:6379...
+2026-09-06 23:04:08,362	INFO worker.py:2024 -- Connected to Ray cluster.
+[INFO 23:04:10 RLinf] RLinf is running on a cluster with 1 node and 1 accelerator. The nodes' details are: 
+node_labels: []
+node_rank: 0
+ray_id: 9aea67eb04abc07b3ea88d5e9cc3b761751542ce8d1b9bfb49b0b191
+node_ip: 172.26.135.88
+num_cpus: 16
+python_interpreter_path: /opt/RLinf/.venv/bin/python
+hardware_resources:
+- type: Accelerator
+  infos:
+  - type: Accelerator
+    model: NV_GPU:H100 80GB HBM3
+profiler_backends: []
+
+Node groups' details are: 
+label: cluster
+nodes: '0'
+hardware_type: Accelerator
+ignore_hardware: false
+env_configs: null
+
+label: node
+nodes: '0'
+hardware_type: null
+ignore_hardware: true
+env_configs: null
+
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+{
+  "env": {
+    "train": {
+      "env_type": "maniskill_rlt",
+      "total_num_envs": 16,
+      "wrap_obs_mode": "rlt_openpi_joint",
+      "use_full_state": false,
+      "auto_reset": false,
+      "ignore_terminations": false,
+      "use_rel_reward": false,
+      "reward_mode": "only_success",
+      "seed": 2026,
+      "group_size": 1,
+      "use_fixed_reset_state_ids": false,
+      "max_steps_per_rollout_epoch": 500,
+      "max_episode_steps": 500,
+      "rlt_policy_switch": {
+        "enable": true,
+        "task_mode": "full_task",
+        "trigger_mode": "auto",
+        "latch_until_done": true,
+        "auto_gate": {
+          "require_grasp": true,
+          "require_not_success": true,
+          "near_hole_x_min": -0.16,
+          "near_hole_yz_margin": 1.5,
+          "fallback_hole_radius": 0.03
+        },
+        "expert_takeover": {
+          "enable": false,
+          "trigger_mode": "stalled_progress",
+          "gate": {
+            "require_grasp": true,
+            "require_not_success": true,
+            "near_hole_x_min": -0.1,
+            "near_hole_yz_margin": 2.0,
+            "stuck_chunks_before_takeover": 3,
+            "min_x_progress": 0.003,
+            "min_yz_progress": 0.0015,
+            "min_score_progress": 0.002,
+            "progress_yz_weight": 1.0,
+            "fallback_hole_radius": 0.03
+          }
+        }
+      },
+      "video_cfg": {
+        "save_video": false,
+        "info_on_video": true,
+        "fps": 10,
+        "record_every": 1,
+        "video_base_dir": "/workspace/results/d1/f2-h100-sxm5-control-seed2026-attempt1/video/train"
+      },
+      "enable_offload": false,
+      "init_params": {
+        "id": "PegInsertionSideWideClearance-v1",
+        "num_envs": null,
+        "obs_mode": "rgb",
+        "control_mode": "pd_joint_delta_pos",
+        "sim_backend": "cpu",
+        "reward_mode": "sparse",
+        "sim_config": {
+          "sim_freq": 100,
+          "control_freq": 10
+        },
+        "max_episode_steps": 500,
+        "sensor_configs": {
+          "shader_pack": "default",
+          "width": 384,
+          "height": 384
+        },
+        "render_mode": "all",
+        "render_backend": "pci:0000:00:00.0"
+      },
+      "rollout_epoch": 4,
+      "action_dim": 8,
+      "num_action_chunks": 10,
+      "ref_num_action_chunks": 10
+    },
+    "eval": {
+      "env_type": "maniskill_rlt",
+      "total_num_envs": 16,
+      "wrap_obs_mode": "rlt_openpi_joint",
+      "use_full_state": false,
+      "auto_reset": false,
+      "ignore_terminations": false,
+      "use_rel_reward": false,
+      "reward_mode": "only_success",
+      "seed": 2026,
+      "group_size": 1,
+      "use_fixed_reset_state_ids": true,
+      "max_steps_per_rollout_epoch": 500,
+      "max_episode_steps": 500,
+      "rlt_policy_switch": {
+        "enable": true,
+        "task_mode": "full_task",
+        "trigger_mode": "auto",
+        "latch_until_done": true,
+        "auto_gate": {
+          "require_grasp": true,
+          "require_not_success": true,
+          "near_hole_x_min": -0.16,
+          "near_hole_yz_margin": 1.5,
+          "fallback_hole_radius": 0.03
+        },
+        "expert_takeover": {
+          "enable": false,
+          "trigger_mode": "stalled_progress",
+          "gate": {
+            "require_grasp": true,
+            "require_not_success": true,
+            "near_hole_x_min": -0.1,
+            "near_hole_yz_margin": 2.0,
+            "stuck_chunks_before_takeover": 3,
+            "min_x_progress": 0.003,
+            "min_yz_progress": 0.0015,
+            "min_score_progress": 0.002,
+            "progress_yz_weight": 1.0,
+            "fallback_hole_radius": 0.03
+          }
+        }
+      },
+      "video_cfg": {
+        "save_video": false,
+        "info_on_video": true,
+        "fps": 10,
+        "record_every": 1,
+        "video_base_dir": "/workspace/results/d1/f2-h100-sxm5-control-seed2026-attempt1/video/eval"
+      },
+      "enable_offload": false,
+      "init_params": {
+        "id": "PegInsertionSideWideClearance-v1",
+        "num_envs": null,
+        "obs_mode": "rgb",
+        "control_mode": "pd_joint_delta_pos",
+        "sim_backend": "cpu",
+        "reward_mode": "sparse",
+        "sim_config": {
+          "sim_freq": 100,
+          "control_freq": 10
+        },
+        "max_episode_steps": 500,
+        "sensor_configs": {
+          "shader_pack": "default",
+          "width": 384,
+          "height": 384
+        },
+        "render_mode": "all",
+        "render_backend": "pci:0000:00:00.0"
+      },
+      "rollout_epoch": 16,
+      "policy_mode": "eval",
+      "action_dim": 8,
+      "num_action_chunks": 10,
+      "ref_num_action_chunks": 10
+    },
+    "group_name": "EnvGroup"
+  },
+  "actor": {
+    "fsdp_config": {
+      "strategy": "fsdp",
+      "sharding_strategy": "no_shard",
+      "gradient_checkpointing": false,
+      "cpu_offload": false,
+      "offload_pin_memory": false,
+      "reshard_after_forward": true,
+      "enable_gradient_accumulation": true,
+      "forward_prefetch": false,
+      "limit_all_gathers": false,
+      "backward_prefetch": null,
+      "use_orig_params": false,
+      "use_liger_kernel": false,
+      "mixed_precision": {
+        "param_dtype": "fp32",
+        "reduce_dtype": "fp32",
+        "buffer_dtype": "fp32"
+      },
+      "amp_autocast": {
+        "enabled": false,
+        "precision": "bf16"
+      },
+      "grad_scaler": {
+        "enabled": false,
+        "init_scale": null,
+        "growth_interval": null
+      }
+    },
+    "group_name": "ActorGroup",
+    "training_backend": "fsdp",
+    "micro_batch_size": 128,
+    "global_batch_size": 512,
+    "seed": 2026,
+    "enable_offload": false,
+    "model": {
+      "model_type": "rlt_mlp_policy",
+      "precision": "fp32",
+      "policy_setup": "panda-qpos",
+      "action_dim": 8,
+      "num_action_chunks": 10,
+      "ref_num_action_chunks": 10,
+      "z_dim": 2048,
+      "proprio_dim": 9,
+      "add_value_head": false,
+      "add_q_head": true,
+      "q_head_type": "default",
+      "fixed_std": 0.002,
+      "is_lora": false,
+      "lora_rank": 32
+    },
+    "optim": {
+      "clip_grad": 10.0,
+      "lr": 0.0001,
+      "lr_scheduler": "torch_constant"
+    },
+    "critic_optim": {
+      "clip_grad": 10.0,
+      "lr": 0.0001,
+      "lr_scheduler": "torch_constant"
+    }
+  },
+  "weight_syncer": {
+    "type": "patch",
+    "patch": {
+      "snapshot_device": "cpu",
+      "delta_encoding": true,
+      "compression": "none",
+      "init_sync": {
+        "enabled": true,
+        "prefixes": null,
+        "bucket_size": 134217728
+      },
+      "transport_device": "cpu"
+    }
+  },
+  "cluster": {
+    "num_nodes": 1,
+    "component_placement": {
+      "actor": "0-0",
+      "env": "all",
+      "rollout": "all"
+    }
+  },
+  "runner": {
+    "task_type": "embodied",
+    "logger": {
+      "log_path": "/workspace/results/d1/f2-h100-sxm5-control-seed2026-attempt1",
+      "project_name": "qualia-rlt-d1",
+      "experiment_name": "maniskill_rlt_stage2_ac_mlp",
+      "logger_backends": [
+        "wandb"
+      ]
+    },
+    "max_epochs": 5000,
+    "max_steps": 1,
+    "only_eval": false,
+    "weight_sync_interval": 1,
+    "val_check_interval": -1,
+    "save_interval": 1,
+    "resume_dir": null,
+    "ckpt_path": null,
+    "per_worker_log": false,
+    "per_worker_log_path": null,
+    "overlap_env_bootstrap": false
+  },
+  "algorithm": {
+    "update_epoch": 5,
+    "rlt_schedule": {
+      "enable": true,
+      "max_updates_per_train_step": 400,
+      "warmup_min_size": 10000,
+      "warmup_post_collect_updates": 30000,
+      "train_every_episodes": 0,
+      "train_every_transitions": 5
+    },
+    "group_size": 1,
+    "adv_type": "embodied_sac",
+    "loss_type": "rlt_ac",
+    "loss_agg_func": "token-mean",
+    "agg_q": "min",
+    "actor_agg_q": "q1",
+    "enable_drq": false,
+    "q_head_type": "default",
+    "bootstrap_type": "standard",
+    "gamma": 0.96,
+    "tau": 0.005,
+    "q_weight": 1.0,
+    "bc_weight": 1.0,
+    "reference_dropout_prob": 0.5,
+    "actor_weight_schedule": {
+      "enable": true,
+      "warmup_updates": 20000,
+      "ramp_updates": 50000,
+      "warmup_bc_weight": 7,
+      "warmup_q_weight": 0.05,
+      "online_bc_weight": 2.5,
+      "online_q_weight": 0.45
+    },
+    "entropy_tuning": {
+      "alpha_type": "fixed_alpha",
+      "initial_alpha": 0.0,
+      "optim": {
+        "lr": 0.0003,
+        "lr_scheduler": "torch_constant",
+        "clip_grad": 10.0
+      }
+    },
+    "replay_buffer": {
+      "enable_cache": true,
+      "cache_size": 10000,
+      "sample_window_size": 50000,
+      "max_num_samples": 50000,
+      "min_buffer_size": 1000,
+      "auto_save": false
+    },
+    "target_update_freq": 1,
+    "target_update_type": "all",
+    "train_actor_steps": 1000,
+    "critic_actor_ratio": 4,
+    "critic_subsample_size": 0,
+    "backup_entropy": false
+  },
+  "rollout": {
+    "group_name": "RolloutGroup",
+    "backend": "huggingface",
+    "enable_offload": false,
+    "pipeline_stage_num": 1,
+    "collect_transitions": true,
+    "collect_prev_infos": true,
+    "model": {
+      "model_type": "rlt_mlp_policy",
+      "model_path": "",
+      "precision": "fp32",
+      "policy_setup": "panda-qpos",
+      "action_dim": 8,
+      "num_action_chunks": 10,
+      "ref_num_action_chunks": 10,
+      "z_dim": 2048,
+      "proprio_dim": 9,
+      "add_q_head": true,
+      "q_head_type": "default",
+      "fixed_std": 0.002,
+      "is_lora": false,
+      "lora_rank": 32
+    },
+    "rlt_feature_model": {
+      "model_type": "openpi",
+      "model_path": "/workspace/checkpoints/stage1-step-500-actor",
+      "precision": null,
+      "num_action_chunks": 10,
+      "action_dim": 8,
+      "add_value_head": false,
+      "is_lora": false,
+      "lora_rank": 32,
+      "openpi_data": {
+        "repo_id": "maniskill_peginsertionside_joint",
+        "default_prompt": "insert the peg in the hole",
+        "norm_stats_path": "/opt/qualia/configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json"
+      },
+      "openpi": {
+        "config_name": "pi05_rlt_maniskill_joint",
+        "num_images_in_input": 2,
+        "action_chunk": 10,
+        "action_horizon": 10,
+        "action_env_dim": 8,
+        "num_steps": 5,
+        "train_expert_only": false,
+        "add_value_head": false,
+        "detach_critic_input": true,
+        "use_rlt": true,
+        "rlt_alpha": 1.0,
+        "rlt_input_dim": 2048,
+        "rlt_embed_dim": 2048,
+        "rlt_num_rl_tokens": 1,
+        "rlt_prefix_seq_len": 1024,
+        "rlt_num_layers": 2,
+        "rlt_num_heads": 8,
+        "rlt_mlp_ratio": 4.0,
+        "rlt_encoder_type": "append_self_attention",
+        "rlt_image_only": false,
+        "rlt_use_mask": true
+      }
+    },
+    "expert_model": null,
+    "enable_torch_compile": false,
+    "enable_cuda_graph": false
+  },
+  "reward": {
+    "use_reward_model": false
+  },
+  "critic": {
+    "use_critic_model": false
+  }
+}
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 23:04:10 FlexiblePlacementStrategy] 
+[INFO 23:04:10 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[INFO 23:04:10 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[INFO 23:04:10 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[36m(_RemoteNodeProbe pid=717)[0m /opt/RLinf/rlinf/scheduler/cluster/node.py:532: UserWarning: Python interpreter used to launch Ray on node with IP 172.26.135.88 is different from that on the head node /opt/RLinf/.venv/bin/python. Keep using the current interpreter /opt/RLinf/.venv/bin/python3 on this node.
+[36m(_RemoteNodeProbe pid=717)[0m   warnings.warn(
+[INFO 23:04:10 FlexiblePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank=0, accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[0], node_group_label='cluster')].
+[INFO 23:04:10 NodePlacementStrategy] 
+[INFO 23:04:10 NodePlacementStrategy] Using node placement with node ranks: [0], node groups: ['node'].
+[INFO 23:04:10 NodePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank='0', accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[], node_group_label='cluster')].
+[INFO 23:04:10 NodePlacementStrategy] 
+[INFO 23:04:10 NodePlacementStrategy] Using node placement with node ranks: [0], node groups: ['node'].
+[INFO 23:04:10 NodePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank='0', accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[], node_group_label='cluster')].
+[INFO 23:04:10 NodePlacementStrategy] 
+[INFO 23:04:10 NodePlacementStrategy] Using node placement with node ranks: [0], node groups: ['node'].
+[INFO 23:04:10 NodePlacementStrategy] Generated 1 placements: [Placement(rank=0, cluster_node_rank=0, placement_node_rank=0, local_accelerator_rank='0', accelerator_type='NV_GPU', local_rank=0, local_world_size=1, visible_accelerators=['0'], isolate_accelerator=True, local_hardware_ranks=[], node_group_label='cluster')].
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: Tracking run with wandb version 0.25.0
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: Run data is saved locally in /workspace/results/d1/f2-h100-sxm5-control-seed2026-attempt1/wandb/wandb/offline-run-20260906_230411-36rafoea
+[36m(RLTACFSDPPolicy pid=1564)[0m [W906 23:04:14.674238922 ProcessGroupNCCL.cpp:981] Warning: TORCH_NCCL_AVOID_RECORD_STREAMS is the default now, this environment variable is thus deprecated. (function operator())
+[36m(MultiStepRolloutWorker pid=1567)[0m [INFO 23:04:14 FlexiblePlacementStrategy] 
+[36m(MultiStepRolloutWorker pid=1567)[0m [INFO 23:04:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(MultiStepRolloutWorker pid=1567)[0m [INFO 23:04:14 FlexiblePlacementStrategy] 
+[36m(MultiStepRolloutWorker pid=1567)[0m [INFO 23:04:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(MultiStepRolloutWorker pid=1567)[0m [INFO 23:04:14 FlexiblePlacementStrategy] 
+[36m(MultiStepRolloutWorker pid=1567)[0m [INFO 23:04:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(pid=1569)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(pid=1569)[0m I0000 00:00:1788735854.716567    1569 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(RLTACFSDPPolicy pid=1564)[0m [INFO 23:04:14 FlexiblePlacementStrategy] 
+[36m(RLTACFSDPPolicy pid=1564)[0m [INFO 23:04:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(RLTACFSDPPolicy pid=1564)[0m [INFO 23:04:14 FlexiblePlacementStrategy] 
+[36m(RLTACFSDPPolicy pid=1564)[0m [INFO 23:04:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(RLTACFSDPPolicy pid=1564)[0m [INFO 23:04:14 FlexiblePlacementStrategy] 
+[36m(RLTACFSDPPolicy pid=1564)[0m [INFO 23:04:14 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(RLTACFSDPPolicy pid=1564)[0m [INFO 23:04:14 ActorGroup-Rank-0][fsdp_model_manager.py:124] [FSDP] AMP is disabled.
+[36m(RolloutGroup(rank=0) pid=1567)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(RolloutGroup(rank=0) pid=1567)[0m I0000 00:00:1788735856.038200    2001 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(pid=1569)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(pid=1569)[0m I0000 00:00:1788735856.268959    1569 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(EnvWorker pid=1569)[0m [INFO 23:04:16 FlexiblePlacementStrategy] 
+[36m(EnvWorker pid=1569)[0m [INFO 23:04:16 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(EnvWorker pid=1569)[0m [INFO 23:04:16 FlexiblePlacementStrategy] 
+[36m(EnvWorker pid=1569)[0m [INFO 23:04:16 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(EnvWorker pid=1569)[0m [INFO 23:04:16 FlexiblePlacementStrategy] 
+[36m(EnvWorker pid=1569)[0m [INFO 23:04:16 FlexiblePlacementStrategy] Using flexible placement with hardware ranks: [[0]], node groups: ['cluster'].
+[36m(EnvGroup(rank=0) pid=1569)[0m [W906 23:04:17.085759522 ProcessGroupNCCL.cpp:981] Warning: TORCH_NCCL_AVOID_RECORD_STREAMS is the default now, this environment variable is thus deprecated. (function operator())
+[36m(EnvGroup(rank=0) pid=1569)[0m [Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[36m(EnvGroup(rank=0) pid=1569)[0m [Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[36m(RolloutGroup(rank=0) pid=1567)[0m WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+[36m(RolloutGroup(rank=0) pid=1567)[0m I0000 00:00:1788735857.149490    2001 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+[36m(EnvGroup(rank=0) pid=1569)[0m [Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[36m(RolloutGroup(rank=0) pid=1567)[0m INFO:datasets:PyTorch version 2.8.0 available.
+[36m(RolloutGroup(rank=0) pid=1567)[0m INFO:datasets:Polars version 2.0.0rc1 available.
+[36m(RolloutGroup(rank=0) pid=1567)[0m INFO:datasets:TensorFlow version 2.21.0 available.
+[36m(RolloutGroup(rank=0) pid=1567)[0m INFO:datasets:JAX version 0.5.3 available.
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+[36m(EnvGroup(rank=0) pid=1569)[0m   warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(EnvGroup(rank=0) pid=1569)[0m /opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+[36m(EnvGroup(rank=0) pid=1569)[0m   logger.warn(
+[36m(RolloutGroup(rank=0) pid=1567)[0m INFO:root:Norm stats not found in /opt/qualia/configs/d1/assets, skipping.
+Exception occurred while running MultiStepRolloutWorker's function init_worker: exception is [36mray::MultiStepRolloutWorker.init_worker()[39m (pid=1567, ip=172.26.135.88, actor_id=527d6f6a65c6600d4df1dfdd01000000, repr=RolloutGroup(rank=0))
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+           ^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/rlinf/scheduler/worker/worker.py", line 74, in sync_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/rlinf/workers/rollout/hf/huggingface_worker.py", line 155, in init_worker
+    self.rlt_feature_model = get_model(copy.deepcopy(rlt_feature_model_config))
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/rlinf/models/__init__.py", line 270, in get_model
+    model = model_builder(cfg, torch_dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/rlinf/models/__init__.py", line 62, in _build_openpi
+    return get_model(cfg, torch_dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/rlinf/models/embodiment/openpi/__init__.py", line 106, in get_model
+    norm_stats = _checkpoints.load_norm_stats(norm_dir.parent, norm_dir.name)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/openpi/training/checkpoints.py", line 112, in load_norm_stats
+    norm_stats = _normalize.load(norm_stats_dir)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/openpi/shared/normalize.py", line 145, in load
+    raise FileNotFoundError(f"Norm stats file not found at: {path}")
+FileNotFoundError: Norm stats file not found at: /opt/qualia/configs/d1/assets/norm_stats.json
+Error executing job with overrides: ['runner.logger.logger_backends=[wandb]', 'runner.logger.project_name=qualia-rlt-d1', 'runner.only_eval=false', 'env.train.rlt_policy_switch.expert_takeover.enable=false', 'env.eval.rlt_policy_switch.expert_takeover.enable=false', 'rollout.expert_model=null', 'rollout.rlt_feature_model.model_path=/workspace/checkpoints/stage1-step-500-actor', '+rollout.rlt_feature_model.openpi_data.norm_stats_path=/opt/qualia/configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json', 'actor.enable_offload=false', '+weight_syncer.patch.transport_device=cpu', 'env.eval.use_fixed_reset_state_ids=true', 'env.train.total_num_envs=16', 'env.train.rollout_epoch=4', 'env.eval.total_num_envs=16', 'env.eval.rollout_epoch=16', 'env.train.max_episode_steps=500', 'env.eval.max_episode_steps=500', 'env.train.max_steps_per_rollout_epoch=500', 'env.eval.max_steps_per_rollout_epoch=500', 'env.train.init_params.sim_backend=cpu', '+env.train.init_params.render_backend=pci:0000:00:00.0', 'env.eval.init_params.sim_backend=cpu', '+env.eval.init_params.render_backend=pci:0000:00:00.0', 'actor.seed=2026', 'algorithm.actor_weight_schedule.warmup_bc_weight=7', 'algorithm.actor_weight_schedule.online_bc_weight=2.5', 'algorithm.actor_weight_schedule.warmup_q_weight=0.05', 'algorithm.actor_weight_schedule.online_q_weight=0.45', 'runner.resume_dir=null', 'runner.max_steps=1', 'runner.val_check_interval=-1', 'runner.save_interval=1', 'runner.logger.log_path=/workspace/results/d1/f2-h100-sxm5-control-seed2026-attempt1']
+Traceback (most recent call last):
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 500, in request
+    self.endheaders()
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='127.0.0.1', port=8265): Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=8265): Max retries exceeded with url: /api/v0/actors?limit=100&timeout=24&detail=False&filter_keys=STATE&filter_keys=RAY_NAMESPACE&filter_predicates=%3D&filter_predicates=%3D&filter_values=ALIVE&filter_values=RLinf&exclude_driver=True&server_timeout_multiplier=0.8 (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=8265): Failed to establish a new connection: [Errno 111] Connection refused"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/ray/util/state/api.py", line 197, in _make_http_get_request
+    response = self._do_request(
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/ray/dashboard/modules/dashboard_sdk.py", line 326, in _do_request
+    response = requests.request(
+               ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=8265): Max retries exceeded with url: /api/v0/actors?limit=100&timeout=24&detail=False&filter_keys=STATE&filter_keys=RAY_NAMESPACE&filter_predicates=%3D&filter_predicates=%3D&filter_values=ALIVE&filter_values=RLinf&exclude_driver=True&server_timeout_multiplier=0.8 (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=8265): Failed to establish a new connection: [Errno 111] Connection refused"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/RLinf/examples/embodiment/train_embodied_agent.py", line 128, in main
+    runner.init_workers()
+  File "/opt/RLinf/rlinf/runners/embodied_runner.py", line 171, in init_workers
+    rollout_handle.wait()
+  File "/opt/RLinf/rlinf/scheduler/worker/worker_group.py", line 545, in wait
+    self._wait_thread.join()
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/threading.py", line 1119, in join
+    self._wait_for_tstate_lock()
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/threading.py", line 1139, in _wait_for_tstate_lock
+    if lock.acquire(block, timeout):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/rlinf/scheduler/cluster/cluster.py", line 423, in signal_handler
+    alive_actors = list_actors(
+                   ^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/ray/util/state/api.py", line 827, in list_actors
+    return StateApiClient(address=address).list(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/ray/util/state/api.py", line 505, in list
+    list_api_response = self._make_http_get_request(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/ray/util/state/api.py", line 224, in _make_http_get_request
+    raise ServerUnavailable(err_str)
+ray.util.state.exception.ServerUnavailable: Failed to make request to http://127.0.0.1:8265/api/v0/actors. Failed to connect to API server. Please check the API server log for details. Make sure dependencies are installed with `pip install ray[default]`. Please also check dashboard is available, and included when starting ray cluster, i.e. `ray start --include-dashboard=True --head`. 
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+[1;34mwandb[0m: 
+[1;34mwandb[0m: You can sync this run to the cloud by running:
+[1;34mwandb[0m: [1mwandb sync /workspace/results/d1/f2-h100-sxm5-control-seed2026-attempt1/wandb/wandb/offline-run-20260906_230411-36rafoea[0m
+[1;34mwandb[0m: Find logs at: [1;35m../../workspace/results/d1/f2-h100-sxm5-control-seed2026-attempt1/wandb/wandb/offline-run-20260906_230411-36rafoea/logs[0m

@@ -24,7 +24,7 @@ WORKSPACE = Path("/workspace")
 RESULTS_ROOT = WORKSPACE / "results"
 GENERATED_ROOT = WORKSPACE / "f2-h100-generated-configs"
 ACTOR = WORKSPACE / "checkpoints/stage1-step-500-actor"
-NORM_STATS = PROJECT_ROOT / "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json"
+NORM_STATS = PROJECT_ROOT / "configs/d1/assets/norm_stats.json"
 RLINF_COMMIT = "c90951a0c799a750cb5294ed10587c61cc2af8bf"
 EXPECTED_ACTOR_SIZE = 10_015_912_759
 EXPECTED_ACTOR_SHA256 = "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3"
@@ -33,10 +33,10 @@ EXPECTED_GPU = "NVIDIA H100 80GB HBM3"
 MINIMUM_GPU_MEMORY_BYTES = 80_000_000_000
 INSTANCE_PRICE_USD_PER_HOUR = 4.29
 RUNTIME_CONTRACT_ID = "enpire-h100-sxm5-rehearsal-runtime-v1"
-CONTROL_RUN_ID = "f2-h100-sxm5-control-seed2026-attempt1"
-CANDIDATE_RUN_ID = "f2-h100-sxm5-candidate-seed2026-attempt1"
-RESUME_SOURCE_RUN_ID = "f2-h100-sxm5-resume-source-seed2026-attempt1"
-RESUME_CONTINUATION_RUN_ID = "f2-h100-sxm5-resume-continuation-seed2026-attempt1"
+CONTROL_RUN_ID = "f2-h100-sxm5-control-seed2026-attempt2"
+CANDIDATE_RUN_ID = "f2-h100-sxm5-candidate-seed2026-attempt2"
+RESUME_SOURCE_RUN_ID = "f2-h100-sxm5-resume-source-seed2026-attempt2"
+RESUME_CONTINUATION_RUN_ID = "f2-h100-sxm5-resume-continuation-seed2026-attempt2"
 
 
 def _sha256(path: Path) -> str:
@@ -392,7 +392,7 @@ def main() -> int:
         "in_container_elapsed_cost_usd": elapsed / 3600 * INSTANCE_PRICE_USD_PER_HOUR,
         "segmentation_decision_basis": "allow only identical predeclared step-boundary segmentation with native checkpoint plus strict sidecar; simulator state is not bitwise continuous",
     }
-    output = RESULTS_ROOT / "runtime-qualification/f2-h100-sxm5/attempt-1.json"
+    output = RESULTS_ROOT / "runtime-qualification/f2-h100-sxm5/attempt-2.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(f"ENPIRE_F2_H100_RESULT={json.dumps(result, sort_keys=True)}", flush=True)
