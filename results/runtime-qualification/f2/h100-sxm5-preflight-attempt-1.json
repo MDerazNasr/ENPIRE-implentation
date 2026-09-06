@@ -2,8 +2,8 @@
   "schema_version": 1,
   "status": "authorized_for_user_selected_instance",
   "claim_scope": "H100 SXM5 F2 engineering rehearsal only; no scientific comparison, G1/G2 execution, or promotion",
-  "source_commit": "d25bb1b4f9181eadf0485532ae1bc98c3b37ad4a",
-  "source_bundle_sha256": "a23720ed122c8230aaf4a2993df740390fbd11cede24190b5568db8f80b5de58",
+  "source_commit": "bd29d7a906a1e5c4e912dbe5dc04b65e7e8115f4",
+  "source_bundle_sha256": "17efeaebf79e528d00f8fa369e811e525d23be70d0728dd180bda22afcbd9d8b",
   "runtime_contract_id": "enpire-h100-sxm5-rehearsal-runtime-v1",
   "provider": {
     "name": "Lambda Cloud",
@@ -13,9 +13,7 @@
     "price_usd_per_hour": "4.29"
   },
   "execution": {
-    "image_tag": "enpire-f2-h100:b864b1c",
-    "image_id": "sha256:114d278874739ba37a4036308a6a8bb7779cdaf4f17f8d92d671d02ae9e48e50",
-    "image_size_bytes": 20353792685,
+    "image_tag": "enpire-f2-h100:bd29d7a",
     "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
     "runner": "scripts/run_f2_h100_rehearsal.py",
     "runner_accepts_arguments": false,
@@ -27,13 +25,23 @@
     ],
     "in_container_timeout_seconds": 9000,
     "command": [
-      "sudo", "docker", "run", "--rm", "--gpus", "all", "--ipc=host",
-      "--network=host", "-e",
-      "QUALIA_PROJECT_COMMIT=d25bb1b4f9181eadf0485532ae1bc98c3b37ad4a",
-      "-v", "/home/ubuntu/qualia:/opt/qualia:ro",
-      "-v", "/home/ubuntu/enpire-workspace:/workspace",
-      "enpire-f2-h100:b864b1c", "timeout", "9000",
-      "/opt/RLinf/.venv/bin/python", "/opt/qualia/scripts/run_f2_h100_rehearsal.py"
+      "sudo",
+      "docker",
+      "run",
+      "--rm",
+      "--gpus",
+      "all",
+      "--ipc=host",
+      "--network=host",
+      "-v",
+      "/home/ubuntu/qualia:/opt/qualia:ro",
+      "-v",
+      "/home/ubuntu/enpire-workspace:/workspace",
+      "enpire-f2-h100:bd29d7a",
+      "timeout",
+      "9000",
+      "/opt/RLinf/.venv/bin/python",
+      "/opt/qualia/scripts/run_f2_h100_rehearsal.py"
     ]
   },
   "billing": {
@@ -45,18 +53,16 @@
   "authorization": {
     "user_authorized_instance_use": true,
     "user_instruction": "use this and proceed, tell me when I can switch it off",
-    "actor_export_authorized": true,
-    "actor_export_instruction": "I explicitly approve exporting the specified Stage-1 model actor to this Lambda instance and overwriting the incomplete remote file",
     "gpu_execution_authorized": true,
     "scientific_runs_authorized": false,
     "promotion_authorized": false
   },
   "source_hashes": {
-    "Dockerfile.f2-h100": "72b27283e1f76470ebccb04ac12e036ec0698bef3bc4542ea4b596620dfa5f29",
+    "Dockerfile.f2-h100": "9aba3bed5e3e3cfec9bfef2dd469ea81ff6de722b9c9a5b0adbc77f1b3137df5",
     "agent/d1_config.py": "3e7b51928460413694ca56bfc1421130dd1618cecf3bfd15d56d22c0334b3e91",
     "agent/d1_launcher.py": "8c6b141914e94b6ea1983e2802245a931c9ea9f965ea0cc2b75d8521abf7d054",
     "agent/metrics.py": "f895bb1c630fd9e8df69e2abbde43b9b9431102b5bcbcc3ffc0a42d261fddc04",
-    "agent/provenance.py": "a8ca1c9a8b815345c09a52d2602d5b752abcb4ca4a2676997348897f8dee8c50",
+    "agent/provenance.py": "80417bc02c92129d0fde324dea95cf80db5206bd56ed443a243d04d3e451bcdb",
     "agent/resources.py": "1724d7114fb024785191f6aacb1876db09dff80e42fb2f8510115db3f0dcfc27",
     "agent/rlt_resume_state.py": "e0a21d7594de232a5ec273e8ac7fa49be957037b16445daa3ee0e73bd4e75ec6",
     "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
