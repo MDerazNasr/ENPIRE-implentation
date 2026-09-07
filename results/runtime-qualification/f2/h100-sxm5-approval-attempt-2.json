@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "approved_not_started_instance_unreachable",
+  "approved_at": "2026-09-07T11:43:53Z",
+  "approved_by": "user",
+  "source_commit": "0ec3cba722449ed8acbd06ca67c8a6d9e432ef43",
+  "source_bundle_sha256": "4844e849f329b38a5106c33b031bb2dedc48c86330147a8831d66cfaa93f619e",
+  "fixed_sequence": "attempt-2 control, candidate, resume-source, resume-continuation",
+  "timeout_seconds": 9000,
+  "maximum_additional_in_container_runtime_usd": "10.7250",
+  "instance_id": "7160d3af448d4925b149ab6e9655344d",
+  "last_known_ip": "68.209.72.230",
+  "execution_started": false,
+  "post_approval_check": {
+    "status": "unreachable",
+    "error": "SSH connection to 68.209.72.230:22 timed out",
+    "bounded_recheck_exit_code": 255,
+    "inference": "The original six-hour auto-shutdown window elapsed before approval was received."
+  },
+  "user_instruction": "I approve the H100 F2 retry for source 0ec3cba722449ed8acbd06ca67c8a6d9e432ef43, bundle 4844e849f329b38a5106c33b031bb2dedc48c86330147a8831d66cfaa93f619e, the fixed attempt-2 sequence, 9,000-second timeout, and up to $10.7250 additional in-container runtime."
+}
