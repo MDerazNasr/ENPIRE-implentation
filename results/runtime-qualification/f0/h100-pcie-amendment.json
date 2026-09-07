@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "provisioning_only_not_execution_authorized",
+  "scope": "user-selected H100 PCIe replacement for the F2 engineering retry only; no definitive run or scientific comparison is authorized",
+  "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "be7f43492c014409ad94d42371ff86d4",
+    "region": "Utah, USA",
+    "ip": "209.20.158.183",
+    "gpu_model": "NVIDIA H100 PCIe",
+    "minimum_gpu_memory_bytes": 80000000000,
+    "observed_gpu_memory_mib": 81559,
+    "driver": "570.148.08",
+    "price_usd_per_hour": "3.29"
+  },
+  "host_probe": {
+    "architecture": "x86_64",
+    "os": "Ubuntu 22.04",
+    "cpu_count": 26,
+    "ram_gib": 221,
+    "disk_available_gib": 968,
+    "docker_present": true,
+    "nvidia_container_cli_present": true,
+    "pinned_cuda_image_gpu_probe": "pass"
+  },
+  "unchanged_inputs": {
+    "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+    "actor_size_bytes": 10015912759,
+    "actor_sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf"
+  },
+  "billing": {
+    "spent_when_received_usd": "1.98",
+    "auto_shutdown_remaining": "5h23m",
+    "maximum_additional_auto_shutdown_exposure_usd": "17.7102",
+    "maximum_9000_second_in_container_cost_usd": "8.2250"
+  },
+  "authorization": {
+    "instance_provisioning_authorized": true,
+    "actor_export_authorized": false,
+    "gpu_retry_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "promotion_authorized": false
+  },
+  "supersedes_for_future_execution": "results/runtime-qualification/f0/h100-sxm5-amendment.json",
+  "reason": "The prior SXM5 instance auto-shut down before the approved retry launched; this PCIe host has a distinct fixed hardware and billing identity."
+}

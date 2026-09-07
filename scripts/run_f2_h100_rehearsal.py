@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fixed F2 rehearsal for the user-selected Lambda H100 SXM5 host.
+"""Fixed F2 rehearsal for the user-selected Lambda H100 PCIe host.
 
 The script accepts no arguments. It derives two H100-specific profiles from
 the reviewed F2 profiles, changing only runtime provenance, and then runs the
@@ -22,21 +22,21 @@ PROJECT_ROOT = Path("/opt/qualia")
 RLINF_HOME = Path("/opt/RLinf")
 WORKSPACE = Path("/workspace")
 RESULTS_ROOT = WORKSPACE / "results"
-GENERATED_ROOT = WORKSPACE / "f2-h100-generated-configs"
+GENERATED_ROOT = WORKSPACE / "f2-h100-pcie-generated-configs"
 ACTOR = WORKSPACE / "checkpoints/stage1-step-500-actor"
 NORM_STATS = Path("/opt/f2-norm-stats/norm_stats.json")
 RLINF_COMMIT = "c90951a0c799a750cb5294ed10587c61cc2af8bf"
 EXPECTED_ACTOR_SIZE = 10_015_912_759
 EXPECTED_ACTOR_SHA256 = "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3"
 EXPECTED_NORM_SHA256 = "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd"
-EXPECTED_GPU = "NVIDIA H100 80GB HBM3"
+EXPECTED_GPU = "NVIDIA H100 PCIe"
 MINIMUM_GPU_MEMORY_BYTES = 80_000_000_000
-INSTANCE_PRICE_USD_PER_HOUR = 4.29
-RUNTIME_CONTRACT_ID = "enpire-h100-sxm5-rehearsal-runtime-v1"
-CONTROL_RUN_ID = "f2-h100-sxm5-control-seed2026-attempt2"
-CANDIDATE_RUN_ID = "f2-h100-sxm5-candidate-seed2026-attempt2"
-RESUME_SOURCE_RUN_ID = "f2-h100-sxm5-resume-source-seed2026-attempt2"
-RESUME_CONTINUATION_RUN_ID = "f2-h100-sxm5-resume-continuation-seed2026-attempt2"
+INSTANCE_PRICE_USD_PER_HOUR = 3.29
+RUNTIME_CONTRACT_ID = "enpire-h100-pcie-rehearsal-runtime-v1"
+CONTROL_RUN_ID = "f2-h100-pcie-control-seed2026-attempt2"
+CANDIDATE_RUN_ID = "f2-h100-pcie-candidate-seed2026-attempt2"
+RESUME_SOURCE_RUN_ID = "f2-h100-pcie-resume-source-seed2026-attempt2"
+RESUME_CONTINUATION_RUN_ID = "f2-h100-pcie-resume-continuation-seed2026-attempt2"
 
 
 def _sha256(path: Path) -> str:
@@ -161,13 +161,13 @@ def _derived_profile(source_name: str, arm: str) -> Path:
     provenance["runtime_contract_id"] = RUNTIME_CONTRACT_ID
     provenance["gpu"] = EXPECTED_GPU
     provenance["provider"] = "Lambda Cloud"
-    provenance["instance_id"] = "7160d3af448d4925b149ab6e9655344d"
-    provenance["region"] = "Georgia, USA"
+    provenance["instance_id"] = "be7f43492c014409ad94d42371ff86d4"
+    provenance["region"] = "Utah, USA"
     provenance["runtime_amendment"] = (
-        "user-selected H100 SXM5 replacement; valid for F2 engineering rehearsal "
+        "user-selected H100 PCIe replacement; valid for F2 engineering rehearsal "
         "only until the live result supports or rejects a new matched runtime"
     )
-    profile["experiment_id"] = f"d1-f2-h100-sxm5-{arm}-rehearsal"
+    profile["experiment_id"] = f"d1-f2-h100-pcie-{arm}-rehearsal"
     GENERATED_ROOT.mkdir(parents=True, exist_ok=True)
     target = GENERATED_ROOT / f"{arm}.yaml"
     target.write_text(json.dumps(profile, indent=2, sort_keys=True) + "\n")
@@ -183,13 +183,13 @@ def _derived_resume_profile() -> Path:
     provenance["candidate_gpu"] = EXPECTED_GPU
     provenance["runtime_contract_id"] = RUNTIME_CONTRACT_ID
     provenance["provider"] = "Lambda Cloud"
-    provenance["instance_id"] = "7160d3af448d4925b149ab6e9655344d"
-    provenance["region"] = "Georgia, USA"
+    provenance["instance_id"] = "be7f43492c014409ad94d42371ff86d4"
+    provenance["region"] = "Utah, USA"
     provenance["comparison_limitation"] = (
-        "schedule-resume integration gate on the user-selected H100 SXM5; "
+        "schedule-resume integration gate on the user-selected H100 PCIe; "
         "not a scientific condition result"
     )
-    profile["experiment_id"] = "d1-f2-h100-sxm5-schedule-resume-gate"
+    profile["experiment_id"] = "d1-f2-h100-pcie-schedule-resume-gate"
     GENERATED_ROOT.mkdir(parents=True, exist_ok=True)
     target = GENERATED_ROOT / "resume.yaml"
     target.write_text(json.dumps(profile, indent=2, sort_keys=True) + "\n")
@@ -381,7 +381,7 @@ def main() -> int:
     result = {
         "schema_version": 1,
         "status": "pass",
-        "claim_scope": "H100 SXM5 F2 engineering rehearsal only; no policy comparison or promotion",
+        "claim_scope": "H100 PCIe F2 engineering rehearsal only; no policy comparison or promotion",
         "inputs": inputs,
         "scientific_diff": diff,
         "control": control,
@@ -392,7 +392,7 @@ def main() -> int:
         "in_container_elapsed_cost_usd": elapsed / 3600 * INSTANCE_PRICE_USD_PER_HOUR,
         "segmentation_decision_basis": "allow only identical predeclared step-boundary segmentation with native checkpoint plus strict sidecar; simulator state is not bitwise continuous",
     }
-    output = RESULTS_ROOT / "runtime-qualification/f2-h100-sxm5/attempt-2.json"
+    output = RESULTS_ROOT / "runtime-qualification/f2-h100-pcie/attempt-2.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(f"ENPIRE_F2_H100_RESULT={json.dumps(result, sort_keys=True)}", flush=True)
