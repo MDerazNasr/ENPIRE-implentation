@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "approved_transfer_pending",
+  "approved_at": "2026-09-07T16:34:18Z",
+  "approved_by": "user",
+  "source_commit": "513b1399b4b8f661415b620b102c2f2b72c30490",
+  "source_bundle_sha256": "1ad3a3633c0bd0fb8bce4cb474a62c9b33b1a4652fb5679aa06e4ee8aaacdc4d",
+  "fixed_sequence": "attempt-2 control, candidate, resume-source, resume-continuation",
+  "timeout_seconds": 9000,
+  "maximum_additional_in_container_runtime_usd": "8.2250",
+  "instance": {
+    "provider": "Lambda Cloud",
+    "instance_id": "be7f43492c014409ad94d42371ff86d4",
+    "region": "Utah, USA",
+    "ip": "209.20.158.183",
+    "gpu": "NVIDIA H100 PCIe",
+    "price_usd_per_hour": "3.29"
+  },
+  "actor_export": {
+    "local_path": "/Users/mderaznasr/Documents/GitHub/ENPIRE-implentation/tmp/fresh-chain-20260807/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "remote_path": "/home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "size_bytes": 10015912759,
+    "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "authorized": true,
+    "completed": false
+  },
+  "execution_authorized": true,
+  "execution_started": false,
+  "scientific_runs_authorized": false,
+  "promotion_authorized": false,
+  "user_instruction": "I explicitly approve exporting the 10,015,912,759-byte Stage-1 actor with SHA-256 b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3 to instance be7f43492c014409ad94d42371ff86d4 at 209.20.158.183, destination /home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt. I also approve the H100 PCIe F2 retry for source 513b1399b4b8f661415b620b102c2f2b72c30490, bundle 1ad3a3633c0bd0fb8bce4cb474a62c9b33b1a4652fb5679aa06e4ee8aaacdc4d, the fixed attempt-2 sequence, 9,000-second timeout, and up to $8.2250 additional in-container runtime."
+}

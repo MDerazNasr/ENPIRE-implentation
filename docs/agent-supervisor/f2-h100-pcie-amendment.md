@@ -1,7 +1,7 @@
 # F2 H100 PCIe Runtime Amendment
 
-Status on 2026-09-07: **provisioning authorized; actor export and retry execution
-not yet authorized for this instance**.
+Status on 2026-09-07: **actor export and fixed attempt-2 retry authorized;
+transfer pending**.
 
 The user selected Lambda instance `be7f43492c014409ad94d42371ff86d4`,
 one NVIDIA H100 PCIe in Utah at `$3.29/hour`, after the prior H100 SXM5 host
@@ -26,3 +26,11 @@ displayed 5h23m auto-shutdown window bounded additional instance exposure at
 and dependencies does not authorize exporting the private Stage-1 actor or
 starting the paid retry. Both require a new immutable preflight and explicit
 instance-specific approval.
+
+The user supplied that exact combined approval at `2026-09-07T16:34:18Z`,
+binding the 10,015,912,759-byte actor and its `b5bf9384...363f3` digest to the
+named instance and destination, and binding execution to source
+`513b139...30490`, bundle `1ad3a363...cdc4d`, the frozen attempt-2 sequence,
+9,000-second timeout, and `$8.2250` in-container ceiling. This approval does
+not authorize scientific inference, G1/G2, evaluation, or promotion. See
+`results/runtime-qualification/f2/h100-pcie-approval-attempt-2.json`.
