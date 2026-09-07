@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "approved_transfer_pending",
+  "status": "approved_transfer_interrupted_instance_unreachable",
   "approved_at": "2026-09-07T16:34:18Z",
   "approved_by": "user",
   "source_commit": "513b1399b4b8f661415b620b102c2f2b72c30490",
@@ -22,7 +22,22 @@
     "size_bytes": 10015912759,
     "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
     "authorized": true,
-    "completed": false
+    "completed": false,
+    "transfer_interruption": {
+      "last_reachable_at": "2026-09-07T18:12:19Z",
+      "preserved_part_sizes_at_last_reachable_check": {
+        "part00": 827981824,
+        "part01": 1694466048,
+        "part02": 1807384576,
+        "part03": 942800896
+      },
+      "preserved_prefix_bytes_total": 5272633344,
+      "final_size_and_sha256_pending": true,
+      "unreachable_confirmed_at": "2026-09-07T21:06:02Z",
+      "bounded_ssh_checks_failed": 3,
+      "error": "SSH connection to 209.20.158.183:22 timed out",
+      "resume_requirement": "Restart or replace the instance, confirm its active IP and persistent-disk state, then resume each part from its exact stable byte boundary. Reassemble and verify the approved whole-file size and SHA-256 before execution."
+    }
   },
   "execution_authorized": true,
   "execution_started": false,

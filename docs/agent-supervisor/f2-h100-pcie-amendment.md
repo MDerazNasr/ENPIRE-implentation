@@ -1,7 +1,7 @@
 # F2 H100 PCIe Runtime Amendment
 
-Status on 2026-09-07: **actor export and fixed attempt-2 retry authorized;
-transfer pending**.
+Status on 2026-09-07: **authorized; actor transfer interrupted because the
+instance became unreachable; retry not started**.
 
 The user selected Lambda instance `be7f43492c014409ad94d42371ff86d4`,
 one NVIDIA H100 PCIe in Utah at `$3.29/hour`, after the prior H100 SXM5 host
@@ -34,3 +34,10 @@ named instance and destination, and binding execution to source
 9,000-second timeout, and `$8.2250` in-container ceiling. This approval does
 not authorize scientific inference, G1/G2, evaluation, or promotion. See
 `results/runtime-qualification/f2/h100-pcie-approval-attempt-2.json`.
+
+The transfer preserved 5,272,633,344 prefix bytes across four separate part
+files at the last successful check (`2026-09-07T18:12:19Z`). The instance then
+failed three bounded SSH checks. No container, rollout, update, evaluation, or
+promotion ran. Resume requires confirming the restarted host/IP and persistent
+part sizes, completing the export, and passing the exact approved whole-file
+size and SHA-256 gate before the already-authorized fixed command may start.
