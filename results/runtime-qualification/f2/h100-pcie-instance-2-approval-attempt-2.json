@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "approved_ready_to_execute",
+  "status": "execution_starting",
   "approved_at": "2026-09-08T12:49:33Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-2-preflight.json",
@@ -30,7 +30,8 @@
     "observed_sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3"
   },
   "execution_authorized": true,
-  "execution_started": false,
+  "execution_started": true,
+  "execution_started_at": "2026-09-08T16:43:47Z",
   "scientific_runs_authorized": false,
   "promotion_authorized": false,
   "user_instruction": "I explicitly approve exporting the 10,015,912,759-byte Stage-1 actor with SHA-256 b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3 to instance 488738cc7b404e7aa86ad2e02c70acdf at 209.20.158.151, destination /home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt. I also approve the H100 PCIe F2 retry for source b487396c0846ad9259e992b0b2f9251f4ad8a630, bundle cb94d3fcd04724fa5f38631a1cb46b7abe1af7ee0567108f3ce5d0c6c6acacd6, the fixed attempt-2 sequence, 9,000-second timeout, and up to $8.2250 additional in-container runtime."
