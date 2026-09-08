@@ -122,6 +122,14 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(pcie["billing"]["maximum_9000_second_in_container_cost_usd"], "8.2250")
         self.assertFalse(pcie["authorization"]["actor_export_authorized"])
         self.assertFalse(pcie["authorization"]["gpu_retry_execution_authorized"])
+        replacement = json.loads(
+            (ROOT / "results/runtime-qualification/f0/h100-pcie-instance-2-amendment.json").read_text()
+        )
+        self.assertEqual(replacement["provider"]["instance_id"], "488738cc7b404e7aa86ad2e02c70acdf")
+        self.assertEqual(replacement["provider"]["ip"], "209.20.158.151")
+        self.assertFalse(replacement["authorization"]["actor_export_authorized"])
+        self.assertFalse(replacement["authorization"]["gpu_retry_execution_authorized"])
+        self.assertIn("488738cc7b404e7aa86ad2e02c70acdf", source)
 
 
 if __name__ == "__main__":
