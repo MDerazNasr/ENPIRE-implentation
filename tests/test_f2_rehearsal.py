@@ -105,8 +105,8 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(main.args.args, [])
         source = runner_path.read_text()
         self.assertNotIn("shell=True", source)
-        self.assertIn("f2-h100-pcie-control-seed2026-attempt2", source)
-        self.assertIn("f2-h100-pcie-candidate-seed2026-attempt2", source)
+        self.assertIn("f2-h100-pcie-control-seed2026-attempt3", source)
+        self.assertIn("f2-h100-pcie-candidate-seed2026-attempt3", source)
         self.assertIn('NVIDIA H100 PCIe', source)
         self.assertIn('/opt/f2-norm-stats/norm_stats.json', source)
         dockerfile = (ROOT / "Dockerfile.f2-h100").read_text()
@@ -129,7 +129,14 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(replacement["provider"]["ip"], "209.20.158.151")
         self.assertFalse(replacement["authorization"]["actor_export_authorized"])
         self.assertFalse(replacement["authorization"]["gpu_retry_execution_authorized"])
-        self.assertIn("488738cc7b404e7aa86ad2e02c70acdf", source)
+        latest = json.loads(
+            (ROOT / "results/runtime-qualification/f0/h100-pcie-instance-3-amendment.json").read_text()
+        )
+        self.assertEqual(latest["provider"]["instance_id"], "e4907a39365a444c8ae47426f0380019")
+        self.assertEqual(latest["provider"]["ip"], "209.20.158.134")
+        self.assertFalse(latest["authorization"]["actor_export_authorized"])
+        self.assertFalse(latest["authorization"]["gpu_retry_execution_authorized"])
+        self.assertIn("e4907a39365a444c8ae47426f0380019", source)
 
 
 if __name__ == "__main__":

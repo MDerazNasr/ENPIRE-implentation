@@ -33,10 +33,10 @@ EXPECTED_GPU = "NVIDIA H100 PCIe"
 MINIMUM_GPU_MEMORY_BYTES = 80_000_000_000
 INSTANCE_PRICE_USD_PER_HOUR = 3.29
 RUNTIME_CONTRACT_ID = "enpire-h100-pcie-rehearsal-runtime-v1"
-CONTROL_RUN_ID = "f2-h100-pcie-control-seed2026-attempt2"
-CANDIDATE_RUN_ID = "f2-h100-pcie-candidate-seed2026-attempt2"
-RESUME_SOURCE_RUN_ID = "f2-h100-pcie-resume-source-seed2026-attempt2"
-RESUME_CONTINUATION_RUN_ID = "f2-h100-pcie-resume-continuation-seed2026-attempt2"
+CONTROL_RUN_ID = "f2-h100-pcie-control-seed2026-attempt3"
+CANDIDATE_RUN_ID = "f2-h100-pcie-candidate-seed2026-attempt3"
+RESUME_SOURCE_RUN_ID = "f2-h100-pcie-resume-source-seed2026-attempt3"
+RESUME_CONTINUATION_RUN_ID = "f2-h100-pcie-resume-continuation-seed2026-attempt3"
 
 
 def _sha256(path: Path) -> str:
@@ -161,7 +161,7 @@ def _derived_profile(source_name: str, arm: str) -> Path:
     provenance["runtime_contract_id"] = RUNTIME_CONTRACT_ID
     provenance["gpu"] = EXPECTED_GPU
     provenance["provider"] = "Lambda Cloud"
-    provenance["instance_id"] = "488738cc7b404e7aa86ad2e02c70acdf"
+    provenance["instance_id"] = "e4907a39365a444c8ae47426f0380019"
     provenance["region"] = "Utah, USA"
     provenance["runtime_amendment"] = (
         "user-selected H100 PCIe replacement; valid for F2 engineering rehearsal "
@@ -183,7 +183,7 @@ def _derived_resume_profile() -> Path:
     provenance["candidate_gpu"] = EXPECTED_GPU
     provenance["runtime_contract_id"] = RUNTIME_CONTRACT_ID
     provenance["provider"] = "Lambda Cloud"
-    provenance["instance_id"] = "488738cc7b404e7aa86ad2e02c70acdf"
+    provenance["instance_id"] = "e4907a39365a444c8ae47426f0380019"
     provenance["region"] = "Utah, USA"
     provenance["comparison_limitation"] = (
         "schedule-resume integration gate on the user-selected H100 PCIe; "
