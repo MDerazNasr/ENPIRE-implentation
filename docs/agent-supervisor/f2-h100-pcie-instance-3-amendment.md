@@ -82,3 +82,24 @@ After exit, the host reported zero running or retained containers and zero GPU
 compute processes. Any retry requires a local import-boundary regression,
 new attempt IDs, a newly frozen clean source/bundle/preflight, and separate
 explicit paid approval. Attempt-3 evidence must not be evaluated or promoted.
+
+## Attempt-4 local correction
+
+The corrected runner now validates both project-owned audit modules before
+runtime input checks, Ray startup, or either expensive arm. It inserts only the
+fixed `/opt/qualia` mount into its own import path and fails if either loaded
+module resolves anywhere other than the exact expected file under that mount.
+Checkpoint and resume auditing reuse those verified modules.
+
+An isolated `python -I` regression loads the runner by absolute file path,
+without inheriting the repository on `sys.path`, and proves that both late
+audit modules resolve correctly. The four run IDs and terminal result path now
+use `attempt4`; no attempt-3 execution directory can be reused. Compilation,
+diff hygiene, six focused tests, and the full 296-test / 142-subtest suite pass.
+
+This is a local correction only. It does not authorize source sync, actor
+export, GPU execution, evaluation, or promotion. If instance 3 has been
+terminated, the next active H100 PCIe instance must first receive its own
+runtime/identity amendment. In either case, a clean corrected source commit,
+canonical source fingerprint, host-specific no-launch preflight, and new exact
+paid approval are required before attempt 4.

@@ -3,7 +3,10 @@ from __future__ import annotations
 import ast
 import copy
 import json
+import subprocess
+import sys
 import tempfile
+import textwrap
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -105,8 +108,10 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(main.args.args, [])
         source = runner_path.read_text()
         self.assertNotIn("shell=True", source)
-        self.assertIn("f2-h100-pcie-control-seed2026-attempt3", source)
-        self.assertIn("f2-h100-pcie-candidate-seed2026-attempt3", source)
+        self.assertIn("f2-h100-pcie-control-seed2026-attempt4", source)
+        self.assertIn("f2-h100-pcie-candidate-seed2026-attempt4", source)
+        self.assertNotIn("f2-h100-pcie-control-seed2026-attempt3", source)
+        self.assertIn('attempt-4.json', source)
         self.assertIn('NVIDIA H100 PCIe', source)
         self.assertIn('/opt/f2-norm-stats/norm_stats.json', source)
         dockerfile = (ROOT / "Dockerfile.f2-h100").read_text()
@@ -137,6 +142,44 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertFalse(latest["authorization"]["actor_export_authorized"])
         self.assertFalse(latest["authorization"]["gpu_retry_execution_authorized"])
         self.assertIn("e4907a39365a444c8ae47426f0380019", source)
+
+    def test_h100_runner_bootstraps_project_imports_under_direct_file_launch(self) -> None:
+        runner = ROOT / "scripts/run_f2_h100_rehearsal.py"
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory) / "qualia"
+            package = project / "agent"
+            package.mkdir(parents=True)
+            (package / "__init__.py").write_text("")
+            (package / "metrics.py").write_text(
+                "def parse_metrics(value):\n    return {'loaded': value}\n"
+            )
+            (package / "rlt_resume_state.py").write_text(
+                "def audit_state_file(*args, **kwargs):\n    return 'loaded'\n"
+            )
+            probe = textwrap.dedent(
+                f"""
+                import importlib.util
+                from pathlib import Path
+
+                spec = importlib.util.spec_from_file_location("isolated_f2_runner", {str(runner)!r})
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                module.PROJECT_ROOT = Path({str(project)!r})
+                loaded = module._project_modules()
+                assert loaded["agent.metrics"].parse_metrics("direct") == {{"loaded": "direct"}}
+                assert loaded["agent.rlt_resume_state"].audit_state_file() == "loaded"
+                print("DIRECT_FILE_IMPORT_GATE=PASS")
+                """
+            )
+            completed = subprocess.run(
+                [sys.executable, "-I", "-c", probe],
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(completed.stdout.strip(), "DIRECT_FILE_IMPORT_GATE=PASS")
 
 
 if __name__ == "__main__":

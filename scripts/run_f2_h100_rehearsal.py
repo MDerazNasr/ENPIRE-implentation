@@ -9,6 +9,7 @@ two full-shape steps plus the strict two-process resume micro-gate.
 from __future__ import annotations
 
 import hashlib
+import importlib
 import json
 import os
 import subprocess
@@ -33,10 +34,37 @@ EXPECTED_GPU = "NVIDIA H100 PCIe"
 MINIMUM_GPU_MEMORY_BYTES = 80_000_000_000
 INSTANCE_PRICE_USD_PER_HOUR = 3.29
 RUNTIME_CONTRACT_ID = "enpire-h100-pcie-rehearsal-runtime-v1"
-CONTROL_RUN_ID = "f2-h100-pcie-control-seed2026-attempt3"
-CANDIDATE_RUN_ID = "f2-h100-pcie-candidate-seed2026-attempt3"
-RESUME_SOURCE_RUN_ID = "f2-h100-pcie-resume-source-seed2026-attempt3"
-RESUME_CONTINUATION_RUN_ID = "f2-h100-pcie-resume-continuation-seed2026-attempt3"
+CONTROL_RUN_ID = "f2-h100-pcie-control-seed2026-attempt4"
+CANDIDATE_RUN_ID = "f2-h100-pcie-candidate-seed2026-attempt4"
+RESUME_SOURCE_RUN_ID = "f2-h100-pcie-resume-source-seed2026-attempt4"
+RESUME_CONTINUATION_RUN_ID = "f2-h100-pcie-resume-continuation-seed2026-attempt4"
+
+
+def _project_modules() -> dict[str, Any]:
+    """Load audit modules only from the immutable mounted project root."""
+
+    root = PROJECT_ROOT.resolve()
+    expected = {
+        "agent.metrics": (root / "agent/metrics.py").resolve(),
+        "agent.rlt_resume_state": (root / "agent/rlt_resume_state.py").resolve(),
+    }
+    missing = [str(path) for path in expected.values() if not path.is_file()]
+    if missing:
+        raise RuntimeError(f"project audit modules are missing: {missing}")
+    root_text = str(root)
+    if root_text not in sys.path:
+        sys.path.insert(0, root_text)
+    loaded = {}
+    for name, expected_path in expected.items():
+        module = importlib.import_module(name)
+        observed_path = Path(module.__file__ or "").resolve()
+        if observed_path != expected_path:
+            raise RuntimeError(
+                f"project audit module resolved outside mounted source: "
+                f"{name} -> {observed_path}"
+            )
+        loaded[name] = module
+    return loaded
 
 
 def _sha256(path: Path) -> str:
@@ -267,7 +295,7 @@ def _checkpoint(run_id: str, step: int) -> Path:
 
 
 def _audit_checkpoint(run_id: str, step: int) -> dict[str, Any]:
-    from agent.rlt_resume_state import audit_state_file
+    audit_state_file = _project_modules()["agent.rlt_resume_state"].audit_state_file
 
     root = _checkpoint(run_id, step)
     required = (
@@ -294,7 +322,7 @@ def _audit_checkpoint(run_id: str, step: int) -> dict[str, Any]:
 
 
 def _resume_gate(profile: Path) -> dict[str, Any]:
-    from agent.metrics import parse_metrics
+    parse_metrics = _project_modules()["agent.metrics"].parse_metrics
 
     source_run = _run_profile(
         profile,
@@ -352,6 +380,7 @@ def _resume_gate(profile: Path) -> dict[str, Any]:
 
 def main() -> int:
     started = time.monotonic()
+    _project_modules()
     inputs = _verify_runtime_and_inputs()
     control_config = _derived_profile("f2_control_rehearsal.yaml", "control")
     candidate_config = _derived_profile("f2_candidate_rehearsal.yaml", "candidate")
@@ -392,7 +421,7 @@ def main() -> int:
         "in_container_elapsed_cost_usd": elapsed / 3600 * INSTANCE_PRICE_USD_PER_HOUR,
         "segmentation_decision_basis": "allow only identical predeclared step-boundary segmentation with native checkpoint plus strict sidecar; simulator state is not bitwise continuous",
     }
-    output = RESULTS_ROOT / "runtime-qualification/f2-h100-pcie/attempt-2.json"
+    output = RESULTS_ROOT / "runtime-qualification/f2-h100-pcie/attempt-4.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(f"ENPIRE_F2_H100_RESULT={json.dumps(result, sort_keys=True)}", flush=True)
