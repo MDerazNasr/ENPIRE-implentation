@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "provisioning_only_not_execution_authorized",
+  "status": "runtime_qualified_not_execution_authorized",
   "scope": "user-selected replacement H100 PCIe instance for F2 attempt 3 only; no actor export, definitive run, scientific comparison, or promotion is authorized",
   "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
   "provider": {
@@ -23,7 +23,26 @@
     "docker_present": true,
     "nvidia_container_cli_present": true,
     "workspace_present": false,
-    "pinned_cuda_image_gpu_probe": "pending"
+    "pinned_cuda_image_gpu_probe": "pass"
+  },
+  "image": {
+    "build_tag": "enpire-f2-h100-pcie:fe589ab",
+    "image_id": "sha256:e8e4d6f6f85ac73d2caae1574ff5382895d666c678fe4dd6f6fd92cff71fef55",
+    "image_size_bytes": 40878572102,
+    "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7"
+  },
+  "qualification": {
+    "python": "3.11.14",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "gpu_memory_bytes": 85028896768,
+    "cuda_probe": 4.0,
+    "maniskill": "3.0.0b22",
+    "sapien": "3.0.1",
+    "hydra": "1.3.2",
+    "omegaconf": "2.3.0",
+    "vulkan": "Mesa llvmpipe",
+    "openpi_norm_loader_keys": ["actions", "state"]
   },
   "unchanged_inputs": {
     "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",

@@ -1,7 +1,7 @@
 # F2 Replacement H100 PCIe Instance 3 Amendment
 
-Status on 2026-09-08: **public provisioning only; actor export and paid attempt
-3 are not authorized**.
+Status on 2026-09-08: **runtime qualified; actor export and paid attempt 3 are
+not authorized**.
 
 The user selected Lambda instance `e4907a39365a444c8ae47426f0380019` at
 `209.20.158.134`, one NVIDIA H100 PCIe in Utah at `$3.29/hour`. Read-only
@@ -22,6 +22,13 @@ timeout remain unchanged. Only provider identity, IP, source provenance, and
 attempt IDs change. Public provisioning is authorized by `connect and go`.
 Sensitive actor export and paid execution require a new combined approval after
 the source bundle, image identity, probes, tests, and preflight are frozen.
+
+Public provisioning produced image
+`sha256:e8e4d6f6f85ac73d2caae1574ff5382895d666c678fe4dd6f6fd92cff71fef55`
+(`40,878,572,102` bytes). The exact Python, Torch, CUDA tensor, GPU identity and
+memory, RLinf, ManiSkill, SAPIEN, Hydra, OmegaConf, Mesa llvmpipe, norm hash,
+and pinned OpenPI norm-loader probes passed. The loader returned the required
+`actions` and `state` keys.
 
 At `$3.29/hour`, the 9,000-second in-container ceiling remains `$8.2250`. The
 user-reported 5h34m auto-shutdown window corresponds to a maximum additional
