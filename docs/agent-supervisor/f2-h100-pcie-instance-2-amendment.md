@@ -1,7 +1,7 @@
 # F2 Replacement H100 PCIe Instance Amendment
 
-Status on 2026-09-08: **public provisioning authorized; actor export and paid
-retry not authorized for this instance**.
+Status on 2026-09-08: **public provisioning complete; actor export and paid
+retry await exact instance-specific approval**.
 
 The user selected Lambda instance `488738cc7b404e7aa86ad2e02c70acdf` at
 `209.20.158.151`, one NVIDIA H100 PCIe in Utah at `$3.29/hour`. Read-only
@@ -22,3 +22,10 @@ The displayed 4h32m auto-shutdown window bounded additional instance exposure
 at `$14.9147`, excluding the already displayed `$4.78`. Exact source and image
 identities must be frozen after provisioning, followed by a new combined
 instance-specific actor-export and paid-retry approval.
+
+Provisioning completed with image
+`sha256:db5450dad1ffc5639abb521ac83d4a4dc0e24673ca682e721e111d0c9a49d2bf`
+(`40,873,682,860` bytes). The exact in-image runtime, CUDA tensor, RLinf,
+ManiSkill, SAPIEN, Hydra, OmegaConf, norm-loader, and Mesa llvmpipe probes all
+passed. The clean tested source is `b487396c...8a630`; immutable preflight is
+`results/runtime-qualification/f2/h100-pcie-instance-2-preflight.json`.
