@@ -1,7 +1,7 @@
 # F2 Replacement H100 PCIe Instance Amendment
 
-Status on 2026-09-08: **public provisioning complete; actor export and paid
-retry await exact instance-specific approval**.
+Status on 2026-09-08: **actor export and fixed paid retry authorized; transfer
+pending**.
 
 The user selected Lambda instance `488738cc7b404e7aa86ad2e02c70acdf` at
 `209.20.158.151`, one NVIDIA H100 PCIe in Utah at `$3.29/hour`. Read-only
@@ -29,3 +29,9 @@ Provisioning completed with image
 ManiSkill, SAPIEN, Hydra, OmegaConf, norm-loader, and Mesa llvmpipe probes all
 passed. The clean tested source is `b487396c...8a630`; immutable preflight is
 `results/runtime-qualification/f2/h100-pcie-instance-2-preflight.json`.
+
+The user supplied the exact combined actor-export and paid-retry authorization
+at `2026-09-08T12:49:33Z`. It binds the canonical actor, this instance and IP,
+source `b487396c...8a630`, bundle `cb94d3fc...acacd6`, the fixed attempt-2
+sequence, 9,000-second timeout, and `$8.2250` in-container ceiling. It does not
+authorize scientific inference, G1/G2, evaluation, or promotion.
