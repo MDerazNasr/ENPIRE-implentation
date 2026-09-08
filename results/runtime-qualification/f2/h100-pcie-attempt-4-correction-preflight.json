@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "corrected_source_ready_for_host_binding",
+  "created_at": "2026-09-08T23:33:34Z",
+  "claim_scope": "local H100 PCIe F2 attempt-4 correction only; no source sync, actor export, paid execution, scientific comparison, evaluation, or promotion",
+  "source_commit": "6ac01eb1f2d8e53f53da96d5da2466fa9588bfbe",
+  "source_bundle_sha256": "171e07f7b5e9f29d8c5954b31f7aaa5ca5d8bedd4eba4bb0ede4696dfd1312e1",
+  "prior_attempt": {
+    "record": "results/runtime-qualification/f2/h100-pcie-attempt-3-failed/attempt.json",
+    "record_sha256": "c2cd8627b06135990ddb501d2bd4ba5bcc0d8ac5008ac04b0fd733963c17d970",
+    "status": "failed_closed_after_control_before_candidate",
+    "consumed_authorization": true
+  },
+  "correction": {
+    "failure_type": "ModuleNotFoundError",
+    "failure_message": "No module named 'agent'",
+    "boundary": "outer project-owned runner checkpoint audit after completed Control",
+    "fixed_behavior": [
+      "validate agent.metrics and agent.rlt_resume_state before runtime input checks or Ray startup",
+      "insert only the fixed mounted project root into the runner process import path",
+      "require both loaded modules to resolve to their exact files under the mounted project root",
+      "reuse only the verified modules for checkpoint and resume auditing"
+    ],
+    "fixed_run_ids": [
+      "f2-h100-pcie-control-seed2026-attempt4",
+      "f2-h100-pcie-candidate-seed2026-attempt4",
+      "f2-h100-pcie-resume-source-seed2026-attempt4",
+      "f2-h100-pcie-resume-continuation-seed2026-attempt4"
+    ],
+    "result_path": "/workspace/results/runtime-qualification/f2-h100-pcie/attempt-4.json",
+    "prior_run_ids_reused": false
+  },
+  "qualification": {
+    "compileall": "pass",
+    "diff_check": "pass",
+    "focused_tests_passed": 6,
+    "repository_tests_passed": 296,
+    "repository_subtests_passed": 142,
+    "isolated_direct_file_import_gate": "pass",
+    "test_sha256": "d217cbe88a94ed0778b78cba19197f72a16dd72644f510395111120c5e9e9754"
+  },
+  "host_binding": {
+    "required": true,
+    "completed": false,
+    "instance_id": null,
+    "ip": null,
+    "reason": "The corrected source still contains instance-3 provenance. Reusing a live instance requires reconfirmation; using a replacement requires a new amendment and source freeze."
+  },
+  "authorization": {
+    "source_sync_authorized": false,
+    "actor_export_authorized": false,
+    "gpu_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false,
+    "next_required_action": "Bind and qualify an active H100 PCIe instance, then freeze a host-specific clean source/bundle/preflight and request exact paid attempt-4 approval."
+  },
+  "source_hashes": {
+    "Dockerfile.f2-h100": "72b27283e1f76470ebccb04ac12e036ec0698bef3bc4542ea4b596620dfa5f29",
+    "agent/d1_config.py": "3e7b51928460413694ca56bfc1421130dd1618cecf3bfd15d56d22c0334b3e91",
+    "agent/d1_launcher.py": "8c6b141914e94b6ea1983e2802245a931c9ea9f965ea0cc2b75d8521abf7d054",
+    "agent/metrics.py": "f895bb1c630fd9e8df69e2abbde43b9b9431102b5bcbcc3ffc0a42d261fddc04",
+    "agent/provenance.py": "a8ca1c9a8b815345c09a52d2602d5b752abcb4ca4a2676997348897f8dee8c50",
+    "agent/resources.py": "1724d7114fb024785191f6aacb1876db09dff80e42fb2f8510115db3f0dcfc27",
+    "agent/rlt_resume_state.py": "e0a21d7594de232a5ec273e8ac7fa49be957037b16445daa3ee0e73bd4e75ec6",
+    "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "configs/d1/f2_candidate_rehearsal.yaml": "b8d099135879ea86933729bae1452fe43abe24b0e41c273faafa734e59c0856c",
+    "configs/d1/f2_control_rehearsal.yaml": "40fc4bff7c9abdd804bf53ac4bd1e0c0c8050ff9564103eed2000ec654eccdb8",
+    "configs/d1/stage2_6_schedule_resume_gate.yaml": "cbec2ed9046fd43ba71595c196768a0177c4d60a7abe616a61661a48dee2b7bb",
+    "envs/modal_multiprocess_rlt_env.py": "84b8e65b9d966233f892bda7e71d08a31a1a35e222bd8859f77d84dbe417b23c",
+    "results/runtime-qualification/f0/h100-pcie-instance-3-amendment.json": "466219f5a1821c09585fef215a435b5d4b98fc60b699b290e1ba092eaa805b32",
+    "scripts/run_f2_h100_rehearsal.py": "c39154e99cce22ae14b948aab3db82fa3a26fec886e6d505eaf4d6345345bfa4",
+    "sitecustomize.py": "8f39c3cfffcf839ece8aa9bdce5f798e6fb019fc4e19e5168edc1c1ca3187f74"
+  }
+}

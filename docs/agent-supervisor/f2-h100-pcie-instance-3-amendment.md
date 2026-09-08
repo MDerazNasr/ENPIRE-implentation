@@ -103,3 +103,12 @@ terminated, the next active H100 PCIe instance must first receive its own
 runtime/identity amendment. In either case, a clean corrected source commit,
 canonical source fingerprint, host-specific no-launch preflight, and new exact
 paid approval are required before attempt 4.
+
+The corrected clean baseline is commit
+`6ac01eb1f2d8e53f53da96d5da2466fa9588bfbe`. Its canonical operational
+source fingerprint is
+`171e07f7b5e9f29d8c5954b31f7aaa5ca5d8bedd4eba4bb0ede4696dfd1312e1`.
+The non-authorizing correction freeze is
+`results/runtime-qualification/f2/h100-pcie-attempt-4-correction-preflight.json`.
+Its status is `corrected_source_ready_for_host_binding`; it is deliberately not
+a host-specific launch preflight.
