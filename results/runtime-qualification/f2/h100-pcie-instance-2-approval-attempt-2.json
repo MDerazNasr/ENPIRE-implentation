@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "approved_transfer_pending",
+  "status": "approved_ready_to_execute",
   "approved_at": "2026-09-08T12:49:33Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-2-preflight.json",
@@ -24,7 +24,10 @@
     "size_bytes": 10015912759,
     "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
     "authorized": true,
-    "completed": false
+    "completed": true,
+    "verified_at": "2026-09-08T16:41:11Z",
+    "observed_size_bytes": 10015912759,
+    "observed_sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3"
   },
   "execution_authorized": true,
   "execution_started": false,
