@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "approved_transfer_pending",
+  "approved_at": "2026-09-08T20:04:02Z",
+  "approved_by": "user",
+  "preflight": "results/runtime-qualification/f2/h100-pcie-instance-3-preflight.json",
+  "preflight_sha256": "708d090c931dae1e5deccd65686ae0d1265c876d0e81ae94ec2c4549cb6211e7",
+  "source_commit": "65137bd37d14733874cff5036e2761830e50487c",
+  "source_bundle_sha256": "fcc4f3df864e9145b26f2327c08b0e648885eca581f5341e358056e3c5789798",
+  "fixed_sequence": "attempt-3 control, candidate, resume-source, resume-continuation",
+  "timeout_seconds": 9000,
+  "maximum_additional_in_container_runtime_usd": "8.2250",
+  "instance": {
+    "provider": "Lambda Cloud",
+    "instance_id": "e4907a39365a444c8ae47426f0380019",
+    "region": "Utah, USA",
+    "ip": "209.20.158.134",
+    "gpu": "NVIDIA H100 PCIe",
+    "price_usd_per_hour": "3.29"
+  },
+  "source_sync": {
+    "local_source": "/private/tmp/enpire-d1-d2-agentic-harness",
+    "remote_path": "/home/ubuntu/qualia",
+    "actor_free": true,
+    "authorized": true,
+    "completed": false
+  },
+  "actor_export": {
+    "local_path": "/Users/mderaznasr/Documents/GitHub/ENPIRE-implentation/tmp/fresh-chain-20260807/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "remote_path": "/home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "size_bytes": 10015912759,
+    "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "transfer": "fixed four-part resumable transfer with ordered reassembly",
+    "authorized": true,
+    "completed": false
+  },
+  "execution_authorized": true,
+  "execution_started": false,
+  "scientific_runs_authorized": false,
+  "promotion_authorized": false,
+  "user_instruction": "I explicitly approve syncing the actor-free source tree and preflight for source 65137bd37d14733874cff5036e2761830e50487c to instance e4907a39365a444c8ae47426f0380019 at 209.20.158.134, destination /home/ubuntu/qualia. I approve exporting the 10,015,912,759-byte Stage-1 actor with SHA-256 b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3 using the fixed resumable four-part transfer and ordered reassembly, overwriting destination /home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt. I also approve H100 PCIe F2 attempt 3 for bundle fcc4f3df864e9145b26f2327c08b0e648885eca581f5341e358056e3c5789798, the fixed attempt-3 sequence, 9,000-second timeout, and up to $8.2250 additional in-container runtime."
+}
