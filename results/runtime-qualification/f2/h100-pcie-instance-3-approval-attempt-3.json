@@ -23,7 +23,8 @@
     "remote_path": "/home/ubuntu/qualia",
     "actor_free": true,
     "authorized": true,
-    "completed": false
+    "completed": true,
+    "verified_at": "2026-09-08T20:07:10Z"
   },
   "actor_export": {
     "local_path": "/Users/mderaznasr/Documents/GitHub/ENPIRE-implentation/tmp/fresh-chain-20260807/stage1-step-500-actor/model_state_dict/full_weights.pt",
