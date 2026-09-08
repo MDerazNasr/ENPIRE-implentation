@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "ready_for_explicit_actor_export_and_retry_approval",
+  "claim_scope": "replacement H100 PCIe F2 engineering rehearsal only; no scientific comparison, G1/G2 execution, evaluation, or promotion",
+  "source_commit": "65137bd37d14733874cff5036e2761830e50487c",
+  "source_bundle_sha256": "fcc4f3df864e9145b26f2327c08b0e648885eca581f5341e358056e3c5789798",
+  "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "e4907a39365a444c8ae47426f0380019",
+    "region": "Utah, USA",
+    "ip": "209.20.158.134",
+    "gpu": "NVIDIA H100 PCIe",
+    "price_usd_per_hour": "3.29"
+  },
+  "actor_export": {
+    "local_path": "/Users/mderaznasr/Documents/GitHub/ENPIRE-implentation/tmp/fresh-chain-20260807/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "remote_path": "/home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "size_bytes": 10015912759,
+    "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "authorized": false
+  },
+  "execution": {
+    "image_tag": "enpire-f2-h100-pcie:65137bd",
+    "image_id": "sha256:e8e4d6f6f85ac73d2caae1574ff5382895d666c678fe4dd6f6fd92cff71fef55",
+    "image_size_bytes": 40878572102,
+    "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+    "runner": "scripts/run_f2_h100_rehearsal.py",
+    "runner_accepts_arguments": false,
+    "fixed_run_ids": [
+      "f2-h100-pcie-control-seed2026-attempt3",
+      "f2-h100-pcie-candidate-seed2026-attempt3",
+      "f2-h100-pcie-resume-source-seed2026-attempt3",
+      "f2-h100-pcie-resume-continuation-seed2026-attempt3"
+    ],
+    "in_container_timeout_seconds": 9000,
+    "command": [
+      "sudo", "docker", "run", "--rm", "--gpus", "all", "--ipc=host",
+      "--network=host", "-e",
+      "QUALIA_PROJECT_COMMIT=65137bd37d14733874cff5036e2761830e50487c",
+      "-v", "/home/ubuntu/qualia:/opt/qualia:ro",
+      "-v", "/home/ubuntu/enpire-workspace:/workspace",
+      "-v", "/home/ubuntu/enpire-workspace/f2-h100-norm-stats:/opt/f2-norm-stats:ro",
+      "enpire-f2-h100-pcie:65137bd", "timeout", "9000",
+      "/opt/RLinf/.venv/bin/python", "/opt/qualia/scripts/run_f2_h100_rehearsal.py"
+    ]
+  },
+  "qualification": {
+    "tests_passed": 295,
+    "python": "3.11.14",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA H100 PCIe",
+    "gpu_memory_bytes": 85028896768,
+    "cuda_probe": 4.0,
+    "maniskill": "3.0.0b22",
+    "sapien": "3.0.1",
+    "hydra": "1.3.2",
+    "omegaconf": "2.3.0",
+    "vulkan": "Mesa llvmpipe",
+    "openpi_norm_loader_keys": ["actions", "state"]
+  },
+  "billing": {
+    "spent_when_received_usd": "1.38",
+    "maximum_9000_second_in_container_cost_usd": "8.2250",
+    "maximum_additional_auto_shutdown_exposure_usd": "18.3127",
+    "provider_setup_transfer_and_idle_cost_excluded": true
+  },
+  "prior_execution": {
+    "h100_pcie_instance_2_attempt_2": "started; rollout epoch 1 of 4 completed in 424.50 seconds; host became network-unreachable during epoch 2; outcome unknown",
+    "prior_instance_approval_applies": false,
+    "prior_run_ids_reused": false
+  },
+  "authorization": {
+    "instance_provisioning_authorized": true,
+    "actor_export_authorized": false,
+    "gpu_retry_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "promotion_authorized": false,
+    "required_approval": "Approve the exact 10,015,912,759-byte actor export with SHA-256 b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3 to instance e4907a39365a444c8ae47426f0380019 at 209.20.158.134, destination /home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt, and approve source 65137bd37d14733874cff5036e2761830e50487c, bundle fcc4f3df864e9145b26f2327c08b0e648885eca581f5341e358056e3c5789798, the fixed H100 PCIe attempt-3 sequence, 9,000-second timeout, and up to USD 8.2250 additional in-container runtime."
+  },
+  "source_hashes": {
+    "Dockerfile.f2-h100": "72b27283e1f76470ebccb04ac12e036ec0698bef3bc4542ea4b596620dfa5f29",
+    "agent/d1_config.py": "3e7b51928460413694ca56bfc1421130dd1618cecf3bfd15d56d22c0334b3e91",
+    "agent/d1_launcher.py": "8c6b141914e94b6ea1983e2802245a931c9ea9f965ea0cc2b75d8521abf7d054",
+    "agent/metrics.py": "f895bb1c630fd9e8df69e2abbde43b9b9431102b5bcbcc3ffc0a42d261fddc04",
+    "agent/provenance.py": "a8ca1c9a8b815345c09a52d2602d5b752abcb4ca4a2676997348897f8dee8c50",
+    "agent/resources.py": "1724d7114fb024785191f6aacb1876db09dff80e42fb2f8510115db3f0dcfc27",
+    "agent/rlt_resume_state.py": "e0a21d7594de232a5ec273e8ac7fa49be957037b16445daa3ee0e73bd4e75ec6",
+    "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "configs/d1/f2_candidate_rehearsal.yaml": "b8d099135879ea86933729bae1452fe43abe24b0e41c273faafa734e59c0856c",
+    "configs/d1/f2_control_rehearsal.yaml": "40fc4bff7c9abdd804bf53ac4bd1e0c0c8050ff9564103eed2000ec654eccdb8",
+    "configs/d1/stage2_6_schedule_resume_gate.yaml": "cbec2ed9046fd43ba71595c196768a0177c4d60a7abe616a61661a48dee2b7bb",
+    "envs/modal_multiprocess_rlt_env.py": "84b8e65b9d966233f892bda7e71d08a31a1a35e222bd8859f77d84dbe417b23c",
+    "results/runtime-qualification/f0/h100-pcie-instance-3-amendment.json": "466219f5a1821c09585fef215a435b5d4b98fc60b699b290e1ba092eaa805b32",
+    "scripts/run_f2_h100_rehearsal.py": "a7fba2781eaca5718df2a52fc5e289fd25867009af49deaeacd5c21c8332fa0e",
+    "sitecustomize.py": "8f39c3cfffcf839ece8aa9bdce5f798e6fb019fc4e19e5168edc1c1ca3187f74"
+  }
+}

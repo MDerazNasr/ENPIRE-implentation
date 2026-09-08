@@ -30,6 +30,14 @@ memory, RLinf, ManiSkill, SAPIEN, Hydra, OmegaConf, Mesa llvmpipe, norm hash,
 and pinned OpenPI norm-loader probes passed. The loader returned the required
 `actions` and `state` keys.
 
+The clean tested source is `65137bd37d14733874cff5036e2761830e50487c`;
+its deterministic source bundle fingerprint is
+`fcc4f3df864e9145b26f2327c08b0e648885eca581f5341e358056e3c5789798`.
+The immutable no-launch preflight is
+`results/runtime-qualification/f2/h100-pcie-instance-3-preflight.json`. It
+keeps actor export and execution false pending the exact combined approval
+recorded there.
+
 At `$3.29/hour`, the 9,000-second in-container ceiling remains `$8.2250`. The
 user-reported 5h34m auto-shutdown window corresponds to a maximum additional
 instance exposure of `$18.3127`, excluding the displayed `$1.38` already spent.
