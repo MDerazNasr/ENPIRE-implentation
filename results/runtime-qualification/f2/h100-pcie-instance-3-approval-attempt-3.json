@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "execution_starting",
+  "status": "failed_closed_after_control_before_candidate",
   "approved_at": "2026-09-08T20:04:02Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-3-preflight.json",
@@ -41,6 +41,14 @@
   "execution_authorized": true,
   "execution_started": true,
   "started_at": "2026-09-08T21:41:29Z",
+  "finished_at": "2026-09-08T22:12:04Z",
+  "attempt_record": "results/runtime-qualification/f2/h100-pcie-attempt-3-failed/attempt.json",
+  "completed_arms": [
+    "control"
+  ],
+  "overall_exit_code": 1,
+  "failure_type": "ModuleNotFoundError",
+  "failure_message": "No module named 'agent'",
   "scientific_runs_authorized": false,
   "promotion_authorized": false,
   "user_instruction": "I explicitly approve syncing the actor-free source tree and preflight for source 65137bd37d14733874cff5036e2761830e50487c to instance e4907a39365a444c8ae47426f0380019 at 209.20.158.134, destination /home/ubuntu/qualia. I approve exporting the 10,015,912,759-byte Stage-1 actor with SHA-256 b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3 using the fixed resumable four-part transfer and ordered reassembly, overwriting destination /home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt. I also approve H100 PCIe F2 attempt 3 for bundle fcc4f3df864e9145b26f2327c08b0e648885eca581f5341e358056e3c5789798, the fixed attempt-3 sequence, 9,000-second timeout, and up to $8.2250 additional in-container runtime."

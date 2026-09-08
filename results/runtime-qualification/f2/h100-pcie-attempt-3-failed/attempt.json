@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "status": "failed_closed_after_control_before_candidate",
+  "claim_scope": "H100 PCIe F2 engineering rehearsal only; no policy comparison, scientific result, evaluation, or promotion",
+  "source_commit": "65137bd37d14733874cff5036e2761830e50487c",
+  "source_bundle_sha256": "fcc4f3df864e9145b26f2327c08b0e648885eca581f5341e358056e3c5789798",
+  "image_id": "sha256:e8e4d6f6f85ac73d2caae1574ff5382895d666c678fe4dd6f6fd92cff71fef55",
+  "instance_id": "e4907a39365a444c8ae47426f0380019",
+  "instance_ip": "209.20.158.134",
+  "execution_recorded_started_at": "2026-09-08T21:41:29Z",
+  "finished_at": "2026-09-08T22:12:04Z",
+  "completed_arms": [
+    "control"
+  ],
+  "unstarted_arms": [
+    "candidate",
+    "resume-source",
+    "resume-continuation"
+  ],
+  "control": {
+    "status": "complete",
+    "manifest_exit_code": 0,
+    "elapsed_seconds": 1733.4922745189997,
+    "recorded_runtime_cost_usd": 1.584219333647475,
+    "rollout_epochs_completed": 4,
+    "rollout_elapsed_seconds": 1613.8,
+    "checkpoint_saved": true,
+    "checkpoint_audit_completed": false,
+    "training_update_started": false,
+    "evaluation_executed": false
+  },
+  "overall_exit_code": 1,
+  "failure": {
+    "phase": "project_owned_control_checkpoint_audit",
+    "type": "ModuleNotFoundError",
+    "message": "No module named 'agent'",
+    "location": "/opt/qualia/scripts/run_f2_h100_rehearsal.py:270",
+    "cause": "The fixed runner imports agent.rlt_resume_state in its own process only after Control completes. The child-profile environment adds /opt/qualia to PYTHONPATH, but the outer runner process was launched by file path without that project root on sys.path.",
+    "correction_scope": "Make the project-owned runner bootstrap its immutable project root before the late checkpoint-audit import, add a regression that exercises that import boundary, and require a newly frozen source/bundle/preflight plus explicit paid retry approval. Do not reuse attempt-3 run IDs."
+  },
+  "terminal_idle_gate": {
+    "checked_at": "2026-09-08T22:12:35Z",
+    "running_containers": 0,
+    "all_containers": 0,
+    "gpu_compute_processes": 0
+  },
+  "artifact_sha256": {
+    "console.log": "7462e67d4dfb114967481734a861b90f27db649411685b145e72b94eca669f11",
+    "control/command.sh": "fbe9967c973166242adf180c2a642fa70f43f02d5a48bc0bc35107d973dbd798",
+    "control/manifest.json": "5a2d9df8f97f598152e8dbd6653ffe4d1f41f829aa3d2bab38905ad58c8762c5",
+    "control/maniskill_rlt_stage2_ac_mlp/checkpoints/global_step_1/actor/dcp_checkpoint/.metadata": "4891705ee1a144e52d98d6a920cfc1041a282b36d092c6d19f399cfde3b35615",
+    "control/maniskill_rlt_stage2_ac_mlp/checkpoints/global_step_1/actor/sac_components/replay_buffer/rank_0/metadata.json": "cf7df9d7e3a5521be0d30b68baa5db5ca3133f9b26dc825074859d08998622b4",
+    "control/maniskill_rlt_stage2_ac_mlp/checkpoints/global_step_1/actor/sac_components/replay_buffer/rank_0/trajectory_index.json": "5b04157b841f9460503427130776b5db4ceebfa9fe34f51acc90cd102007586c",
+    "control/maniskill_rlt_stage2_ac_mlp/checkpoints/global_step_1/actor/sac_components/rlt_schedule_state/rank_0.json": "2b8485d5ff1074fbb6fce2b7b36e146ed0490afd818dbf2de220f3420fb49f8e",
+    "control/metrics.log": "a860ba9b4b696048ab9f7bc23b82c042a52e761b396ee918810a6db6e1c4bafc",
+    "control/resources.jsonl": "d075499a14440bbbf6c7490406cb5ccd312ff74bca152bf0eb0c015fa9881dbe",
+    "control/run.log": "e607323164027ec08f6a4cab53ed7e2ab3503306eaf5eae84d7c9bcafe105f69",
+    "control/wandb/wandb/offline-run-20260908_214327-5nuf3158/files/requirements.txt": "15b66701ea4a1ee984fcab9b36b52ba6fb69ccf9ce2d0f24de8ed4d3186c83b8",
+    "control/wandb/wandb/offline-run-20260908_214327-5nuf3158/logs/debug-internal.log": "578c20d01737eda5f7e2d6f6a40763d8ed0ce095432735805c63aa631242ed68",
+    "control/wandb/wandb/offline-run-20260908_214327-5nuf3158/logs/debug.log": "ab817d9eacc6372afd20116f5d217e3a940165409dd15642d2b1f2f30ac476c8",
+    "control/wandb/wandb/offline-run-20260908_214327-5nuf3158/run-5nuf3158.wandb": "b76aeff01b971a754b29cd71c65dfbe5975f808d5a6f41029fa129da6fa7c6be",
+    "generated-configs/candidate.yaml": "ec32b4266fda3fe0cb571508118f40360d98f3f48a72300130095141853cfd81",
+    "generated-configs/control.yaml": "05140846ddc428f79181f9eff816097807930e2f90261c6606010c32c1d7674c",
+    "generated-configs/resume.yaml": "d27d4955e16f974e568475476361eae8def426f4e886ee9c07c8e68d3693b984"
+  }
+}
