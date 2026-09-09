@@ -31,3 +31,11 @@ qualified no-launch preflight can be frozen only after public provisioning is
 authorized and its exact image identity/probes pass. Paid execution still
 requires separate approval of the exact source, bundle, instance, IP,
 destination, fixed sequence, 9,000-second timeout, and cost ceiling.
+
+The host-bound source is commit
+`4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8`, with canonical operational
+fingerprint
+`e0341908b59b1bc1139a5036047f9842e92b512b7e3f755c259ff02973b72887`.
+The non-authorizing public-provisioning gate is
+`results/runtime-qualification/f2/h100-pcie-instance-4-preprovision.json`.
+Its status is `host_bound_awaiting_public_provisioning_authorization`.

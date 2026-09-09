@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "status": "host_bound_awaiting_public_provisioning_authorization",
+  "created_at": "2026-09-09T10:51:10Z",
+  "claim_scope": "replacement H100 PCIe F2 attempt-4 host binding only; no actor export, paid rehearsal, scientific comparison, evaluation, or promotion",
+  "source_commit": "4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8",
+  "source_bundle_sha256": "e0341908b59b1bc1139a5036047f9842e92b512b7e3f755c259ff02973b72887",
+  "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "a5f648f727ab499087a54c598e975e97",
+    "region": "Utah, USA",
+    "ip": "209.20.157.182",
+    "gpu": "NVIDIA H100 PCIe",
+    "gpu_memory_mib": 81559,
+    "driver": "570.148.08",
+    "price_usd_per_hour": "3.29"
+  },
+  "host_probe": {
+    "status": "pass",
+    "architecture": "x86_64",
+    "os": "Ubuntu 22.04.5 LTS",
+    "cpu_count": 26,
+    "ram_kib": 231924772,
+    "disk_available_bytes": 1038806708224,
+    "docker_present": true,
+    "nvidia_container_cli_present": true,
+    "workspace_present": false,
+    "source_present": false,
+    "running_containers": 0,
+    "gpu_compute_processes": 0
+  },
+  "fixed_run_ids": [
+    "f2-h100-pcie-control-seed2026-attempt4",
+    "f2-h100-pcie-candidate-seed2026-attempt4",
+    "f2-h100-pcie-resume-source-seed2026-attempt4",
+    "f2-h100-pcie-resume-continuation-seed2026-attempt4"
+  ],
+  "public_provisioning_plan": {
+    "remote_source_path": "/home/ubuntu/qualia",
+    "actor_free_source_sync": true,
+    "remote_norm_directory": "/home/ubuntu/enpire-workspace/f2-h100-norm-stats",
+    "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "image_tag": "enpire-f2-h100-pcie:4c6b631",
+    "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+    "required_probes": [
+      "Python, Torch, and CUDA tensor",
+      "H100 PCIe identity and minimum memory",
+      "pinned RLinf, ManiSkill, SAPIEN, Hydra, and OmegaConf",
+      "Mesa llvmpipe Vulkan",
+      "canonical norm hash and exact OpenPI loader",
+      "isolated direct-file project audit-module import",
+      "all repository tests"
+    ]
+  },
+  "qualification": {
+    "focused_tests_passed": 6,
+    "repository_tests_passed": 296,
+    "repository_subtests_passed": 142,
+    "test_sha256": "7302ca7364d274ba1bb8b5eb7d99e81b77dee765b03d9fcf5eafcd066ef3f1cd"
+  },
+  "authorization": {
+    "read_only_host_qualification_authorized": true,
+    "public_source_and_norm_sync_authorized": false,
+    "public_image_build_and_probe_authorized": false,
+    "actor_export_authorized": false,
+    "gpu_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false,
+    "required_next_approval": "Approve actor-free source and norm sync to instance a5f648f727ab499087a54c598e975e97 at 209.20.157.182, Docker image build, and fixed public runtime/import probes for source 4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8 and bundle e0341908b59b1bc1139a5036047f9842e92b512b7e3f755c259ff02973b72887. This does not approve actor export or F2 execution."
+  },
+  "source_hashes": {
+    "Dockerfile.f2-h100": "72b27283e1f76470ebccb04ac12e036ec0698bef3bc4542ea4b596620dfa5f29",
+    "agent/d1_config.py": "3e7b51928460413694ca56bfc1421130dd1618cecf3bfd15d56d22c0334b3e91",
+    "agent/d1_launcher.py": "8c6b141914e94b6ea1983e2802245a931c9ea9f965ea0cc2b75d8521abf7d054",
+    "agent/metrics.py": "f895bb1c630fd9e8df69e2abbde43b9b9431102b5bcbcc3ffc0a42d261fddc04",
+    "agent/provenance.py": "a8ca1c9a8b815345c09a52d2602d5b752abcb4ca4a2676997348897f8dee8c50",
+    "agent/resources.py": "1724d7114fb024785191f6aacb1876db09dff80e42fb2f8510115db3f0dcfc27",
+    "agent/rlt_resume_state.py": "e0a21d7594de232a5ec273e8ac7fa49be957037b16445daa3ee0e73bd4e75ec6",
+    "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "configs/d1/f2_candidate_rehearsal.yaml": "b8d099135879ea86933729bae1452fe43abe24b0e41c273faafa734e59c0856c",
+    "configs/d1/f2_control_rehearsal.yaml": "40fc4bff7c9abdd804bf53ac4bd1e0c0c8050ff9564103eed2000ec654eccdb8",
+    "configs/d1/stage2_6_schedule_resume_gate.yaml": "cbec2ed9046fd43ba71595c196768a0177c4d60a7abe616a61661a48dee2b7bb",
+    "envs/modal_multiprocess_rlt_env.py": "84b8e65b9d966233f892bda7e71d08a31a1a35e222bd8859f77d84dbe417b23c",
+    "results/runtime-qualification/f0/h100-pcie-instance-4-amendment.json": "34915a60b4c1ab26f08238738be9bca17b3e4ab56916bf31a4e35d7bb23093f6",
+    "scripts/run_f2_h100_rehearsal.py": "958b89cbde4d201d8a3a897ef06f2516203d4110640fcc9730e1fac987740c31",
+    "sitecustomize.py": "8f39c3cfffcf839ece8aa9bdce5f798e6fb019fc4e19e5168edc1c1ca3187f74"
+  }
+}
