@@ -657,6 +657,25 @@ profile caps runtime resources at USD `11.382480` and the approval envelope at
 USD `12.00`. No deployment or GPU execution is authorized. See
 `docs/agent-supervisor/f2-matched-runtime-rehearsal.md`.
 
+H100 retry status on 2026-09-09: three earlier paid attempts were retained as
+failed or interrupted engineering evidence. Attempt 3 completed its Control
+arm and then failed closed before Candidate because the runner's direct-file
+launch could not import the project audit modules. Attempt 4 corrects only that
+project import boundary and uses fresh fixed run IDs. Source
+`4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8` and bundle
+`e0341908b59b1bc1139a5036047f9842e92b512b7e3f755c259ff02973b72887`
+were actor-free provisioned to Lambda instance
+`a5f648f727ab499087a54c598e975e97` after explicit approval. Image
+`sha256:e54858e24329391bd637420a32041636ff9d49025427080e613e22a2a24d42b5`
+passed the fixed H100 PCIe, CUDA, pinned-stack, Mesa llvmpipe, OpenPI norm, and
+isolated project-import probes. The complete source suite passes locally (296
+tests plus 142 subtests); 294 tests also passed inside the read-only actor-free
+image, while three provider/Git integration tests were inapplicable because the
+archive intentionally excludes the local Modal interpreter and Git metadata.
+The host is idle, the actor is absent, and neither actor export nor F2 execution
+is authorized. See
+`results/runtime-qualification/f2/h100-pcie-instance-4-preflight.json`.
+
 ## 11. Workstream G: complete the reproducible baseline
 
 ### G0. Review the seed and rerun policy

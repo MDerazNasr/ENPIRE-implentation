@@ -1,8 +1,9 @@
 {
   "schema_version": 1,
-  "status": "public_provisioning_approved_not_started",
+  "status": "public_provisioning_complete_actor_and_execution_not_authorized",
   "created_at": "2026-09-09T10:51:10Z",
   "approved_at": "2026-09-09T11:54:43Z",
+  "completed_at": "2026-09-09T12:16:12Z",
   "approved_by": "user",
   "claim_scope": "replacement H100 PCIe F2 attempt-4 host binding only; no actor export, paid rehearsal, scientific comparison, evaluation, or promotion",
   "source_commit": "4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8",
@@ -44,6 +45,8 @@
     "remote_norm_directory": "/home/ubuntu/enpire-workspace/f2-h100-norm-stats",
     "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
     "image_tag": "enpire-f2-h100-pcie:4c6b631",
+    "image_id": "sha256:e54858e24329391bd637420a32041636ff9d49025427080e613e22a2a24d42b5",
+    "image_size_bytes": 40879897420,
     "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
     "required_probes": [
       "Python, Torch, and CUDA tensor",
@@ -53,13 +56,24 @@
       "canonical norm hash and exact OpenPI loader",
       "isolated direct-file project audit-module import",
       "all repository tests"
-    ]
+    ],
+    "source_sync_completed": true,
+    "norm_sync_completed": true,
+    "image_build_completed": true,
+    "public_runtime_and_import_probes_passed": true
   },
   "qualification": {
     "focused_tests_passed": 6,
     "repository_tests_passed": 296,
     "repository_subtests_passed": 142,
-    "test_sha256": "7302ca7364d274ba1bb8b5eb7d99e81b77dee765b03d9fcf5eafcd066ef3f1cd"
+    "test_sha256": "7302ca7364d274ba1bb8b5eb7d99e81b77dee765b03d9fcf5eafcd066ef3f1cd",
+    "exact_image_public_probe": "pass",
+    "exact_image_repository_tests_passed": 294,
+    "exact_image_repository_tests_failed_environment_only": 3,
+    "exact_image_repository_test_note": "The complete exact-source suite passed locally. In the actor-free read-only archive container, F1 requires the intentionally absent pinned local Modal interpreter and Git metadata; M7 requires Git worktree writes. No scientific-runtime or attempt-4 runner test failed.",
+    "actor_present_after_probes": false,
+    "running_containers_after_probes": 0,
+    "gpu_compute_processes_after_probes": 0
   },
   "authorization": {
     "read_only_host_qualification_authorized": true,

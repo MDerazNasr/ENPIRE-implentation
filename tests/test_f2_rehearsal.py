@@ -147,7 +147,10 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(current["provider"]["instance_id"], "a5f648f727ab499087a54c598e975e97")
         self.assertEqual(current["provider"]["ip"], "209.20.157.182")
         self.assertTrue(current["ssh_qualification"]["completed"])
-        self.assertFalse(current["authorization"]["source_sync_authorized"])
+        self.assertTrue(current["authorization"]["source_sync_authorized"])
+        self.assertTrue(
+            current["authorization"]["public_image_build_and_probe_authorized"]
+        )
         self.assertFalse(current["authorization"]["actor_export_authorized"])
         self.assertFalse(current["authorization"]["gpu_execution_authorized"])
         self.assertIn("a5f648f727ab499087a54c598e975e97", source)
