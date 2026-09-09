@@ -184,6 +184,21 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertFalse(preflight["actor_export"]["authorized"])
         self.assertFalse(preflight["authorization"]["gpu_retry_execution_authorized"])
         self.assertFalse(preflight["prior_execution"]["duplicate_execution_authorized"])
+        approval = json.loads(
+            (
+                ROOT
+                / "results/runtime-qualification/f2/h100-pcie-instance-5-approval-attempt-5.json"
+            ).read_text()
+        )
+        self.assertTrue(
+            approval["prior_attempt"]["possible_duplicate_execution_acknowledged"]
+        )
+        self.assertTrue(approval["actor_export"]["authorized"])
+        self.assertTrue(approval["execution_authorized"])
+        self.assertFalse(approval["execution_started"])
+        self.assertFalse(approval["scientific_runs_authorized"])
+        self.assertFalse(approval["evaluation_authorized"])
+        self.assertFalse(approval["promotion_authorized"])
 
     def test_h100_runner_bootstraps_project_imports_under_direct_file_launch(self) -> None:
         runner = ROOT / "scripts/run_f2_h100_rehearsal.py"

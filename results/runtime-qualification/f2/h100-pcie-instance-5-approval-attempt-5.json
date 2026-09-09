@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "approved_not_started",
+  "approved_at": "2026-09-09T21:18:27Z",
+  "approved_by": "user",
+  "preflight": "results/runtime-qualification/f2/h100-pcie-instance-5-preflight.json",
+  "preflight_sha256": "da722e706e912e1d5736faaeb7005fcdcec1ecbb16ba120ec94d3e1fc2e0103f",
+  "source_commit": "2c0b482f495c36d66e3891f573fa12a6ccb51450",
+  "source_bundle_sha256": "2e65adadb876eda9742bd460fd2bc098f57e310365f209e0718c4eb8e914f445",
+  "image_id": "sha256:5d7928a2acfe008f75044fd016699bc44943cffd9d14f4ddbfbf8313d3871bc0",
+  "fixed_sequence": "attempt-5 control, candidate, resume-source, resume-continuation",
+  "timeout_seconds": 9000,
+  "maximum_additional_in_container_runtime_usd": "8.2250",
+  "instance": {
+    "provider": "Lambda Cloud",
+    "instance_id": "0bf25a97ea114ce5b4d87a8733085bf9",
+    "region": "Utah, USA",
+    "ip": "209.20.157.158",
+    "gpu": "NVIDIA H100 PCIe",
+    "price_usd_per_hour": "3.29"
+  },
+  "prior_attempt": {
+    "attempt": 4,
+    "instance_id": "a5f648f727ab499087a54c598e975e97",
+    "status": "monitoring_lost_host_unreachable_outcome_unknown",
+    "possible_duplicate_execution_acknowledged": true,
+    "attempt_5_authorized_despite_unknown_outcome": true
+  },
+  "source_sync": {
+    "remote_path": "/home/ubuntu/qualia",
+    "actor_free": true,
+    "authorized": true,
+    "completed": true,
+    "verified_source_hashes": true
+  },
+  "actor_export": {
+    "local_path": "/Users/mderaznasr/Documents/GitHub/ENPIRE-implentation/tmp/fresh-chain-20260807/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "remote_path": "/home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "size_bytes": 10015912759,
+    "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "transfer": "fixed resumable four-part transfer with ordered reassembly",
+    "authorized": true,
+    "completed": false
+  },
+  "execution_authorized": true,
+  "execution_started": false,
+  "scientific_runs_authorized": false,
+  "evaluation_authorized": false,
+  "promotion_authorized": false,
+  "user_instruction": "I acknowledge that H100 PCIe attempt 4 remains unknown and authorize attempt 5 despite possible duplicate execution. I approve exporting the 10,015,912,759-byte Stage-1 actor with SHA-256 b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3 to instance 0bf25a97ea114ce5b4d87a8733085bf9 at 209.20.157.158, destination /home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt, using the fixed resumable four-part transfer and ordered reassembly. I also approve source 2c0b482f495c36d66e3891f573fa12a6ccb51450, bundle 2e65adadb876eda9742bd460fd2bc098f57e310365f209e0718c4eb8e914f445, image sha256:5d7928a2acfe008f75044fd016699bc44943cffd9d14f4ddbfbf8313d3871bc0, the fixed H100 PCIe attempt-5 sequence, a 9,000-second timeout, and up to $8.2250 additional in-container runtime."
+}
