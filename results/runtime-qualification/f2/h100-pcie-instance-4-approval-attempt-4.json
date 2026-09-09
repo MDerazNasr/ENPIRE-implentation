@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "execution_active",
+  "status": "monitoring_lost_host_unreachable_outcome_unknown",
   "approved_at": "2026-09-09T12:39:08Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-4-preflight.json",
@@ -96,6 +96,18 @@
     "pid_at_start": 15467,
     "container_id_at_start": "59cb0eea01ed",
     "console_log": "/home/ubuntu/enpire-workspace/f2-h100-pcie-attempt-4-console.log"
+  },
+  "monitoring_loss": {
+    "confirmed_at": "2026-09-09T19:06:33Z",
+    "last_confirmed_milestone": "Control rollout epoch 3 of 4 completed in 1321 seconds cumulative; Control epoch 4 was active",
+    "failure_mode": "SSH monitoring connection timed out, followed by repeated port-22 timeouts before authentication",
+    "container_detached_with_nohup": true,
+    "durable_exit_record_expected": "/home/ubuntu/enpire-workspace/f2-h100-pcie-attempt-4.exit",
+    "execution_outcome": "unknown",
+    "relaunch_authorized": false,
+    "replacement_instance_selected_at": "2026-09-09T20:11:00Z",
+    "replacement_instance_id": "0bf25a97ea114ce5b4d87a8733085bf9",
+    "replacement_instance_ip": "209.20.157.158"
   },
   "scientific_runs_authorized": false,
   "evaluation_authorized": false,

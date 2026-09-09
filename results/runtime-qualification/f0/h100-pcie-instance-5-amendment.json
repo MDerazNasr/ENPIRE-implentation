@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "read_only_host_qualified_attempt_5_not_authorized",
+  "recorded_at": "2026-09-09T20:20:22Z",
+  "scope": "fresh replacement H100 PCIe host qualification only; attempt-4 outcome remains unknown and source sync, actor export, paid execution, scientific comparison, evaluation, and promotion are not authorized by this record",
+  "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "0bf25a97ea114ce5b4d87a8733085bf9",
+    "region": "Utah, USA",
+    "ip": "209.20.157.158",
+    "gpu_model_user_reported": "NVIDIA H100 PCIe",
+    "gpu_count_user_reported": 1,
+    "price_usd_per_hour": "3.29"
+  },
+  "user_reported_state": {
+    "status": "booting",
+    "spent_so_far_usd": "0.03",
+    "auto_shutdown_remaining": "5h59m",
+    "maximum_additional_auto_shutdown_exposure_usd": "19.7348"
+  },
+  "ssh_qualification": {
+    "completed": true,
+    "initial_timeouts": 3,
+    "connection_refused_checks": 1,
+    "connected_at": "2026-09-09T20:15:39Z",
+    "result": "pass",
+    "remote_commands_scope": "read-only host, hardware, storage, tooling, workspace, container, and GPU-process inspection"
+  },
+  "host_probe": {
+    "architecture": "x86_64",
+    "os": "Ubuntu 22.04.5 LTS",
+    "cpu_count": 26,
+    "ram_bytes": 237490958336,
+    "disk_available_bytes": 1038806708224,
+    "gpu_model": "NVIDIA H100 PCIe",
+    "gpu_memory_mib": 81559,
+    "driver": "570.148.08",
+    "docker_version": "28.3.1",
+    "nvidia_container_cli_present": true,
+    "workspace_present": false,
+    "source_present": false,
+    "actor_present": false,
+    "attempt_4_exit_record_present": false,
+    "running_containers": 0,
+    "gpu_compute_processes": 0
+  },
+  "prior_attempt": {
+    "attempt": 4,
+    "instance_id": "a5f648f727ab499087a54c598e975e97",
+    "ip": "209.20.157.182",
+    "status": "monitoring_lost_host_unreachable_outcome_unknown",
+    "duplicate_execution_forbidden": true
+  },
+  "authorization": {
+    "read_only_qualification_authorized": true,
+    "source_sync_authorized": false,
+    "public_image_build_and_probe_authorized": false,
+    "actor_export_authorized": false,
+    "gpu_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  },
+  "user_instruction": "connect to this one instead and continue wher you left off - 0bf25a97ea114ce5b4d87a8733085bf9, 1x H100 (80 GB PCIe), booting, Utah, USA, IP 209.20.157.158, $3.29/hr, $0.03 spent, auto-shutdown in 5h59m",
+  "next_action": "Reconcile or explicitly abandon the still-unknown attempt 4, prepare fresh attempt-5 IDs and frozen source provenance, then obtain exact new-instance actor-export and paid-execution approval before any sensitive export or duplicate run."
+}

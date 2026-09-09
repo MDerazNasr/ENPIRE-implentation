@@ -154,6 +154,16 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertFalse(current["authorization"]["actor_export_authorized"])
         self.assertFalse(current["authorization"]["gpu_execution_authorized"])
         self.assertIn("a5f648f727ab499087a54c598e975e97", source)
+        pending = json.loads(
+            (ROOT / "results/runtime-qualification/f0/h100-pcie-instance-5-amendment.json").read_text()
+        )
+        self.assertEqual(pending["provider"]["instance_id"], "0bf25a97ea114ce5b4d87a8733085bf9")
+        self.assertEqual(pending["provider"]["ip"], "209.20.157.158")
+        self.assertTrue(pending["ssh_qualification"]["completed"])
+        self.assertTrue(pending["prior_attempt"]["duplicate_execution_forbidden"])
+        self.assertFalse(pending["authorization"]["source_sync_authorized"])
+        self.assertFalse(pending["authorization"]["actor_export_authorized"])
+        self.assertFalse(pending["authorization"]["gpu_execution_authorized"])
 
     def test_h100_runner_bootstraps_project_imports_under_direct_file_launch(self) -> None:
         runner = ROOT / "scripts/run_f2_h100_rehearsal.py"
