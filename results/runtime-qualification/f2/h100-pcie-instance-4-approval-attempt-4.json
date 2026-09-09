@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "approved_not_started",
+  "status": "approved_actor_verified_execution_not_started",
   "approved_at": "2026-09-09T12:39:08Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-4-preflight.json",
@@ -33,7 +33,34 @@
     "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
     "transfer": "fixed resumable four-part transfer with ordered reassembly",
     "authorized": true,
-    "completed": false
+    "completed": true,
+    "verified_at": "2026-09-09T18:25:22Z",
+    "observed_size_bytes": 10015912759,
+    "observed_sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "parts_completed_at": "2026-09-09T18:21:38Z",
+    "part_verification": [
+      {
+        "part": 0,
+        "size_bytes": 2503999488,
+        "sha256": "9f6df295640a82c6f0f00e38a60c1b7bd12b81ef200807d2de2b75771411b691"
+      },
+      {
+        "part": 1,
+        "size_bytes": 2503999488,
+        "sha256": "710b3ba0073be379cdffcb8eab927732a9cfa1169d800cb4c4eeedf638d41c1c"
+      },
+      {
+        "part": 2,
+        "size_bytes": 2503999488,
+        "sha256": "1bf52f823f63569288eb7d74bf45aede943514cd6b6a7a7a5f3146bfd37578f0"
+      },
+      {
+        "part": 3,
+        "size_bytes": 2503914295,
+        "sha256": "22e8f2267e3deb9bbe03fafbfb8621789b7ba43e7129a32158d6b10e90559a90"
+      }
+    ],
+    "transfer_observation": "Intermittent long-lived SSH resets were recovered only after exact local-versus-remote prefix SHA-256 verification; the four complete parts were independently rehashed before ordered reassembly, and the assembled temporary and final destination were each verified before execution."
   },
   "pretransfer_validation": {
     "local_actor_size_and_sha256": "pass",
