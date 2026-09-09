@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "status": "user_reported_booting_awaiting_ssh_qualification",
+  "recorded_at": "2026-09-09T10:48:27Z",
+  "scope": "candidate replacement H100 PCIe host for F2 attempt 4; no source sync, actor export, GPU execution, scientific comparison, evaluation, or promotion is authorized",
+  "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "a5f648f727ab499087a54c598e975e97",
+    "region": "Utah, USA",
+    "ip": "209.20.157.182",
+    "gpu_model_user_reported": "NVIDIA H100 PCIe",
+    "gpu_count_user_reported": 1,
+    "price_usd_per_hour": "3.29"
+  },
+  "user_reported_state": {
+    "status": "booting",
+    "spent_so_far_usd": "0.17",
+    "auto_shutdown_remaining": "3h56m",
+    "maximum_additional_auto_shutdown_exposure_usd": "12.9407"
+  },
+  "ssh_qualification": {
+    "completed": false,
+    "bounded_attempts": 3,
+    "result": "tcp_port_22_timeout_before_authentication",
+    "remote_commands_executed": false
+  },
+  "required_before_host_binding": [
+    "SSH authentication",
+    "OS, architecture, CPU, RAM, and free-disk inventory",
+    "NVIDIA GPU identity, memory, and driver inventory",
+    "Docker and NVIDIA container support",
+    "workspace, container, and GPU-process idle-state checks"
+  ],
+  "authorization": {
+    "read_only_qualification_authorized": true,
+    "source_sync_authorized": false,
+    "actor_export_authorized": false,
+    "gpu_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  },
+  "corrected_source_freeze": {
+    "path": "results/runtime-qualification/f2/h100-pcie-attempt-4-correction-preflight.json",
+    "source_commit": "6ac01eb1f2d8e53f53da96d5da2466fa9588bfbe",
+    "source_bundle_sha256": "171e07f7b5e9f29d8c5954b31f7aaa5ca5d8bedd4eba4bb0ede4696dfd1312e1"
+  },
+  "next_action": "Wait for Lambda to report active, repeat bounded read-only SSH qualification, then bind this host into fresh source and a host-specific non-authorizing preflight."
+}
