@@ -189,7 +189,7 @@ def _derived_profile(source_name: str, arm: str) -> Path:
     provenance["runtime_contract_id"] = RUNTIME_CONTRACT_ID
     provenance["gpu"] = EXPECTED_GPU
     provenance["provider"] = "Lambda Cloud"
-    provenance["instance_id"] = "e4907a39365a444c8ae47426f0380019"
+    provenance["instance_id"] = "a5f648f727ab499087a54c598e975e97"
     provenance["region"] = "Utah, USA"
     provenance["runtime_amendment"] = (
         "user-selected H100 PCIe replacement; valid for F2 engineering rehearsal "
@@ -211,7 +211,7 @@ def _derived_resume_profile() -> Path:
     provenance["candidate_gpu"] = EXPECTED_GPU
     provenance["runtime_contract_id"] = RUNTIME_CONTRACT_ID
     provenance["provider"] = "Lambda Cloud"
-    provenance["instance_id"] = "e4907a39365a444c8ae47426f0380019"
+    provenance["instance_id"] = "a5f648f727ab499087a54c598e975e97"
     provenance["region"] = "Utah, USA"
     provenance["comparison_limitation"] = (
         "schedule-resume integration gate on the user-selected H100 PCIe; "

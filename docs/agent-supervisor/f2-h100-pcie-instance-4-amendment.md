@@ -1,7 +1,8 @@
 # F2 Replacement H100 PCIe Instance 4 Amendment
 
-Status on 2026-09-09: **user reports booting; SSH qualification pending; no
-source sync, actor export, or paid attempt-4 execution authorized**.
+Status on 2026-09-09: **read-only host qualification passed; public
+provisioning, source sync, actor export, and paid attempt-4 execution are not
+authorized**.
 
 The user selected Lambda instance `a5f648f727ab499087a54c598e975e97`
 at `209.20.157.182`, one user-reported H100 PCIe in Utah at `$3.29/hour`.
@@ -10,20 +11,23 @@ has a maximum additional exposure of `$12.9407`; it is shorter than the
 transfer, integrity, and 9,000-second rehearsal envelope and should be extended
 by at least six hours before any approved execution.
 
-Three bounded SSH attempts timed out on port 22 before authentication while
-the dashboard still reported `booting`. No remote command executed. Nothing
-was copied, no actor bytes left the local machine, and no container or GPU
-workload was launched.
+Three bounded SSH attempts initially timed out on port 22 before authentication
+while the dashboard still reported `booting`. A fourth check connected at
+`2026-09-09T10:51:10Z`. Read-only inspection confirmed x86_64 Ubuntu 22.04.5,
+26 CPUs, 231,924,772 KiB RAM, 1,038,806,708,224 bytes free disk, NVIDIA H100
+PCIe with 81,559 MiB and driver 570.148.08, plus Docker and NVIDIA container
+tooling. The host is blank: neither `/home/ubuntu/enpire-workspace` nor
+`/home/ubuntu/qualia` exists. It has zero running containers and zero GPU
+compute processes.
 
-The candidate host remains unqualified until read-only inspection confirms its
-OS, architecture, CPU, RAM, disk, exact GPU identity and memory, driver, Docker
-and NVIDIA container support, source/workspace state, and absence of running
-containers or GPU processes. The corrected source freeze remains commit
+The read-only host gate is complete. The corrected source freeze remains commit
 `6ac01eb1f2d8e53f53da96d5da2466fa9588bfbe`, fingerprint
 `171e07f7b5e9f29d8c5954b31f7aaa5ca5d8bedd4eba4bb0ede4696dfd1312e1`.
 
-After SSH qualification, instance 4 must be bound into the runner and runtime
-amendment, all 296 tests must pass, and a new host-specific no-launch preflight
-must be frozen. Source sync, actor export, and attempt-4 execution remain false
-until the user separately approves that exact source, bundle, instance, IP,
+Instance 4 must now be bound into the runner, all 296 tests must pass, and the
+host-specific source must be committed. Public source/norm sync, image build
+and probes, actor export, and attempt-4 execution remain false. A fully
+qualified no-launch preflight can be frozen only after public provisioning is
+authorized and its exact image identity/probes pass. Paid execution still
+requires separate approval of the exact source, bundle, instance, IP,
 destination, fixed sequence, 9,000-second timeout, and cost ceiling.

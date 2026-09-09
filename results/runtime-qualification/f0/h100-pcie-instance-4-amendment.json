@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "user_reported_booting_awaiting_ssh_qualification",
+  "status": "read_only_host_qualified_public_provisioning_not_authorized",
   "recorded_at": "2026-09-09T10:48:27Z",
   "scope": "candidate replacement H100 PCIe host for F2 attempt 4; no source sync, actor export, GPU execution, scientific comparison, evaluation, or promotion is authorized",
   "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
@@ -20,18 +20,29 @@
     "maximum_additional_auto_shutdown_exposure_usd": "12.9407"
   },
   "ssh_qualification": {
-    "completed": false,
-    "bounded_attempts": 3,
-    "result": "tcp_port_22_timeout_before_authentication",
-    "remote_commands_executed": false
+    "completed": true,
+    "bounded_attempts_before_ready": 3,
+    "connected_at": "2026-09-09T10:51:10Z",
+    "result": "pass",
+    "remote_commands_executed": true,
+    "remote_commands_scope": "read-only host, hardware, storage, tooling, workspace, container, and GPU-process inspection"
   },
-  "required_before_host_binding": [
-    "SSH authentication",
-    "OS, architecture, CPU, RAM, and free-disk inventory",
-    "NVIDIA GPU identity, memory, and driver inventory",
-    "Docker and NVIDIA container support",
-    "workspace, container, and GPU-process idle-state checks"
-  ],
+  "host_probe": {
+    "architecture": "x86_64",
+    "os": "Ubuntu 22.04.5 LTS",
+    "cpu_count": 26,
+    "ram_kib": 231924772,
+    "disk_available_bytes": 1038806708224,
+    "gpu_model": "NVIDIA H100 PCIe",
+    "gpu_memory_mib": 81559,
+    "driver": "570.148.08",
+    "docker_present": true,
+    "nvidia_container_cli_present": true,
+    "workspace_present": false,
+    "source_present": false,
+    "running_containers": 0,
+    "gpu_compute_processes": 0
+  },
   "authorization": {
     "read_only_qualification_authorized": true,
     "source_sync_authorized": false,
@@ -46,5 +57,5 @@
     "source_commit": "6ac01eb1f2d8e53f53da96d5da2466fa9588bfbe",
     "source_bundle_sha256": "171e07f7b5e9f29d8c5954b31f7aaa5ca5d8bedd4eba4bb0ede4696dfd1312e1"
   },
-  "next_action": "Wait for Lambda to report active, repeat bounded read-only SSH qualification, then bind this host into fresh source and a host-specific non-authorizing preflight."
+  "next_action": "Bind the qualified host into fresh source and run local tests. Public source/norm sync, image build/probes, and actor export remain unauthorized."
 }
