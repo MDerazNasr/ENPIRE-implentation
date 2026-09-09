@@ -1,7 +1,9 @@
 {
   "schema_version": 1,
-  "status": "host_bound_awaiting_public_provisioning_authorization",
+  "status": "public_provisioning_approved_not_started",
   "created_at": "2026-09-09T10:51:10Z",
+  "approved_at": "2026-09-09T11:54:43Z",
+  "approved_by": "user",
   "claim_scope": "replacement H100 PCIe F2 attempt-4 host binding only; no actor export, paid rehearsal, scientific comparison, evaluation, or promotion",
   "source_commit": "4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8",
   "source_bundle_sha256": "e0341908b59b1bc1139a5036047f9842e92b512b7e3f755c259ff02973b72887",
@@ -61,14 +63,15 @@
   },
   "authorization": {
     "read_only_host_qualification_authorized": true,
-    "public_source_and_norm_sync_authorized": false,
-    "public_image_build_and_probe_authorized": false,
+    "public_source_and_norm_sync_authorized": true,
+    "public_image_build_and_probe_authorized": true,
     "actor_export_authorized": false,
     "gpu_execution_authorized": false,
     "scientific_runs_authorized": false,
     "evaluation_authorized": false,
     "promotion_authorized": false,
-    "required_next_approval": "Approve actor-free source and norm sync to instance a5f648f727ab499087a54c598e975e97 at 209.20.157.182, Docker image build, and fixed public runtime/import probes for source 4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8 and bundle e0341908b59b1bc1139a5036047f9842e92b512b7e3f755c259ff02973b72887. This does not approve actor export or F2 execution."
+    "required_next_approval": "After public provisioning and all probes pass, separately approve the exact actor export and paid attempt-4 execution.",
+    "user_instruction": "I approve actor-free source and norm sync to instance a5f648f727ab499087a54c598e975e97 at 209.20.157.182, Docker image build, and fixed public runtime/import probes for source 4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8 and bundle e0341908b59b1bc1139a5036047f9842e92b512b7e3f755c259ff02973b72887. This does not approve actor export or F2 execution."
   },
   "source_hashes": {
     "Dockerfile.f2-h100": "72b27283e1f76470ebccb04ac12e036ec0698bef3bc4542ea4b596620dfa5f29",
