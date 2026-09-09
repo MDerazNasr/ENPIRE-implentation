@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "status": "read_only_host_qualified_attempt_5_not_authorized",
+  "status": "host_qualified_public_provisioning_authorized_attempt_5_not_authorized",
   "recorded_at": "2026-09-09T20:20:22Z",
-  "scope": "fresh replacement H100 PCIe host qualification only; attempt-4 outcome remains unknown and source sync, actor export, paid execution, scientific comparison, evaluation, and promotion are not authorized by this record",
+  "scope": "fresh replacement H100 PCIe host qualification plus actor-free source sync, image build, and public runtime probes; attempt-4 outcome remains unknown and actor export, paid execution, scientific comparison, evaluation, and promotion are not authorized by this record",
   "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
   "provider": {
     "name": "Lambda Cloud",
@@ -54,8 +54,8 @@
   },
   "authorization": {
     "read_only_qualification_authorized": true,
-    "source_sync_authorized": false,
-    "public_image_build_and_probe_authorized": false,
+    "source_sync_authorized": true,
+    "public_image_build_and_probe_authorized": true,
     "actor_export_authorized": false,
     "gpu_execution_authorized": false,
     "scientific_runs_authorized": false,
@@ -63,5 +63,6 @@
     "promotion_authorized": false
   },
   "user_instruction": "connect to this one instead and continue wher you left off - 0bf25a97ea114ce5b4d87a8733085bf9, 1x H100 (80 GB PCIe), booting, Utah, USA, IP 209.20.157.158, $3.29/hr, $0.03 spent, auto-shutdown in 5h59m",
-  "next_action": "Reconcile or explicitly abandon the still-unknown attempt 4, prepare fresh attempt-5 IDs and frozen source provenance, then obtain exact new-instance actor-export and paid-execution approval before any sensitive export or duplicate run."
+  "authority_interpretation": "The user's direction to connect to this replacement and continue authorizes ordinary actor-free provisioning and public qualification, matching the prior replacement-host workflow; it does not bind or authorize sensitive actor egress or a duplicate paid run.",
+  "next_action": "Freeze fresh attempt-5 source provenance and complete only actor-free public provisioning. Reconcile or explicitly abandon the still-unknown attempt 4, then obtain exact new-instance actor-export and paid-execution approval before any sensitive export or duplicate run."
 }

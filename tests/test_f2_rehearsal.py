@@ -161,7 +161,10 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(pending["provider"]["ip"], "209.20.157.158")
         self.assertTrue(pending["ssh_qualification"]["completed"])
         self.assertTrue(pending["prior_attempt"]["duplicate_execution_forbidden"])
-        self.assertFalse(pending["authorization"]["source_sync_authorized"])
+        self.assertTrue(pending["authorization"]["source_sync_authorized"])
+        self.assertTrue(
+            pending["authorization"]["public_image_build_and_probe_authorized"]
+        )
         self.assertFalse(pending["authorization"]["actor_export_authorized"])
         self.assertFalse(pending["authorization"]["gpu_execution_authorized"])
         self.assertIn("0bf25a97ea114ce5b4d87a8733085bf9", source)
