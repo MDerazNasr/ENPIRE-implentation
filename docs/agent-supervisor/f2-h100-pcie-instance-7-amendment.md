@@ -23,3 +23,18 @@ until the new source, bundle, image, and host envelope is frozen.
 
 Machine-readable evidence is in
 `results/runtime-qualification/f0/h100-pcie-instance-7-amendment.json`.
+
+## Actor-free public preflight
+
+Source `d0f9f90433dddd21e91f34c0fb2acc40d3633b25` and bundle
+`ee43f1594a88c446eb5986c3e3feb0d1eb5cefae291eeaf05edac336ff1ce943`
+were installed without the actor. All 15 remote source hashes match. Exact
+image `sha256:5b801ebd5582ae064ea1f678833b5400c3b7225d1a316d8d0d98eeb13f1cd1dc`
+is 40,882,743,007 bytes. The public GPU/import probe passed every pinned
+runtime contract. The exact-image suite passed 294 tests and 141 subtests;
+three archive-only Modal/Git integration checks remain inapplicable. The host
+then had no actor, running container, or GPU compute process.
+
+The fixed attempt-7 envelope and the narrow standing-authorization
+reconciliation boundary are frozen in
+`results/runtime-qualification/f2/h100-pcie-instance-7-preflight.json`.
