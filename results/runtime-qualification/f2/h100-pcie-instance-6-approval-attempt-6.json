@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "approved_actor_export_and_execution_not_started",
+  "status": "host_unreachable_before_egress_execution_not_started",
   "approved_at": "2026-09-10T15:55:47Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-6-preflight.json",
@@ -40,10 +40,21 @@
     "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
     "transfer": "fixed resumable four-part transfer with ordered reassembly",
     "authorized": true,
-    "completed": false
+    "completed": false,
+    "bytes_exported": 0
   },
   "execution_authorized": true,
   "execution_started": false,
+  "terminal_observation": {
+    "local_actor_rehash_passed": true,
+    "remote_pretransfer_gate_passed": false,
+    "first_ssh_timeout_at": "2026-09-10T15:56:47Z",
+    "second_ssh_timeout_at": "2026-09-10T15:57:20Z",
+    "actor_egress_started": false,
+    "actor_bytes_exported": 0,
+    "execution_started": false,
+    "replacement_instance_selected": "2ce50e8669184f9f9b95566eabb3d7b0"
+  },
   "scientific_runs_authorized": false,
   "evaluation_authorized": false,
   "promotion_authorized": false,

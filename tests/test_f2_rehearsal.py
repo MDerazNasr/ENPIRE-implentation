@@ -108,10 +108,10 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(main.args.args, [])
         source = runner_path.read_text()
         self.assertNotIn("shell=True", source)
-        self.assertIn("f2-h100-pcie-control-seed2026-attempt6", source)
-        self.assertIn("f2-h100-pcie-candidate-seed2026-attempt6", source)
+        self.assertIn("f2-h100-pcie-control-seed2026-attempt7", source)
+        self.assertIn("f2-h100-pcie-candidate-seed2026-attempt7", source)
         self.assertNotIn("f2-h100-pcie-control-seed2026-attempt5", source)
-        self.assertIn('attempt-6.json', source)
+        self.assertIn('attempt-7.json', source)
         self.assertIn('NVIDIA H100 PCIe', source)
         self.assertIn('/opt/f2-norm-stats/norm_stats.json', source)
         dockerfile = (ROOT / "Dockerfile.f2-h100").read_text()
@@ -216,7 +216,7 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertTrue(replacement["authorization"]["public_image_build_and_probe_authorized"])
         self.assertFalse(replacement["authorization"]["actor_export_authorized"])
         self.assertFalse(replacement["authorization"]["gpu_execution_authorized"])
-        self.assertIn("268cdf9dce05458fadcf8f6c748f6d85", source)
+        self.assertNotIn("268cdf9dce05458fadcf8f6c748f6d85", source)
         preprovision = json.loads(
             (
                 ROOT
@@ -261,6 +261,18 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertFalse(attempt6_approval["scientific_runs_authorized"])
         self.assertFalse(attempt6_approval["evaluation_authorized"])
         self.assertFalse(attempt6_approval["promotion_authorized"])
+        self.assertEqual(attempt6_approval["actor_export"]["bytes_exported"], 0)
+        self.assertFalse(attempt6_approval["terminal_observation"]["actor_egress_started"])
+        attempt7 = json.loads(
+            (ROOT / "results/runtime-qualification/f0/h100-pcie-instance-7-amendment.json").read_text()
+        )
+        self.assertEqual(attempt7["provider"]["instance_id"], "2ce50e8669184f9f9b95566eabb3d7b0")
+        self.assertEqual(attempt7["provider"]["ip"], "209.20.157.88")
+        self.assertTrue(attempt7["ssh_qualification"]["completed"])
+        self.assertFalse(attempt7["host_probe"]["attempt_6_storage_present"])
+        self.assertFalse(attempt7["authorization"]["actor_export_authorized"])
+        self.assertFalse(attempt7["authorization"]["gpu_execution_authorized"])
+        self.assertIn("2ce50e8669184f9f9b95566eabb3d7b0", source)
 
     def test_h100_runner_bootstraps_project_imports_under_direct_file_launch(self) -> None:
         runner = ROOT / "scripts/run_f2_h100_rehearsal.py"

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "host_qualified_actor_free_public_provisioning_authorized_attempt_7_not_authorized",
+  "recorded_at": "2026-09-10T16:00:32Z",
+  "scope": "qualified replacement H100 PCIe plus actor-free source/norm sync, image build, and public probes; no actor export, paid execution, scientific comparison, evaluation, or promotion",
+  "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "2ce50e8669184f9f9b95566eabb3d7b0",
+    "region": "Utah, USA",
+    "ip": "209.20.157.88",
+    "gpu_model_user_reported": "NVIDIA H100 PCIe",
+    "gpu_count_user_reported": 1,
+    "price_usd_per_hour": "3.29"
+  },
+  "user_reported_state": {
+    "status": "booting",
+    "spent_so_far_usd": "0.21",
+    "auto_shutdown_remaining": "5h56m",
+    "maximum_additional_auto_shutdown_exposure_usd": "19.5143"
+  },
+  "ssh_qualification": {
+    "completed": true,
+    "connected_at": "2026-09-10T16:00:32Z",
+    "result": "pass",
+    "remote_commands_scope": "read-only host, hardware, storage, tooling, workspace, container, and GPU-process inspection"
+  },
+  "host_probe": {
+    "architecture": "x86_64",
+    "os": "Ubuntu 22.04.5 LTS",
+    "cpu_count": 26,
+    "ram_bytes": 237490958336,
+    "disk_available_bytes": 1038806708224,
+    "gpu_model": "NVIDIA H100 PCIe",
+    "gpu_memory_mib": 81559,
+    "gpu_uuid": "GPU-8c113a74-6f5d-9477-d4bb-6187ff3a405a",
+    "driver": "570.148.08",
+    "docker_version": "28.3.1",
+    "nvidia_container_cli_version": "1.17.8",
+    "workspace_present": false,
+    "source_present": false,
+    "attempt_6_storage_present": false,
+    "actor_present": false,
+    "running_containers": 0,
+    "gpu_compute_processes": 0
+  },
+  "prior_attempt": {
+    "attempt": 6,
+    "instance_id": "268cdf9dce05458fadcf8f6c748f6d85",
+    "ip": "209.20.158.196",
+    "status": "approved_but_remote_pretransfer_gate_timed_out_no_egress_no_execution",
+    "storage_reuse_assumed": false,
+    "prior_instance_approval_applies": false
+  },
+  "fresh_identities": {
+    "run_ids": [
+      "f2-h100-pcie-control-seed2026-attempt7",
+      "f2-h100-pcie-candidate-seed2026-attempt7",
+      "f2-h100-pcie-resume-source-seed2026-attempt7",
+      "f2-h100-pcie-resume-continuation-seed2026-attempt7"
+    ],
+    "result_path": "/workspace/results/runtime-qualification/f2-h100-pcie/attempt-7.json"
+  },
+  "authorization": {
+    "read_only_qualification_authorized": true,
+    "source_sync_authorized": true,
+    "norm_sync_authorized": true,
+    "public_image_build_and_probe_authorized": true,
+    "actor_export_authorized": false,
+    "gpu_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  },
+  "user_instruction": "use this instance - 2ce50e8669184f9f9b95566eabb3d7b0, 1x H100 (80 GB PCIe), booting, Utah, USA, IP 209.20.157.88, $3.29/hr, $0.21 spent, auto-shutdown in 5h56m",
+  "authority_interpretation": "The replacement direction permits ordinary actor-free qualification, source/norm sync, image build, and public probes. The exact attempt-6 actor-export and paid approval remains bound to a different instance/IP and does not transfer.",
+  "next_action": "Commit the qualified host binding, freeze attempt-7 source and bundle, complete actor-free public provisioning, and freeze an exact new-host preflight before sensitive egress or execution."
+}
