@@ -108,10 +108,10 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(main.args.args, [])
         source = runner_path.read_text()
         self.assertNotIn("shell=True", source)
-        self.assertIn("f2-h100-pcie-control-seed2026-attempt5", source)
-        self.assertIn("f2-h100-pcie-candidate-seed2026-attempt5", source)
-        self.assertNotIn("f2-h100-pcie-control-seed2026-attempt4", source)
-        self.assertIn('attempt-5.json', source)
+        self.assertIn("f2-h100-pcie-control-seed2026-attempt6", source)
+        self.assertIn("f2-h100-pcie-candidate-seed2026-attempt6", source)
+        self.assertNotIn("f2-h100-pcie-control-seed2026-attempt5", source)
+        self.assertIn('attempt-6.json', source)
         self.assertIn('NVIDIA H100 PCIe', source)
         self.assertIn('/opt/f2-norm-stats/norm_stats.json', source)
         dockerfile = (ROOT / "Dockerfile.f2-h100").read_text()
@@ -167,7 +167,7 @@ class F2RehearsalTests(unittest.TestCase):
         )
         self.assertFalse(pending["authorization"]["actor_export_authorized"])
         self.assertFalse(pending["authorization"]["gpu_execution_authorized"])
-        self.assertIn("0bf25a97ea114ce5b4d87a8733085bf9", source)
+        self.assertNotIn("0bf25a97ea114ce5b4d87a8733085bf9", source)
         preflight = json.loads(
             (
                 ROOT
@@ -204,6 +204,15 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertFalse(approval["scientific_runs_authorized"])
         self.assertFalse(approval["evaluation_authorized"])
         self.assertFalse(approval["promotion_authorized"])
+        replacement = json.loads(
+            (ROOT / "results/runtime-qualification/f0/h100-pcie-instance-6-amendment.json").read_text()
+        )
+        self.assertEqual(replacement["provider"]["instance_id"], "268cdf9dce05458fadcf8f6c748f6d85")
+        self.assertIsNone(replacement["provider"]["ip"])
+        self.assertFalse(replacement["prior_attempt"]["storage_reuse_assumed"])
+        self.assertFalse(replacement["authorization"]["actor_export_authorized"])
+        self.assertFalse(replacement["authorization"]["gpu_execution_authorized"])
+        self.assertIn("268cdf9dce05458fadcf8f6c748f6d85", source)
 
     def test_h100_runner_bootstraps_project_imports_under_direct_file_launch(self) -> None:
         runner = ROOT / "scripts/run_f2_h100_rehearsal.py"

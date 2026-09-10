@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "instance_booting_ip_pending_no_remote_action",
+  "recorded_at": "2026-09-10T08:32:12Z",
+  "scope": "reserve fresh attempt-6 identities for a user-selected replacement H100 PCIe; no connection, source sync, actor export, paid execution, scientific comparison, evaluation, or promotion",
+  "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "268cdf9dce05458fadcf8f6c748f6d85",
+    "region": "Utah, USA",
+    "ip": null,
+    "gpu_model_user_reported": "NVIDIA H100 PCIe",
+    "gpu_count_user_reported": 1,
+    "price_usd_per_hour": "3.29"
+  },
+  "user_reported_state": {
+    "status": "booting",
+    "spent_so_far_usd": "0.00",
+    "auto_shutdown_remaining": "5h59m",
+    "maximum_additional_auto_shutdown_exposure_usd": "19.7348"
+  },
+  "prior_attempt": {
+    "attempt": 5,
+    "instance_id": "0bf25a97ea114ce5b4d87a8733085bf9",
+    "ip": "209.20.157.158",
+    "status": "actor_parts_transferred_host_unreachable_verification_incomplete_execution_not_started",
+    "storage_reuse_assumed": false,
+    "prior_instance_approval_applies": false
+  },
+  "fresh_identities": {
+    "run_ids": [
+      "f2-h100-pcie-control-seed2026-attempt6",
+      "f2-h100-pcie-candidate-seed2026-attempt6",
+      "f2-h100-pcie-resume-source-seed2026-attempt6",
+      "f2-h100-pcie-resume-continuation-seed2026-attempt6"
+    ],
+    "result_path": "/workspace/results/runtime-qualification/f2-h100-pcie/attempt-6.json"
+  },
+  "authorization": {
+    "read_only_qualification_authorized_when_ip_available": true,
+    "source_sync_authorized": false,
+    "public_image_build_and_probe_authorized": false,
+    "actor_export_authorized": false,
+    "gpu_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  },
+  "user_instruction": "268cdf9dce05458fadcf8f6c748f6d85, 1x H100 (80 GB PCIe), booting, Utah, USA, IP provisioning, $3.29/hr, $0.00 spent, auto-shutdown in 5h59m; join and continue where you left off",
+  "next_action": "When Lambda assigns the public IP, perform read-only host qualification. If blank, bind a new source commit and deterministic bundle, then request exact instance/IP-specific actor-export and paid attempt-6 approval before egress or execution."
+}

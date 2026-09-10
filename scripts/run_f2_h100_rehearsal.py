@@ -34,10 +34,10 @@ EXPECTED_GPU = "NVIDIA H100 PCIe"
 MINIMUM_GPU_MEMORY_BYTES = 80_000_000_000
 INSTANCE_PRICE_USD_PER_HOUR = 3.29
 RUNTIME_CONTRACT_ID = "enpire-h100-pcie-rehearsal-runtime-v1"
-CONTROL_RUN_ID = "f2-h100-pcie-control-seed2026-attempt5"
-CANDIDATE_RUN_ID = "f2-h100-pcie-candidate-seed2026-attempt5"
-RESUME_SOURCE_RUN_ID = "f2-h100-pcie-resume-source-seed2026-attempt5"
-RESUME_CONTINUATION_RUN_ID = "f2-h100-pcie-resume-continuation-seed2026-attempt5"
+CONTROL_RUN_ID = "f2-h100-pcie-control-seed2026-attempt6"
+CANDIDATE_RUN_ID = "f2-h100-pcie-candidate-seed2026-attempt6"
+RESUME_SOURCE_RUN_ID = "f2-h100-pcie-resume-source-seed2026-attempt6"
+RESUME_CONTINUATION_RUN_ID = "f2-h100-pcie-resume-continuation-seed2026-attempt6"
 
 
 def _project_modules() -> dict[str, Any]:
@@ -189,7 +189,7 @@ def _derived_profile(source_name: str, arm: str) -> Path:
     provenance["runtime_contract_id"] = RUNTIME_CONTRACT_ID
     provenance["gpu"] = EXPECTED_GPU
     provenance["provider"] = "Lambda Cloud"
-    provenance["instance_id"] = "0bf25a97ea114ce5b4d87a8733085bf9"
+    provenance["instance_id"] = "268cdf9dce05458fadcf8f6c748f6d85"
     provenance["region"] = "Utah, USA"
     provenance["runtime_amendment"] = (
         "user-selected H100 PCIe replacement; valid for F2 engineering rehearsal "
@@ -211,7 +211,7 @@ def _derived_resume_profile() -> Path:
     provenance["candidate_gpu"] = EXPECTED_GPU
     provenance["runtime_contract_id"] = RUNTIME_CONTRACT_ID
     provenance["provider"] = "Lambda Cloud"
-    provenance["instance_id"] = "0bf25a97ea114ce5b4d87a8733085bf9"
+    provenance["instance_id"] = "268cdf9dce05458fadcf8f6c748f6d85"
     provenance["region"] = "Utah, USA"
     provenance["comparison_limitation"] = (
         "schedule-resume integration gate on the user-selected H100 PCIe; "
@@ -421,7 +421,7 @@ def main() -> int:
         "in_container_elapsed_cost_usd": elapsed / 3600 * INSTANCE_PRICE_USD_PER_HOUR,
         "segmentation_decision_basis": "allow only identical predeclared step-boundary segmentation with native checkpoint plus strict sidecar; simulator state is not bitwise continuous",
     }
-    output = RESULTS_ROOT / "runtime-qualification/f2-h100-pcie/attempt-5.json"
+    output = RESULTS_ROOT / "runtime-qualification/f2-h100-pcie/attempt-6.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(f"ENPIRE_F2_H100_RESULT={json.dumps(result, sort_keys=True)}", flush=True)
