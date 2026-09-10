@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "execution_started_result_pending",
+  "observed_at": "2026-09-10T21:06:13Z",
+  "started_at": "2026-09-10T21:06:05Z",
+  "instance_id": "2ce50e8669184f9f9b95566eabb3d7b0",
+  "ip": "209.20.157.88",
+  "container_id": "045d45f9073d",
+  "container_name": "enpire-f2-h100-pcie-attempt-7",
+  "image_tag": "enpire-f2-h100-pcie:d0f9f90",
+  "image_id": "sha256:5b801ebd5582ae064ea1f678833b5400c3b7225d1a316d8d0d98eeb13f1cd1dc",
+  "wrapper_pid": 14984,
+  "launcher_sha256": "bc4d7b1e7ea04c507294bf9c5bd9943d9555eff1ab653fe3ecdec37702922af4",
+  "timeout_seconds": 9000,
+  "maximum_additional_in_container_runtime_usd": "8.2250",
+  "fixed_sequence": [
+    "f2-h100-pcie-control-seed2026-attempt7",
+    "f2-h100-pcie-candidate-seed2026-attempt7",
+    "f2-h100-pcie-resume-source-seed2026-attempt7",
+    "f2-h100-pcie-resume-continuation-seed2026-attempt7"
+  ],
+  "execution_authorized": true,
+  "execution_started": true,
+  "result_observed": false,
+  "scientific_runs_authorized": false,
+  "evaluation_authorized": false,
+  "promotion_authorized": false
+}
