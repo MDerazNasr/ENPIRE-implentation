@@ -44,3 +44,9 @@ instance-specific approval onto this new external host. The transfer was
 blocked before launch: zero actor bytes were exported and no F2 execution
 started. An explicit approval naming this instance/IP and the frozen attempt-7
 envelope is required.
+
+The user supplied that exact new-host approval and confirmed the provider
+lifetime was extended at `2026-09-10T16:50:18Z`. It binds the private actor,
+destination, source, bundle, image, fixed attempt-7 sequence, 9,000-second
+timeout, and USD `8.2250` in-container cap. Scientific evaluation and
+promotion remain unauthorized.

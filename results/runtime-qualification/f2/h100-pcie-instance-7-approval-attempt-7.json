@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
-  "status": "standing_instruction_insufficient_for_new_host_sensitive_egress",
+  "status": "explicit_new_host_actor_export_and_execution_approved_not_started",
+  "explicit_new_host_approval_received_at": "2026-09-10T16:50:18Z",
   "reconciled_at": "2026-09-10T16:23:52Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-7-preflight.json",
@@ -38,20 +39,22 @@
     "size_bytes": 10015912759,
     "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
     "transfer": "fixed resumable four-part transfer with ordered reassembly",
-    "authorized": false,
+    "authorized": true,
     "completed": false,
     "bytes_exported": 0
   },
-  "execution_authorized": false,
+  "execution_authorized": true,
   "execution_started": false,
   "authorization_review": {
     "reviewed_at": "2026-09-10T16:27:00Z",
-    "result": "blocked_before_egress",
+    "result": "superseded_by_explicit_new_host_approval",
     "reason": "The exact private-model export approval was bound to a different host. A standing continuation instruction and selection of a replacement host do not explicitly authorize sensitive egress to the new external destination.",
     "required_action": "Obtain explicit approval naming instance 2ce50e8669184f9f9b95566eabb3d7b0 at 209.20.157.88, the exact actor and destination, and the already-frozen attempt-7 execution envelope.",
     "transfer_command_started": false,
-    "actor_bytes_exported": 0
+    "actor_bytes_exported": 0,
+    "explicit_approval_received_at": "2026-09-10T16:50:18Z"
   },
+  "explicit_user_instruction": "Extended. I explicitly approve exporting the private 10,015,912,759-byte Stage-1 actor with SHA-256 b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3 to instance 2ce50e8669184f9f9b95566eabb3d7b0 at 209.20.157.88, destination /home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt, using the fixed resumable four-part transfer and ordered reassembly. I also approve source d0f9f90433dddd21e91f34c0fb2acc40d3633b25, bundle ee43f1594a88c446eb5986c3e3feb0d1eb5cefae291eeaf05edac336ff1ce943, image sha256:5b801ebd5582ae064ea1f678833b5400c3b7225d1a316d8d0d98eeb13f1cd1dc, the fixed H100 PCIe attempt-7 sequence, 9,000-second timeout, and up to $8.2250 additional in-container runtime.",
   "scientific_runs_authorized": false,
   "evaluation_authorized": false,
   "promotion_authorized": false

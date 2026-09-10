@@ -303,14 +303,14 @@ class F2RehearsalTests(unittest.TestCase):
             ).read_text()
         )
         self.assertTrue(attempt7_approval["instance"]["explicitly_selected_by_user"])
-        self.assertFalse(attempt7_approval["actor_export"]["authorized"])
+        self.assertTrue(attempt7_approval["actor_export"]["authorized"])
         self.assertFalse(attempt7_approval["actor_export"]["completed"])
         self.assertEqual(attempt7_approval["actor_export"]["bytes_exported"], 0)
-        self.assertFalse(attempt7_approval["execution_authorized"])
+        self.assertTrue(attempt7_approval["execution_authorized"])
         self.assertFalse(attempt7_approval["execution_started"])
         self.assertEqual(
             attempt7_approval["authorization_review"]["result"],
-            "blocked_before_egress",
+            "superseded_by_explicit_new_host_approval",
         )
         self.assertFalse(attempt7_approval["scientific_runs_authorized"])
         self.assertFalse(attempt7_approval["evaluation_authorized"])
