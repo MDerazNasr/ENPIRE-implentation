@@ -304,8 +304,10 @@ class F2RehearsalTests(unittest.TestCase):
         )
         self.assertTrue(attempt7_approval["instance"]["explicitly_selected_by_user"])
         self.assertTrue(attempt7_approval["actor_export"]["authorized"])
-        self.assertFalse(attempt7_approval["actor_export"]["completed"])
-        self.assertEqual(attempt7_approval["actor_export"]["bytes_exported"], 0)
+        self.assertTrue(attempt7_approval["actor_export"]["completed"])
+        self.assertEqual(attempt7_approval["actor_export"]["bytes_exported"], 10015912759)
+        self.assertEqual(len(attempt7_approval["actor_export"]["parts"]), 4)
+        self.assertTrue(attempt7_approval["actor_export"]["atomic_install_completed"])
         self.assertTrue(attempt7_approval["execution_authorized"])
         self.assertFalse(attempt7_approval["execution_started"])
         self.assertEqual(
