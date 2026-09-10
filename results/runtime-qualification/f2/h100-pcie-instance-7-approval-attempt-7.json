@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "standing_authorization_reconciled_actor_export_and_execution_not_started",
+  "status": "standing_instruction_insufficient_for_new_host_sensitive_egress",
   "reconciled_at": "2026-09-10T16:23:52Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-7-preflight.json",
@@ -38,11 +38,20 @@
     "size_bytes": 10015912759,
     "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
     "transfer": "fixed resumable four-part transfer with ordered reassembly",
-    "authorized": true,
-    "completed": false
+    "authorized": false,
+    "completed": false,
+    "bytes_exported": 0
   },
-  "execution_authorized": true,
+  "execution_authorized": false,
   "execution_started": false,
+  "authorization_review": {
+    "reviewed_at": "2026-09-10T16:27:00Z",
+    "result": "blocked_before_egress",
+    "reason": "The exact private-model export approval was bound to a different host. A standing continuation instruction and selection of a replacement host do not explicitly authorize sensitive egress to the new external destination.",
+    "required_action": "Obtain explicit approval naming instance 2ce50e8669184f9f9b95566eabb3d7b0 at 209.20.157.88, the exact actor and destination, and the already-frozen attempt-7 execution envelope.",
+    "transfer_command_started": false,
+    "actor_bytes_exported": 0
+  },
   "scientific_runs_authorized": false,
   "evaluation_authorized": false,
   "promotion_authorized": false

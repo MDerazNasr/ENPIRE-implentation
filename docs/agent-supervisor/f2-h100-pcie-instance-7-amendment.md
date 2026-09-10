@@ -38,3 +38,9 @@ then had no actor, running container, or GPU compute process.
 The fixed attempt-7 envelope and the narrow standing-authorization
 reconciliation boundary are frozen in
 `results/runtime-qualification/f2/h100-pcie-instance-7-preflight.json`.
+
+The subsequent sensitive-egress review rejected carrying the earlier
+instance-specific approval onto this new external host. The transfer was
+blocked before launch: zero actor bytes were exported and no F2 execution
+started. An explicit approval naming this instance/IP and the frozen attempt-7
+envelope is required.
