@@ -317,6 +317,19 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertFalse(attempt7_approval["scientific_runs_authorized"])
         self.assertFalse(attempt7_approval["evaluation_authorized"])
         self.assertFalse(attempt7_approval["promotion_authorized"])
+        attempt7_prelaunch = json.loads(
+            (
+                ROOT
+                / "results/runtime-qualification/f2/h100-pcie-instance-7-prelaunch.json"
+            ).read_text()
+        )
+        self.assertTrue(attempt7_prelaunch["actor"]["verified"])
+        self.assertEqual(attempt7_prelaunch["unused_paths_verified"], 9)
+        self.assertTrue(attempt7_prelaunch["execution_authorized"])
+        self.assertFalse(attempt7_prelaunch["execution_started"])
+        self.assertFalse(attempt7_prelaunch["scientific_runs_authorized"])
+        self.assertFalse(attempt7_prelaunch["evaluation_authorized"])
+        self.assertFalse(attempt7_prelaunch["promotion_authorized"])
 
     def test_h100_runner_bootstraps_project_imports_under_direct_file_launch(self) -> None:
         runner = ROOT / "scripts/run_f2_h100_rehearsal.py"

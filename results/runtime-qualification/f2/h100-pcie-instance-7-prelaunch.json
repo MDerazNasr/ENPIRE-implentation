@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "ready_for_single_approved_attempt_7_launch",
+  "checked_at": "2026-09-10T21:03:13Z",
+  "instance_id": "2ce50e8669184f9f9b95566eabb3d7b0",
+  "ip": "209.20.157.88",
+  "source_commit": "d0f9f90433dddd21e91f34c0fb2acc40d3633b25",
+  "source_bundle_sha256": "ee43f1594a88c446eb5986c3e3feb0d1eb5cefae291eeaf05edac336ff1ce943",
+  "image_id": "sha256:5b801ebd5582ae064ea1f678833b5400c3b7225d1a316d8d0d98eeb13f1cd1dc",
+  "image_size_bytes": 40882743007,
+  "preflight_sha256": "f028ce251b5f9c6d3c7a18fa457e6e586356fb28d579951d779882b47194754c",
+  "approval_sha256": "f92a2c3b61c38970f3c6ca34903c6063178d985e861f3456e16940798e8d4116",
+  "launcher_sha256": "7f83935666f48a055cbe66e93428acd4926b0c64f4126358f2751912b4b57294",
+  "actor": {
+    "path": "/home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "size_bytes": 10015912759,
+    "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "verified": true
+  },
+  "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+  "unused_paths_verified": 9,
+  "running_containers": 0,
+  "gpu_compute_processes": 0,
+  "execution_authorized": true,
+  "execution_started": false,
+  "timeout_seconds": 9000,
+  "maximum_additional_in_container_runtime_usd": "8.2250",
+  "scientific_runs_authorized": false,
+  "evaluation_authorized": false,
+  "promotion_authorized": false
+}
