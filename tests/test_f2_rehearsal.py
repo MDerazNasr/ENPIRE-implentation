@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import copy
+import hashlib
 import json
 import subprocess
 import sys
@@ -309,7 +310,9 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertEqual(len(attempt7_approval["actor_export"]["parts"]), 4)
         self.assertTrue(attempt7_approval["actor_export"]["atomic_install_completed"])
         self.assertTrue(attempt7_approval["execution_authorized"])
-        self.assertFalse(attempt7_approval["execution_started"])
+        self.assertTrue(attempt7_approval["execution_started"])
+        self.assertEqual(attempt7_approval["execution_exit_code"], 0)
+        self.assertEqual(attempt7_approval["result_status"], "pass")
         self.assertEqual(
             attempt7_approval["authorization_review"]["result"],
             "superseded_by_explicit_new_host_approval",
@@ -338,11 +341,33 @@ class F2RehearsalTests(unittest.TestCase):
         )
         self.assertTrue(attempt7_launch["execution_authorized"])
         self.assertTrue(attempt7_launch["execution_started"])
-        self.assertFalse(attempt7_launch["result_observed"])
+        self.assertTrue(attempt7_launch["result_observed"])
+        self.assertEqual(attempt7_launch["result_status"], "pass")
+        self.assertTrue(attempt7_launch["terminal_idle_gate_passed"])
+        self.assertTrue(attempt7_launch["safe_to_terminate_instance"])
         self.assertEqual(len(attempt7_launch["fixed_sequence"]), 4)
         self.assertFalse(attempt7_launch["scientific_runs_authorized"])
         self.assertFalse(attempt7_launch["evaluation_authorized"])
         self.assertFalse(attempt7_launch["promotion_authorized"])
+        attempt7_evidence = ROOT / "results/runtime-qualification/f2/h100-pcie-attempt-7"
+        attempt7_result = json.loads((attempt7_evidence / "attempt.json").read_text())
+        attempt7_terminal = json.loads((attempt7_evidence / "terminal.json").read_text())
+        self.assertEqual(attempt7_result["status"], "pass")
+        self.assertEqual(attempt7_terminal["status"], "pass")
+        self.assertLessEqual(
+            attempt7_terminal["lifecycle"]["in_container_elapsed_cost_usd"],
+            float(attempt7_terminal["frozen_inputs"]["maximum_additional_in_container_runtime_usd"]),
+        )
+        self.assertTrue(all(attempt7_terminal["resume_checks"].values()))
+        self.assertFalse(attempt7_terminal["evaluation_executed"])
+        self.assertFalse(attempt7_terminal["promotion_executed"])
+        self.assertTrue(attempt7_terminal["safe_to_terminate_instance"])
+        hashes = (attempt7_evidence / "SHA256SUMS").read_text().splitlines()
+        self.assertEqual(len(hashes), 45)
+        for line in hashes:
+            expected, relative = line.split("  ./", maxsplit=1)
+            actual = hashlib.sha256((attempt7_evidence / relative).read_bytes()).hexdigest()
+            self.assertEqual(actual, expected, relative)
 
     def test_h100_runner_bootstraps_project_imports_under_direct_file_launch(self) -> None:
         runner = ROOT / "scripts/run_f2_h100_rehearsal.py"

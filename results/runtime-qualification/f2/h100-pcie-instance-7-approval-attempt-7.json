@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "actor_export_completed_execution_approved_not_started",
+  "status": "actor_export_and_approved_execution_completed_pass",
   "explicit_new_host_approval_received_at": "2026-09-10T16:50:18Z",
   "reconciled_at": "2026-09-10T16:23:52Z",
   "approved_by": "user",
@@ -55,7 +55,12 @@
     "atomic_install_completed": true
   },
   "execution_authorized": true,
-  "execution_started": false,
+  "execution_started": true,
+  "execution_started_at": "2026-09-10T21:06:05Z",
+  "execution_finished_at": "2026-09-10T22:13:45Z",
+  "execution_exit_code": 0,
+  "result_status": "pass",
+  "terminal_record": "results/runtime-qualification/f2/h100-pcie-attempt-7/terminal.json",
   "authorization_review": {
     "reviewed_at": "2026-09-10T16:27:00Z",
     "result": "superseded_by_explicit_new_host_approval",

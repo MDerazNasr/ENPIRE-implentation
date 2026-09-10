@@ -1,7 +1,7 @@
 # F2 H100 PCIe Instance 7 Amendment
 
-Status: **replacement host qualified; actor-free provisioning authorized;
-attempt 7 not yet authorized** on 2026-09-10.
+Status: **attempt 7 completed its bounded F2 engineering rehearsal and passed**
+on 2026-09-10. No scientific evaluation or promotion was executed.
 
 Attempt 6 did not cross the sensitive boundary. Its local actor rehash passed,
 but the remote pre-transfer gate timed out twice before authentication. No
@@ -17,9 +17,9 @@ workspace, attempt-6 storage, actor, containers, or GPU compute processes.
 
 The runner reserves fresh attempt-7 Control, Candidate, resume-source, and
 resume-continuation IDs plus `attempt-7.json`. Actor-free source/norm sync,
-image build, and public qualification are allowed. Actor export, paid
-execution, scientific comparison, evaluation, and promotion remain disabled
-until the new source, bundle, image, and host envelope is frozen.
+image build, and public qualification were allowed first. Actor export and
+paid execution remained disabled until the new source, bundle, image, and host
+envelope were frozen and separately approved.
 
 Machine-readable evidence is in
 `results/runtime-qualification/f0/h100-pcie-instance-7-amendment.json`.
@@ -55,4 +55,33 @@ The fixed four-part transfer completed despite intermittent SSH resets; every
 resume followed an exact local/remote prefix hash. All four parts passed two
 complete remote hash checks. Ordered assembly, full 10,015,912,759-byte size
 and SHA-256 verification, and atomic installation completed at
-`2026-09-10T21:01:20Z`. Paid execution has not yet started.
+`2026-09-10T21:01:20Z`.
+
+## Attempt 7 terminal result
+
+The corrected prelaunch gate passed actor, norm-stats, exact-image, source,
+approval, unused-path, and idle checks. The one approved detached container
+started at `2026-09-10T21:06:05Z` and finished at
+`2026-09-10T22:13:45Z` with exit code 0. Its 4,057.703852423-second
+in-container duration cost USD `3.7082904651310202`, below the approved USD
+`8.2250` cap and within the 9,000-second timeout.
+
+All four fixed run identities completed with exit code 0: Control, Candidate,
+resume-source, and resume-continuation. The result is `pass`. The only
+scientific configuration differences are the preregistered BC weights:
+Control-to-Candidate `online_bc_weight` is `2.5 -> 2`, and
+`warmup_bc_weight` is `7 -> 5.6`. All ten strict schedule-resume checks pass,
+including equal schedule fingerprints, restored replay RNG state, preserved
+transition counters, and advancement from update step 1 to 2.
+
+This is engineering evidence only. Evaluation was disabled, no policy-quality
+comparison was made, and no promotion occurred. The terminal idle gate at
+`2026-09-10T22:15:16Z` found zero running or stopped containers, zero GPU
+compute processes, and zero workload processes. Instance
+`2ce50e8669184f9f9b95566eabb3d7b0` is safe to terminate.
+
+The authoritative result and 45-file hash-bound compact evidence set are in
+`results/runtime-qualification/f2/h100-pcie-attempt-7/`. Generated model and
+replay binaries are omitted from Git; their sizes remain recorded by the
+authoritative result, while checkpoint metadata, replay indices, and RLT
+schedule sidecars are retained.

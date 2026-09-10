@@ -1,0 +1,1 @@
+{"trajectory_index": {"0": {"num_samples": 1, "trajectory_id": 0, "max_episode_length": 1, "shape": [1, 1, 80], "model_weights_id": "43cb8641-2fa5-5eed-ad3d-bc5ef0817fbe"}, "1": {"num_samples": 1, "trajectory_id": 1, "max_episode_length": 1, "shape": [1, 1, 80], "model_weights_id": "97f3b930-1b7e-584a-8142-4fd8d58205c6"}}, "trajectory_id_list": [0, 1]}

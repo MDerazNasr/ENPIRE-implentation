@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "claim_scope": "H100 PCIe F2 engineering rehearsal only; no policy comparison, scientific evaluation, or promotion",
+  "instance": {
+    "provider": "Lambda Cloud",
+    "instance_id": "2ce50e8669184f9f9b95566eabb3d7b0",
+    "ip": "209.20.157.88",
+    "region": "Utah, USA",
+    "gpu": "NVIDIA H100 PCIe",
+    "price_usd_per_hour": "3.29"
+  },
+  "frozen_inputs": {
+    "source_commit": "d0f9f90433dddd21e91f34c0fb2acc40d3633b25",
+    "source_bundle_sha256": "ee43f1594a88c446eb5986c3e3feb0d1eb5cefae291eeaf05edac336ff1ce943",
+    "image_id": "sha256:5b801ebd5582ae064ea1f678833b5400c3b7225d1a316d8d0d98eeb13f1cd1dc",
+    "actor_size_bytes": 10015912759,
+    "actor_sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "timeout_seconds": 9000,
+    "maximum_additional_in_container_runtime_usd": "8.2250"
+  },
+  "lifecycle": {
+    "started_at": "2026-09-10T21:06:05Z",
+    "finished_at": "2026-09-10T22:13:45Z",
+    "exit_code": 0,
+    "elapsed_seconds": 4057.703852423001,
+    "in_container_elapsed_cost_usd": 3.7082904651310202,
+    "within_timeout": true,
+    "within_cost_cap": true
+  },
+  "fixed_sequence": [
+    {"run_id": "f2-h100-pcie-control-seed2026-attempt7", "status": "complete", "exit_code": 0},
+    {"run_id": "f2-h100-pcie-candidate-seed2026-attempt7", "status": "complete", "exit_code": 0},
+    {"run_id": "f2-h100-pcie-resume-source-seed2026-attempt7", "status": "complete", "exit_code": 0},
+    {"run_id": "f2-h100-pcie-resume-continuation-seed2026-attempt7", "status": "complete", "exit_code": 0}
+  ],
+  "scientific_diff": {
+    "online_bc_weight": [2.5, 2],
+    "warmup_bc_weight": [7, 5.6]
+  },
+  "resume_checks": {
+    "continuation_metric_starts_one": true,
+    "continuation_online": true,
+    "continued_update_counter": true,
+    "replay_rng_present": true,
+    "restore_marker_present": true,
+    "schedule_fingerprint_equal": true,
+    "source_metric_starts_zero": true,
+    "source_update_counter": true,
+    "source_warmup": true,
+    "transitions_non_regressing": true
+  },
+  "segmentation_decision_basis": "allow only identical predeclared step-boundary segmentation with native checkpoint plus strict sidecar; simulator state is not bitwise continuous",
+  "evaluation_executed": false,
+  "promotion_executed": false,
+  "terminal_idle_gate": {
+    "checked_at": "2026-09-10T22:15:16Z",
+    "running_containers": 0,
+    "all_containers": 0,
+    "gpu_compute_processes": 0,
+    "workload_processes": 0
+  },
+  "retained_artifacts": {
+    "directory": "results/runtime-qualification/f2/h100-pcie-attempt-7",
+    "hash_manifest": "results/runtime-qualification/f2/h100-pcie-attempt-7/SHA256SUMS",
+    "hash_manifest_sha256": "f8cdbfb344dc24ac11112d72280d7093a131060a5777b23dd517bb0ce9c23eb0",
+    "hashed_file_count": 45,
+    "generated_model_and_replay_binaries_retained": false,
+    "binary_omission_reason": "The authoritative result records their sizes and the retained checkpoint metadata, replay indices, and schedule sidecars prove the engineering gates without committing generated binary state."
+  },
+  "safe_to_terminate_instance": true
+}
