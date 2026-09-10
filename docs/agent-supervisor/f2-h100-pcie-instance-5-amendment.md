@@ -45,6 +45,18 @@ attempt-5 sequence, 9,000-second timeout, and USD `8.2250` ceiling.
 A final bounded reconciliation check at `2026-09-09T20:57:09Z` also timed out
 before authentication, so no attempt-4 completion or failure is inferred.
 
+The user subsequently supplied the exact duplicate-risk acknowledgment plus
+actor-export and paid attempt-5 approval; commit `4a1889f` records it before
+egress. The local actor and complete pre-transfer gate passed. Parts 0--2 each
+passed two complete remote SHA checks. Part 3 reached exactly 2,503,914,295
+bytes and its complete-length prefix SHA matched `22e8f226...59a90`, but SSH
+reset during the immediately repeated hash. The host then timed out before
+authentication through `2026-09-10T08:15:53Z`, beyond the original
+auto-shutdown deadline. Ordered reassembly, final actor installation, and the
+attempt-5 container did not start. Resume only after the same instance/storage
+and current IP are reconfirmed; if storage did not persist, require a new
+instance-specific approval before exporting to another host.
+
 Machine-readable evidence is in
 `results/runtime-qualification/f0/h100-pcie-instance-5-amendment.json` and
 `results/runtime-qualification/f2/h100-pcie-instance-5-preflight.json`.

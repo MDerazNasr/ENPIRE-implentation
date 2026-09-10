@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "approved_not_started",
+  "status": "actor_parts_transferred_host_unreachable_verification_incomplete_execution_not_started",
   "approved_at": "2026-09-09T21:18:27Z",
   "approved_by": "user",
   "preflight": "results/runtime-qualification/f2/h100-pcie-instance-5-preflight.json",
@@ -40,10 +40,45 @@
     "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
     "transfer": "fixed resumable four-part transfer with ordered reassembly",
     "authorized": true,
-    "completed": false
+    "completed": false,
+    "transfer_observation": {
+      "last_observed_at": "2026-09-10T00:09:59Z",
+      "part_0": {
+        "size_bytes": 2503999488,
+        "sha256": "9f6df295640a82c6f0f00e38a60c1b7bd12b81ef200807d2de2b75771411b691",
+        "independent_remote_checks": 2
+      },
+      "part_1": {
+        "size_bytes": 2503999488,
+        "sha256": "710b3ba0073be379cdffcb8eab927732a9cfa1169d800cb4c4eeedf638d41c1c",
+        "independent_remote_checks": 2
+      },
+      "part_2": {
+        "size_bytes": 2503999488,
+        "sha256": "1bf52f823f63569288eb7d74bf45aede943514cd6b6a7a7a5f3146bfd37578f0",
+        "independent_remote_checks": 2
+      },
+      "part_3": {
+        "size_bytes": 2503914295,
+        "sha256": "22e8f2267e3deb9bbe03fafbfb8621789b7ba43e7129a32158d6b10e90559a90",
+        "independent_remote_checks": 1,
+        "repeat_check_interrupted": true
+      },
+      "ordered_reassembly_started": false,
+      "final_destination_created": false,
+      "transport_note": "Part 0 resumed only after exact same-length local/remote prefix SHA-256 verification. After all final part bytes arrived, part 3's complete-length prefix SHA matched; the immediately repeated remote hash connection reset, and the host then timed out before authentication."
+    }
   },
   "execution_authorized": true,
   "execution_started": false,
+  "host_recovery": {
+    "network_unreachable_after": "2026-09-10T00:09:59Z",
+    "latest_failed_check": "2026-09-10T08:15:53Z",
+    "failure_mode": "port 22 timed out before authentication",
+    "original_auto_shutdown_deadline_passed": true,
+    "dashboard_status_reconfirmation_required": true,
+    "resume_action": "Restart or extend the same instance with persistent storage, provide its current IP, independently rehash all four parts, then continue ordered assembly. If storage did not persist, a new instance-specific approval and transfer are required."
+  },
   "scientific_runs_authorized": false,
   "evaluation_authorized": false,
   "promotion_authorized": false,

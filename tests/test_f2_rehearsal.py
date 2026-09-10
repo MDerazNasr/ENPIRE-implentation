@@ -194,8 +194,13 @@ class F2RehearsalTests(unittest.TestCase):
             approval["prior_attempt"]["possible_duplicate_execution_acknowledged"]
         )
         self.assertTrue(approval["actor_export"]["authorized"])
+        self.assertFalse(approval["actor_export"]["completed"])
+        self.assertFalse(
+            approval["actor_export"]["transfer_observation"]["ordered_reassembly_started"]
+        )
         self.assertTrue(approval["execution_authorized"])
         self.assertFalse(approval["execution_started"])
+        self.assertTrue(approval["host_recovery"]["dashboard_status_reconfirmation_required"])
         self.assertFalse(approval["scientific_runs_authorized"])
         self.assertFalse(approval["evaluation_authorized"])
         self.assertFalse(approval["promotion_authorized"])
