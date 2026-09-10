@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "status": "actor_free_public_provisioning_authorized",
+  "created_at": "2026-09-10T10:41:17Z",
+  "claim_scope": "replacement H100 PCIe attempt-6 actor-free public provisioning only; no actor export, paid F2 execution, scientific comparison, evaluation, or promotion",
+  "source_commit": "4a49b6c598bf3d21f88e4412d22bded872ba2914",
+  "source_bundle_sha256": "1dd31b6a448455cb49bc475656087f5cecb781381933f479e9024499f24fb083",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "268cdf9dce05458fadcf8f6c748f6d85",
+    "region": "Utah, USA",
+    "ip": "209.20.158.196",
+    "gpu": "NVIDIA H100 PCIe",
+    "price_usd_per_hour": "3.29"
+  },
+  "remote_paths": {
+    "source": "/home/ubuntu/qualia",
+    "workspace": "/home/ubuntu/enpire-workspace",
+    "norm_stats": "/home/ubuntu/enpire-workspace/f2-h100-norm-stats/norm_stats.json",
+    "actor": "/home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt"
+  },
+  "execution": {
+    "image_tag": "enpire-f2-h100-pcie:4a49b6c",
+    "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+    "runner": "scripts/run_f2_h100_rehearsal.py",
+    "fixed_run_ids": [
+      "f2-h100-pcie-control-seed2026-attempt6",
+      "f2-h100-pcie-candidate-seed2026-attempt6",
+      "f2-h100-pcie-resume-source-seed2026-attempt6",
+      "f2-h100-pcie-resume-continuation-seed2026-attempt6"
+    ],
+    "result_path": "/workspace/results/runtime-qualification/f2-h100-pcie/attempt-6.json",
+    "timeout_seconds": 9000,
+    "maximum_in_container_runtime_usd": "8.2250"
+  },
+  "prior_attempt": {
+    "attempt": 5,
+    "status": "actor_parts_transferred_host_unreachable_verification_incomplete_execution_not_started",
+    "storage_present_on_attempt_6_host": false,
+    "prior_instance_approval_applies": false
+  },
+  "authorization": {
+    "source_sync_authorized": true,
+    "norm_sync_authorized": true,
+    "public_image_build_and_probe_authorized": true,
+    "actor_export_authorized": false,
+    "gpu_execution_authorized": false,
+    "scientific_runs_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  },
+  "source_hashes": {
+    "Dockerfile.f2-h100": "72b27283e1f76470ebccb04ac12e036ec0698bef3bc4542ea4b596620dfa5f29",
+    "agent/d1_config.py": "3e7b51928460413694ca56bfc1421130dd1618cecf3bfd15d56d22c0334b3e91",
+    "agent/d1_launcher.py": "8c6b141914e94b6ea1983e2802245a931c9ea9f965ea0cc2b75d8521abf7d054",
+    "agent/metrics.py": "f895bb1c630fd9e8df69e2abbde43b9b9431102b5bcbcc3ffc0a42d261fddc04",
+    "agent/provenance.py": "a8ca1c9a8b815345c09a52d2602d5b752abcb4ca4a2676997348897f8dee8c50",
+    "agent/resources.py": "1724d7114fb024785191f6aacb1876db09dff80e42fb2f8510115db3f0dcfc27",
+    "agent/rlt_resume_state.py": "e0a21d7594de232a5ec273e8ac7fa49be957037b16445daa3ee0e73bd4e75ec6",
+    "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "configs/d1/f2_candidate_rehearsal.yaml": "b8d099135879ea86933729bae1452fe43abe24b0e41c273faafa734e59c0856c",
+    "configs/d1/f2_control_rehearsal.yaml": "40fc4bff7c9abdd804bf53ac4bd1e0c0c8050ff9564103eed2000ec654eccdb8",
+    "configs/d1/stage2_6_schedule_resume_gate.yaml": "cbec2ed9046fd43ba71595c196768a0177c4d60a7abe616a61661a48dee2b7bb",
+    "envs/modal_multiprocess_rlt_env.py": "84b8e65b9d966233f892bda7e71d08a31a1a35e222bd8859f77d84dbe417b23c",
+    "results/runtime-qualification/f0/h100-pcie-instance-6-amendment.json": "4b332085c0b9906e6835497e28706d394cf681d6cb88d83a6b4e0512207cef03",
+    "scripts/run_f2_h100_rehearsal.py": "8025d92d5e9b3602aeb4c2bf1d2385c299b5534cc3f5995bd028296507305dda",
+    "sitecustomize.py": "8f39c3cfffcf839ece8aa9bdce5f798e6fb019fc4e19e5168edc1c1ca3187f74"
+  },
+  "next_action": "Commit this clean preprovision envelope, sync only the actor-free source and norm stats, build and probe the exact image, then stop before actor export or F2 execution for exact new-instance approval."
+}

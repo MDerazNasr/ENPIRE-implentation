@@ -217,6 +217,16 @@ class F2RehearsalTests(unittest.TestCase):
         self.assertFalse(replacement["authorization"]["actor_export_authorized"])
         self.assertFalse(replacement["authorization"]["gpu_execution_authorized"])
         self.assertIn("268cdf9dce05458fadcf8f6c748f6d85", source)
+        preprovision = json.loads(
+            (
+                ROOT
+                / "results/runtime-qualification/f2/h100-pcie-instance-6-preprovision.json"
+            ).read_text()
+        )
+        self.assertEqual(preprovision["source_commit"], "4a49b6c598bf3d21f88e4412d22bded872ba2914")
+        self.assertEqual(len(preprovision["source_hashes"]), 15)
+        self.assertFalse(preprovision["authorization"]["actor_export_authorized"])
+        self.assertFalse(preprovision["authorization"]["gpu_execution_authorized"])
 
     def test_h100_runner_bootstraps_project_imports_under_direct_file_launch(self) -> None:
         runner = ROOT / "scripts/run_f2_h100_rehearsal.py"
