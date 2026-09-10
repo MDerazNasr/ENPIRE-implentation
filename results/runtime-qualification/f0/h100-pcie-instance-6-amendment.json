@@ -1,23 +1,48 @@
 {
   "schema_version": 1,
-  "status": "instance_booting_ip_pending_no_remote_action",
-  "recorded_at": "2026-09-10T08:32:12Z",
-  "scope": "reserve fresh attempt-6 identities for a user-selected replacement H100 PCIe; no connection, source sync, actor export, paid execution, scientific comparison, evaluation, or promotion",
+  "status": "host_qualified_actor_free_public_provisioning_authorized_attempt_6_not_authorized",
+  "recorded_at": "2026-09-10T10:39:11Z",
+  "scope": "qualified replacement H100 PCIe plus actor-free source/norm sync, image build, and public probes; no actor export, paid execution, scientific comparison, evaluation, or promotion",
   "runtime_contract_id": "enpire-h100-pcie-rehearsal-runtime-v1",
   "provider": {
     "name": "Lambda Cloud",
     "instance_id": "268cdf9dce05458fadcf8f6c748f6d85",
     "region": "Utah, USA",
-    "ip": null,
+    "ip": "209.20.158.196",
     "gpu_model_user_reported": "NVIDIA H100 PCIe",
     "gpu_count_user_reported": 1,
     "price_usd_per_hour": "3.29"
   },
   "user_reported_state": {
     "status": "booting",
-    "spent_so_far_usd": "0.00",
-    "auto_shutdown_remaining": "5h59m",
-    "maximum_additional_auto_shutdown_exposure_usd": "19.7348"
+    "spent_so_far_usd": "7.42",
+    "auto_shutdown_remaining": "3h44m",
+    "maximum_additional_auto_shutdown_exposure_usd": "12.2827"
+  },
+  "ssh_qualification": {
+    "completed": true,
+    "connected_at": "2026-09-10T10:39:11Z",
+    "result": "pass",
+    "remote_commands_scope": "read-only host, hardware, storage, tooling, workspace, container, and GPU-process inspection"
+  },
+  "host_probe": {
+    "architecture": "x86_64",
+    "os": "Ubuntu 22.04.5 LTS",
+    "cpu_count": 26,
+    "ram_bytes": 237490962432,
+    "disk_available_bytes": 1038688997376,
+    "gpu_model": "NVIDIA H100 PCIe",
+    "gpu_memory_mib": 81559,
+    "gpu_uuid": "GPU-e0f7660f-36f2-0530-a49c-5e2e89f4c091",
+    "driver": "570.148.08",
+    "docker_version": "28.3.1",
+    "nvidia_container_cli_present": true,
+    "workspace_present": false,
+    "source_present": false,
+    "attempt_5_storage_present": false,
+    "actor_present": false,
+    "running_containers": 0,
+    "gpu_compute_processes": 0
   },
   "prior_attempt": {
     "attempt": 5,
@@ -38,14 +63,16 @@
   },
   "authorization": {
     "read_only_qualification_authorized_when_ip_available": true,
-    "source_sync_authorized": false,
-    "public_image_build_and_probe_authorized": false,
+    "source_sync_authorized": true,
+    "norm_sync_authorized": true,
+    "public_image_build_and_probe_authorized": true,
     "actor_export_authorized": false,
     "gpu_execution_authorized": false,
     "scientific_runs_authorized": false,
     "evaluation_authorized": false,
     "promotion_authorized": false
   },
-  "user_instruction": "268cdf9dce05458fadcf8f6c748f6d85, 1x H100 (80 GB PCIe), booting, Utah, USA, IP provisioning, $3.29/hr, $0.00 spent, auto-shutdown in 5h59m; join and continue where you left off",
-  "next_action": "When Lambda assigns the public IP, perform read-only host qualification. If blank, bind a new source commit and deterministic bundle, then request exact instance/IP-specific actor-export and paid attempt-6 approval before egress or execution."
+  "user_instruction": "try again with instance 268cdf9dce05458fadcf8f6c748f6d85, 1x H100 (80 GB PCIe), active, Utah, USA, IP 209.20.158.196, $3.29/hr, $7.42 spent, auto-shutdown in 3h44m",
+  "authority_interpretation": "Together with the preceding direction to join and continue, the active IP permits ordinary actor-free qualification, source/norm sync, image build, and public probes. The old exact actor-export and paid approval remains bound to a different instance/IP and does not transfer.",
+  "next_action": "Commit the qualified host binding, freeze the clean attempt-6 source and deterministic bundle, complete actor-free public provisioning, and then request exact instance/IP-specific actor-export and paid attempt-6 approval before egress or execution."
 }
