@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "standing_authorization_reconciled_actor_export_and_execution_not_started",
+  "reconciled_at": "2026-09-10T16:23:52Z",
+  "approved_by": "user",
+  "preflight": "results/runtime-qualification/f2/h100-pcie-instance-7-preflight.json",
+  "preflight_sha256": "f028ce251b5f9c6d3c7a18fa457e6e586356fb28d579951d779882b47194754c",
+  "source_commit": "d0f9f90433dddd21e91f34c0fb2acc40d3633b25",
+  "source_bundle_sha256": "ee43f1594a88c446eb5986c3e3feb0d1eb5cefae291eeaf05edac336ff1ce943",
+  "image_id": "sha256:5b801ebd5582ae064ea1f678833b5400c3b7225d1a316d8d0d98eeb13f1cd1dc",
+  "fixed_sequence": "attempt-7 control, candidate, resume-source, resume-continuation",
+  "timeout_seconds": 9000,
+  "maximum_additional_in_container_runtime_usd": "8.2250",
+  "instance": {
+    "provider": "Lambda Cloud",
+    "instance_id": "2ce50e8669184f9f9b95566eabb3d7b0",
+    "region": "Utah, USA",
+    "ip": "209.20.157.88",
+    "gpu": "NVIDIA H100 PCIe",
+    "price_usd_per_hour": "3.29",
+    "explicitly_selected_by_user": true
+  },
+  "authority_chain": {
+    "exact_attempt_6_instruction": "The user approved the exact 10,015,912,759-byte actor and hash, fixed destination, four-part transfer and ordered reassembly, H100 PCIe fixed sequence, 9,000-second timeout, and USD 8.2250 cap.",
+    "standing_instruction": "The user instructed that future continuation should proceed without retyping the exact statement.",
+    "replacement_instruction": "The user explicitly directed use of instance 2ce50e8669184f9f9b95566eabb3d7b0 at 209.20.157.88.",
+    "reconciliation_limit": "Only the unchanged actor, destination, H100 PCIe engineering sequence, timeout, and cost cap are carried forward. The fresh source, bundle, image, run IDs, instance, and IP are bound by this committed record after public preflight. Any further host, artifact, destination, cost, or scientific-scope change requires a new reconciliation."
+  },
+  "prior_attempt": {
+    "attempt": 6,
+    "status": "remote_pretransfer_gate_failed_no_egress_no_execution",
+    "actor_bytes_exported": 0,
+    "execution_started": false
+  },
+  "actor_export": {
+    "local_path": "/Users/mderaznasr/Documents/GitHub/ENPIRE-implentation/tmp/fresh-chain-20260807/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "remote_path": "/home/ubuntu/enpire-workspace/checkpoints/stage1-step-500-actor/model_state_dict/full_weights.pt",
+    "size_bytes": 10015912759,
+    "sha256": "b5bf9384d7e2da674125fb04b26ed8a391bdb0a0a85cf16c71fd02424ee363f3",
+    "transfer": "fixed resumable four-part transfer with ordered reassembly",
+    "authorized": true,
+    "completed": false
+  },
+  "execution_authorized": true,
+  "execution_started": false,
+  "scientific_runs_authorized": false,
+  "evaluation_authorized": false,
+  "promotion_authorized": false
+}
