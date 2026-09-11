@@ -1,12 +1,19 @@
 # Reproducible Agentic ENPIRE Program Plan
 
-Status: active planning and reconciliation
+Status: integrated engineering harness accepted through F2; G0 scientific
+protocol review is next and no scientific GPU execution is authorized
 
 Obsidian task ID: `MI5T8`
 
-Current D1 branch and head: `experiment/d1-rlt-baseline` at `eed314f`
+Current integrated branch: `integration/d1-d2-agentic-harness`
 
-Current D2 branch and head: `feature/d2-agent-supervisor` at `707b88f`
+Accepted F2 evidence commit: `10ba012`; post-F2 test-program commit: `0dea397`
+
+Canonical product/operator guide:
+`docs/agent-supervisor/harness-product-and-operations-guide.md`
+
+Machine-readable current status:
+`results/agent-supervisor/harness-status.json`
 
 ## 1. Purpose
 
@@ -69,24 +76,23 @@ the strict D1 integration gate without weakening it.
 - [x] The preregistered three-arm study and offline delivery bundle exist.
 - [x] A real CPU toy-policy demonstration exists with an explicit non-RLT
   claim boundary.
-- [x] The extracted D2 head passes 200 tests and 98 subtests.
+- [x] The integrated harness passes 296 tests and 142 subtests.
+- [x] The actor-objective ABI is attached to the live PyTorch/RLinf loss.
+- [x] Fixed remote worker RPC passed live F1 acceptance.
+- [x] A matched Control/Candidate-shaped H100 rehearsal passed F2 acceptance,
+  including all strict resume checks.
 - [ ] No real Claude proposal has been accepted as scientific evidence.
 - [ ] No real D2-controlled RLinf/GPU trial has run.
-- [ ] The actor-objective ABI is not attached to the live PyTorch/RLinf loss.
-- [ ] Remote worker deployment and real SSH/GPU acceptance remain incomplete.
-- [ ] D2 documentation contains stale pre-D1-completion status statements.
+- [ ] No matched paired-seed scientific baseline has run.
+- [ ] G0's evaluator, reset sets, seed matrix, horizon rule, decision rule,
+  retention, timeout, and cost envelope are not yet frozen and approved.
 
-### 2.3 Current integration-gate result
+### 2.3 Current scientific integration-gate result
 
-The read-only D2 checker reports `blocked` for the current D1 worktree because:
-
-1. the worktree is not clean; and
-2. `results/d1-stage7/evidence_pack.json` is absent.
-
-Even after those mechanical issues are resolved, the gate must remain blocked
-until the approved paired-seed evidence contract is satisfied or a new protocol
-is explicitly reviewed and preregistered. The gate must not be weakened merely
-to obtain `ready`.
+The engineering integration and F1/F2 runtime-qualification gates have passed.
+The scientific D1 gate remains blocked because the approved matched paired-seed
+evidence does not exist. G0 protocol review is the next action. The gate must
+not be weakened merely to obtain `ready`.
 
 ## 3. Governing principles
 
@@ -659,18 +665,19 @@ terminal evidence is in `results/runtime-qualification/f2/h100-pcie-attempt-7/`.
 The post-F2 experiment families and approval gates are specified in
 `docs/agent-supervisor/g0-scientific-experiment-test-program.md`.
 
-Preparation status on 2026-09-06: the two fixed one-step profiles, serialized
-Modal application, strict static comparator, resume-chain assertions, current
-price binding, and local regression tests are implemented. The no-launch
-profile caps runtime resources at USD `11.382480` and the approval envelope at
-USD `12.00`. No deployment or GPU execution is authorized. See
+Historical preparation checkpoint on 2026-09-06: the two fixed one-step
+profiles, serialized Modal application, strict static comparator, resume-chain
+assertions, current price binding, and local regression tests were implemented.
+The no-launch profile capped runtime resources at USD `11.382480` and the
+approval envelope at USD `12.00`. No deployment or GPU execution was authorized.
+See
 `docs/agent-supervisor/f2-matched-runtime-rehearsal.md`.
 
-H100 retry status on 2026-09-09: three earlier paid attempts were retained as
-failed or interrupted engineering evidence. Attempt 3 completed its Control
-arm and then failed closed before Candidate because the runner's direct-file
-launch could not import the project audit modules. Attempt 4 corrects only that
-project import boundary and uses fresh fixed run IDs. Source
+Historical H100 retry checkpoint on 2026-09-09: three earlier paid attempts
+were retained as failed or interrupted engineering evidence. Attempt 3
+completed its Control arm and then failed closed before Candidate because the
+runner's direct-file launch could not import the project audit modules. Attempt
+4 corrected only that project import boundary and used fresh fixed run IDs. Source
 `4c6b631ef1227f9b75b8e3282f52f5fcaf48f1b8` and bundle
 `e0341908b59b1bc1139a5036047f9842e92b512b7e3f755c259ff02973b72887`
 were actor-free provisioned to Lambda instance

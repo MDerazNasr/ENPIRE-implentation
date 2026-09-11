@@ -9,6 +9,10 @@ The cross-workstream execution authority is
 the completed D2 supervisor, the Obsidian documentation protocol, and the gated
 path to the first live three-arm study.
 
+The canonical product and operator entry point is
+`agent-supervisor/harness-product-and-operations-guide.md`. The compact
+machine-readable status is `results/agent-supervisor/harness-status.json`.
+
 The gated D1 scientific-baseline work is specified in:
 
 - `baseline_protocol.md` — hypothesis, conditions, evaluation, decision, and

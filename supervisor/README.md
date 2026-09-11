@@ -2,9 +2,13 @@
 
 This dependency-light package implements the audited, bounded outer loop around
 RLT experiments. Milestones M0-M9 and the companion real CPU policy demo are
-complete. Exact live objective and SSH/GPU attachment remain D1 compatibility
-work; the supervisor implementation has not yet launched a paid model, GPU,
-SSH connection, W&B API, or RLinf training process.
+complete. Live objective attachment, fixed worker RPC, and the matched H100
+PCIe F2 execution/resume rehearsal have passed their engineering gates. The
+paired-seed scientific baseline and live agent comparison remain unexecuted and
+unauthorized; no RLT improvement or agent-superiority claim is supported.
+
+For the current product status and operating procedure, start with
+[`../docs/agent-supervisor/harness-product-and-operations-guide.md`](../docs/agent-supervisor/harness-product-and-operations-guide.md).
 
 ## Implemented layers
 
@@ -50,9 +54,9 @@ python3 scripts/run_m4_offline_demo.py --output "$demo_dir"
 
 Every report is prominently marked **SYNTHETIC OFFLINE DEMONSTRATION — NOT
 RESEARCH EVIDENCE**. M5/M6 also exercise D1-shaped artifacts and a genuine
-objective-code delta through real local fixture subprocesses. Live D1
-execution, real RLinf objective wiring, SSH/GPU workers, and scientific
-comparisons remain integration/later work.
+objective-code delta through real local fixture subprocesses. Later F1/F2
+records provide live engineering acceptance, but scientific comparisons still
+require the separately reviewed G0/G1–G3 protocol and evidence.
 
 Run the M7 synthetic two-worker loss/retry demo outside the repository:
 

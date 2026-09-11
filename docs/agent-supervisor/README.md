@@ -1,19 +1,19 @@
 # D2 Coding-Agent Supervisor Contract
 
-Status: Milestone 9 final offline-first supervisor delivery complete;
-exact live RLinf/SSH/GPU acceptance remains a compatibility handoff with the
-reconciled D1 workstream. No paid agent, supervisor-controlled RLinf training,
-GPU, SSH connection, W&B API, or scientific experiment has been launched by
-the supervisor.
+Status: Milestone 9 offline-first delivery, live F1 fixed-worker acceptance,
+and the matched H100 PCIe F2 execution/resume rehearsal are complete. The
+paired-seed scientific baseline and live agent study remain unexecuted and
+unauthorized. No RLT improvement, agent-superiority, evaluation, or promotion
+claim follows from F2.
 
-Current integration note (2026-09-02): D1 has advanced to `eed314f`, contains
-a Stage-7 evidence directory, and records one corrected Control/Candidate seed.
-The B1 builder now emits a deterministic readiness envelope and refuses strict
-publication. The live gate remains blocked because the canonical pack is
-absent, the approved matched seed set is incomplete, and the report records
-the remaining provenance, runtime, tracker, and approval gaps. Historical
-milestone reports below retain their dated observations rather than rewriting
-past evidence.
+Current integration note (2026-09-11): the B1 builder still refuses strict D1
+publication because the canonical matched paired-seed evidence pack is absent.
+F2 removed the runtime/resume engineering blocker by completing four fixed runs
+and all ten resume checks on one H100 PCIe runtime. G0 experiment design is now
+documented; exact seeds, evaluator/reset hashes, conditions, run matrix, and
+budget must be preregistered before paid scientific execution. Historical
+milestone reports retain their dated observations rather than rewriting past
+evidence.
 
 This directory freezes the requirements and architecture for the
 ENPIRE-inspired coding-agent supervisor that will wrap the reproducible
@@ -23,6 +23,11 @@ It does not control gradients, robot actions, simulator resets, or evaluation
 labels inside a run.
 
 ## Documents
+
+- [`harness-product-and-operations-guide.md`](harness-product-and-operations-guide.md)
+  is the canonical product entry point: architecture, authority, components,
+  local demos, real-campaign workflow, workers, evidence, current status,
+  limitations, troubleshooting, and documentation protocol.
 
 - [`requirements-traceability.md`](requirements-traceability.md) maps each
   source requirement to a future component, verification, and demo evidence.

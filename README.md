@@ -6,6 +6,15 @@ loop.
 
 ## Status
 
+The integrated ENPIRE-style supervisor and reproducible D1 laboratory now pass
+their live F1 worker-RPC and F2 matched H100 PCIe engineering gates. F2
+completed Control, Candidate, resume-source, and resume-continuation with all
+ten resume checks and no evaluation or promotion. The next stage is the
+GPU-free G0 scientific-protocol review; no paired-seed scientific or agent-
+superiority claim is authorized. See
+[`docs/agent-supervisor/harness-product-and-operations-guide.md`](docs/agent-supervisor/harness-product-and-operations-guide.md)
+for the full product and operations guide.
+
 Phase 1 is complete and was exercised on an NVIDIA L40S against RLinf commit
 `c90951a0c799a750cb5294ed10587c61cc2af8bf`. The loop launched a baseline,
 read its logged loss and evaluation success, reduced RLT reference

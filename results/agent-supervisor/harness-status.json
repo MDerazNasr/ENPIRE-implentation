@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "status": "engineering_harness_accepted_scientific_study_not_authorized",
+  "branch": "integration/d1-d2-agentic-harness",
+  "obsidian_task_id": "MI5T8",
+  "product": {
+    "kind": "bounded_outer_loop_rlt_research_supervisor",
+    "agent_role": "untrusted_structured_hypothesis_proposer",
+    "trusted_roles": [
+      "campaign_coordinator",
+      "proposal_enforcer",
+      "git_experiment_manager",
+      "worker_scheduler",
+      "evidence_collector",
+      "deterministic_evaluator",
+      "study_controller",
+      "report_builder"
+    ],
+    "edit_modes": [
+      "config_only",
+      "actor_objective_code"
+    ],
+    "worker_transports": [
+      "local_fixture",
+      "fake_worker",
+      "fixed_ssh_rpc",
+      "fixed_modal_rpc"
+    ]
+  },
+  "capabilities": {
+    "canonical_contracts": true,
+    "hash_chained_ledgers": true,
+    "decimal_budget_enforcement": true,
+    "bounded_provider_sessions": true,
+    "proposal_schema_and_scope_validation": true,
+    "source_and_behavior_validation": true,
+    "isolated_git_hypotheses": true,
+    "immutable_run_contracts": true,
+    "durable_multi_worker_scheduling": true,
+    "lease_retry_cancel_and_restart_recovery": true,
+    "stale_result_rejection": true,
+    "artifact_digest_verification": true,
+    "deterministic_evaluation": true,
+    "isolated_multi_arm_study": true,
+    "selection_and_confirmation": true,
+    "reconciled_static_reporting": true
+  },
+  "evidence": {
+    "offline_product_demo": "passed_synthetic",
+    "real_cpu_toy_policy_demo": "passed_toy_scope_only",
+    "f1_fixed_worker_rpc": "passed_live_attempt_3",
+    "f2_h100_pcie_rehearsal": {
+      "status": "pass",
+      "evidence_commit": "10ba012",
+      "terminal_record": "results/runtime-qualification/f2/h100-pcie-attempt-7/terminal.json",
+      "completed_run_count": 4,
+      "resume_check_count": 10,
+      "in_container_elapsed_cost_usd": "3.7082904651310202",
+      "evaluation_executed": false,
+      "promotion_executed": false
+    },
+    "local_regression": {
+      "tests": 296,
+      "subtests": 142,
+      "status": "pass"
+    }
+  },
+  "scientific_claims": {
+    "candidate_improves_rlt": false,
+    "agent_outperforms_manual_or_random_search": false,
+    "agent_objective_code_improves_rlt": false,
+    "generalizes_across_tasks_or_runtimes": false,
+    "physical_robot_ready": false
+  },
+  "current_gate": {
+    "id": "G0",
+    "status": "draft_protocol_review",
+    "document": "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
+    "gpu_execution_authorized": false,
+    "required_before_paid_execution": [
+      "independent_evaluator_and_hash",
+      "development_and_final_reset_set_hashes",
+      "paired_training_seeds",
+      "stage1_horizon_and_plateau_rule",
+      "bc_schedule_conditions",
+      "metrics_interval_and_decision_rule",
+      "complete_run_matrix",
+      "timeout_cost_and_retention_envelope",
+      "explicit_activation_and_paid_approval"
+    ]
+  },
+  "canonical_guides": [
+    "docs/agent-supervisor/harness-product-and-operations-guide.md",
+    "docs/reproducible-agentic-enpire-plan.md",
+    "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
+    "docs/agent-supervisor/architecture-contract.md",
+    "docs/agent-supervisor/contracts.md",
+    "docs/agent-supervisor/artifact-policy.md"
+  ]
+}
