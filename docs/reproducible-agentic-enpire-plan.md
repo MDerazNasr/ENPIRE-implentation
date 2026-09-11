@@ -641,14 +641,23 @@ evaluation, promotion, or scientific claim occurred. See
 
 ### F2. Matched runtime rehearsal
 
-- [ ] Run one bounded Control-shaped and Candidate-shaped rehearsal on the same
+- [x] Run one bounded Control-shaped and Candidate-shaped rehearsal on the same
   runtime.
-- [ ] Confirm identical science identity except the approved intervention.
-- [ ] Verify resume counters and RNG limitations.
-- [ ] Decide whether uninterrupted runs are required for the definitive study.
-- [ ] Update cost projections using measured end-to-end runtime.
+- [x] Confirm identical science identity except the approved intervention.
+- [x] Verify resume counters and RNG limitations.
+- [x] Decide whether uninterrupted runs are required for the definitive study.
+- [x] Update cost projections using measured end-to-end runtime.
 
 Gate F2: runtime differences no longer confound the planned comparison.
+
+Gate F2 result: **passed on H100 PCIe attempt 7**. The fixed Control,
+Candidate, resume-source, and resume-continuation sequence completed with exit
+0 and all ten strict resume checks. The only condition differences were the
+two approved BC weights. The 4,057.703852423-second in-container run cost USD
+`3.7082904651310202`; evaluation and promotion remained disabled. Compact
+terminal evidence is in `results/runtime-qualification/f2/h100-pcie-attempt-7/`.
+The post-F2 experiment families and approval gates are specified in
+`docs/agent-supervisor/g0-scientific-experiment-test-program.md`.
 
 Preparation status on 2026-09-06: the two fixed one-step profiles, serialized
 Modal application, strict static comparator, resume-chain assertions, current
@@ -679,6 +688,11 @@ is authorized. See
 ## 11. Workstream G: complete the reproducible baseline
 
 ### G0. Review the seed and rerun policy
+
+Design status: the meeting-derived E0–E6 experiment program is documented in
+`docs/agent-supervisor/g0-scientific-experiment-test-program.md`. Its proposed
+checkpoint grid, third BC condition, exact seeds, evaluator hashes, and budgets
+remain subject to review; no scientific execution is authorized.
 
 - [ ] Confirm the three approved training seeds before launching new runs.
 - [ ] Decide whether seed 2026 must be rerun because existing Control and
@@ -848,7 +862,7 @@ These are the next actions in order:
    without GPU execution.
 8. [x] Complete the configuration-mode D1 dry-run/fixture attachment gate.
 9. [x] Design and prove the live PyTorch actor-objective overlay.
-10. [ ] Qualify one matched worker/runtime with a bounded Control/Candidate
+10. [x] Qualify one matched worker/runtime with a bounded Control/Candidate
     rehearsal.
 11. [ ] Obtain approval for the final paired-seed D1 run matrix and budget.
 12. [ ] Complete matched D1 evidence, open the integration gate, and only then

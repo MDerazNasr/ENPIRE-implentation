@@ -50,6 +50,10 @@ The gated D1 scientific-baseline work is specified in:
 - `agent-supervisor/d2-paid-acceptance-profile.md` — bounded Modal attachment
   profile, current cost calculation, non-promotable authority design, and the
   implementation/approval gates before any paid launch.
+- `agent-supervisor/g0-scientific-experiment-test-program.md` — the complete
+  post-F2 experiment sequence: independent evaluator, Stage-1 horizon,
+  BC-schedule theory pilot, evolutionary search, agent-value comparison,
+  scheduler efficiency, and secondary task-quality metrics.
 
 The completed coding-agent supervisor and final meeting delivery are documented
 under `agent-supervisor/`. Start with `agent-supervisor/final-research-handoff.md`

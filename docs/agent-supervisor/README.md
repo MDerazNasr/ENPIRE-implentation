@@ -58,6 +58,10 @@ labels inside a run.
 - [`m8-three-arm-study-contract.md`](m8-three-arm-study-contract.md) documents
   preregistration, equal allocation, arm isolation, selection, paired
   confirmation, reporting, and the live claim boundary.
+- [`g0-scientific-experiment-test-program.md`](g0-scientific-experiment-test-program.md)
+  specifies the evaluator, baseline-horizon, BC-theory, evolutionary-search,
+  agent-value, scheduling, and task-quality experiments that follow F2. It is
+  a draft protocol and grants no GPU execution authority.
 - [`m9-delivery-contract.md`](m9-delivery-contract.md) documents the unified
   demo, optional read-only D1 replay, semantic fingerprint, presentation, and
   artifact verification boundary.
