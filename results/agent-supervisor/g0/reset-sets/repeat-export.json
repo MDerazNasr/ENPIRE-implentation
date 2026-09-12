@@ -1,0 +1,19 @@
+{
+  "payload": {
+    "byte_identical": true,
+    "capture_file_sha256": "5a5486c19fbcb9637df028c9e2c364f0c3a2d1f4d4d9de57342b042cbc7318f8",
+    "capture_semantic_sha256": "17736b3c22e31d91b9984c3449af76bd648adaec4f56e68ba79a7a655db6460a",
+    "development_ordered_ids_sha256": "40aabae782dcc4a54e30313a88692791b36ac1bce73f7764e95e858c9d78e96d",
+    "development_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+    "final_ordered_ids_sha256": "027308725c7a7c13c67a96575c3f73ff73cd0806c7cef1b2c1f79f1d1929173c",
+    "final_sha256": "27165db099dfaddc66a6eced98156110acb2e877289eb1c503ae53a446d2fa97",
+    "gpu_execution_authorized": false,
+    "materialization_receipt_sha256": "05ef1e2ffc79e73c2e79662ace0a6aebc4468303f202e6a77fe165ec7e78ae97",
+    "policy_evaluation_executed": false,
+    "promotion_executed": false,
+    "schema_version": 1,
+    "simulator_runtime_reset_confirmed": false,
+    "status": "source_derived_repeat_passed_runtime_confirmation_pending"
+  },
+  "sha256": "455d5d744a99a91c6bc17217fe8c3390b6d968de0b38eb813e7e3699cd1b94ce"
+}

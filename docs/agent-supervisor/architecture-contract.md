@@ -1,7 +1,11 @@
 # Coding-Agent Supervisor Architecture Contract
 
-Status: Milestone 0 design contract. This document specifies responsibilities
-and boundaries; later milestones implement them incrementally.
+Status: **enduring Milestone-0 architecture contract; implementation has since
+passed M0–M9 and live F1/F2 engineering acceptance**
+
+This document preserves the original responsibility and trust-boundary design.
+For current implementation and gate status, use
+[`harness-product-and-operations-guide.md`](harness-product-and-operations-guide.md).
 
 ## 1. Meaning of “the agent supervises RL”
 

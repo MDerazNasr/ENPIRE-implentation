@@ -9,9 +9,11 @@ claim follows from F2.
 Current integration note (2026-09-11): the B1 builder still refuses strict D1
 publication because the canonical matched paired-seed evidence pack is absent.
 F2 removed the runtime/resume engineering blocker by completing four fixed runs
-and all ten resume checks on one H100 PCIe runtime. G0 experiment design is now
-documented; exact seeds, evaluator/reset hashes, conditions, run matrix, and
-budget must be preregistered before paid scientific execution. Historical
+and all ten resume checks on one H100 PCIe runtime. G0 now has accepted local
+seed/condition/inference choices, source-derived and CPU reset-confirmed reset
+hashes, and a passed same-user evaluator-isolation rehearsal. Production
+evaluator custody/deployment, complete runtime/assets, cost/retention, and
+human acceptance must still be frozen before paid scientific execution. Historical
 milestone reports retain their dated observations rather than rewriting past
 evidence.
 
@@ -67,6 +69,12 @@ labels inside a run.
   specifies the evaluator, baseline-horizon, BC-theory, evolutionary-search,
   agent-value, scheduling, and task-quality experiments that follow F2. It is
   a draft protocol and grants no GPU execution authority.
+- [`g0-evaluator-custody-and-deployment.md`](g0-evaluator-custody-and-deployment.md)
+  specifies the independent evaluator boundary, local rehearsal, strict public
+  production receipts, and remaining operator decisions.
+- [`g0-runtime-cost-retention-candidate.md`](g0-runtime-cost-retention-candidate.md)
+  derives non-authorizing runtime, worst-case cost, and retention candidates
+  from preserved evidence and a dated official pricing snapshot.
 - [`m9-delivery-contract.md`](m9-delivery-contract.md) documents the unified
   demo, optional read-only D1 replay, semantic fingerprint, presentation, and
   artifact verification boundary.

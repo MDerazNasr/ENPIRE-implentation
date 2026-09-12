@@ -4,7 +4,16 @@ Date: 2026-08-04
 
 Implementation branch: `feature/d2-agent-supervisor`
 
-Reconciliation note (2026-09-02): D1 subsequently advanced to `eed314f` and
+Status: **historical D2 handoff; not the current program status**
+
+For the current integrated F2-passed/G0-pending state, use
+[`harness-product-and-operations-guide.md`](harness-product-and-operations-guide.md),
+[`g0-scientific-experiment-test-program.md`](g0-scientific-experiment-test-program.md),
+and [`g0-decision-worksheet.md`](g0-decision-worksheet.md). The implementation,
+limitations, and recommendations below describe the 2026-08-04 D2 milestone
+unless a later reconciliation note explicitly says otherwise.
+
+Reconciliation note (2026-09-02, also historical): D1 subsequently advanced to `eed314f` and
 now has a Stage-7 evidence directory plus one corrected Control/Candidate seed.
 The next work is to build a canonical strict pack, complete matched approved
 seeds, and attach the live objective/worker paths. References below to the
@@ -77,6 +86,10 @@ M5 authorization and M7 exact worker contracts; incompatibilities belong in a
 versioned harness adapter, not silent RLinf edits or weaker validation.
 
 ## Recommended next experiment
+
+Historical recommendation: steps 1 and 2 below were later completed through
+the integration and E0–F2 gates. Current work starts with the G0 protocol
+freeze; M8 activation remains later and blocked.
 
 1. Reconcile D1 `eed314f` with this supervisor and generate the strict Stage-7
    pack; do not start the arm comparison from the unmatched one-seed result.

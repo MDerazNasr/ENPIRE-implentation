@@ -359,10 +359,24 @@ Not yet proven:
 ## 14. Next approved design gate
 
 The next work is GPU-free G0 protocol review. The full test program is
-`g0-scientific-experiment-test-program.md`. Before renting a GPU, freeze the
+`g0-scientific-experiment-test-program.md`; record the reviewed choices in
+[`g0-decision-worksheet.md`](g0-decision-worksheet.md). Before renting a GPU, freeze the
 independent evaluator, development/final reset sets, exact seeds, Stage-1
 horizon rule, BC conditions, confidence/decision rule, retention, run matrix,
 and maximum cost. Then request a new exact approval.
+
+The current seed/reset proposal is
+[`g0-seeds-and-reset-sets.md`](g0-seeds-and-reset-sets.md). Its proposed values
+remain non-authorizing. Deterministic export and live CPU reset confirmation
+now pass; human acceptance and production custody remain unresolved.
+
+The evaluator trust boundary, local same-user isolation rehearsal, strict
+production receipt schemas, and remaining operator choices are in
+[`g0-evaluator-custody-and-deployment.md`](g0-evaluator-custody-and-deployment.md).
+
+The non-authorizing runtime alternatives, pricing arithmetic, retry-inclusive
+cost ceiling, and retention proposal are in
+[`g0-runtime-cost-retention-candidate.md`](g0-runtime-cost-retention-candidate.md).
 
 ## 15. Failure handling and troubleshooting
 

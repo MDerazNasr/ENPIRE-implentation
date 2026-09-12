@@ -1,0 +1,101 @@
+{
+  "payload": {
+    "accepted_seed_policy": [
+      2026,
+      2027,
+      2028
+    ],
+    "accepted_stage1_policy": "one E1-selected seed-2026 actor fixed across first E2",
+    "campaign_activation_authorized": false,
+    "evaluation_executed": false,
+    "evaluator_isolation": {
+      "bundle_manifest_sha256": "539d9cbae39c6aafa4948c9dd9602383afdf70012193396ad49f636ec40fa09d",
+      "production_custody_accepted": false,
+      "production_deployment_accepted": false,
+      "receipt_sha256": "c548b74a85016684d71f63c40680e9a9f2dd1b561fe072c28c551680bfa47b42",
+      "status": "pass_local_isolation_rehearsal"
+    },
+    "gate": "G0-E0",
+    "gpu_execution_authorized": false,
+    "model_egress_authorized": false,
+    "paid_execution_authorized": false,
+    "promotion_executed": false,
+    "protocol_fingerprint": "3cd2ff2a8e82f0dbe6ef81b62b737270915b09960ba08be318b5ac2f42d1b805",
+    "provider_call_authorized": false,
+    "reset_artifacts": {
+      "development": {
+        "count": 256,
+        "generator_seed": 2026,
+        "sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161"
+      },
+      "final": {
+        "count": 256,
+        "generator_seed": 2027,
+        "ordered_ids_in_repository": false,
+        "sha256": "27165db099dfaddc66a6eced98156110acb2e877289eb1c503ae53a446d2fa97"
+      },
+      "overlap_count": 0,
+      "repeat_export_sha256": "455d5d744a99a91c6bc17217fe8c3390b6d968de0b38eb813e7e3699cd1b94ce",
+      "runtime_confirmation_sha256": "76beecb21038536c432010c40987a70758cea5dddd2ddc57fcdf01cb6950c4da",
+      "simulator_runtime_reset_confirmed": true,
+      "status": "runtime_confirmed_final_custody_pending"
+    },
+    "runtime_cost_candidates": {
+      "canonical_cost_retention_accepted": false,
+      "canonical_runtime_identity_accepted": false,
+      "cost_candidate_sha256": "06e78e6aaec29953a3cf07dd4853451e74e8a51842be2f72d196e4a5f0ea8ce1",
+      "cost_status": "proposal_requires_fresh_qualification_and_human_acceptance",
+      "runtime_candidate_sha256": "247e85fb0ef90c786a38ba3ef6a1dc0b69ba6f1e3445e321a6bc0694068b4d3b",
+      "runtime_status": "blocked_pending_exact_image_route_commit_storage_and_e1_output"
+    },
+    "schema_version": 1,
+    "source_files": {
+      "bundle_builder": "scripts/build_g0_evaluator_bundle.py",
+      "custody_deployment_design": "docs/agent-supervisor/g0-evaluator-custody-and-deployment.md",
+      "decision_worksheet": "docs/agent-supervisor/g0-decision-worksheet.md",
+      "deployment_boundary": "supervisor/evaluator_deployment.py",
+      "g0_decision_rule": "supervisor/g0_decision.py",
+      "independent_runner": "scripts/g0_independent_evaluator.py",
+      "integrity_boundary": "supervisor/evaluator_integrity.py",
+      "isolation_rehearsal": "scripts/run_g0_evaluator_isolation_rehearsal.py",
+      "official_rule": "agent/d1_rules.py",
+      "protocol_input_boundary": "supervisor/g0_protocol_inputs.py",
+      "remaining_decisions_proposal": "docs/agent-supervisor/g0-remaining-decisions-proposal.md",
+      "reset_capture_materializer": "scripts/export_g0_reset_sets.py",
+      "reset_capture_producer": "scripts/capture_g0_maniskill_episode_seeds.py",
+      "reset_repeat_verifier": "scripts/verify_g0_reset_repeat.py",
+      "reset_runtime_confirmation": "scripts/run_g0_reset_runtime_confirmation.py",
+      "reset_source_audit": "docs/agent-supervisor/g0-reset-source-audit.md",
+      "runtime_cost_candidate_builder": "scripts/build_g0_runtime_cost_candidates.py",
+      "runtime_cost_candidate_design": "docs/agent-supervisor/g0-runtime-cost-retention-candidate.md",
+      "scientific_program": "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
+      "seed_reset_design": "docs/agent-supervisor/g0-seeds-and-reset-sets.md",
+      "supervisor_evaluator": "supervisor/evaluation.py"
+    },
+    "source_hashes": {
+      "bundle_builder": "3ea549c13c989b46b6a48467b75ed2f9f95b1b5e5cb39deedcd07fe72845fb91",
+      "custody_deployment_design": "f5f24bbe3ee5c5862a70898095ffff88a217d7e6fc63395ae134aaa3766e3f90",
+      "decision_worksheet": "1d39f26ae2f0ac60a775c4c1a4d0979c04f0c7b95dae9e393c93f3beadb9c236",
+      "deployment_boundary": "59ae641a500bdec4467aefecd96bfac172dc90b56543bb87acb52dd460e8d016",
+      "g0_decision_rule": "1152d3a7dda1192b18666728e4b5add58f72f5256094a9b4265b0dd41aca753c",
+      "independent_runner": "0b6f5400d601c28db02ef8c6f5e1488098c62ebc36503874c1ca8a95c308ed15",
+      "integrity_boundary": "28f9509f2feb424a4643bb549d300cf1be258e83504bd0d614cc5ffd70861c40",
+      "isolation_rehearsal": "ed0d7006c169cac5b4de7de429d78b78814d3ef170910b0a8cbd4bceac96deec",
+      "official_rule": "c0a4bfe8f6768bcd6cf9b467353f05bf91f7818ce20814f7b23e3ba689f783e4",
+      "protocol_input_boundary": "451db7709d880c7ceace3d848a2c1bc1e17a18cbc97dff1ad6a3f9c7379e42de",
+      "remaining_decisions_proposal": "0c31e04196677097fc67419e03b3c4efc0e6dd73778d65c266b85cb317cefb50",
+      "reset_capture_materializer": "acd23e0327fd44d10bea97acf6c6fd89d7e9e78366462a431c15d84d05bc5a64",
+      "reset_capture_producer": "cf3d0679afda9281a70b5d06ad038be4ce0612a1abd88ca65aa31ac189c57abe",
+      "reset_repeat_verifier": "e547c670f6fbb681f0deb21b023bb7b234839dfbf16b6f77388916f7eb045921",
+      "reset_runtime_confirmation": "3905b48b38971291a283d114ab2f940bd9624f6262d76cd2d4b7e8150d2e3a25",
+      "reset_source_audit": "91af1be6a3522057b7984d29669968c5497c717b3b064e24c94b375273250341",
+      "runtime_cost_candidate_builder": "fec85b97115918b0d8524ae32f2c527b642c45bb3c84a1212cfd15f79419dbee",
+      "runtime_cost_candidate_design": "9b0ca61afe9442ccf38f14fb6fc49267c8aa65dc15b22c1ebc8f2e8e1f02d940",
+      "scientific_program": "fcf813e56bab976baf8fcb7306503937ee449342d8d58672d15292607d8173cb",
+      "seed_reset_design": "a5431e906a295231873aa5d9de3719b7e0f9bff7971bf546de05f6cdfc114c1a",
+      "supervisor_evaluator": "0ee307e29cd4ea3c2dd99ae59c14974e9684705b73863360ba85b6856e6120fb"
+    },
+    "status": "implementation_ready_for_human_review"
+  },
+  "sha256": "6e4753b463047201d9e651b6894b335c3dbbf92f7ae9e3fe31bc50c069380ee2"
+}

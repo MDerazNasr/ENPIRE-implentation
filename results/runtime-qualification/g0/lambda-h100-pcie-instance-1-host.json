@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "status": "host_qualified_actor_free_public_provisioning_authorized_science_unauthorized",
+  "recorded_at": "2026-09-12T10:57:20Z",
+  "scope": "read-only G0 host qualification for a user-selected Lambda H100 PCIe instance; no source sync, image build, model export, scientific run, evaluation, or promotion occurred",
+  "runtime_contract_id": "enpire-g0-lambda-h100-pcie-candidate-v1",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "15c6fcfe96f946baa1e440d55ac9b688",
+    "region": "Utah, USA",
+    "ip": "209.20.157.138",
+    "gpu_model_user_reported": "NVIDIA H100 PCIe",
+    "gpu_count_user_reported": 1,
+    "price_usd_per_hour": "3.29",
+    "price_source": "user-supplied provider dashboard",
+    "price_checked_at": "2026-09-12"
+  },
+  "user_reported_state": {
+    "status": "booting",
+    "spent_so_far_usd": "0.00",
+    "auto_shutdown_remaining": "5h59m",
+    "maximum_initial_auto_shutdown_exposure_usd": "19.73451666666666666666666667"
+  },
+  "ssh_qualification": {
+    "completed": true,
+    "connected_at": "2026-09-12T10:57:20Z",
+    "result": "pass",
+    "host_key_store": "task-specific temporary known-hosts file; key bytes not recorded in repository",
+    "private_key_recorded": false,
+    "remote_commands_scope": "read-only host, hardware, storage, tooling, workspace, container, GPU-process, and workload-process inspection"
+  },
+  "host_probe": {
+    "architecture": "x86_64",
+    "os": "Ubuntu 22.04.5 LTS",
+    "cpu_count": 26,
+    "ram_bytes": 237490954240,
+    "disk_available_bytes": 1038689009664,
+    "gpu_model": "NVIDIA H100 PCIe",
+    "gpu_memory_mib": 81559,
+    "gpu_uuid": "GPU-9dae4384-3515-4bf5-f73f-3455be2430a5",
+    "driver": "570.148.08",
+    "docker_version": "28.3.1",
+    "nvidia_container_cli_version": "1.17.8",
+    "passwordless_sudo": true,
+    "workspace_present": false,
+    "running_containers": 0,
+    "total_containers": 0,
+    "gpu_compute_processes": 0,
+    "enpire_workload_processes": 0
+  },
+  "selection_boundary": {
+    "basis": "user selected the cost-effective H100 PCIe option after reviewing current Lambda availability",
+    "f2_attempt_7_is_engineering_evidence_only": true,
+    "fresh_exact_image_and_route_qualification_required": true,
+    "current_auto_shutdown_sufficient_for_e1_or_e2": false,
+    "durable_off_host_checkpoint_and_evidence_store_bound": false,
+    "storage_and_egress_pricing_bound": false
+  },
+  "authorization": {
+    "read_only_qualification_authorized": true,
+    "actor_free_public_provisioning_authorized": true,
+    "private_model_export_authorized": false,
+    "scientific_execution_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  },
+  "user_instruction": "15c6fcfe96f946baa1e440d55ac9b688, 1x H100 (80 GB PCIe), booting, Utah, USA, IP 209.20.157.138, $3.29/hr, $0.00 spent, auto-shutdown in 5h59m; connect to this one and proceed",
+  "authority_interpretation": "The exact-host direction authorizes connection, read-only qualification, and ordinary actor-free public setup. It does not authorize private model egress, E1/E2 scientific execution, evaluator decisions, or promotion.",
+  "next_action": "Freeze a versioned Lambda runtime/cost candidate, commit a clean source identity, then perform actor-free exact-image and no-outcome route qualification."
+}

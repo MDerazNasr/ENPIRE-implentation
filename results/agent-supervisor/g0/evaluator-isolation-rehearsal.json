@@ -1,0 +1,48 @@
+{
+  "payload": {
+    "campaign_activation_authorized": false,
+    "claim_boundary": "same-user-mode-bits-only-not-production-custody",
+    "environment": {
+      "executable_sha256": "4f00ea2ad53d62437a6a3946b73c73614a97e8accdc5b96dc095ea1a0d9c6a56",
+      "implementation": "CPython",
+      "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+      "python": "3.14.6"
+    },
+    "evaluation_executed": false,
+    "evaluator_bundle": {
+      "manifest_sha256": "539d9cbae39c6aafa4948c9dd9602383afdf70012193396ad49f636ec40fa09d",
+      "manifest_verified": true,
+      "path_sha256": "eae12e7565ab378f208fc61074bf31fd683432403d82be1acdbb908898cb02df",
+      "read_only_tree_verified": true
+    },
+    "final_reset_artifact": {
+      "artifact_sha256": "27165db099dfaddc66a6eced98156110acb2e877289eb1c503ae53a446d2fa97",
+      "count": 256,
+      "file_sha256": "25e0e6e5969d5541750203a5d45b374e15ca9806de81ff90cf5565bf890772e0",
+      "mode_octal": "0400",
+      "ordered_ids_emitted": false,
+      "path_sha256": "ac8d946fa74d559a65c489dc1f55d19bb815ec6c6fa77a402b309964bab64d5b",
+      "role": "final",
+      "size_bytes": 2992
+    },
+    "gpu_execution_authorized": false,
+    "model_egress_authorized": false,
+    "paid_execution_authorized": false,
+    "production_custody_accepted": false,
+    "production_deployment_accepted": false,
+    "promotion_authorized": false,
+    "provider_call_authorized": false,
+    "schema_version": 1,
+    "scientific_evaluation_authorized": false,
+    "status": "pass_local_isolation_rehearsal",
+    "storage_separation": {
+      "all_paths_outside_repository": true,
+      "final_and_bundle_distinct": true,
+      "immutable_mount": false,
+      "independent_failure_domain": false,
+      "independent_os_principal": false,
+      "ledger_and_anchor_distinct": true
+    }
+  },
+  "sha256": "8cd80233f8291b69bb68648d7747cf52487c894ee37353c194031bf62202c233"
+}

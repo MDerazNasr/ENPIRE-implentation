@@ -100,11 +100,11 @@ GPU requirement: none.
 and a development curve identifies the shortest defensible checkpoint before
 Stage-2 comparisons.
 
-Evaluate one uninterrupted lineage at proposed checkpoints 500, 1,000, 2,000,
-4,000, and 8,000 steps. These values remain provisional until G0 review
-confirms dataset size, batch semantics, cadence, and cost. Use a bounded pilot
-seed to estimate the plateau, then rerun the selected horizon on paired seeds
-if Stage-1 is seed-dependent. Never select the horizon using final evaluation.
+Evaluate one uninterrupted seed-2026 lineage at accepted checkpoints 250, 500,
+1,000, and 2,000 optimizer steps. The 2,000-step ceiling matches the pinned
+Stage-1 training contract; extending beyond it requires a separate amendment.
+Apply the frozen highest-development-success rule, with exact ties selecting
+the earlier checkpoint. Never select the horizon using final evaluation.
 
 Metrics:
 
@@ -124,7 +124,7 @@ Pass gate:
 GPU requirement: one large-memory GPU for training; evaluation uses only a
 runtime that preserves the frozen scientific identity.
 
-## 5. E2 — three-branch BC-schedule theory pilot
+## 5. E2 — two-condition BC-schedule theory pilot
 
 **Hypothesis:** Reducing scheduled BC contribution improves Stage-2 policy
 learning under otherwise identical RLT execution.
@@ -135,10 +135,11 @@ Proposed conditions:
 |---|---:|---:|---|
 | Control | 7.0 | 2.5 | Current matched baseline |
 | Candidate | 5.6 | 2.0 | Existing 20% reduction hypothesis |
-| Strong reduction | 4.2 | 1.5 | Proposed directional/dose-response point |
+| Strong reduction | 4.2 | 1.5 | Omitted from the first E2 campaign |
 
-The third condition is not approved. G0 may replace it, but it must be frozen
-before execution. Q weights and every other scientific field remain identical.
+The first E2 campaign contains only Control and Candidate. Adding the strong
+reduction later requires a separate multiplicity-aware exploratory amendment.
+Q weights and every other scientific field remain identical.
 Each condition starts from the same selected actor and uses the same paired
 seeds, runtime, horizon, batching, evaluator, reset sets, checkpoints, and cap.
 

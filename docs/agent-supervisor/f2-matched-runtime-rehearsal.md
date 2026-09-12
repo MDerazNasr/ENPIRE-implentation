@@ -1,7 +1,14 @@
 # F2 Matched-Runtime Rehearsal
 
-Status: **implementation complete; local validation passed; clean-commit
-preflight and explicit paid approval still required** on 2026-09-06.
+Status: **historical preflight/runbook from 2026-09-06; superseded by the
+passed H100 PCIe attempt-7 amendment and terminal evidence**
+
+Current result: F2 passed on 2026-09-10. See
+[`f2-h100-pcie-instance-7-amendment.md`](f2-h100-pcie-instance-7-amendment.md)
+and
+[`../../results/runtime-qualification/f2/h100-pcie-attempt-7/terminal.json`](../../results/runtime-qualification/f2/h100-pcie-attempt-7/terminal.json).
+The preflight and launch instructions below are retained as historical process
+evidence and do not authorize a rerun.
 
 F2 is an engineering qualification. It cannot supply policy-quality evidence,
 change the D1 decision, or promote a Candidate. The fixed application runs no
@@ -116,6 +123,7 @@ modal deploy --strategy recreate modal_f2_rehearsal.py
 modal run modal_f2_rehearsal.py
 ```
 
-The operator must preserve the attempt record and tagged billing, verify that
-the app has zero running tasks, and then update the F2 checklist and cost
-projection. Until that evidence exists, Gate F2 remains open.
+The operator was required to preserve the attempt record and tagged billing,
+verify that the app had zero running tasks, and then update the F2 checklist
+and cost projection. Attempt 7 supplied that evidence and closed Gate F2. Any
+new rehearsal or scientific run requires a new frozen protocol and approval.

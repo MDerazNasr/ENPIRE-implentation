@@ -3,6 +3,10 @@
 Status: implemented in Milestone 1. The strict Python loaders in
 [`../../supervisor/contracts.py`](../../supervisor/contracts.py) are the
 normative validators; this document describes their public wire behavior.
+Later milestones implement activation, execution, scheduling, evaluation, and
+study orchestration around these version-1 records; see
+[`harness-product-and-operations-guide.md`](harness-product-and-operations-guide.md)
+for current status.
 
 ## Canonical encoding
 
@@ -42,8 +46,9 @@ fails when:
 - edit mode differs; or
 - any approved limit is broader than the campaign specification.
 
-Execution authority is not implemented in M1. Later execution code must call
-this validator immediately before activating a campaign.
+Execution authority was not implemented in M1. The later execution code calls
+this validator immediately before activating a campaign; this historical M1
+statement does not authorize execution by itself.
 
 ## Lifecycle records
 

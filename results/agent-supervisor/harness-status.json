@@ -59,8 +59,54 @@
       "evaluation_executed": false,
       "promotion_executed": false
     },
+    "g0_e0_evaluator_integrity": {
+      "status": "fixture_integrity_passed_production_freeze_blocked",
+      "preflight": "results/agent-supervisor/g0/e0-preflight-lambda-h100-v1.json",
+      "focused_tests": 24,
+      "development_reset_artifact_exported": true,
+      "final_reset_artifact_hash_exported": true,
+      "final_reset_ids_in_repository": false,
+      "reset_artifact_scope": "runtime_confirmed_episode_seeds_final_custody_pending",
+      "local_pinned_sources_installed": true,
+      "runtime_reset_confirmation_status": "passed_linux_x86_64_cpu_no_policy",
+      "runtime_reset_confirmation": "results/agent-supervisor/g0/reset-sets/runtime-confirmation.json",
+      "reset_capture_boundary_passed": true,
+      "standalone_bundle_fixture_passed": true,
+      "ledger_anchor_fixture_passed": true,
+      "local_isolation_rehearsal": "results/agent-supervisor/g0/evaluator-isolation-rehearsal-v2.json",
+      "local_isolation_rehearsal_passed": true,
+      "production_custody_accepted": false,
+      "production_deployment_accepted": false,
+      "production_evaluator_isolated": false,
+      "runtime_identity_candidate": "results/agent-supervisor/g0/runtime-identities-candidate-v2.json",
+      "cost_retention_candidate": "results/agent-supervisor/g0/cost-envelope-candidate-v2.json",
+      "selected_runtime_design": "lambda-h100-pcie",
+      "selected_runtime_host_qualification": "results/runtime-qualification/g0/lambda-h100-pcie-instance-1-host.json",
+      "selected_runtime_host_qualified": true,
+      "selected_runtime_exact_image_qualified": false,
+      "selected_runtime_storage_and_egress_bound": false,
+      "selected_runtime_lifetime_sufficient": false,
+      "runtime_identity_accepted": false,
+      "cost_retention_accepted": false,
+      "evaluation_executed": false,
+      "promotion_executed": false
+    },
+    "g0_protocol_freeze_candidate": {
+      "status": "accepted_design_subset_external_identities_still_blocked",
+      "document": "docs/agent-supervisor/g0-remaining-decisions-proposal.md",
+      "stage1_grid_corrected_to_2000_step_boundary": true,
+      "new_decision_rule_implemented": true,
+      "scientific_execution_authorized": false
+    },
+    "g0_readiness_gate": {
+      "status": "blocked_missing_external_inputs",
+      "artifact": "results/agent-supervisor/g0/g0-readiness-lambda-h100-v1.json",
+      "missing_external_input_count": 5,
+      "ready_transition_implemented": false,
+      "scientific_execution_authorized": false
+    },
     "local_regression": {
-      "tests": 296,
+      "tests": 320,
       "subtests": 142,
       "status": "pass"
     }
@@ -74,8 +120,10 @@
   },
   "current_gate": {
     "id": "G0",
-    "status": "draft_protocol_review",
+    "status": "e0_fixture_integrity_passed_protocol_freeze_incomplete",
     "document": "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
+    "decision_worksheet": "docs/agent-supervisor/g0-decision-worksheet.md",
+    "e0_preflight": "results/agent-supervisor/g0/e0-preflight-lambda-h100-v1.json",
     "gpu_execution_authorized": false,
     "required_before_paid_execution": [
       "independent_evaluator_and_hash",
@@ -93,6 +141,13 @@
     "docs/agent-supervisor/harness-product-and-operations-guide.md",
     "docs/reproducible-agentic-enpire-plan.md",
     "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
+    "docs/agent-supervisor/g0-decision-worksheet.md",
+    "docs/agent-supervisor/g0-seeds-and-reset-sets.md",
+    "docs/agent-supervisor/g0-e0-independent-evaluator.md",
+    "docs/agent-supervisor/g0-evaluator-custody-and-deployment.md",
+    "docs/agent-supervisor/g0-runtime-cost-retention-candidate.md",
+    "docs/agent-supervisor/g0-remaining-decisions-proposal.md",
+    "docs/agent-supervisor/g0-reset-source-audit.md",
     "docs/agent-supervisor/architecture-contract.md",
     "docs/agent-supervisor/contracts.md",
     "docs/agent-supervisor/artifact-policy.md"

@@ -33,15 +33,18 @@ extended Stage 1 to 500 steps. The fresh-chain fixed-set Reference A measured
 completed 100 uninterrupted Stage-2 steps, crossed both warm-up gates, reached
 `ready_for_online=1`, and evaluated at `18/256` (`7.03%`). This is a valid
 trained one-seed control, but it underperformed the frozen reference by `6.64`
-points. Stage 6 is operationally unblocked for a matched Candidate C; the
-preregistered final decision still requires the approved seed set.
+points. Candidate C later completed at `17/256`, but its resume-counter and
+runtime differences prevented a strict causal comparison. The formal result is
+`INCONCLUSIVE`; the preregistered final decision still requires matched paired
+seeds under the G0 protocol.
 
 ## Three-phase plan
 
-1. **Phase 1 — rule-based (current):** bounded RLinf runs, text metric
+1. **Phase 1 — rule-based (complete):** bounded RLinf runs, text metric
    normalization, one transparent tuning rule, and keep/revert.
-2. **Phase 2 — coding-agent-driven:** an agent proposes config or code changes,
-   with structured multi-run and branch comparison.
+2. **Phase 2 — coding-agent-driven (engineering harness accepted through F2):**
+   an agent proposes config or code changes, with structured multi-run and
+   branch comparison. Scientific activation remains blocked on G0–H.
 3. **Phase 3 — real hardware:** hardware rollout, reset, and verification after
    simulation results justify transfer.
 
@@ -55,8 +58,8 @@ toy-task-only.
 M6 adds the code-enabled arm: an agent may change only a versioned
 project-owned actor-objective function, and the harness requires a measurable
 finite value/gradient change before execution. The three-seed subprocess demo
-is synthetic; the exact PyTorch/RLinf attachment will be reconciled with the
-separately owned D1 workstream.
+is synthetic. The exact PyTorch/RLinf attachment was subsequently reconciled
+and passed the E0–E2 engineering gates; no policy-improvement claim follows.
 
 M7 adds durable scheduling for independent hypotheses across independent
 workers: capability filtering, conservative reservations, attempt leases,
@@ -220,12 +223,13 @@ one-transition smoke. It validates the orchestration path only.
 
 ## Honestly flagged TODOs
 
-- Save and use a trained Stage-1 RLT checkpoint; the smoke currently uses base
-  pi0.5 as the feature-model input.
-- Resolve the D1 degenerate-baseline gate: obtain a compatible trained actor or
-  explicitly approve enough Stage-1/Stage-2 training to pass replay warm-up.
-- Train longer and evaluate multiple episodes/seeds before interpreting a
-  hyperparameter comparison.
+- Determine through G0/E1 whether the hash-pinned step-500 Stage-1 actor is
+  sufficiently trained; the original Phase-1 smoke used base pi0.5 instead.
+- Freeze the independent evaluator, disjoint development/final reset sets,
+  paired seeds, Stage-1 horizon rule, E2 conditions, decision rule, run matrix,
+  retention, timeout, and cost envelope before any scientific GPU use.
+- Complete matched paired-seed Control/Candidate evidence before interpreting
+  a hyperparameter comparison or publishing the canonical D1 Stage-7 pack.
 - Replace the fallback text-log parser in `agent/metrics.py` with RLinf's stable
   structured metric artifact once its emitted path and schema are pinned.
 - Confirm the long-term simulator with Qualia; ManiSkill is only the current

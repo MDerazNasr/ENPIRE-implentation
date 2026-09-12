@@ -1,0 +1,88 @@
+{
+  "payload": {
+    "approval_requirements": [
+      "fresh runtime qualification and observed rate receipt",
+      "fresh provider pricing immediately before approval",
+      "human acceptance of every timeout cost concurrency and retention value",
+      "separate fingerprinted paid-run approval with UTC window"
+    ],
+    "campaign_activation_authorized": false,
+    "gpu_execution_authorized": false,
+    "historical_basis": {
+      "f2_attempt7_engineering": {
+        "cost_usd": 3.7082904651310202,
+        "elapsed_seconds": "4057.703852423001",
+        "evidence_sha256": "bd79999707eb6d21be7907517e9fda3d986d7ec4b54a120d608b1d956dda47f6",
+        "scientific_budget_basis": false
+      },
+      "stage1_250_h100": {
+        "cost_usd": "4.80502967205356",
+        "elapsed_seconds": "5257.783221419901",
+        "evidence_sha256": "7ada15efdfa87aafbec947a8dc86bfc6c78ce0b5fc349462cf171e4db5c346cb"
+      },
+      "stage2_100_modal_inconclusive": {
+        "elapsed_seconds": "109669.367526488",
+        "evidence_sha256": "0740afcabf0fa09cc6522d1bd49422f312574527d3c1c32dafbd67ee9bd0f860",
+        "launcher_cost_usd": "92.30505100764279",
+        "scientific_budget_basis": false
+      }
+    },
+    "model_egress_authorized": false,
+    "paid_execution_authorized": false,
+    "pricing_snapshot": {
+      "checked_at": "2026-09-11",
+      "cpu_core_usd_per_second": "0.0000131",
+      "cpu_physical_cores": 16,
+      "gpu": "Nvidia RTX PRO 6000",
+      "gpu_usd_per_second": "0.000842",
+      "memory_gib": 96,
+      "memory_gib_usd_per_second": "0.00000222",
+      "provider": "Modal",
+      "revalidation_required_before_approval": true,
+      "selected_runtime_usd_per_hour": "4.552992",
+      "source": "https://modal.com/pricing",
+      "volume_usd_per_gib_month": "0.09"
+    },
+    "promotion_authorized": false,
+    "proposed_envelope": {
+      "auto_stop_at_compute_or_time_cap": true,
+      "e0_compute_usd": "0",
+      "e1_maximum_usd_per_attempt": "110",
+      "e1_original_runs": 1,
+      "e1_retry_inclusive_compute_usd": "220",
+      "e1_timeout_seconds_per_attempt": 86400,
+      "e2_maximum_usd_per_attempt": "220",
+      "e2_original_runs": 6,
+      "e2_retry_inclusive_compute_usd": "2640",
+      "e2_timeout_seconds_per_attempt": 172800,
+      "maximum_attempts_per_run": 2,
+      "maximum_concurrency": 3,
+      "maximum_storage_gib": 500,
+      "notification_percentages": [
+        25,
+        50,
+        75,
+        90
+      ],
+      "one_month_storage_usd": "45",
+      "total_compute_usd": "2860",
+      "total_program_usd": "2905",
+      "total_wall_clock_seconds": 864000
+    },
+    "provider_call_authorized": false,
+    "record_kind": "g0-cost-and-retention-freeze-candidate",
+    "retention_policy": {
+      "authoritative_store": "hash-bound evaluator evidence; mirrors are non-authoritative",
+      "automatic_large_artifact_deletion": false,
+      "compact_evidence": "indefinite-in-git",
+      "failed_interrupted_reverted_inconclusive_evidence": "retain",
+      "large_artifact_deletion_requires_verified_export_and_human_approval": true,
+      "large_artifact_minimum_days_after_terminal_reconciliation": 30,
+      "private_models_in_git": false
+    },
+    "schema_version": 1,
+    "scientific_execution_authorized": false,
+    "status": "proposal_requires_fresh_qualification_and_human_acceptance"
+  },
+  "sha256": "df71322208d7301d5d9384e1e1020363bfc1e495628e56c9ec15c69f425c83a6"
+}

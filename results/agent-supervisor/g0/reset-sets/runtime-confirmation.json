@@ -1,0 +1,36 @@
+{
+  "payload": {
+    "gpu_used": false,
+    "method": "sequential-single-worker-equivalence-for-multiprocess-cpu-adapter",
+    "ordered_final_ids_emitted": false,
+    "overlap_count": 0,
+    "policy_evaluation_executed": false,
+    "policy_loaded": false,
+    "promotion_executed": false,
+    "results": {
+      "development": {
+        "count": 256,
+        "matches_source_derived": true,
+        "ordered_ids_sha256": "40aabae782dcc4a54e30313a88692791b36ac1bce73f7764e95e858c9d78e96d",
+        "unique_count": 256
+      },
+      "final": {
+        "count": 256,
+        "matches_source_derived": true,
+        "ordered_ids_sha256": "027308725c7a7c13c67a96575c3f73ff73cd0806c7cef1b2c1f79f1d1929173c",
+        "unique_count": 256
+      }
+    },
+    "schema_version": 1,
+    "status": "pass",
+    "task_id": "PegInsertionSideWideClearance-v1",
+    "versions": {
+      "gymnasium": "0.29.1",
+      "maniskill": "3.0.0b22",
+      "numpy": "1.26.4",
+      "sapien": "3.0.1",
+      "torch": "2.8.0+cpu"
+    }
+  },
+  "sha256": "76beecb21038536c432010c40987a70758cea5dddd2ddc57fcdf01cb6950c4da"
+}

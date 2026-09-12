@@ -1,6 +1,9 @@
 # Evidence, Artifact, and Documentation Policy
 
-Status: Milestone 0 contract.
+Status: **enduring Milestone-0 policy, used by the current integrated harness**
+
+Current implementation and gate status are summarized in
+[`harness-product-and-operations-guide.md`](harness-product-and-operations-guide.md).
 
 ## 1. Goals
 

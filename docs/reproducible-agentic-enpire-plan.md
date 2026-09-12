@@ -700,6 +700,14 @@ Design status: the meeting-derived E0–E6 experiment program is documented in
 `docs/agent-supervisor/g0-scientific-experiment-test-program.md`. Its proposed
 checkpoint grid, third BC condition, exact seeds, evaluator hashes, and budgets
 remain subject to review; no scientific execution is authorized.
+The review must be recorded in
+`docs/agent-supervisor/g0-decision-worksheet.md`; unchecked or placeholder
+fields confer no execution authority.
+The evidence-backed seed/reset proposal is documented in
+`docs/agent-supervisor/g0-seeds-and-reset-sets.md`: Stage-2 seeds
+`[2026, 2027, 2028]`, a single fixed E1-selected seed-2026 Stage-1 actor for
+the first E2 comparison, and separate 256-case development/final reset-set
+exports. These remain proposals until human review and real artifact hashes.
 
 - [ ] Confirm the three approved training seeds before launching new runs.
 - [ ] Decide whether seed 2026 must be rerun because existing Control and

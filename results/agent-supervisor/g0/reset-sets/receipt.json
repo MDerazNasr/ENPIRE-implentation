@@ -1,0 +1,29 @@
+{
+  "payload": {
+    "capture_sha256": "17736b3c22e31d91b9984c3449af76bd648adaec4f56e68ba79a7a655db6460a",
+    "evaluation_executed": false,
+    "extractor_id": "rlinf-maniskill-fixed-reset-export-v1",
+    "gpu_execution_authorized": false,
+    "maniskill_commit": "33967b9e3ead1f841eec57cc9f31d0d8b8cf0907",
+    "numpy_version": "1.26.4",
+    "promotion_executed": false,
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "schema_version": 1,
+    "source_hashes": {
+      "maniskill_base_env": "83066a0e68f8679b02aa7afc56b7f5fcea1e1886b31e9cf50e1aaa3758f56f2c",
+      "maniskill_task": "79761d7a7b17ebdbd974c58f7427abcd3a50ec115f0340f6ed5d282a0d48fc6e",
+      "project_multiprocess_adapter": "84b8e65b9d966233f892bda7e71d08a31a1a35e222bd8859f77d84dbe417b23c",
+      "rlinf_config": "bb5c01c0db25fcd962b5fa21d2fe60505ed73ed86bb8875e19167378d6456457",
+      "rlinf_environment": "6caa1e8cdfa4e50f69ca3ad9b20fe2070745482da8b68958a1acc6f6d4d4e1cd",
+      "rlinf_task_variant": "e0dcc5cd0c90fcda15bf272184d5f5e94ae3e2134538626525eaf5601b1b5b37"
+    },
+    "validation": {
+      "development_count": 256,
+      "development_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+      "final_count": 256,
+      "final_sha256": "27165db099dfaddc66a6eced98156110acb2e877289eb1c503ae53a446d2fa97",
+      "overlap_count": 0
+    }
+  },
+  "sha256": "05ef1e2ffc79e73c2e79662ace0a6aebc4468303f202e6a77fe165ec7e78ae97"
+}
