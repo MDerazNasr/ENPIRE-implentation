@@ -1,0 +1,198 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "ENPIRE G0 independent audit account: immutable anchors and cross-account CloudTrail archive. Non-authorizing infrastructure only.",
+  "Parameters": {
+    "EvaluatorAccountId": {
+      "Type": "String",
+      "AllowedPattern": "^[0-9]{12}$"
+    },
+    "EvaluatorRoleName": {
+      "Type": "String",
+      "Default": "enpire-g0-evaluator",
+      "AllowedPattern": "^[A-Za-z0-9+=,.@_-]{1,64}$"
+    },
+    "IndependentVerifierPrincipalArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:[^:]+:iam::[0-9]{12}:(role|user)/.+$"
+    },
+    "TrailName": {
+      "Type": "String",
+      "Default": "enpire-g0-evaluator-trail",
+      "AllowedPattern": "^[A-Za-z0-9._-]{3,128}$"
+    },
+    "RetentionDays": {
+      "Type": "Number",
+      "Default": 30,
+      "MinValue": 30
+    }
+  },
+  "Resources": {
+    "AnchorBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [{
+            "ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}
+          }]
+        },
+        "ObjectLockEnabled": true,
+        "ObjectLockConfiguration": {
+          "ObjectLockEnabled": "Enabled",
+          "Rule": {"DefaultRetention": {"Mode": "COMPLIANCE", "Days": {"Ref": "RetentionDays"}}}
+        },
+        "OwnershipControls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        },
+        "VersioningConfiguration": {"Status": "Enabled"}
+      }
+    },
+    "AuditLogBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [{
+            "ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}
+          }]
+        },
+        "ObjectLockEnabled": true,
+        "ObjectLockConfiguration": {
+          "ObjectLockEnabled": "Enabled",
+          "Rule": {"DefaultRetention": {"Mode": "COMPLIANCE", "Days": {"Ref": "RetentionDays"}}}
+        },
+        "OwnershipControls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        },
+        "VersioningConfiguration": {"Status": "Enabled"}
+      }
+    },
+    "AnchorWriterRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "enpire-g0-anchor-writer",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": {"Fn::Sub": "arn:${AWS::Partition}:iam::${EvaluatorAccountId}:role/${EvaluatorRoleName}"}
+            },
+            "Action": "sts:AssumeRole"
+          }]
+        },
+        "Policies": [{
+          "PolicyName": "WriteImmutableAnchorsOnly",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [{
+              "Effect": "Allow",
+              "Action": ["s3:PutObject"],
+              "Resource": {"Fn::Sub": "${AnchorBucket.Arn}/anchors/*"}
+            }]
+          }
+        }]
+      }
+    },
+    "IndependentVerifierRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "enpire-g0-independent-verifier",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Effect": "Allow",
+            "Principal": {"AWS": {"Ref": "IndependentVerifierPrincipalArn"}},
+            "Action": "sts:AssumeRole"
+          }]
+        },
+        "Policies": [{
+          "PolicyName": "ReadAuditAndAnchors",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Action": ["s3:GetBucketLocation", "s3:GetBucketObjectLockConfiguration", "s3:GetBucketPolicyStatus", "s3:GetBucketVersioning", "s3:ListBucket"],
+                "Resource": [{"Fn::GetAtt": ["AnchorBucket", "Arn"]}, {"Fn::GetAtt": ["AuditLogBucket", "Arn"]}]
+              },
+              {
+                "Effect": "Allow",
+                "Action": ["s3:GetObject", "s3:GetObjectVersion"],
+                "Resource": [{"Fn::Sub": "${AnchorBucket.Arn}/anchors/*"}, {"Fn::Sub": "${AuditLogBucket.Arn}/AWSLogs/*"}]
+              }
+            ]
+          }
+        }]
+      }
+    },
+    "AuditBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {"Ref": "AuditLogBucket"},
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "DenyInsecureTransport",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [{"Fn::GetAtt": ["AuditLogBucket", "Arn"]}, {"Fn::Sub": "${AuditLogBucket.Arn}/*"}],
+              "Condition": {"Bool": {"aws:SecureTransport": "false"}}
+            },
+            {
+              "Sid": "CloudTrailAclCheck",
+              "Effect": "Allow",
+              "Principal": {"Service": "cloudtrail.amazonaws.com"},
+              "Action": "s3:GetBucketAcl",
+              "Resource": {"Fn::GetAtt": ["AuditLogBucket", "Arn"]},
+              "Condition": {"StringEquals": {"AWS:SourceArn": {"Fn::Sub": "arn:${AWS::Partition}:cloudtrail:${AWS::Region}:${EvaluatorAccountId}:trail/${TrailName}"}}}
+            },
+            {
+              "Sid": "CloudTrailWrite",
+              "Effect": "Allow",
+              "Principal": {"Service": "cloudtrail.amazonaws.com"},
+              "Action": "s3:PutObject",
+              "Resource": {"Fn::Sub": "${AuditLogBucket.Arn}/AWSLogs/${EvaluatorAccountId}/*"},
+              "Condition": {"StringEquals": {"AWS:SourceArn": {"Fn::Sub": "arn:${AWS::Partition}:cloudtrail:${AWS::Region}:${EvaluatorAccountId}:trail/${TrailName}"}}}
+            }
+          ]
+        }
+      }
+    },
+    "AnchorBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {"Ref": "AnchorBucket"},
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Sid": "DenyInsecureTransport",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [{"Fn::GetAtt": ["AnchorBucket", "Arn"]}, {"Fn::Sub": "${AnchorBucket.Arn}/*"}],
+            "Condition": {"Bool": {"aws:SecureTransport": "false"}}
+          }]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "AnchorBucketArn": {"Value": {"Fn::GetAtt": ["AnchorBucket", "Arn"]}},
+    "AnchorWriterRoleArn": {"Value": {"Fn::GetAtt": ["AnchorWriterRole", "Arn"]}},
+    "AuditLogBucketName": {"Value": {"Ref": "AuditLogBucket"}},
+    "IndependentVerifierRoleArn": {"Value": {"Fn::GetAtt": ["IndependentVerifierRole", "Arn"]}}
+  }
+}

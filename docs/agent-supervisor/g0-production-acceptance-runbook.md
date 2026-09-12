@@ -92,3 +92,10 @@ artifact-store identity has been supplied. The previously qualified Lambda
 host was an engineering qualification target and must not be treated as the
 evaluator or durable store. A future scientific host requires a fresh binding
 to the final scientific source commit and a new non-authorizing preflight.
+
+The GPU-free AWS provisioning design is now available in
+[`../../infra/aws-g0/README.md`](../../infra/aws-g0/README.md). Its two
+CloudFormation templates and offline checker create no resources by
+themselves. Deployment remains blocked until distinct AWS accounts/principals
+exist and the irreversible compliance-retention change set receives exact
+human approval.

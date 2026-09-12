@@ -1,0 +1,176 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "ENPIRE G0 evaluator account: final-input custody, worker evidence, evaluator ledger, roles, and cross-account audit trail. Non-authorizing infrastructure only.",
+  "Parameters": {
+    "CoordinatorPrincipalArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:[^:]+:iam::[0-9]{12}:(role|user)/.+$"
+    },
+    "CustodianPrincipalArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:[^:]+:iam::[0-9]{12}:(role|user)/.+$"
+    },
+    "EvaluatorOperatorPrincipalArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:[^:]+:iam::[0-9]{12}:(role|user)/.+$"
+    },
+    "IndependentVerifierPrincipalArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:[^:]+:iam::[0-9]{12}:(role|user)/.+$"
+    },
+    "AuditLogBucketName": {
+      "Type": "String",
+      "MinLength": 3,
+      "MaxLength": 63
+    },
+    "AuditAnchorWriterRoleArn": {
+      "Type": "String",
+      "AllowedPattern": "^arn:[^:]+:iam::[0-9]{12}:role/.+$"
+    },
+    "TrailName": {
+      "Type": "String",
+      "Default": "enpire-g0-evaluator-trail",
+      "AllowedPattern": "^[A-Za-z0-9._-]{3,128}$"
+    },
+    "RetentionDays": {
+      "Type": "Number",
+      "Default": 30,
+      "MinValue": 30
+    }
+  },
+  "Resources": {
+    "FinalInputBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {"ServerSideEncryptionConfiguration": [{"ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]},
+        "ObjectLockEnabled": true,
+        "ObjectLockConfiguration": {"ObjectLockEnabled": "Enabled", "Rule": {"DefaultRetention": {"Mode": "COMPLIANCE", "Days": {"Ref": "RetentionDays"}}}},
+        "OwnershipControls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+        "PublicAccessBlockConfiguration": {"BlockPublicAcls": true, "BlockPublicPolicy": true, "IgnorePublicAcls": true, "RestrictPublicBuckets": true},
+        "VersioningConfiguration": {"Status": "Enabled"}
+      }
+    },
+    "EvidenceBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {"ServerSideEncryptionConfiguration": [{"ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]},
+        "ObjectLockEnabled": true,
+        "ObjectLockConfiguration": {"ObjectLockEnabled": "Enabled", "Rule": {"DefaultRetention": {"Mode": "COMPLIANCE", "Days": {"Ref": "RetentionDays"}}}},
+        "OwnershipControls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+        "PublicAccessBlockConfiguration": {"BlockPublicAcls": true, "BlockPublicPolicy": true, "IgnorePublicAcls": true, "RestrictPublicBuckets": true},
+        "VersioningConfiguration": {"Status": "Enabled"}
+      }
+    },
+    "LedgerBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {"ServerSideEncryptionConfiguration": [{"ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]},
+        "ObjectLockEnabled": true,
+        "ObjectLockConfiguration": {"ObjectLockEnabled": "Enabled", "Rule": {"DefaultRetention": {"Mode": "COMPLIANCE", "Days": {"Ref": "RetentionDays"}}}},
+        "OwnershipControls": {"Rules": [{"ObjectOwnership": "BucketOwnerEnforced"}]},
+        "PublicAccessBlockConfiguration": {"BlockPublicAcls": true, "BlockPublicPolicy": true, "IgnorePublicAcls": true, "RestrictPublicBuckets": true},
+        "VersioningConfiguration": {"Status": "Enabled"}
+      }
+    },
+    "WorkerUploadRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "enpire-g0-worker-upload",
+        "AssumeRolePolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"AWS": {"Ref": "CoordinatorPrincipalArn"}}, "Action": "sts:AssumeRole"}]},
+        "Policies": [{
+          "PolicyName": "WriteAssignedEvidenceOnly",
+          "PolicyDocument": {"Version": "2012-10-17", "Statement": [
+            {"Effect": "Allow", "Action": ["s3:PutObject", "s3:AbortMultipartUpload"], "Resource": {"Fn::Sub": "${EvidenceBucket.Arn}/runs/*"}},
+            {"Effect": "Allow", "Action": ["s3:ListBucket", "s3:ListBucketMultipartUploads"], "Resource": {"Fn::GetAtt": ["EvidenceBucket", "Arn"]}, "Condition": {"StringLike": {"s3:prefix": ["runs/*"]}}}
+          ]}
+        }]
+      }
+    },
+    "CustodyProvisionerRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "enpire-g0-custody-provisioner",
+        "AssumeRolePolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"AWS": {"Ref": "CustodianPrincipalArn"}}, "Action": "sts:AssumeRole"}]},
+        "Policies": [{
+          "PolicyName": "WriteFinalInputsAndBundle",
+          "PolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Action": ["s3:PutObject"], "Resource": [{"Fn::Sub": "${FinalInputBucket.Arn}/final/*"}, {"Fn::Sub": "${FinalInputBucket.Arn}/bundle/*"}]}]}
+        }]
+      }
+    },
+    "EvaluatorRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "enpire-g0-evaluator",
+        "AssumeRolePolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"AWS": {"Ref": "EvaluatorOperatorPrincipalArn"}}, "Action": "sts:AssumeRole"}]},
+        "Policies": [{
+          "PolicyName": "EvaluateFrozenEvidence",
+          "PolicyDocument": {"Version": "2012-10-17", "Statement": [
+            {"Effect": "Allow", "Action": ["s3:GetObject", "s3:GetObjectVersion"], "Resource": [{"Fn::Sub": "${FinalInputBucket.Arn}/final/*"}, {"Fn::Sub": "${FinalInputBucket.Arn}/bundle/*"}, {"Fn::Sub": "${EvidenceBucket.Arn}/runs/*"}, {"Fn::Sub": "${LedgerBucket.Arn}/ledger/*"}]},
+            {"Effect": "Allow", "Action": ["s3:ListBucket", "s3:GetBucketLocation", "s3:GetBucketObjectLockConfiguration", "s3:GetBucketVersioning"], "Resource": [{"Fn::GetAtt": ["FinalInputBucket", "Arn"]}, {"Fn::GetAtt": ["EvidenceBucket", "Arn"]}, {"Fn::GetAtt": ["LedgerBucket", "Arn"]}]},
+            {"Effect": "Allow", "Action": ["s3:PutObject"], "Resource": {"Fn::Sub": "${LedgerBucket.Arn}/ledger/*"}},
+            {"Effect": "Allow", "Action": ["sts:AssumeRole"], "Resource": {"Ref": "AuditAnchorWriterRoleArn"}}
+          ]}
+        }]
+      }
+    },
+    "ReceiptVerifierRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "enpire-g0-receipt-verifier",
+        "AssumeRolePolicyDocument": {"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"AWS": {"Ref": "IndependentVerifierPrincipalArn"}}, "Action": "sts:AssumeRole"}]},
+        "Policies": [{
+          "PolicyName": "VerifyControlsWithoutFinalInputRead",
+          "PolicyDocument": {"Version": "2012-10-17", "Statement": [
+            {"Effect": "Allow", "Action": ["s3:GetBucketLocation", "s3:GetBucketObjectLockConfiguration", "s3:GetBucketPolicyStatus", "s3:GetBucketVersioning", "s3:ListBucket"], "Resource": [{"Fn::GetAtt": ["FinalInputBucket", "Arn"]}, {"Fn::GetAtt": ["EvidenceBucket", "Arn"]}, {"Fn::GetAtt": ["LedgerBucket", "Arn"]}]},
+            {"Effect": "Allow", "Action": ["s3:GetObject", "s3:GetObjectVersion"], "Resource": [{"Fn::Sub": "${EvidenceBucket.Arn}/runs/*"}, {"Fn::Sub": "${LedgerBucket.Arn}/ledger/*"}]}
+          ]}
+        }]
+      }
+    },
+    "FinalInputBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {"Bucket": {"Ref": "FinalInputBucket"}, "PolicyDocument": {"Version": "2012-10-17", "Statement": [{"Sid": "DenyInsecureTransport", "Effect": "Deny", "Principal": "*", "Action": "s3:*", "Resource": [{"Fn::GetAtt": ["FinalInputBucket", "Arn"]}, {"Fn::Sub": "${FinalInputBucket.Arn}/*"}], "Condition": {"Bool": {"aws:SecureTransport": "false"}}}]}}
+    },
+    "EvidenceBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {"Bucket": {"Ref": "EvidenceBucket"}, "PolicyDocument": {"Version": "2012-10-17", "Statement": [{"Sid": "DenyInsecureTransport", "Effect": "Deny", "Principal": "*", "Action": "s3:*", "Resource": [{"Fn::GetAtt": ["EvidenceBucket", "Arn"]}, {"Fn::Sub": "${EvidenceBucket.Arn}/*"}], "Condition": {"Bool": {"aws:SecureTransport": "false"}}}]}}
+    },
+    "LedgerBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {"Bucket": {"Ref": "LedgerBucket"}, "PolicyDocument": {"Version": "2012-10-17", "Statement": [{"Sid": "DenyInsecureTransport", "Effect": "Deny", "Principal": "*", "Action": "s3:*", "Resource": [{"Fn::GetAtt": ["LedgerBucket", "Arn"]}, {"Fn::Sub": "${LedgerBucket.Arn}/*"}], "Condition": {"Bool": {"aws:SecureTransport": "false"}}}]}}
+    },
+    "EvaluatorTrail": {
+      "Type": "AWS::CloudTrail::Trail",
+      "DependsOn": ["FinalInputBucketPolicy", "EvidenceBucketPolicy", "LedgerBucketPolicy"],
+      "Properties": {
+        "TrailName": {"Ref": "TrailName"},
+        "S3BucketName": {"Ref": "AuditLogBucketName"},
+        "EnableLogFileValidation": true,
+        "IncludeGlobalServiceEvents": true,
+        "IsLogging": true,
+        "IsMultiRegionTrail": true,
+        "EventSelectors": [{
+          "IncludeManagementEvents": true,
+          "ReadWriteType": "All",
+          "DataResources": [{"Type": "AWS::S3::Object", "Values": [{"Fn::Sub": "${FinalInputBucket.Arn}/"}, {"Fn::Sub": "${EvidenceBucket.Arn}/"}, {"Fn::Sub": "${LedgerBucket.Arn}/"}]}]
+        }]
+      }
+    }
+  },
+  "Outputs": {
+    "FinalInputBucketArn": {"Value": {"Fn::GetAtt": ["FinalInputBucket", "Arn"]}},
+    "EvidenceBucketArn": {"Value": {"Fn::GetAtt": ["EvidenceBucket", "Arn"]}},
+    "LedgerBucketArn": {"Value": {"Fn::GetAtt": ["LedgerBucket", "Arn"]}},
+    "WorkerUploadRoleArn": {"Value": {"Fn::GetAtt": ["WorkerUploadRole", "Arn"]}},
+    "CustodyProvisionerRoleArn": {"Value": {"Fn::GetAtt": ["CustodyProvisionerRole", "Arn"]}},
+    "EvaluatorRoleArn": {"Value": {"Fn::GetAtt": ["EvaluatorRole", "Arn"]}},
+    "ReceiptVerifierRoleArn": {"Value": {"Fn::GetAtt": ["ReceiptVerifierRole", "Arn"]}},
+    "TrailArn": {"Value": {"Fn::GetAtt": ["EvaluatorTrail", "Arn"]}}
+  }
+}

@@ -78,6 +78,8 @@ The gated D1 scientific-baseline work is specified in:
 - `agent-supervisor/g0-production-acceptance-runbook.md` — the production
   receipt order and fail-closed, cross-bound transition to E1 preflight-only
   readiness.
+- `../infra/aws-g0/README.md` — the two-account AWS evaluator/audit
+  infrastructure design and offline validation procedure.
 - `agent-supervisor/g0-remaining-decisions-proposal.md` — the corrected,
   non-authorizing E1/E2 and three-way decision-rule freeze candidate.
 - `agent-supervisor/g0-reset-source-audit.md` — the pinned RLinf/ManiSkill

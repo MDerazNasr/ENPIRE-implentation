@@ -78,6 +78,9 @@ labels inside a run.
 - [`g0-production-acceptance-runbook.md`](g0-production-acceptance-runbook.md)
   defines the strict receipt order, cross-hash validation, independent storage
   boundary, and non-authorizing transition to E1 preflight preparation.
+- [`../../infra/aws-g0/README.md`](../../infra/aws-g0/README.md) documents the
+  offline-validated, two-account AWS custody and audit templates. It grants no
+  authority to deploy the irreversible retention configuration.
 - [`m9-delivery-contract.md`](m9-delivery-contract.md) documents the unified
   demo, optional read-only D1 replay, semantic fingerprint, presentation, and
   artifact verification boundary.

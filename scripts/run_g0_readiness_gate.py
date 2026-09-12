@@ -47,6 +47,10 @@ BOUND_SOURCES = {
     "custody_deployment_design": "docs/agent-supervisor/g0-evaluator-custody-and-deployment.md",
     "runtime_cost_candidate_design": "docs/agent-supervisor/g0-runtime-cost-retention-candidate.md",
     "production_acceptance_runbook": "docs/agent-supervisor/g0-production-acceptance-runbook.md",
+    "aws_infrastructure_runbook": "infra/aws-g0/README.md",
+    "aws_audit_template": "infra/aws-g0/audit-account.template.json",
+    "aws_evaluator_template": "infra/aws-g0/evaluator-account.template.json",
+    "aws_template_checker": "scripts/check_g0_aws_infrastructure.py",
     "scientific_program": "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
 }
 
