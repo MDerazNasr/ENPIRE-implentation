@@ -56,7 +56,7 @@ def validate_runtime_identity_candidate(value: Any) -> dict[str, Any]:
         "runtime_options", "shared_identities", "deferred_bindings",
         "evidence_boundary", *AUTHORITY_FIELDS,
     }
-    if set(payload) != expected or payload["schema_version"] not in (1, 2, 3):
+    if set(payload) != expected or payload["schema_version"] not in (1, 2, 3, 4):
         raise G0ProtocolInputError("runtime identity candidate fields are invalid")
     if payload["record_kind"] != "g0-runtime-and-assets-freeze-candidate":
         raise G0ProtocolInputError("runtime identity candidate kind is invalid")
@@ -64,6 +64,7 @@ def validate_runtime_identity_candidate(value: Any) -> dict[str, Any]:
         1: "blocked_pending_requalification_commit_and_e1_output",
         2: "blocked_pending_exact_image_route_commit_storage_and_e1_output",
         3: "blocked_pending_route_storage_evaluator_and_e1_output",
+        4: "blocked_pending_storage_evaluator_acceptance_and_e1_output",
     }
     if payload["status"] != allowed_status[payload["schema_version"]]:
         raise G0ProtocolInputError("runtime identity candidate status is invalid")
@@ -82,7 +83,7 @@ def validate_runtime_identity_candidate(value: Any) -> dict[str, Any]:
             raise G0ProtocolInputError("runtime option does not require fresh qualification")
         if option.get("scientific_execution_authorized") is not False:
             raise G0ProtocolInputError("runtime option grants scientific execution")
-    if payload["schema_version"] in (2, 3):
+    if payload["schema_version"] in (2, 3, 4):
         selected = next(item for item in options if item["option_id"] == "lambda-h100-pcie")
         binding = selected.get("current_host_binding")
         if not isinstance(binding, dict):
@@ -92,12 +93,16 @@ def validate_runtime_identity_candidate(value: Any) -> dict[str, Any]:
         if binding.get("instance_id") != "15c6fcfe96f946baa1e440d55ac9b688" or binding.get("ip") != "209.20.157.138":
             raise G0ProtocolInputError("selected runtime host identity is invalid")
         require_sha256(binding.get("host_qualification_sha256"), "host qualification SHA-256")
-        expected_image_state = payload["schema_version"] == 3
+        expected_image_state = payload["schema_version"] in (3, 4)
         if binding.get("host_qualified") is not True or binding.get("exact_image_qualified") is not expected_image_state:
             raise G0ProtocolInputError("selected runtime qualification state is invalid")
-        if payload["schema_version"] == 3:
+        if payload["schema_version"] in (3, 4):
             require_sha256(binding.get("image_qualification_sha256"), "image qualification SHA-256")
             require_sha256(selected.get("container_image_sha256"), "qualified container image SHA-256")
+        if payload["schema_version"] == 4:
+            require_sha256(binding.get("route_qualification_sha256"), "route qualification SHA-256")
+            if binding.get("representative_no_outcome_route_qualified") is not True:
+                raise G0ProtocolInputError("selected runtime route qualification is missing")
     identities = payload["shared_identities"]
     for field in ("rlinf_commit", "maniskill_commit"):
         require_git_commit(identities[field], f"shared identity {field}")
@@ -121,6 +126,13 @@ def validate_runtime_identity_candidate(value: Any) -> dict[str, Any]:
     elif payload["schema_version"] == 3:
         expected_deferred = {
             "representative_no_outcome_route_qualification",
+            "production_evaluator_environment_sha256",
+            "durable_off_host_checkpoint_and_evidence_store",
+            "lambda_storage_and_egress_pricing",
+            "e1_selected_actor_sha256_before_e2",
+        }
+    elif payload["schema_version"] == 4:
+        expected_deferred = {
             "production_evaluator_environment_sha256",
             "durable_off_host_checkpoint_and_evidence_store",
             "lambda_storage_and_egress_pricing",

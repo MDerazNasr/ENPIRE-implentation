@@ -11,6 +11,7 @@ from scripts.build_g0_runtime_cost_candidates import (
     build_candidates,
     build_lambda_h100_candidates,
     build_lambda_h100_qualified_candidates,
+    build_lambda_h100_route_qualified_candidates,
 )
 from supervisor.canonical import fingerprint
 from supervisor.g0_protocol_inputs import (
@@ -116,6 +117,23 @@ class G0ProtocolInputTests(unittest.TestCase):
             runtime["payload"]["deferred_bindings"],
         )
         self.assertEqual(cost["payload"]["schema_version"], 2)
+
+    def test_lambda_h100_route_candidate_binds_no_outcome_route_without_authority(self) -> None:
+        runtime, _ = build_lambda_h100_route_qualified_candidates(ROOT)
+        self.assertEqual(runtime["payload"]["schema_version"], 4)
+        selected = next(
+            option for option in runtime["payload"]["runtime_options"]
+            if option["option_id"] == "lambda-h100-pcie"
+        )
+        binding = selected["current_host_binding"]
+        self.assertTrue(binding["representative_no_outcome_route_qualified"])
+        self.assertTrue(runtime["payload"]["evidence_boundary"]["representative_route_qualified"])
+        self.assertFalse(runtime["payload"]["evidence_boundary"]["route_was_scientific_evidence"])
+        self.assertNotIn(
+            "representative_no_outcome_route_qualification",
+            runtime["payload"]["deferred_bindings"],
+        )
+        self.assertFalse(runtime["payload"]["scientific_execution_authorized"])
 
     def test_cost_arithmetic_and_retention_weakening_fail_closed(self) -> None:
         _, cost = build_candidates(ROOT)

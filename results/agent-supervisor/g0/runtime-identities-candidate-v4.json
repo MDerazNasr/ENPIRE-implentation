@@ -1,0 +1,90 @@
+{
+  "payload": {
+    "campaign_activation_authorized": false,
+    "deferred_bindings": [
+      "production_evaluator_environment_sha256",
+      "durable_off_host_checkpoint_and_evidence_store",
+      "lambda_storage_and_egress_pricing",
+      "e1_selected_actor_sha256_before_e2"
+    ],
+    "evidence_boundary": {
+      "exact_image_public_runtime_qualified": true,
+      "f0_contract_sha256": "260928126f1342b268b9b40eff56d0e4e5d0f57f112d212eb6f081092fdc6e0c",
+      "f2_terminal_sha256": "bd79999707eb6d21be7907517e9fda3d986d7ec4b54a120d608b1d956dda47f6",
+      "f2_was_scientific_evidence": false,
+      "h100_preflight_sha256": "f028ce251b5f9c6d3c7a18fa457e6e586356fb28d579951d779882b47194754c",
+      "representative_route_qualified": true,
+      "route_was_scientific_evidence": false,
+      "runtime_selected": true,
+      "selection_scope": "preferred design and exact host binding only; not canonical acceptance or execution authority",
+      "stage1_actor_selected": false
+    },
+    "gpu_execution_authorized": false,
+    "model_egress_authorized": false,
+    "paid_execution_authorized": false,
+    "preferred_option": "lambda-h100-pcie",
+    "promotion_authorized": false,
+    "provider_call_authorized": false,
+    "record_kind": "g0-runtime-and-assets-freeze-candidate",
+    "runtime_options": [
+      {
+        "basis": "F0 selected matched scientific runtime; not currently deployed",
+        "container_image_sha256": "6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7",
+        "evidence_sha256": "260928126f1342b268b9b40eff56d0e4e5d0f57f112d212eb6f081092fdc6e0c",
+        "fresh_qualification_required": true,
+        "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "gpu_request": "RTX-PRO-6000",
+        "minimum_gpu_memory_bytes": 96000000000,
+        "option_id": "modal-rtx-pro-6000",
+        "scientific_execution_authorized": false
+      },
+      {
+        "basis": "fresh exact-image public runtime and actor-free 16-process no-outcome route qualification on the selected Lambda H100 PCIe",
+        "container_image_sha256": "06232835258702a325f77bbea6fd5d157711b14976bd0c3dec5af3a36cf705fd",
+        "current_host_binding": {
+          "current_auto_shutdown_sufficient_for_e1_or_e2": false,
+          "exact_image_qualified": true,
+          "host_qualification_sha256": "c34a2fd3d947bf0d7d1d93a56df5d59914a14c906e0b4b9a35802af2ed8d30fd",
+          "host_qualified": true,
+          "image_qualification_sha256": "80f2fda07321045d1d540177467c08b3ac937ec167d2dc0de675a1855c704787",
+          "instance_id": "15c6fcfe96f946baa1e440d55ac9b688",
+          "ip": "209.20.157.138",
+          "price_usd_per_hour": "3.29",
+          "project_commit": "bb52372164e4c01eb1585427c5f85fe35971c050",
+          "provider": "Lambda Cloud",
+          "region": "Utah, USA",
+          "representative_no_outcome_route_qualified": true,
+          "route_qualification_sha256": "fef8f5df17259e6449e3e1fe9bbf1bd4c9bf0915551d2e7e4945b7f6c1476a4d"
+        },
+        "evidence_sha256": "bd79999707eb6d21be7907517e9fda3d986d7ec4b54a120d608b1d956dda47f6",
+        "fresh_qualification_required": true,
+        "gpu": "NVIDIA H100 PCIe",
+        "minimum_gpu_memory_bytes": 85028896768,
+        "option_id": "lambda-h100-pcie",
+        "scientific_execution_authorized": false
+      }
+    ],
+    "schema_version": 4,
+    "scientific_execution_authorized": false,
+    "shared_identities": {
+      "base_model_sha256": "0eb11ca9587678c1d2ef8cf32807c29f8ce53a2bfdfc1aa4a4c96f16fca59b0f",
+      "base_model_size_bytes": 14467165872,
+      "dataset_identity": "rlt-maniskill-PegInsertionSide-v1-400-succ",
+      "dataset_revision": "2b92d5ef3fe274d30219130133f9e34c7ab91ebf",
+      "development_reset_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+      "final_reset_sha256": "27165db099dfaddc66a6eced98156110acb2e877289eb1c503ae53a446d2fa97",
+      "maniskill_commit": "33967b9e3ead1f841eec57cc9f31d0d8b8cf0907",
+      "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+      "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+      "sapien": "3.0.1",
+      "task": "PegInsertionSideWideClearance-v1",
+      "training_seeds": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    "status": "blocked_pending_storage_evaluator_acceptance_and_e1_output"
+  },
+  "sha256": "2183cff48c880e2464ba8d9a947a99e5befd881af6bfe315b9035d15a03122da"
+}

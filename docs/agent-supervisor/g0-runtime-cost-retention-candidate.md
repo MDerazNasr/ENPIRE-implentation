@@ -1,8 +1,8 @@
 # G0 Runtime, Cost, and Retention Freeze Candidate
 
 Status: **Lambda H100 PCIe selected as the preferred design and the exact host
-and image passed actor-free public qualification; representative no-outcome
-route qualification, storage, human protocol acceptance, paid scientific
+and image passed actor-free public qualification, including the 16-process
+no-outcome route; storage, human protocol acceptance, paid scientific
 execution, and promotion remain unauthorized**
 
 Obsidian task: `MI5T8`
@@ -17,7 +17,7 @@ evaluation, campaign activation, or promotion.
 | Option | Evidence | Current disposition |
 |---|---|---|
 | Modal RTX PRO 6000 | F0 selected a 96 GB matched scientific runtime with the pinned linux/amd64 CUDA image and 16-process CPU-physics adapter | Preserved version-1 candidate; not selected for the current campaign |
-| Lambda H100 PCIe | F2 attempt 7 completed the four-run engineering rehearsal and ten resume checks; instance `15c6fcfe...9b688` passed fresh host and exact-image public qualification on 2026-09-12 | Preferred version-3 design; no-outcome route, durable storage, storage/egress pricing, and sufficient lifetime remain unqualified |
+| Lambda H100 PCIe | F2 attempt 7 completed the four-run engineering rehearsal and ten resume checks; instance `15c6fcfe...9b688` passed fresh host, exact-image, and actor-free 16-process route qualification on 2026-09-12 | Preferred version-4 design; durable storage, storage/egress pricing, and sufficient lifetime remain unqualified |
 
 The user selected Lambda H100 PCIe after comparing currently available GPU
 prices. The exact host is Lambda instance
@@ -27,8 +27,10 @@ user-reported `$3.29/hour`. Read-only inspection confirmed Ubuntu 22.04.5,
 81,559 MiB, driver 570.148.08, Docker/NVIDIA tooling, and zero containers,
 GPU processes, or ENPIRE workload processes. Public provisioning then bound
 clean source commit `bb52372...c050`, image `06232835...705fd`, the pinned
-runtime/assets, and a second terminal idle gate. The representative no-outcome
-task route, durable storage, and sufficient lifetime remain pending.
+runtime/assets, and a second terminal idle gate. A network-disabled 16-process
+CPU-physics/Mesa initialization and development-seed reset then produced the
+expected 384x384 image and state batches in 23.04 seconds. No policy or action
+step ran. Durable storage and sufficient lifetime remain pending.
 
 Shared candidate identities already available:
 
@@ -45,13 +47,12 @@ Shared candidate identities already available:
 - development reset fingerprint `e5466ff2...e161`; and
 - final reset fingerprint `27165db0...fa97`.
 
-Five bindings remain deliberately unresolved:
+Four bindings remain deliberately unresolved:
 
-1. representative no-outcome route qualification;
-2. production evaluator environment SHA-256;
-3. durable off-host checkpoint/evidence storage;
-4. Lambda storage and egress pricing; and
-5. the E1-selected Stage-1 actor SHA-256 required before E2.
+1. production evaluator environment SHA-256;
+2. durable off-host checkpoint/evidence storage;
+3. Lambda storage and egress pricing; and
+4. the E1-selected Stage-1 actor SHA-256 required before E2.
 
 E1 cannot predeclare its selected output actor. Instead, its frozen selection
 rule must produce that actor, which must then be independently size/hash
@@ -149,9 +150,11 @@ that the selected cap can contain the frozen route before paid authorization.
 - [`../../results/agent-supervisor/g0/cost-envelope-candidate-v1.json`](../../results/agent-supervisor/g0/cost-envelope-candidate-v1.json)
 - [`../../results/agent-supervisor/g0/runtime-identities-candidate-v2.json`](../../results/agent-supervisor/g0/runtime-identities-candidate-v2.json)
 - [`../../results/agent-supervisor/g0/runtime-identities-candidate-v3.json`](../../results/agent-supervisor/g0/runtime-identities-candidate-v3.json)
+- [`../../results/agent-supervisor/g0/runtime-identities-candidate-v4.json`](../../results/agent-supervisor/g0/runtime-identities-candidate-v4.json)
 - [`../../results/agent-supervisor/g0/cost-envelope-candidate-v2.json`](../../results/agent-supervisor/g0/cost-envelope-candidate-v2.json)
 - [`../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1-host.json`](../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1-host.json)
 - [`../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1/qualification.json`](../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1/qualification.json)
+- [`../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1/no-outcome-route.json`](../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1/no-outcome-route.json)
 
 The strict validator is `supervisor/g0_protocol_inputs.py`; the create-only
 builder is `scripts/build_g0_runtime_cost_candidates.py`. The candidates retain

@@ -317,13 +317,46 @@ def build_lambda_h100_qualified_candidates(root: Path = ROOT) -> tuple[dict, dic
     return runtime, cost
 
 
+def build_lambda_h100_route_qualified_candidates(root: Path = ROOT) -> tuple[dict, dict]:
+    runtime, cost = build_lambda_h100_qualified_candidates(root)
+    route_path = "results/runtime-qualification/g0/lambda-h100-pcie-instance-1/no-outcome-route.json"
+    route = _load(route_path, root)
+    if route.get("status") != "pass" or route["execution_boundary"].get("action_step_executed") is not False:
+        raise ValueError("no-outcome route qualification is invalid")
+    runtime_payload = json.loads(json.dumps(runtime["payload"]))
+    runtime_payload["schema_version"] = 4
+    runtime_payload["status"] = "blocked_pending_storage_evaluator_acceptance_and_e1_output"
+    selected = next(
+        item for item in runtime_payload["runtime_options"]
+        if item["option_id"] == "lambda-h100-pcie"
+    )
+    selected["basis"] = "fresh exact-image public runtime and actor-free 16-process no-outcome route qualification on the selected Lambda H100 PCIe"
+    selected["current_host_binding"]["representative_no_outcome_route_qualified"] = True
+    selected["current_host_binding"]["route_qualification_sha256"] = _sha256(route_path, root)
+    runtime_payload["deferred_bindings"] = [
+        "production_evaluator_environment_sha256",
+        "durable_off_host_checkpoint_and_evidence_store",
+        "lambda_storage_and_egress_pricing",
+        "e1_selected_actor_sha256_before_e2",
+    ]
+    runtime_payload["evidence_boundary"]["representative_route_qualified"] = True
+    runtime_payload["evidence_boundary"]["route_was_scientific_evidence"] = False
+    runtime = _envelope(runtime_payload)
+    validate_runtime_identity_candidate(runtime)
+    validate_cost_retention_candidate(cost)
+    return runtime, cost
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runtime-output", type=Path, required=True)
     parser.add_argument("--cost-output", type=Path, required=True)
     parser.add_argument(
         "--profile",
-        choices=("modal-v1", "lambda-h100-v2", "lambda-h100-qualified-v3"),
+        choices=(
+            "modal-v1", "lambda-h100-v2", "lambda-h100-qualified-v3",
+            "lambda-h100-route-qualified-v4",
+        ),
         default="modal-v1",
     )
     args = parser.parse_args()
@@ -333,8 +366,10 @@ def main() -> int:
         runtime, cost = build_candidates()
     elif args.profile == "lambda-h100-v2":
         runtime, cost = build_lambda_h100_candidates()
-    else:
+    elif args.profile == "lambda-h100-qualified-v3":
         runtime, cost = build_lambda_h100_qualified_candidates()
+    else:
+        runtime, cost = build_lambda_h100_route_qualified_candidates()
     for path, value in ((args.runtime_output, runtime), (args.cost_output, cost)):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")

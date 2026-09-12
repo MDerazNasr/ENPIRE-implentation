@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "recorded_at": "2026-09-12T11:31:58Z",
+  "claim_scope": "actor-free 16-process task initialization and development-seed reset engineering qualification only; no action, policy outcome, evaluation, or promotion",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "15c6fcfe96f946baa1e440d55ac9b688",
+    "ip": "209.20.157.138",
+    "gpu": "NVIDIA H100 PCIe"
+  },
+  "runtime": {
+    "project_commit": "bb52372164e4c01eb1585427c5f85fe35971c050",
+    "image_id": "sha256:06232835258702a325f77bbea6fd5d157711b14976bd0c3dec5af3a36cf705fd",
+    "task": "PegInsertionSideWideClearance-v1",
+    "sim_backend": "cpu",
+    "render_backend": "Mesa llvmpipe via pci:0000:00:00.0",
+    "adapter": "ModalMultiprocessManiskillRLTEnv",
+    "processes": 16,
+    "seed_role": "development",
+    "seed": 2026,
+    "elapsed_seconds": 23.036733387999902,
+    "network_mode": "none"
+  },
+  "observed_shapes": {
+    "main_images": [
+      16,
+      384,
+      384,
+      3
+    ],
+    "wrist_images": [
+      16,
+      384,
+      384,
+      3
+    ],
+    "states": [
+      16,
+      9
+    ],
+    "success": [
+      16
+    ]
+  },
+  "execution_boundary": {
+    "policy_loaded": false,
+    "private_model_present": false,
+    "action_step_executed": false,
+    "scientific_evaluation_executed": false,
+    "promotion_executed": false,
+    "final_reset_ids_accessed": false
+  },
+  "evidence": {
+    "probe_script_sha256": "aa34ca60f9256849a6f91b7bf2cf0f1929842b0ab45a25ae7b286863c2eb27e4",
+    "log_path": "no-outcome-route.log",
+    "log_sha256": "44701ec2b108737d3fe28fcc2a72ae822ee61a4c515cd0d7dd0fb3d89bab4e26",
+    "log_size_bytes": 7708
+  },
+  "terminal_idle_gate": {
+    "running_containers": 0,
+    "total_containers": 0,
+    "gpu_compute_processes": 0,
+    "enpire_workload_processes": 0,
+    "private_actor_present": false
+  },
+  "remaining_runtime_blockers": [
+    "durable off-host checkpoint and evidence storage",
+    "Lambda storage and egress pricing",
+    "instance lifetime sufficient for an approved attempt",
+    "production evaluator environment and custody",
+    "E1-selected actor identity before E2"
+  ],
+  "authorization": {
+    "scientific_execution_authorized": false,
+    "campaign_activation_authorized": false,
+    "private_model_export_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  }
+}

@@ -61,7 +61,7 @@ hashes and the non-authorizing local isolation receipt. Every execution and
 promotion authority flag remains false.
 
 The current checked-in non-authorizing output is
-[`../../results/agent-supervisor/g0/e0-preflight-lambda-h100-image-v1.json`](../../results/agent-supervisor/g0/e0-preflight-lambda-h100-image-v1.json).
+[`../../results/agent-supervisor/g0/e0-preflight-lambda-h100-route-v1.json`](../../results/agent-supervisor/g0/e0-preflight-lambda-h100-route-v1.json).
 Earlier receipts remain preserved as historical evidence.
 
 ## Remaining acceptance gates
