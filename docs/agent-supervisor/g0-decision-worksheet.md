@@ -64,7 +64,7 @@ Decision or amendment: `TBD`
 | Stage-1 input lineage | `TBD` |
 | Dataset | `TBD` |
 | Normalization statistics | `TBD` |
-| Runtime contract and image | **Accepted design preference:** Lambda H100 PCIe at `$3.29/hour`; exact instance `15c6fcfe...9b688` passed host qualification, while clean source/image/route/storage/lifetime binding remains required |
+| Runtime contract and image | **Accepted design preference:** Lambda H100 PCIe at `$3.29/hour`; instance `15c6fcfe...9b688`, clean source `bb52372...c050`, and image `06232835...705fd` passed public qualification, while route/storage/lifetime binding remains required |
 | Training configuration base | `TBD` |
 | Primary metric | Proposed: fixed-set `eval/success_once`; `TBD` |
 | Secondary metrics | `TBD` |
@@ -141,7 +141,7 @@ Required adversarial fixtures:
 - [ ] The actual production context-builder and worker path prove final-input exclusion.
 
 Current E0 fixture preflight:
-`results/agent-supervisor/g0/e0-preflight-lambda-h100-v1.json`. Its
+`results/agent-supervisor/g0/e0-preflight-lambda-h100-image-v1.json`. Its
 envelope hash is recorded inside the artifact to avoid a self-referential
 documentation hash. This is not an E0 pass artifact; production custody,
 deployment, and actual context/worker exclusion remain blocked.

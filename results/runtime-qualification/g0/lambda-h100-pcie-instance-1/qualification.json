@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "status": "exact_image_public_runtime_qualified_no_outcome_route_pending",
+  "recorded_at": "2026-09-12T11:22:40Z",
+  "claim_scope": "fresh actor-free Lambda H100 PCIe engineering qualification only; no policy, simulator step, scientific evaluation, campaign execution, or promotion",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "15c6fcfe96f946baa1e440d55ac9b688",
+    "region": "Utah, USA",
+    "ip": "209.20.157.138",
+    "price_usd_per_hour": "3.29"
+  },
+  "source": {
+    "project_commit": "bb52372164e4c01eb1585427c5f85fe35971c050",
+    "archive_sha256": "201e8711ab723bbb48bc207ccd027b71d52bb5bc2bdeb5fe3187095c4048980c",
+    "archive_size_bytes": 1280718,
+    "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "private_actor_present": false
+  },
+  "image": {
+    "tag": "enpire-g0-h100-pcie:bb52372",
+    "id": "sha256:06232835258702a325f77bbea6fd5d157711b14976bd0c3dec5af3a36cf705fd",
+    "size_bytes": 40890895777,
+    "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7"
+  },
+  "public_probe": {
+    "result": "pass",
+    "network_mode": "none",
+    "python": "3.11.14",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA H100 PCIe",
+    "gpu_memory_bytes": 85028896768,
+    "cuda_probe": 4.0,
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "maniskill": "3.0.0b22",
+    "sapien": "3.0.1",
+    "hydra": "1.3.2",
+    "omegaconf": "2.3.0",
+    "vulkan": "Mesa llvmpipe",
+    "openpi_norm_loader_keys": [
+      "actions",
+      "state"
+    ],
+    "project_audit_module_imports": "pass",
+    "policy_loaded": false,
+    "simulator_step_executed": false,
+    "scientific_evaluation_executed": false
+  },
+  "tests": {
+    "local_repository": {
+      "passed": 322,
+      "subtests": 142,
+      "failed": 0
+    },
+    "exact_image_g0_focused": {
+      "passed": 26,
+      "failed": 0
+    },
+    "exact_image_f2": {
+      "passed": 6,
+      "failed": 0
+    },
+    "exact_image_full": {
+      "passed": 319,
+      "errors": 3,
+      "total": 322,
+      "environment_only_errors": [
+        "pinned local Modal client interpreter intentionally absent",
+        "Git metadata intentionally absent from actor-free archive",
+        "writable Git worktree intentionally absent from actor-free archive"
+      ]
+    },
+    "preserved_intermediate_failures": [
+      "qualified image initially resolved the unrelated installed tests package",
+      "direct discovery without a package marker could not import sixteen peer-fixture modules",
+      "root-owned temporary execution made one same-user custody assertion observe a distinct source owner",
+      "non-root execution could not traverse the root-owned uv Python installation"
+    ],
+    "package_marker_scope": "temporary disposable container copy only; source archive and image unchanged"
+  },
+  "terminal_idle_gate": {
+    "checked_at": "2026-09-12T11:22:40Z",
+    "running_containers": 0,
+    "total_containers": 0,
+    "gpu_compute_processes": 0,
+    "enpire_workload_processes": 0,
+    "private_actor_present": false,
+    "disk_available_bytes": 997069574144
+  },
+  "evidence_manifest": {
+    "f2-tests.log": "4af6d289926e45f1ce84cf7b4a9b2c09634623fd105296a675636fde185f5c6c",
+    "focused-tests.log": "6febaa4e8ea1acaddb2e3a48c03a4c08226f4fe1f1b537a5ffc1c9c89dd2e718",
+    "full-tests-package-marker.log": "b9f0aa7fa9f710e66fe10b7692195e60efbdb08f47960e6cacb9e1383adbb599",
+    "full-tests.log": "c531007b0fe76767a54de1f52cc5e68c3659da291f659fab40880948ce7f2f2d",
+    "g0-tests-owned-copy.log": "f1282c1e3b2514407b6dfc51cfc1b27d6b28c3a599cdc753da88dddc8a8ded52",
+    "g0-tests.log": "2c331012234aeb36a8729b1c8c34491a7d08511abc332cda864fb4a1082538fc",
+    "image-build.log": "253ac43fa031857fc840ec1607769ef2158f22ee93629c048a29a2435b6daa4a",
+    "public-probe.log": "daf3a4e1dc6ca9c510954c4e33a2fd60c91525b8e23f0280b93acc4077690fc5"
+  },
+  "remaining_runtime_blockers": [
+    "no-outcome representative task/route qualification",
+    "durable off-host checkpoint and evidence storage",
+    "Lambda storage and egress pricing",
+    "instance lifetime sufficient for an approved attempt",
+    "E1-selected actor identity before E2"
+  ],
+  "authorization": {
+    "public_provisioning_completed": true,
+    "private_model_export_authorized": false,
+    "scientific_execution_authorized": false,
+    "campaign_activation_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  }
+}

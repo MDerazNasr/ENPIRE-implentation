@@ -1,0 +1,267 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+................................usage: python -m unittest [-h] --config CONFIG [--results-root RESULTS_ROOT]
+                          --run-id RUN_ID [--execute] [--acknowledge-paid-run]
+python -m unittest: error: --execute requires --acknowledge-paid-run
+..........EEE............EE.E.................................E.....EEE...................................sac/actor_loss=1.0
+Evaluation success_once=0.0 episode_len=10.0 return=0.0
+sac/actor_loss=0.9
+Evaluation success_once=0.0 episode_len=10.0 return=0.0
+........QUALIA_RLT_OBJECTIVE_ATTACHMENT={"adapter_sha256": "fb51edc77fe1602405d32f6f219ad499fba209efe78e1b9a8ad5b415071418a1", "attachment_mode": "sitecustomize-rlt-loss-mixin-v1", "installed_target": "RLTACLossMixin.forward_actor", "objective_contract_version": "m6-actor-objective-v1", "objective_relative_path": "supervisor/objectives/actor_objective.py", "objective_sha256": "4c8f5ba1b093deab284f6efd500a13a0bfe8765afb3c47ca5dbc7324c20791db", "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf", "rlinf_worker_sha256": "b2d5032400a63c2592b6175d524cac936c282f5a287e448dbcc5da7ad42d1fc2", "seam_contract_version": "rlinf-rlt-actor-objective-seam-v1"}
+........QUALIA_RLT_RESUME_STATE={"checkpoint_step": 1, "previous_update_step": 0, "rank": 0, "restored_update_step": 1, "schedule_fingerprint": "4fe20d55931c39ca3f5aef2e8b444763ad13673a7bd3cfa3cf583663596d4d67", "sidecar": "/tmp/tmp2mu0bff_/global_step_1/actor/sac_components/rlt_schedule_state/rank_0.json"}
+....QUALIA_RLT_RESUME_STATE={"checkpoint_step": 1, "previous_update_step": 1, "rank": 0, "restored_update_step": 1, "schedule_fingerprint": "4fe20d55931c39ca3f5aef2e8b444763ad13673a7bd3cfa3cf583663596d4d67", "sidecar": "/tmp/tmp12waq4et/global_step_1/actor/sac_components/rlt_schedule_state/rank_0.json"}
+.....E................EEEE..............E..................
+======================================================================
+ERROR: test_d1_backend (unittest.loader._FailedTest.test_d1_backend)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_d1_backend
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_d1_backend.py", line 35, in <module>
+    from tests.test_d1_integration_gate import pack_data
+ModuleNotFoundError: No module named 'tests.test_d1_integration_gate'
+
+
+======================================================================
+ERROR: test_d1_integration_gate (unittest.loader._FailedTest.test_d1_integration_gate)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_d1_integration_gate
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_d1_integration_gate.py", line 20, in <module>
+    from tests.test_supervisor_contracts import campaign_data
+ModuleNotFoundError: No module named 'tests.test_supervisor_contracts'
+
+
+======================================================================
+ERROR: test_d1_pack_builder (unittest.loader._FailedTest.test_d1_pack_builder)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_d1_pack_builder
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_d1_pack_builder.py", line 24, in <module>
+    from tests.test_d1_integration_gate import pack_data
+ModuleNotFoundError: No module named 'tests.test_d1_integration_gate'
+
+
+======================================================================
+ERROR: test_f1_modal_worker_rpc (unittest.loader._FailedTest.test_f1_modal_worker_rpc)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_f1_modal_worker_rpc
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_f1_modal_worker_rpc.py", line 23, in <module>
+    from tests.test_supervisor_workers import run_contract
+ModuleNotFoundError: No module named 'tests.test_supervisor_workers'
+
+
+======================================================================
+ERROR: test_clean_preflight_is_non_authorizing_and_binds_two_probes (test_f1_preflight.F1PreflightTests.test_clean_preflight_is_non_authorizing_and_binds_two_probes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/source/tests/test_f1_preflight.py", line 19, in test_clean_preflight_is_non_authorizing_and_binds_two_probes
+    payload = build_preflight(DEFAULT_PROFILE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/source/scripts/run_f1_remote_acceptance.py", line 94, in build_preflight
+    raise ValueError("pinned Modal client interpreter is unavailable")
+ValueError: pinned Modal client interpreter is unavailable
+
+======================================================================
+ERROR: test_rejects_runtime_hash_or_endpoint_drift (test_f1_preflight.F1PreflightTests.test_rejects_runtime_hash_or_endpoint_drift) (mutation='runtime')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/source/tests/test_f1_preflight.py", line 41, in test_rejects_runtime_hash_or_endpoint_drift
+    build_preflight(path)
+  File "/tmp/source/scripts/run_f1_remote_acceptance.py", line 84, in build_preflight
+    if _git("status", "--porcelain"):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/source/scripts/run_f1_remote_acceptance.py", line 38, in _git
+    return subprocess.run(
+           ^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'status', '--porcelain']' returned non-zero exit status 128.
+
+======================================================================
+ERROR: test_m6_code_backend (unittest.loader._FailedTest.test_m6_code_backend)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_m6_code_backend
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_m6_code_backend.py", line 29, in <module>
+    from tests.test_d1_integration_gate import pack_data
+ModuleNotFoundError: No module named 'tests.test_d1_integration_gate'
+
+
+======================================================================
+ERROR: test_two_worker_loss_retry_and_frozen_decisions (test_m7_demo.M7DemoTests.test_two_worker_loss_retry_and_frozen_decisions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/source/tests/test_m7_demo.py", line 18, in test_two_worker_loss_retry_and_frozen_decisions
+    completed = subprocess.run(
+                ^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/opt/RLinf/.venv/bin/python', '/tmp/source/scripts/run_m7_scheduler_demo.py', '--output', '/tmp/tmptx2jxq8w/demo', '--repository', '/tmp/source']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_m7_scheduler (unittest.loader._FailedTest.test_m7_scheduler)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_m7_scheduler
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_m7_scheduler.py", line 30, in <module>
+    from tests.test_supervisor_proposals import config_campaign_data
+ModuleNotFoundError: No module named 'tests.test_supervisor_proposals'
+
+
+======================================================================
+ERROR: test_m7_ssh_worker (unittest.loader._FailedTest.test_m7_ssh_worker)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_m7_ssh_worker
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_m7_ssh_worker.py", line 15, in <module>
+    from tests.test_supervisor_workers import run_contract, scenario
+ModuleNotFoundError: No module named 'tests.test_supervisor_workers'
+
+
+======================================================================
+ERROR: test_supervisor_context (unittest.loader._FailedTest.test_supervisor_context)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_supervisor_context
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_supervisor_context.py", line 13, in <module>
+    from tests.test_supervisor_proposals import BASE_COMMIT, config_campaign_data
+ModuleNotFoundError: No module named 'tests.test_supervisor_proposals'
+
+
+======================================================================
+ERROR: test_supervisor_coordinator (unittest.loader._FailedTest.test_supervisor_coordinator)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_supervisor_coordinator
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_supervisor_coordinator.py", line 25, in <module>
+    from tests.test_supervisor_enforcement import base_config
+ModuleNotFoundError: No module named 'tests.test_supervisor_enforcement'
+
+
+======================================================================
+ERROR: test_supervisor_enforcement (unittest.loader._FailedTest.test_supervisor_enforcement)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_supervisor_enforcement
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_supervisor_enforcement.py", line 18, in <module>
+    from tests.test_supervisor_proposals import (
+ModuleNotFoundError: No module named 'tests.test_supervisor_proposals'
+
+
+======================================================================
+ERROR: test_supervisor_evaluation (unittest.loader._FailedTest.test_supervisor_evaluation)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_supervisor_evaluation
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_supervisor_evaluation.py", line 9, in <module>
+    from tests.test_supervisor_contracts import campaign_data
+ModuleNotFoundError: No module named 'tests.test_supervisor_contracts'
+
+
+======================================================================
+ERROR: test_supervisor_git_manager (unittest.loader._FailedTest.test_supervisor_git_manager)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_supervisor_git_manager
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_supervisor_git_manager.py", line 24, in <module>
+    from tests.test_supervisor_enforcement import base_config
+ModuleNotFoundError: No module named 'tests.test_supervisor_enforcement'
+
+
+======================================================================
+ERROR: test_supervisor_provider (unittest.loader._FailedTest.test_supervisor_provider)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_supervisor_provider
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "/tmp/source/tests/test_supervisor_provider.py", line 26, in <module>
+    from tests.test_supervisor_context import context_kwargs
+ModuleNotFoundError: No module named 'tests.test_supervisor_context'
+
+
+----------------------------------------------------------------------
+Ran 217 tests in 17.463s
+
+FAILED (errors=16)

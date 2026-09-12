@@ -113,7 +113,7 @@ def build_preflight(root: Path = ROOT) -> dict:
             "production_deployment_accepted": False,
         }
     runtime_candidate = validate_runtime_identity_candidate(json.loads(
-        (root / "results/agent-supervisor/g0/runtime-identities-candidate-v2.json").read_text(encoding="utf-8")
+        (root / "results/agent-supervisor/g0/runtime-identities-candidate-v3.json").read_text(encoding="utf-8")
     ))
     cost_candidate = validate_cost_retention_candidate(json.loads(
         (root / "results/agent-supervisor/g0/cost-envelope-candidate-v2.json").read_text(encoding="utf-8")

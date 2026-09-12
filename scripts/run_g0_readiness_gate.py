@@ -53,7 +53,7 @@ REQUIRED_EXTERNAL_INPUTS = {
     "human_protocol_acceptance": "results/agent-supervisor/g0/protocol-acceptance.json",
 }
 
-PREFLIGHT_RELATIVE = "results/agent-supervisor/g0/e0-preflight-lambda-h100-v1.json"
+PREFLIGHT_RELATIVE = "results/agent-supervisor/g0/e0-preflight-lambda-h100-image-v1.json"
 
 
 def _sha256(path: Path) -> str:

@@ -10,6 +10,7 @@ from pathlib import Path
 from scripts.build_g0_runtime_cost_candidates import (
     build_candidates,
     build_lambda_h100_candidates,
+    build_lambda_h100_qualified_candidates,
 )
 from supervisor.canonical import fingerprint
 from supervisor.g0_protocol_inputs import (
@@ -96,6 +97,25 @@ class G0ProtocolInputTests(unittest.TestCase):
         invented_storage["sha256"] = fingerprint(invented_storage["payload"])
         with self.assertRaises(G0ProtocolInputError):
             validate_cost_retention_candidate(invented_storage)
+
+    def test_lambda_h100_qualified_candidate_binds_image_but_not_route(self) -> None:
+        runtime, cost = build_lambda_h100_qualified_candidates(ROOT)
+        self.assertEqual(runtime["payload"]["schema_version"], 3)
+        selected = next(
+            option for option in runtime["payload"]["runtime_options"]
+            if option["option_id"] == "lambda-h100-pcie"
+        )
+        self.assertTrue(selected["current_host_binding"]["exact_image_qualified"])
+        self.assertEqual(
+            selected["container_image_sha256"],
+            "06232835258702a325f77bbea6fd5d157711b14976bd0c3dec5af3a36cf705fd",
+        )
+        self.assertFalse(runtime["payload"]["evidence_boundary"]["representative_route_qualified"])
+        self.assertIn(
+            "representative_no_outcome_route_qualification",
+            runtime["payload"]["deferred_bindings"],
+        )
+        self.assertEqual(cost["payload"]["schema_version"], 2)
 
     def test_cost_arithmetic_and_retention_weakening_fail_closed(self) -> None:
         _, cost = build_candidates(ROOT)

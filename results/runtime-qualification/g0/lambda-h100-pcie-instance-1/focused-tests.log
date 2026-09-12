@@ -1,0 +1,57 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+EEE
+======================================================================
+ERROR: test_g0_protocol_inputs (unittest.loader._FailedTest.test_g0_protocol_inputs)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_g0_protocol_inputs
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_g0_protocol_inputs'
+
+
+======================================================================
+ERROR: test_g0_e0_integrity (unittest.loader._FailedTest.test_g0_e0_integrity)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_g0_e0_integrity
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_g0_e0_integrity'
+
+
+======================================================================
+ERROR: test_f2_rehearsal (unittest.loader._FailedTest.test_f2_rehearsal)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_f2_rehearsal
+Traceback (most recent call last):
+  File "/root/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_f2_rehearsal'
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (errors=3)
