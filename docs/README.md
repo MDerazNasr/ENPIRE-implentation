@@ -75,6 +75,9 @@ The gated D1 scientific-baseline work is specified in:
 - `agent-supervisor/g0-runtime-cost-retention-candidate.md` — the GPU-free
   runtime alternatives, current pricing arithmetic, conservative budget, and
   evidence-retention proposal awaiting human acceptance.
+- `agent-supervisor/g0-production-acceptance-runbook.md` — the production
+  receipt order and fail-closed, cross-bound transition to E1 preflight-only
+  readiness.
 - `agent-supervisor/g0-remaining-decisions-proposal.md` — the corrected,
   non-authorizing E1/E2 and three-way decision-rule freeze candidate.
 - `agent-supervisor/g0-reset-source-audit.md` — the pinned RLinf/ManiSkill

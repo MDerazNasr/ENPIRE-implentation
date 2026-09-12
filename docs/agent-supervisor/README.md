@@ -75,6 +75,9 @@ labels inside a run.
 - [`g0-runtime-cost-retention-candidate.md`](g0-runtime-cost-retention-candidate.md)
   derives non-authorizing runtime, worst-case cost, and retention candidates
   from preserved evidence and a dated official pricing snapshot.
+- [`g0-production-acceptance-runbook.md`](g0-production-acceptance-runbook.md)
+  defines the strict receipt order, cross-hash validation, independent storage
+  boundary, and non-authorizing transition to E1 preflight preparation.
 - [`m9-delivery-contract.md`](m9-delivery-contract.md) documents the unified
   demo, optional read-only D1 replay, semantic fingerprint, presentation, and
   artifact verification boundary.

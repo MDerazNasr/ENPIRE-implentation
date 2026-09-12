@@ -234,7 +234,7 @@ class G0E0IntegrityTests(unittest.TestCase):
         self.assertEqual(
             set(payload["missing_external_inputs"]), set(REQUIRED_EXTERNAL_INPUTS) - resolved
         )
-        self.assertFalse(payload["ready_transition_implemented"])
+        self.assertTrue(payload["ready_transition_implemented"])
         for field in (
             "scientific_evaluation_authorized", "campaign_activation_authorized",
             "gpu_execution_authorized", "paid_execution_authorized",

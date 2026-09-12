@@ -18,6 +18,11 @@ from supervisor.evaluator_deployment import (
     validate_production_custody_record,
     validate_production_deployment_record,
 )
+from supervisor.g0_acceptance import (
+    validate_cost_retention_record,
+    validate_protocol_acceptance_record,
+    validate_runtime_identity_record,
+)
 
 
 BOUND_SOURCES = {
@@ -29,6 +34,7 @@ BOUND_SOURCES = {
     "deployment_boundary": "supervisor/evaluator_deployment.py",
     "isolation_rehearsal": "scripts/run_g0_evaluator_isolation_rehearsal.py",
     "protocol_input_boundary": "supervisor/g0_protocol_inputs.py",
+    "acceptance_boundary": "supervisor/g0_acceptance.py",
     "runtime_cost_candidate_builder": "scripts/build_g0_runtime_cost_candidates.py",
     "reset_materializer": "scripts/export_g0_reset_sets.py",
     "reset_capture_producer": "scripts/capture_g0_maniskill_episode_seeds.py",
@@ -40,6 +46,7 @@ BOUND_SOURCES = {
     "reset_source_audit": "docs/agent-supervisor/g0-reset-source-audit.md",
     "custody_deployment_design": "docs/agent-supervisor/g0-evaluator-custody-and-deployment.md",
     "runtime_cost_candidate_design": "docs/agent-supervisor/g0-runtime-cost-retention-candidate.md",
+    "production_acceptance_runbook": "docs/agent-supervisor/g0-production-acceptance-runbook.md",
     "scientific_program": "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
 }
 
@@ -84,18 +91,60 @@ def build_readiness(root: Path = ROOT) -> dict:
             preflight["payload"]["reset_artifacts"]["final"]["sha256"],
         )
     deployment_path = root / REQUIRED_EXTERNAL_INPUTS["production_evaluator_deployment"]
+    deployment = None
     if deployment_path.is_file():
         if custody is None:
             raise ValueError("production evaluator deployment exists without validated custody")
-        validate_production_deployment_record(
+        deployment = validate_production_deployment_record(
             json.loads(deployment_path.read_text(encoding="utf-8")),
             expected_bundle_sha256=preflight["payload"]["evaluator_isolation"]["bundle_manifest_sha256"],
             expected_custody_record_sha256=custody["sha256"],
         )
+    runtime_path = root / REQUIRED_EXTERNAL_INPUTS["runtime_and_asset_identities"]
+    runtime = None
+    if runtime_path.is_file():
+        if deployment is None:
+            raise ValueError("runtime identity record exists without validated evaluator deployment")
+        candidate = json.loads(
+            (root / "results/agent-supervisor/g0/runtime-identities-candidate-v4.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        runtime = validate_runtime_identity_record(
+            json.loads(runtime_path.read_text(encoding="utf-8")),
+            expected_candidate_sha256=candidate["sha256"],
+            expected_evaluator_environment_sha256=deployment["payload"]["environment_identity_sha256"],
+            expected_development_reset_sha256=preflight["payload"]["reset_artifacts"]["development"]["sha256"],
+            expected_final_reset_sha256=preflight["payload"]["reset_artifacts"]["final"]["sha256"],
+        )
+    cost_path = root / REQUIRED_EXTERNAL_INPUTS["cost_and_retention_envelope"]
+    cost = None
+    if cost_path.is_file():
+        if runtime is None:
+            raise ValueError("cost record exists without validated runtime identity")
+        cost = validate_cost_retention_record(
+            json.loads(cost_path.read_text(encoding="utf-8")),
+            expected_durable_store_identity_sha256=runtime["payload"]["durable_store_identity_sha256"],
+        )
+    acceptance_path = root / REQUIRED_EXTERNAL_INPUTS["human_protocol_acceptance"]
+    acceptance = None
+    if acceptance_path.is_file():
+        if custody is None or deployment is None or runtime is None or cost is None:
+            raise ValueError("protocol acceptance exists without all validated prerequisite records")
+        acceptance = validate_protocol_acceptance_record(
+            json.loads(acceptance_path.read_text(encoding="utf-8")),
+            expected_runtime_sha256=runtime["sha256"],
+            expected_cost_sha256=cost["sha256"],
+            expected_custody_sha256=custody["sha256"],
+            expected_deployment_sha256=deployment["sha256"],
+        )
+    ready = not missing and all(
+        item is not None for item in (custody, deployment, runtime, cost, acceptance)
+    )
     payload = {
         "schema_version": 1,
         "gate": "G0",
-        "status": "blocked_missing_external_inputs" if missing else "blocked_pending_ready_transition_review",
+        "status": "ready_for_e1_preflight_only" if ready else "blocked_missing_external_inputs",
         "accepted_local_design": {
             "training_seeds": [2026, 2027, 2028],
             "stage1_checkpoints": [250, 500, 1000, 2000],
@@ -108,7 +157,7 @@ def build_readiness(root: Path = ROOT) -> dict:
         "e0_preflight_sha256": preflight["sha256"],
         "required_external_inputs": REQUIRED_EXTERNAL_INPUTS,
         "missing_external_inputs": missing,
-        "ready_transition_implemented": False,
+        "ready_transition_implemented": True,
         "scientific_evaluation_authorized": False,
         "campaign_activation_authorized": False,
         "gpu_execution_authorized": False,

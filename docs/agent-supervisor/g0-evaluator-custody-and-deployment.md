@@ -53,6 +53,10 @@ rehearsal even when every path and hash check passes.
 Both production records remain non-authorizing. They are prerequisites for the
 separate human protocol-acceptance and activation gates.
 
+The remaining runtime, cost, and human-acceptance records and their cross-hash
+ordering are defined in
+[`g0-production-acceptance-runbook.md`](g0-production-acceptance-runbook.md).
+
 ## Local rehearsal result
 
 The private final artifact directory was tightened from mode `0755` to `0500`,

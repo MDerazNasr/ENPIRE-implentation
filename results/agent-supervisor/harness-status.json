@@ -103,13 +103,13 @@
     },
     "g0_readiness_gate": {
       "status": "blocked_missing_external_inputs",
-      "artifact": "results/agent-supervisor/g0/g0-readiness-lambda-h100-route-v1.json",
+      "artifact": "results/agent-supervisor/g0/g0-readiness-production-acceptance-v3.json",
       "missing_external_input_count": 5,
-      "ready_transition_implemented": false,
+      "ready_transition_implemented": true,
       "scientific_execution_authorized": false
     },
     "local_regression": {
-      "tests": 320,
+      "tests": 327,
       "subtests": 142,
       "status": "pass"
     }
@@ -149,6 +149,7 @@
     "docs/agent-supervisor/g0-e0-independent-evaluator.md",
     "docs/agent-supervisor/g0-evaluator-custody-and-deployment.md",
     "docs/agent-supervisor/g0-runtime-cost-retention-candidate.md",
+    "docs/agent-supervisor/g0-production-acceptance-runbook.md",
     "docs/agent-supervisor/g0-remaining-decisions-proposal.md",
     "docs/agent-supervisor/g0-reset-source-audit.md",
     "docs/agent-supervisor/architecture-contract.md",
