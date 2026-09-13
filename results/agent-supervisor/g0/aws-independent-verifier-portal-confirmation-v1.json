@@ -1,0 +1,30 @@
+{
+  "payload": {
+    "account_assignment_visible": true,
+    "account_id": "125273094215",
+    "authority": {
+      "campaign_activation_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "bootstrap_artifact": "results/agent-supervisor/g0/aws-independent-verifier-bootstrap-v1.json",
+    "evidence_source": "user_attestation",
+    "human_independence_accepted": false,
+    "model_egress_occurred": false,
+    "observed_date": "2026-09-13",
+    "password_or_credential_recorded": false,
+    "permission_set_visibility_explicitly_confirmed": false,
+    "portal_login_confirmed": true,
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-independent-verifier-portal-confirmation",
+    "role_assumption_verified": false,
+    "role_assumption_verifiable_before_stack_execution": false,
+    "schema_version": 1,
+    "technical_identity_separation_established": true,
+    "user_name_sha256": "6bd2a28013b82282a636e876cbefee325b9437f710fbaf4b063334ea94f393ea"
+  },
+  "sha256": "e61d1e6ef94dcce755f9fc6fce8926b45f7ded8250629e169c02ddf7b436d357"
+}

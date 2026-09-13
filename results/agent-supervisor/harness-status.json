@@ -103,7 +103,7 @@
     },
     "g0_readiness_gate": {
       "status": "blocked_missing_external_inputs",
-      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-verifier-bootstrap-v7.json",
+      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-verifier-login-v8.json",
       "missing_external_input_count": 5,
       "ready_transition_implemented": true,
       "scientific_execution_authorized": false
@@ -125,7 +125,11 @@
       "audit_template_trust_correction_in_review_change_set": true,
       "dedicated_verifier_bootstrap_artifact": "results/agent-supervisor/g0/aws-independent-verifier-bootstrap-v1.json",
       "dedicated_verifier_technical_separation": true,
-      "dedicated_verifier_login_verified": false,
+      "dedicated_verifier_login_verified": true,
+      "dedicated_verifier_portal_confirmation_artifact": "results/agent-supervisor/g0/aws-independent-verifier-portal-confirmation-v1.json",
+      "dedicated_verifier_account_visible": true,
+      "dedicated_verifier_permission_set_visibility_explicitly_confirmed": false,
+      "dedicated_verifier_role_assumption_verified": false,
       "dedicated_verifier_human_independence_accepted": false,
       "retained_empty_bucket_count": 0,
       "attempt_1_object_lock_was_activated": true,
