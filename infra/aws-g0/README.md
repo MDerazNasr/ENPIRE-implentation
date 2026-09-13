@@ -105,15 +105,26 @@ The two empty compliance-locked buckets were retained as designed:
 - `enpire-g0-audit-anchorbucket-a6fzfrpcdmc7`
 - `enpire-g0-audit-auditlogbucket-13fyadzqjtn7`
 
-Both have Object Lock enabled with 30-day compliance retention, versioning,
+Both had Object Lock enabled with 30-day compliance retention, versioning,
 AES256 default encryption, and all public-access blocks. Both were empty when
-inspected. Their stack-created bucket policies were rolled back, so they must
-not be used. The roles and policies were deleted. The terminal receipt is
+inspected. Their stack-created bucket policies were rolled back, and the roles
+and policies were deleted. The terminal receipt is
 `results/agent-supervisor/g0/aws-audit-stack-attempt-1-terminal.json`.
 
 The template now uses the evaluator account root as the syntactically valid
 trust principal and constrains `aws:PrincipalArn` to the exact future evaluator
 role. This preserves the intended caller boundary while allowing the audit
-stack to be created before the evaluator role exists. This local correction is
-not a deployment or a retry. Deleting the retained buckets or failed stack and
-creating or executing another change set each require explicit approval.
+stack to be created before the evaluator role exists.
+
+After a second exact approval, both named empty retained buckets and the failed
+stack metadata were deleted and their absence verified. No stored data was
+deleted. Cleanup receipt:
+`results/agent-supervisor/g0/aws-audit-stack-attempt-1-cleanup.json`.
+
+Corrected change set `g0-audit-corrected-v2` is now
+`CREATE_COMPLETE/AVAILABLE` for review. Its placeholder stack remains
+`REVIEW_IN_PROGRESS` with zero resources and no outputs. Review receipt:
+`results/agent-supervisor/g0/aws-audit-change-set-review-v2.json`. The change
+set has not been executed. Its temporary SSO administrator verifier principal
+does not satisfy the final independent-verifier boundary. Execution requires a
+new exact approval and must not be treated as production custody acceptance.

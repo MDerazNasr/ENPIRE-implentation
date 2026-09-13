@@ -1,0 +1,42 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "authority": {
+      "campaign_activation_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "cleanup_exactly_approved": true,
+    "data_deleted": false,
+    "deleted_buckets": [
+      {
+        "empty_before_deletion": true,
+        "name": "enpire-g0-audit-anchorbucket-a6fzfrpcdmc7",
+        "post_delete_head_status": "404_NOT_FOUND"
+      },
+      {
+        "empty_before_deletion": true,
+        "name": "enpire-g0-audit-auditlogbucket-13fyadzqjtn7",
+        "post_delete_head_status": "404_NOT_FOUND"
+      }
+    ],
+    "deleted_failed_stack": {
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:stack/enpire-g0-audit/5c7bcb40-af74-11f1-88bb-0a59b2f91049",
+      "name": "enpire-g0-audit",
+      "pre_delete_status": "ROLLBACK_COMPLETE",
+      "post_delete_describe_status": "DOES_NOT_EXIST"
+    },
+    "irreversible_deletion": true,
+    "model_egress_occurred": false,
+    "observed_date": "2026-09-13",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-audit-stack-attempt-cleanup",
+    "region": "us-west-2",
+    "schema_version": 1,
+    "terminal_attempt_artifact": "results/agent-supervisor/g0/aws-audit-stack-attempt-1-terminal.json"
+  },
+  "sha256": "55393a68d4e665bab2bab03f082a6c2598a54b1d3eec0f461003fdd23c700f09"
+}
