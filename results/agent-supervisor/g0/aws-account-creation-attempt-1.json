@@ -1,0 +1,37 @@
+{
+  "payload": {
+    "bucket_created": false,
+    "campaign_activation_authorized": false,
+    "cloudformation_executed": false,
+    "email_values_recorded": false,
+    "gpu_execution_authorized": false,
+    "management_account_id": "686194638827",
+    "model_egress_authorized": false,
+    "object_lock_activated": false,
+    "observed_date": "2026-09-13",
+    "paid_execution_authorized": false,
+    "private_artifact_uploaded": false,
+    "promotion_authorized": false,
+    "provider_call_authorized": false,
+    "record_kind": "g0-aws-member-account-creation-attempt",
+    "requests": [
+      {
+        "account_id": null,
+        "account_name": "enpire-evaluator",
+        "failure_reason": "EMAIL_ALREADY_EXISTS",
+        "request_id": "car-b04b91f4ae5741409b9a2b397617ca46",
+        "state": "FAILED"
+      },
+      {
+        "account_id": "125273094215",
+        "account_name": "enpire-audit",
+        "failure_reason": null,
+        "request_id": "car-7526c831696147f791f61fb9aa459bce",
+        "state": "SUCCEEDED"
+      }
+    ],
+    "schema_version": 1,
+    "scientific_execution_authorized": false
+  },
+  "sha256": "d41608da941358a4eaa73f298a32fb38c73adafb1611c70052e28c6b4e2e7099"
+}

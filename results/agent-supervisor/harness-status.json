@@ -108,6 +108,14 @@
       "ready_transition_implemented": true,
       "scientific_execution_authorized": false
     },
+    "g0_aws_account_provisioning": {
+      "status": "partial_audit_created_evaluator_email_rejected",
+      "artifact": "results/agent-supervisor/g0/aws-account-creation-attempt-1.json",
+      "audit_account_created": true,
+      "evaluator_account_created": false,
+      "cloudformation_executed": false,
+      "private_artifact_uploaded": false
+    },
     "local_regression": {
       "tests": 330,
       "subtests": 142,

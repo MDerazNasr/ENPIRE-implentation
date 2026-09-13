@@ -72,3 +72,12 @@ from final object reads, and the cross-account trail parameter.
 Do not deploy either stack merely to test syntax. After SSO is configured, use
 CloudFormation validation and change sets first. Review the change set and the
 final cost/retention envelope before executing it.
+
+## Current account provisioning status
+
+Account-creation attempt 1 is retained in
+`results/agent-supervisor/g0/aws-account-creation-attempt-1.json`. The audit
+account was created successfully. The evaluator request failed because AWS
+reported that the requested email already belongs to an AWS account. No retry
+is authorized until a different unique evaluator email is explicitly approved.
+No stack, bucket, lock, or private upload has occurred.
