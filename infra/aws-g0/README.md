@@ -83,3 +83,12 @@ was inferred. After exact approval, attempt 2 used a different unique alias and
 created the evaluator account successfully; its receipt is
 `results/agent-supervisor/g0/aws-account-creation-attempt-2.json`. Both member
 accounts now exist. No stack, bucket, lock, or private upload has occurred.
+
+The user's Identity Center principal now has explicitly approved temporary
+`AdministratorAccess` assignments in both member accounts. Local profiles
+`enpire-audit` and `enpire-evaluator` resolve to the correct account IDs, and
+AWS CloudFormation `validate-template` accepts both templates. The receipt is
+`results/agent-supervisor/g0/aws-temporary-bootstrap-access-v1.json`. This is
+bootstrap access only and does not satisfy the independent-reviewer boundary.
+It must be narrowed after infrastructure verification and before production
+custody can be accepted.

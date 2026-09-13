@@ -1,0 +1,51 @@
+{
+  "payload": {
+    "assignments": [
+      {
+        "account_id": "125273094215",
+        "account_name": "enpire-audit",
+        "identity_verified": true,
+        "profile": "enpire-audit",
+        "request_id": "0b58266a-daf4-4958-8864-7f0acb595c80",
+        "status": "SUCCEEDED"
+      },
+      {
+        "account_id": "960946312280",
+        "account_name": "enpire-evaluator",
+        "identity_verified": true,
+        "profile": "enpire-evaluator",
+        "request_id": "70ad1107-4588-4f03-9e27-ec230fc1acd2",
+        "status": "SUCCEEDED"
+      }
+    ],
+    "aws_cloudformation_validation": {
+      "audit_template_valid": true,
+      "evaluator_template_valid": true,
+      "resources_created": false
+    },
+    "bucket_created": false,
+    "campaign_activation_authorized": false,
+    "cloudformation_executed": false,
+    "gpu_execution_authorized": false,
+    "identity_center": {
+      "instance_arn": "arn:aws:sso:::instance/ssoins-79073730248b0850",
+      "permission_set_arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-7907feccd5b1d04e",
+      "permission_set_name": "AdministratorAccess",
+      "principal_id": "c881c3c0-8091-703c-51f2-80ab8a173324",
+      "principal_type": "USER",
+      "region": "us-west-2",
+      "temporary": true
+    },
+    "model_egress_authorized": false,
+    "object_lock_activated": false,
+    "observed_date": "2026-09-13",
+    "paid_execution_authorized": false,
+    "private_artifact_uploaded": false,
+    "promotion_authorized": false,
+    "provider_call_authorized": false,
+    "record_kind": "g0-aws-temporary-bootstrap-access",
+    "schema_version": 1,
+    "scientific_execution_authorized": false
+  },
+  "sha256": "c84071ac812d889985440753fbca2b24eb602be3dc401902fed1799f32334265"
+}

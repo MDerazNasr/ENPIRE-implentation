@@ -113,6 +113,9 @@
       "artifact": "results/agent-supervisor/g0/aws-account-creation-attempt-2.json",
       "audit_account_created": true,
       "evaluator_account_created": true,
+      "temporary_bootstrap_access_assigned": true,
+      "temporary_bootstrap_access_artifact": "results/agent-supervisor/g0/aws-temporary-bootstrap-access-v1.json",
+      "aws_template_validation_passed": true,
       "cloudformation_executed": false,
       "private_artifact_uploaded": false
     },
