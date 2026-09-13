@@ -1,0 +1,38 @@
+{
+  "payload": {
+    "account_assignment_visible": true,
+    "authority": {
+      "campaign_activation_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "corrected_prior_artifact": "results/agent-supervisor/g0/aws-independent-verifier-portal-correction-v2.json",
+    "evidence_source": "user_attested_portal_transcription",
+    "human_independence_accepted": false,
+    "mfa_enrollment_explicitly_confirmed": false,
+    "model_egress_occurred": false,
+    "observed_date": "2026-09-13",
+    "observed_portal_view": {
+      "account_count": 1,
+      "accounts": [
+        {
+          "account_id": "125273094215",
+          "account_name": "enpire-audit",
+          "permission_sets": ["ENPIREG0VerifierAccess"]
+        }
+      ]
+    },
+    "password_or_credential_recorded": false,
+    "portal_login_confirmed": true,
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-independent-verifier-portal-confirmation",
+    "role_assumption_verified": false,
+    "schema_version": 1,
+    "technical_identity_separation_established": true,
+    "user_name_sha256": "6bd2a28013b82282a636e876cbefee325b9437f710fbaf4b063334ea94f393ea"
+  },
+  "sha256": "f16bfeacadb631ca5f00f264c067f0331d20b1b152a4f74c04dbfe5577d19750"
+}

@@ -140,8 +140,12 @@ correction is preserved in
 Dedicated-verifier login and account visibility therefore remain unconfirmed.
 The expected verifier view is only the audit account with
 `ENPIREG0VerifierAccess`. The target verifier role cannot be assumed until the
-stack creates it. Independent human ownership/control remains unverified and
-is not accepted.
+stack creates it. The user subsequently completed the administrator-issued
+password setup and reported the exact expected portal view: one `enpire-audit`
+account and only `ENPIREG0VerifierAccess`. This successful corrected
+attestation is preserved in
+`results/agent-supervisor/g0/aws-independent-verifier-portal-confirmation-v3.json`.
+Independent human ownership/control remains unverified and is not accepted.
 
 Replacement change set `g0-audit-independent-verifier-v3` is
 `CREATE_COMPLETE/AVAILABLE`. Its placeholder stack remains
