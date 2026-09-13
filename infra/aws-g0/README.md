@@ -121,10 +121,22 @@ stack metadata were deleted and their absence verified. No stored data was
 deleted. Cleanup receipt:
 `results/agent-supervisor/g0/aws-audit-stack-attempt-1-cleanup.json`.
 
-Corrected change set `g0-audit-corrected-v2` is now
-`CREATE_COMPLETE/AVAILABLE` for review. Its placeholder stack remains
+Corrected change set `g0-audit-corrected-v2` reached
+`CREATE_COMPLETE/AVAILABLE` for review and is preserved in
+`results/agent-supervisor/g0/aws-audit-change-set-review-v2.json`. It was never
+executed and has now been deleted as superseded.
+
+A dedicated Identity Center user and `ENPIREG0VerifierAccess` permission set
+now exist. The permission set has no managed-policy attachments and grants only
+`sts:AssumeRole` on `enpire-g0-independent-verifier` in the audit account. Its
+bootstrap receipt is
+`results/agent-supervisor/g0/aws-independent-verifier-bootstrap-v1.json`.
+Technical identity separation exists, but verifier login and independent human
+ownership/control remain unverified and are not accepted.
+
+Replacement change set `g0-audit-independent-verifier-v3` is
+`CREATE_COMPLETE/AVAILABLE`. Its placeholder stack remains
 `REVIEW_IN_PROGRESS` with zero resources and no outputs. Review receipt:
-`results/agent-supervisor/g0/aws-audit-change-set-review-v2.json`. The change
-set has not been executed. Its temporary SSO administrator verifier principal
-does not satisfy the final independent-verifier boundary. Execution requires a
-new exact approval and must not be treated as production custody acceptance.
+`results/agent-supervisor/g0/aws-audit-change-set-review-v3.json`. It has not
+been executed. Execution requires a new exact approval and must not be treated
+as production custody acceptance.

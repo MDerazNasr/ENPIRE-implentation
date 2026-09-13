@@ -1,0 +1,56 @@
+{
+  "payload": {
+    "account_assignment": {
+      "account_id": "125273094215",
+      "principal_id": "48811330-e0a1-7058-9c56-7e76c65151eb",
+      "principal_type": "USER",
+      "request_id": "9932a59c-7256-46ab-af1c-2a0b69dab4fc",
+      "status": "SUCCEEDED"
+    },
+    "authority": {
+      "campaign_activation_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "generated_role": {
+      "arn": "arn:aws:iam::125273094215:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0VerifierAccess_13931da895030245",
+      "name": "AWSReservedSSO_ENPIREG0VerifierAccess_13931da895030245"
+    },
+    "identity_center": {
+      "email_sha256": "6bd2a28013b82282a636e876cbefee325b9437f710fbaf4b063334ea94f393ea",
+      "identity_store_id": "d-9267ca5b31",
+      "instance_arn": "arn:aws:sso:::instance/ssoins-79073730248b0850",
+      "user_id": "48811330-e0a1-7058-9c56-7e76c65151eb",
+      "user_name_sha256": "6bd2a28013b82282a636e876cbefee325b9437f710fbaf4b063334ea94f393ea"
+    },
+    "independent_human_control_accepted": false,
+    "independent_human_control_note": "A distinct user and mailbox were supplied, but independent ownership and control have not been verified or accepted",
+    "local_pre_api_command_errors": {
+      "count": 3,
+      "external_mutation_occurred": false,
+      "status": "preserved_non_scientific_orchestration_errors"
+    },
+    "model_egress_occurred": false,
+    "observed_date": "2026-09-13",
+    "password_or_credential_recorded": false,
+    "permission_set": {
+      "allowed_actions": ["sts:AssumeRole"],
+      "allowed_resource": "arn:aws:iam::125273094215:role/enpire-g0-independent-verifier",
+      "arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-790724c2eff8b97c",
+      "customer_managed_policy_reference_count": 0,
+      "managed_policy_attachment_count": 0,
+      "name": "ENPIREG0VerifierAccess",
+      "session_duration": "PT1H"
+    },
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-independent-verifier-bootstrap",
+    "region": "us-west-2",
+    "schema_version": 1,
+    "technical_identity_separation_established": true,
+    "verifier_login_verified": false
+  },
+  "sha256": "804d89f300be75ab64bfffb83b05b4bdbde0828dc665906dcfcbfdb514edb1f0"
+}

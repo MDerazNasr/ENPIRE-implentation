@@ -1,0 +1,58 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "campaign_activation_authorized": false,
+    "change_set": {
+      "executed": false,
+      "execution_status": "AVAILABLE",
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:changeSet/g0-audit-independent-verifier-v3/14494cef-a37a-4ceb-a83e-d4d97351d504",
+      "name": "g0-audit-independent-verifier-v3",
+      "status": "CREATE_COMPLETE"
+    },
+    "cloud_resources_created": false,
+    "gpu_execution_authorized": false,
+    "model_egress_authorized": false,
+    "object_lock_activated": false,
+    "observed_date": "2026-09-13",
+    "paid_execution_authorized": false,
+    "parameters": {
+      "evaluator_account_id": "960946312280",
+      "evaluator_role_name": "enpire-g0-evaluator",
+      "independent_verifier_principal_sha256": "41edfced667ab11f4b60ca889e641566947446b4fd3d71561b2fb2fef7919ed7",
+      "retention_days": 30,
+      "trail_name": "enpire-g0-evaluator-trail"
+    },
+    "private_artifact_uploaded": false,
+    "promotion_authorized": false,
+    "proposed_changes": [
+      {"action": "Add", "logical_resource_id": "AnchorBucket", "resource_type": "AWS::S3::Bucket"},
+      {"action": "Add", "logical_resource_id": "AnchorBucketPolicy", "resource_type": "AWS::S3::BucketPolicy"},
+      {"action": "Add", "logical_resource_id": "AnchorWriterRole", "resource_type": "AWS::IAM::Role"},
+      {"action": "Add", "logical_resource_id": "AuditLogBucket", "resource_type": "AWS::S3::Bucket"},
+      {"action": "Add", "logical_resource_id": "AuditBucketPolicy", "resource_type": "AWS::S3::BucketPolicy"},
+      {"action": "Add", "logical_resource_id": "IndependentVerifierRole", "resource_type": "AWS::IAM::Role"}
+    ],
+    "provider_call_authorized": false,
+    "record_kind": "g0-aws-audit-change-set-review",
+    "region": "us-west-2",
+    "schema_version": 1,
+    "scientific_execution_authorized": false,
+    "stack": {
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:stack/enpire-g0-audit/77d57680-af87-11f1-a945-0a4675df858b",
+      "name": "enpire-g0-audit",
+      "resource_count": 0,
+      "status": "REVIEW_IN_PROGRESS"
+    },
+    "superseded_change_set": {
+      "deleted": true,
+      "name": "g0-audit-corrected-v2",
+      "review_artifact": "results/agent-supervisor/g0/aws-audit-change-set-review-v2.json"
+    },
+    "template_sha256": "8f05eeb7c17617a24a70f36fe6b354522997896b10df0ef6f2cb7062b24c934f",
+    "verifier_bootstrap_artifact": "results/agent-supervisor/g0/aws-independent-verifier-bootstrap-v1.json",
+    "verifier_login_verified": false,
+    "verifier_technical_separation_established": true,
+    "verifier_human_independence_accepted": false
+  },
+  "sha256": "d044b8212f822b1602f3e7e209f0ae181392efa0304c72250e34c8aa97fdb330"
+}
