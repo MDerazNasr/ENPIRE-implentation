@@ -79,5 +79,7 @@ Account-creation attempt 1 is retained in
 `results/agent-supervisor/g0/aws-account-creation-attempt-1.json`. The audit
 account was created successfully. The evaluator request failed because AWS
 reported that the requested email already belongs to an AWS account. No retry
-is authorized until a different unique evaluator email is explicitly approved.
-No stack, bucket, lock, or private upload has occurred.
+was inferred. After exact approval, attempt 2 used a different unique alias and
+created the evaluator account successfully; its receipt is
+`results/agent-supervisor/g0/aws-account-creation-attempt-2.json`. Both member
+accounts now exist. No stack, bucket, lock, or private upload has occurred.

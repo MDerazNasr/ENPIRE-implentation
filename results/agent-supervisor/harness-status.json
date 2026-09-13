@@ -109,10 +109,10 @@
       "scientific_execution_authorized": false
     },
     "g0_aws_account_provisioning": {
-      "status": "partial_audit_created_evaluator_email_rejected",
-      "artifact": "results/agent-supervisor/g0/aws-account-creation-attempt-1.json",
+      "status": "evaluator_and_audit_accounts_created_access_assignment_pending",
+      "artifact": "results/agent-supervisor/g0/aws-account-creation-attempt-2.json",
       "audit_account_created": true,
-      "evaluator_account_created": false,
+      "evaluator_account_created": true,
       "cloudformation_executed": false,
       "private_artifact_uploaded": false
     },
