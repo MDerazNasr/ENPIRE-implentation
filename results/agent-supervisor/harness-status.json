@@ -103,26 +103,31 @@
     },
     "g0_readiness_gate": {
       "status": "blocked_missing_external_inputs",
-      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-infrastructure-v4.json",
+      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-audit-failure-v5.json",
       "missing_external_input_count": 5,
       "ready_transition_implemented": true,
       "scientific_execution_authorized": false
     },
     "g0_aws_account_provisioning": {
-      "status": "evaluator_and_audit_accounts_created_access_assignment_pending",
+      "status": "audit_stack_attempt_1_rollback_complete_retained_empty_buckets",
       "artifact": "results/agent-supervisor/g0/aws-account-creation-attempt-2.json",
       "audit_account_created": true,
       "evaluator_account_created": true,
       "temporary_bootstrap_access_assigned": true,
       "temporary_bootstrap_access_artifact": "results/agent-supervisor/g0/aws-temporary-bootstrap-access-v1.json",
       "aws_template_validation_passed": true,
-      "audit_change_set_status": "CREATE_COMPLETE_AVAILABLE_NOT_EXECUTED",
+      "aws_template_check_artifact": "results/agent-supervisor/g0/aws-infrastructure-template-check-v2.json",
+      "audit_change_set_status": "EXECUTION_FAILED_ROLLBACK_COMPLETE",
       "audit_change_set_artifact": "results/agent-supervisor/g0/aws-audit-change-set-review-v1.json",
-      "cloudformation_executed": false,
+      "audit_stack_terminal_artifact": "results/agent-supervisor/g0/aws-audit-stack-attempt-1-terminal.json",
+      "audit_template_trust_correction_local_only": true,
+      "retained_empty_bucket_count": 2,
+      "object_lock_activated": true,
+      "cloudformation_executed": true,
       "private_artifact_uploaded": false
     },
     "local_regression": {
-      "tests": 330,
+      "tests": 331,
       "subtests": 142,
       "status": "pass"
     }

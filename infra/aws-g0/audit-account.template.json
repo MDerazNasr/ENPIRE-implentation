@@ -86,9 +86,16 @@
           "Statement": [{
             "Effect": "Allow",
             "Principal": {
-              "AWS": {"Fn::Sub": "arn:${AWS::Partition}:iam::${EvaluatorAccountId}:role/${EvaluatorRoleName}"}
+              "AWS": {"Fn::Sub": "arn:${AWS::Partition}:iam::${EvaluatorAccountId}:root"}
             },
-            "Action": "sts:AssumeRole"
+            "Action": "sts:AssumeRole",
+            "Condition": {
+              "ArnEquals": {
+                "aws:PrincipalArn": {
+                  "Fn::Sub": "arn:${AWS::Partition}:iam::${EvaluatorAccountId}:role/${EvaluatorRoleName}"
+                }
+              }
+            }
           }]
         },
         "Policies": [{

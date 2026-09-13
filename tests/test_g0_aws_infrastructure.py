@@ -40,6 +40,34 @@ class G0AwsInfrastructureTests(unittest.TestCase):
         with self.assertRaises(G0AwsInfrastructureError):
             _assert_locked_bucket(bucket, "FinalInputBucket")
 
+    def test_anchor_writer_trust_allows_ordered_deployment_without_broadening_access(self) -> None:
+        template = json.loads((ROOT / TEMPLATES["audit"]).read_text(encoding="utf-8"))
+        trust = template["Resources"]["AnchorWriterRole"]["Properties"][
+            "AssumeRolePolicyDocument"
+        ]["Statement"]
+        self.assertEqual(
+            trust,
+            [{
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": {
+                        "Fn::Sub": "arn:${AWS::Partition}:iam::${EvaluatorAccountId}:root"
+                    }
+                },
+                "Action": "sts:AssumeRole",
+                "Condition": {
+                    "ArnEquals": {
+                        "aws:PrincipalArn": {
+                            "Fn::Sub": (
+                                "arn:${AWS::Partition}:iam::${EvaluatorAccountId}:"
+                                "role/${EvaluatorRoleName}"
+                            )
+                        }
+                    }
+                },
+            }],
+        )
+
     def test_cli_is_create_only_and_byte_stable(self) -> None:
         with tempfile.TemporaryDirectory(prefix="enpire-g0-aws-test-") as temporary:
             output = Path(temporary) / "receipt.json"

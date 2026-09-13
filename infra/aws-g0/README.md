@@ -53,7 +53,7 @@ The checker verifies the template hashes, locked-bucket controls, absence of
 delete permissions, worker exclusion from final inputs, verifier exclusion
 from final object reads, and the cross-account trail parameter.
 
-## Deployment sequence — not yet authorized
+## Deployment sequence
 
 1. Create the evaluator and audit accounts, enable MFA, and configure AWS IAM
    Identity Center/SSO profiles. Never place access keys in the repository or
@@ -93,10 +93,27 @@ bootstrap access only and does not satisfy the independent-reviewer boundary.
 It must be narrowed after infrastructure verification and before production
 custody can be accepted.
 
-Audit change set `g0-audit-initial-v1` was created for review only and reached
-`CREATE_COMPLETE/AVAILABLE`. It proposes six additions: two compliance-locked
-buckets, two bucket policies, and two IAM roles. The stack remains
-`REVIEW_IN_PROGRESS` with zero resources. Review receipt:
-`results/agent-supervisor/g0/aws-audit-change-set-review-v1.json`. Executing
-this change set requires separate exact approval because it activates
-compliance-mode retention.
+Audit change set `g0-audit-initial-v1` was first created for review only and
+reached `CREATE_COMPLETE/AVAILABLE`. Its pre-execution review receipt is
+`results/agent-supervisor/g0/aws-audit-change-set-review-v1.json`. After exact
+approval, execution failed while creating `AnchorWriterRole`: IAM rejected the
+trust policy because it named the not-yet-created evaluator role as a
+principal. CloudFormation rolled the stack back to `ROLLBACK_COMPLETE`.
+
+The two empty compliance-locked buckets were retained as designed:
+
+- `enpire-g0-audit-anchorbucket-a6fzfrpcdmc7`
+- `enpire-g0-audit-auditlogbucket-13fyadzqjtn7`
+
+Both have Object Lock enabled with 30-day compliance retention, versioning,
+AES256 default encryption, and all public-access blocks. Both were empty when
+inspected. Their stack-created bucket policies were rolled back, so they must
+not be used. The roles and policies were deleted. The terminal receipt is
+`results/agent-supervisor/g0/aws-audit-stack-attempt-1-terminal.json`.
+
+The template now uses the evaluator account root as the syntactically valid
+trust principal and constrains `aws:PrincipalArn` to the exact future evaluator
+role. This preserves the intended caller boundary while allowing the audit
+stack to be created before the evaluator role exists. This local correction is
+not a deployment or a retry. Deleting the retained buckets or failed stack and
+creating or executing another change set each require explicit approval.

@@ -1,0 +1,90 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "authority": {
+      "campaign_activation_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "change_set": {
+      "executed_after_exact_approval": true,
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:changeSet/g0-audit-initial-v1/ae418f9d-e821-4d28-b401-6a22b6b31812",
+      "name": "g0-audit-initial-v1"
+    },
+    "cloud_resources_remaining": true,
+    "failure": {
+      "dependent_resource_creation_cancelled": true,
+      "logical_resource_id": "AnchorWriterRole",
+      "reason": "IAM rejected the trust policy's direct role principal because the future evaluator role did not yet exist",
+      "resource_type": "AWS::IAM::Role"
+    },
+    "inspection_history": {
+      "projected_length_queries": {
+        "reason": "AWS returned null for absent Versions and DeleteMarkers arrays",
+        "status": "failed"
+      },
+      "raw_object_version_listings": {
+        "delete_markers_present": false,
+        "status": "passed",
+        "versions_present": false
+      }
+    },
+    "model_egress_occurred": false,
+    "object_lock_activated": true,
+    "observed_date": "2026-09-13",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-audit-stack-attempt-terminal",
+    "region": "us-west-2",
+    "retained_bucket_count": 2,
+    "retained_buckets": [
+      {
+        "bucket_policy_present": false,
+        "delete_marker_count": 0,
+        "default_encryption": "AES256",
+        "name": "enpire-g0-audit-anchorbucket-a6fzfrpcdmc7",
+        "object_lock": {"default_retention_days": 30, "enabled": true, "mode": "COMPLIANCE"},
+        "object_version_count": 0,
+        "public_access_block": {
+          "block_public_acls": true,
+          "block_public_policy": true,
+          "ignore_public_acls": true,
+          "restrict_public_buckets": true
+        },
+        "role": "anchor",
+        "versioning_status": "Enabled"
+      },
+      {
+        "bucket_policy_present": false,
+        "delete_marker_count": 0,
+        "default_encryption": "AES256",
+        "name": "enpire-g0-audit-auditlogbucket-13fyadzqjtn7",
+        "object_lock": {"default_retention_days": 30, "enabled": true, "mode": "COMPLIANCE"},
+        "object_version_count": 0,
+        "public_access_block": {
+          "block_public_acls": true,
+          "block_public_policy": true,
+          "ignore_public_acls": true,
+          "restrict_public_buckets": true
+        },
+        "role": "audit-log",
+        "versioning_status": "Enabled"
+      }
+    ],
+    "rolled_back_resources": [
+      {"deleted": true, "logical_resource_id": "AnchorBucketPolicy", "resource_type": "AWS::S3::BucketPolicy"},
+      {"deleted": true, "logical_resource_id": "AuditBucketPolicy", "resource_type": "AWS::S3::BucketPolicy"},
+      {"deleted": true, "logical_resource_id": "AnchorWriterRole", "resource_type": "AWS::IAM::Role"},
+      {"deleted": true, "logical_resource_id": "IndependentVerifierRole", "resource_type": "AWS::IAM::Role"}
+    ],
+    "schema_version": 1,
+    "stack": {
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:stack/enpire-g0-audit/5c7bcb40-af74-11f1-88bb-0a59b2f91049",
+      "name": "enpire-g0-audit",
+      "status": "ROLLBACK_COMPLETE"
+    }
+  },
+  "sha256": "241ac545c7d00905b5ab86ab9c55e4e248b289b62070e9b803625871f8710365"
+}

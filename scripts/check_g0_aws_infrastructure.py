@@ -101,6 +101,29 @@ def check_templates(root: Path = ROOT) -> dict[str, Any]:
         overlap = _actions(role) & forbidden
         if overlap:
             raise G0AwsInfrastructureError(f"{name} grants forbidden actions: {sorted(overlap)}")
+    anchor_trust = roles["AnchorWriterRole"]["Properties"]["AssumeRolePolicyDocument"]["Statement"]
+    expected_anchor_trust = [{
+        "Effect": "Allow",
+        "Principal": {
+            "AWS": {"Fn::Sub": "arn:${AWS::Partition}:iam::${EvaluatorAccountId}:root"}
+        },
+        "Action": "sts:AssumeRole",
+        "Condition": {
+            "ArnEquals": {
+                "aws:PrincipalArn": {
+                    "Fn::Sub": (
+                        "arn:${AWS::Partition}:iam::${EvaluatorAccountId}:"
+                        "role/${EvaluatorRoleName}"
+                    )
+                }
+            }
+        },
+    }]
+    if anchor_trust != expected_anchor_trust:
+        raise G0AwsInfrastructureError(
+            "anchor writer trust must use the evaluator account root constrained "
+            "to the exact evaluator role ARN"
+        )
     worker_actions = _actions(roles["WorkerUploadRole"])
     if "s3:GetObject" in worker_actions or "s3:GetObjectVersion" in worker_actions:
         raise G0AwsInfrastructureError("worker can read evidence or final inputs")

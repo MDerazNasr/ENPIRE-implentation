@@ -1,0 +1,33 @@
+{
+  "payload": {
+    "campaign_activation_authorized": false,
+    "cloud_resources_created": false,
+    "cross_account_audit_parameterized": true,
+    "gpu_execution_authorized": false,
+    "locked_bucket_count": 5,
+    "minimum_retention_days": 30,
+    "model_egress_authorized": false,
+    "object_lock_activated": false,
+    "paid_execution_authorized": false,
+    "private_artifact_uploaded": false,
+    "promotion_authorized": false,
+    "provider_call_authorized": false,
+    "receipt_verifier_final_input_read_access": false,
+    "schema_version": 1,
+    "scientific_execution_authorized": false,
+    "status": "pass_offline_non_authorizing_template_check",
+    "templates": {
+      "audit": {
+        "path": "infra/aws-g0/audit-account.template.json",
+        "sha256": "8f05eeb7c17617a24a70f36fe6b354522997896b10df0ef6f2cb7062b24c934f"
+      },
+      "evaluator": {
+        "path": "infra/aws-g0/evaluator-account.template.json",
+        "sha256": "bb06ee098ac74d71b3c1895acd198a6d5f42aadf5ec459bbf2cb8699ec18a15d"
+      }
+    },
+    "worker_delete_access": false,
+    "worker_final_input_access": false
+  },
+  "sha256": "34655fa556189c28b66b085f48c2d9ec3d1ec13b33d334049938be9cd2194f0c"
+}
