@@ -1,0 +1,41 @@
+{
+  "payload": {
+    "authority": {
+      "campaign_activation_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "corrected_adjudication": {
+      "administrator_session_identified": true,
+      "dedicated_verifier_account_visibility_confirmed": false,
+      "dedicated_verifier_login_confirmed": false,
+      "dedicated_verifier_permission_set_visibility_confirmed": false,
+      "reason": "The observed portal exposed three accounts with AdministratorAccess; the dedicated verifier assignment exposes only the audit account with ENPIREG0VerifierAccess",
+      "status": "prior_attestation_misattributed_inconclusive"
+    },
+    "expected_dedicated_verifier_view": {
+      "account_count": 1,
+      "account_id": "125273094215",
+      "permission_set": "ENPIREG0VerifierAccess"
+    },
+    "human_independence_accepted": false,
+    "model_egress_occurred": false,
+    "observed_administrator_view": {
+      "account_count": 3,
+      "account_ids": ["125273094215", "960946312280", "686194638827"],
+      "permission_set": "AdministratorAccess"
+    },
+    "observed_date": "2026-09-13",
+    "password_or_credential_recorded": false,
+    "prior_portal_artifact": "results/agent-supervisor/g0/aws-independent-verifier-portal-confirmation-v1.json",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-independent-verifier-portal-correction",
+    "role_assumption_verified": false,
+    "schema_version": 1,
+    "technical_identity_separation_established": true
+  },
+  "sha256": "7eca336efd5f75822db1432b1ae9ed3c85fcd26b13a719cf3157440e222b93e9"
+}

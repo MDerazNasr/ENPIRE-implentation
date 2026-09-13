@@ -131,12 +131,17 @@ now exist. The permission set has no managed-policy attachments and grants only
 `sts:AssumeRole` on `enpire-g0-independent-verifier` in the audit account. Its
 bootstrap receipt is
 `results/agent-supervisor/g0/aws-independent-verifier-bootstrap-v1.json`.
-Technical identity separation exists. The user confirmed that the dedicated
-identity can sign in to the portal and see the audit account; receipt:
-`results/agent-supervisor/g0/aws-independent-verifier-portal-confirmation-v1.json`.
-The permission-set label was not explicitly confirmed in that attestation, and
-the target verifier role cannot be assumed until the stack creates it.
-Independent human ownership/control remains unverified and is not accepted.
+Technical identity separation exists. An initial user attestation was retained
+in `results/agent-supervisor/g0/aws-independent-verifier-portal-confirmation-v1.json`,
+but subsequent menu details showed three accounts with `AdministratorAccess`.
+That was the existing administrator session, not the dedicated verifier. The
+correction is preserved in
+`results/agent-supervisor/g0/aws-independent-verifier-portal-correction-v2.json`.
+Dedicated-verifier login and account visibility therefore remain unconfirmed.
+The expected verifier view is only the audit account with
+`ENPIREG0VerifierAccess`. The target verifier role cannot be assumed until the
+stack creates it. Independent human ownership/control remains unverified and
+is not accepted.
 
 Replacement change set `g0-audit-independent-verifier-v3` is
 `CREATE_COMPLETE/AVAILABLE`. Its placeholder stack remains
