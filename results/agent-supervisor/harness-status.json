@@ -116,6 +116,8 @@
       "temporary_bootstrap_access_assigned": true,
       "temporary_bootstrap_access_artifact": "results/agent-supervisor/g0/aws-temporary-bootstrap-access-v1.json",
       "aws_template_validation_passed": true,
+      "audit_change_set_status": "CREATE_COMPLETE_AVAILABLE_NOT_EXECUTED",
+      "audit_change_set_artifact": "results/agent-supervisor/g0/aws-audit-change-set-review-v1.json",
       "cloudformation_executed": false,
       "private_artifact_uploaded": false
     },

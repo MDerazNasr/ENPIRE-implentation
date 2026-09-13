@@ -1,0 +1,73 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "campaign_activation_authorized": false,
+    "change_set": {
+      "executed": false,
+      "execution_status": "AVAILABLE",
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:changeSet/g0-audit-initial-v1/ae418f9d-e821-4d28-b401-6a22b6b31812",
+      "name": "g0-audit-initial-v1",
+      "status": "CREATE_COMPLETE"
+    },
+    "cloud_resources_created": false,
+    "gpu_execution_authorized": false,
+    "model_egress_authorized": false,
+    "object_lock_activated": false,
+    "observed_date": "2026-09-13",
+    "paid_execution_authorized": false,
+    "parameters": {
+      "evaluator_account_id": "960946312280",
+      "evaluator_role_name": "enpire-g0-evaluator",
+      "independent_verifier_principal_sha256": "5067baa1b508467b460bd6a5595334f800bea055fc295b8c40ee0f622668be20",
+      "retention_days": 30,
+      "trail_name": "enpire-g0-evaluator-trail"
+    },
+    "private_artifact_uploaded": false,
+    "promotion_authorized": false,
+    "proposed_changes": [
+      {
+        "action": "Add",
+        "logical_resource_id": "AnchorBucket",
+        "resource_type": "AWS::S3::Bucket"
+      },
+      {
+        "action": "Add",
+        "logical_resource_id": "AnchorBucketPolicy",
+        "resource_type": "AWS::S3::BucketPolicy"
+      },
+      {
+        "action": "Add",
+        "logical_resource_id": "AnchorWriterRole",
+        "resource_type": "AWS::IAM::Role"
+      },
+      {
+        "action": "Add",
+        "logical_resource_id": "AuditLogBucket",
+        "resource_type": "AWS::S3::Bucket"
+      },
+      {
+        "action": "Add",
+        "logical_resource_id": "AuditBucketPolicy",
+        "resource_type": "AWS::S3::BucketPolicy"
+      },
+      {
+        "action": "Add",
+        "logical_resource_id": "IndependentVerifierRole",
+        "resource_type": "AWS::IAM::Role"
+      }
+    ],
+    "provider_call_authorized": false,
+    "record_kind": "g0-aws-audit-change-set-review",
+    "region": "us-west-2",
+    "schema_version": 1,
+    "scientific_execution_authorized": false,
+    "stack": {
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:stack/enpire-g0-audit/5c7bcb40-af74-11f1-88bb-0a59b2f91049",
+      "name": "enpire-g0-audit",
+      "resource_count": 0,
+      "status": "REVIEW_IN_PROGRESS"
+    },
+    "template_sha256": "a676fe117b612960a96a9378f2ed67ff1a06c4cdafe0bcbd9e8aaaeba4e07565"
+  },
+  "sha256": "72531ab951fb2f8947cc20050f4592a4ae56b73f904ce379cab18bca6391ef1a"
+}

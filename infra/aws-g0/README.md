@@ -92,3 +92,11 @@ AWS CloudFormation `validate-template` accepts both templates. The receipt is
 bootstrap access only and does not satisfy the independent-reviewer boundary.
 It must be narrowed after infrastructure verification and before production
 custody can be accepted.
+
+Audit change set `g0-audit-initial-v1` was created for review only and reached
+`CREATE_COMPLETE/AVAILABLE`. It proposes six additions: two compliance-locked
+buckets, two bucket policies, and two IAM roles. The stack remains
+`REVIEW_IN_PROGRESS` with zero resources. Review receipt:
+`results/agent-supervisor/g0/aws-audit-change-set-review-v1.json`. Executing
+this change set requires separate exact approval because it activates
+compliance-mode retention.
