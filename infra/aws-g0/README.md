@@ -174,6 +174,15 @@ but not `s3:ListBucketVersions`. The complete partial result is preserved in
 Do not claim full independent evidence verification until that missing action
 is reviewed, explicitly approved, deployed, and retested.
 
+The local audit template now adds only `s3:ListBucketVersions` to that role's
+bucket-read actions. Five focused tests, the offline security checker, and
+CloudFormation lint pass. With explicit review-only approval, update change set
+`g0-audit-verifier-list-versions-v4` was created in the audit account. It is
+`CREATE_COMPLETE/AVAILABLE` and contains exactly one in-place modification to
+`IndependentVerifierRole`; it has not been executed. The live role therefore
+still lacks `s3:ListBucketVersions`. Review receipt:
+`results/agent-supervisor/g0/aws-audit-change-set-review-v4.json`.
+
 No private object was uploaded, no evaluator stack was deployed, and no GPU,
 scientific evaluation, candidate decision, or promotion occurred. Independent
 human control remains unverified, so this engineering deployment is not

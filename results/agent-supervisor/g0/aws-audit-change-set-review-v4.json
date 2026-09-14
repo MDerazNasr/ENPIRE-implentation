@@ -1,0 +1,62 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "approval_scope": {
+      "approved_change": "add only s3:ListBucketVersions to enpire-g0-independent-verifier",
+      "change_set_execution_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "caller_identity": {
+      "account_id": "125273094215",
+      "arn": "arn:aws:sts::125273094215:assumed-role/AWSReservedSSO_AdministratorAccess_db00f801dae257f5/mderaznasr",
+      "passed": true
+    },
+    "change_set": {
+      "changes": [
+        {
+          "action": "Modify",
+          "change_source": "DirectModification",
+          "logical_resource_id": "IndependentVerifierRole",
+          "policy_action_added": "s3:ListBucketVersions",
+          "replacement": false,
+          "resource_type": "AWS::IAM::Role"
+        }
+      ],
+      "execution_status": "AVAILABLE",
+      "executed": false,
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:changeSet/g0-audit-verifier-list-versions-v4/b7365f38-2382-4b12-ae52-9140e1972d7f",
+      "name": "g0-audit-verifier-list-versions-v4",
+      "status": "CREATE_COMPLETE"
+    },
+    "cloudformation_stack": {
+      "name": "enpire-g0-audit",
+      "resource_count": 6,
+      "resources_changed": false,
+      "status": "CREATE_COMPLETE"
+    },
+    "current_live_role": {
+      "contains_s3_list_bucket_versions": false,
+      "name": "enpire-g0-independent-verifier",
+      "unchanged_after_review_creation": true
+    },
+    "observed_date": "2026-09-15",
+    "offline_validation": {
+      "cloudformation_lint_passed": true,
+      "focused_test_count": 5,
+      "focused_tests_passed": true,
+      "template_check_artifact": "results/agent-supervisor/g0/aws-infrastructure-template-check-v3.json",
+      "template_check_sha256": "fa13a9855379f06054e7e19720f3279635759d59a7008b80c5f5f9e909118ca9"
+    },
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-audit-change-set-review",
+    "region": "us-west-2",
+    "review_object_created": true,
+    "schema_version": 1,
+    "template_sha256": "6a8118c9a1071f192f942dd4f8f0064b266154be1e22ee4b1cb8779cad46a5bd"
+  },
+  "sha256": "880194f76590d93d821299431c1d51cba9a41fca8a61f5a0677ad5a8c0622050"
+}

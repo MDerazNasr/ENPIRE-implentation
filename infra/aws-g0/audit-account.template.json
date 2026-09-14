@@ -130,7 +130,7 @@
             "Statement": [
               {
                 "Effect": "Allow",
-                "Action": ["s3:GetBucketLocation", "s3:GetBucketObjectLockConfiguration", "s3:GetBucketPolicyStatus", "s3:GetBucketVersioning", "s3:ListBucket"],
+                "Action": ["s3:GetBucketLocation", "s3:GetBucketObjectLockConfiguration", "s3:GetBucketPolicyStatus", "s3:GetBucketVersioning", "s3:ListBucket", "s3:ListBucketVersions"],
                 "Resource": [{"Fn::GetAtt": ["AnchorBucket", "Arn"]}, {"Fn::GetAtt": ["AuditLogBucket", "Arn"]}]
               },
               {

@@ -47,6 +47,16 @@ def _actions(role: dict[str, Any]) -> set[str]:
     return result
 
 
+def _assert_independent_verifier_actions(role: dict[str, Any]) -> None:
+    required = {"s3:GetObjectVersion", "s3:ListBucket", "s3:ListBucketVersions"}
+    missing = required - _actions(role)
+    if missing:
+        raise G0AwsInfrastructureError(
+            "independent verifier cannot enumerate retained versions: "
+            f"{sorted(missing)}"
+        )
+
+
 def _assert_locked_bucket(resource: dict[str, Any], name: str) -> None:
     if resource.get("Type") != "AWS::S3::Bucket":
         raise G0AwsInfrastructureError(f"{name} is not an S3 bucket")
@@ -124,6 +134,7 @@ def check_templates(root: Path = ROOT) -> dict[str, Any]:
             "anchor writer trust must use the evaluator account root constrained "
             "to the exact evaluator role ARN"
         )
+    _assert_independent_verifier_actions(audit["Resources"]["IndependentVerifierRole"])
     worker_actions = _actions(roles["WorkerUploadRole"])
     if "s3:GetObject" in worker_actions or "s3:GetObjectVersion" in worker_actions:
         raise G0AwsInfrastructureError("worker can read evidence or final inputs")
@@ -148,6 +159,7 @@ def check_templates(root: Path = ROOT) -> dict[str, Any]:
         "worker_final_input_access": False,
         "worker_delete_access": False,
         "receipt_verifier_final_input_read_access": False,
+        "independent_verifier_version_enumeration": True,
         "cross_account_audit_parameterized": True,
         "cloud_resources_created": False,
         "object_lock_activated": False,

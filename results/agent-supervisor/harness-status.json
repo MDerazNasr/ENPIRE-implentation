@@ -103,23 +103,23 @@
     },
     "g0_readiness_gate": {
       "status": "blocked_missing_external_inputs",
-      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-verifier-role-v12.json",
+      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-verifier-policy-review-v13.json",
       "missing_external_input_count": 5,
       "ready_transition_implemented": true,
       "scientific_execution_authorized": false
     },
     "g0_aws_account_provisioning": {
-      "status": "audit_stack_create_complete_verifier_partial_read_validation",
+      "status": "audit_stack_create_complete_verifier_policy_update_in_review",
       "artifact": "results/agent-supervisor/g0/aws-account-creation-attempt-2.json",
       "audit_account_created": true,
       "evaluator_account_created": true,
       "temporary_bootstrap_access_assigned": true,
       "temporary_bootstrap_access_artifact": "results/agent-supervisor/g0/aws-temporary-bootstrap-access-v1.json",
       "aws_template_validation_passed": true,
-      "aws_template_check_artifact": "results/agent-supervisor/g0/aws-infrastructure-template-check-v2.json",
-      "audit_change_set_status": "EXECUTE_COMPLETE_STACK_CREATE_COMPLETE",
-      "current_change_set_executed": true,
-      "audit_change_set_artifact": "results/agent-supervisor/g0/aws-audit-change-set-review-v3.json",
+      "aws_template_check_artifact": "results/agent-supervisor/g0/aws-infrastructure-template-check-v3.json",
+      "audit_change_set_status": "UPDATE_CREATE_COMPLETE_AVAILABLE_UNEXECUTED",
+      "current_change_set_executed": false,
+      "audit_change_set_artifact": "results/agent-supervisor/g0/aws-audit-change-set-review-v4.json",
       "audit_stack_terminal_artifact": "results/agent-supervisor/g0/aws-audit-stack-attempt-1-terminal.json",
       "audit_stack_cleanup_artifact": "results/agent-supervisor/g0/aws-audit-stack-attempt-1-cleanup.json",
       "audit_stack_success_artifact": "results/agent-supervisor/g0/aws-audit-stack-attempt-2-terminal.json",
@@ -138,6 +138,8 @@
       "dedicated_verifier_retention_metadata_verified": true,
       "dedicated_verifier_version_enumeration_verified": false,
       "dedicated_verifier_missing_action": "s3:ListBucketVersions",
+      "dedicated_verifier_policy_correction_reviewed": true,
+      "dedicated_verifier_policy_correction_deployed": false,
       "dedicated_verifier_human_independence_accepted": false,
       "retained_empty_bucket_count": 0,
       "attempt_1_object_lock_was_activated": true,
@@ -151,7 +153,7 @@
       "private_artifact_uploaded": false
     },
     "local_regression": {
-      "tests": 331,
+      "tests": 332,
       "subtests": 142,
       "status": "pass"
     }

@@ -11,6 +11,7 @@ from pathlib import Path
 from scripts.check_g0_aws_infrastructure import (
     G0AwsInfrastructureError,
     TEMPLATES,
+    _assert_independent_verifier_actions,
     _assert_locked_bucket,
     check_templates,
 )
@@ -26,6 +27,7 @@ class G0AwsInfrastructureTests(unittest.TestCase):
         self.assertEqual(payload["locked_bucket_count"], 5)
         self.assertFalse(payload["cloud_resources_created"])
         self.assertFalse(payload["worker_final_input_access"])
+        self.assertTrue(payload["independent_verifier_version_enumeration"])
         for field in (
             "scientific_execution_authorized", "campaign_activation_authorized",
             "gpu_execution_authorized", "paid_execution_authorized",
@@ -67,6 +69,24 @@ class G0AwsInfrastructureTests(unittest.TestCase):
                 },
             }],
         )
+
+    def test_independent_verifier_can_enumerate_retained_versions(self) -> None:
+        template = json.loads((ROOT / TEMPLATES["audit"]).read_text(encoding="utf-8"))
+        role = template["Resources"]["IndependentVerifierRole"]
+        statements = role["Properties"][
+            "Policies"
+        ][0]["PolicyDocument"]["Statement"]
+        bucket_actions = statements[0]["Action"]
+        self.assertIn("s3:ListBucketVersions", bucket_actions)
+        self.assertNotIn("s3:PutObject", bucket_actions)
+        _assert_independent_verifier_actions(role)
+
+        weakened = copy.deepcopy(role)
+        weakened["Properties"]["Policies"][0]["PolicyDocument"]["Statement"][0][
+            "Action"
+        ].remove("s3:ListBucketVersions")
+        with self.assertRaises(G0AwsInfrastructureError):
+            _assert_independent_verifier_actions(weakened)
 
     def test_cli_is_create_only_and_byte_stable(self) -> None:
         with tempfile.TemporaryDirectory(prefix="enpire-g0-aws-test-") as temporary:
