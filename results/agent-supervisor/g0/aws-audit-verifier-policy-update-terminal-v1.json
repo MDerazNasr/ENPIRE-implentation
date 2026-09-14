@@ -1,0 +1,55 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "caller_identity": {
+      "arn": "arn:aws:sts::125273094215:assumed-role/AWSReservedSSO_AdministratorAccess_db00f801dae257f5/mderaznasr",
+      "passed": true
+    },
+    "change_set": {
+      "executed_after_exact_approval": true,
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:changeSet/g0-audit-verifier-list-versions-v4/b7365f38-2382-4b12-ae52-9140e1972d7f",
+      "name": "g0-audit-verifier-list-versions-v4",
+      "post_execution_describe_result": "ChangeSetNotFound",
+      "review_receipt": "results/agent-supervisor/g0/aws-audit-change-set-review-v4.json",
+      "review_receipt_sha256": "880194f76590d93d821299431c1d51cba9a41fca8a61f5a0677ad5a8c0622050"
+    },
+    "live_role": {
+      "allowed_bucket_actions": [
+        "s3:GetBucketLocation",
+        "s3:GetBucketObjectLockConfiguration",
+        "s3:GetBucketPolicyStatus",
+        "s3:GetBucketVersioning",
+        "s3:ListBucket",
+        "s3:ListBucketVersions"
+      ],
+      "allowed_object_actions": ["s3:GetObject", "s3:GetObjectVersion"],
+      "managed_policy_attachment_count": 0,
+      "name": "enpire-g0-independent-verifier",
+      "policy_action_added": "s3:ListBucketVersions"
+    },
+    "observed_date": "2026-09-15",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-audit-verifier-policy-update-terminal",
+    "region": "us-west-2",
+    "schema_version": 1,
+    "stack": {
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:stack/enpire-g0-audit/77d57680-af87-11f1-a945-0a4675df858b",
+      "independent_verifier_role_status": "UPDATE_COMPLETE",
+      "name": "enpire-g0-audit",
+      "resource_count": 6,
+      "status": "UPDATE_COMPLETE"
+    },
+    "template_sha256": "6a8118c9a1071f192f942dd4f8f0064b266154be1e22ee4b1cb8779cad46a5bd"
+  },
+  "sha256": "4a250bc1c6ac9567a51eeadbc1dda92a7fc41efe2d601a48a1b049606a885490"
+}

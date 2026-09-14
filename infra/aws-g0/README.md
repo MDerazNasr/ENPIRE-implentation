@@ -178,12 +178,21 @@ The local audit template now adds only `s3:ListBucketVersions` to that role's
 bucket-read actions. Five focused tests, the offline security checker, and
 CloudFormation lint pass. With explicit review-only approval, update change set
 `g0-audit-verifier-list-versions-v4` was created in the audit account. It is
-`CREATE_COMPLETE/AVAILABLE` and contains exactly one in-place modification to
-`IndependentVerifierRole`; it has not been executed. The live role therefore
-still lacks `s3:ListBucketVersions`. Review receipt:
+preserved at its pre-execution `CREATE_COMPLETE/AVAILABLE` state and contains
+exactly one in-place modification to `IndependentVerifierRole`. Review receipt:
 `results/agent-supervisor/g0/aws-audit-change-set-review-v4.json`.
+
+After separate exact execution approval and repeat identity/diff/hash gates,
+v4 executed once and the stack reached `UPDATE_COMPLETE`. The live verifier
+role now includes `s3:ListBucketVersions` and still has no managed policies.
+The dedicated verifier then successfully assumed the role and independently
+confirmed both empty version inventories, versioning, non-public policies, and
+30-day COMPLIANCE Object Lock. Execution receipt:
+`results/agent-supervisor/g0/aws-audit-verifier-policy-update-terminal-v1.json`;
+successful retest:
+`results/agent-supervisor/g0/aws-independent-verifier-role-validation-v2.json`.
 
 No private object was uploaded, no evaluator stack was deployed, and no GPU,
 scientific evaluation, candidate decision, or promotion occurred. Independent
-human control remains unverified, so this engineering deployment is not
-production custody acceptance.
+human control remains unverified, so this successful technical read boundary
+is not production custody acceptance.

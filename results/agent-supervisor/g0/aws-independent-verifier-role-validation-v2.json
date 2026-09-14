@@ -1,0 +1,53 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "buckets": {
+      "anchor": {
+        "empty_version_inventory": true,
+        "list_object_versions_passed": true,
+        "name": "enpire-g0-audit-anchorbucket-qqxtjqex5jbf",
+        "object_lock": {"default_retention_days": 30, "enabled": true, "mode": "COMPLIANCE"},
+        "policy_public": false,
+        "versioning_status": "Enabled"
+      },
+      "audit_log": {
+        "empty_version_inventory": true,
+        "list_object_versions_passed": true,
+        "name": "enpire-g0-audit-auditlogbucket-pewvp64nueuy",
+        "object_lock": {"default_retention_days": 30, "enabled": true, "mode": "COMPLIANCE"},
+        "policy_public": false,
+        "versioning_status": "Enabled"
+      }
+    },
+    "cloud_resources_changed_by_retest": false,
+    "independent_human_control_accepted": false,
+    "observed_date": "2026-09-15",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-independent-verifier-role-validation",
+    "region": "us-west-2",
+    "role_assumption": {
+      "arn": "arn:aws:sts::125273094215:assumed-role/enpire-g0-independent-verifier/g0-read-only-verification",
+      "passed": true,
+      "role_arn": "arn:aws:iam::125273094215:role/enpire-g0-independent-verifier"
+    },
+    "schema_version": 1,
+    "sso_identity": {
+      "arn": "arn:aws:sts::125273094215:assumed-role/AWSReservedSSO_ENPIREG0VerifierAccess_13931da895030245/deraznasr776@gmail.com",
+      "passed": true
+    },
+    "status": "pass_end_to_end_read_only_verifier",
+    "verifier_can_independently_enumerate_retained_versions": true,
+    "verifier_role_assumption_verified": true
+  },
+  "sha256": "32f7a5b9dd5b518918f169147f6d56b06540f7655bf13e1e1e128cdfad139f76"
+}
