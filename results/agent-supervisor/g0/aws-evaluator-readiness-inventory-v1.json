@@ -1,0 +1,59 @@
+{
+  "payload": {
+    "audit_bindings": {
+      "anchor_writer_role_arn": "arn:aws:iam::125273094215:role/enpire-g0-anchor-writer",
+      "audit_account_id": "125273094215",
+      "audit_log_bucket_name": "enpire-g0-audit-auditlogbucket-pewvp64nueuy",
+      "trail_name": "enpire-g0-evaluator-trail"
+    },
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_change_set_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "evaluator_account": {
+      "account_id": "960946312280",
+      "active_stack_count": 0,
+      "administrator_assignment_count": 1,
+      "caller_arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_AdministratorAccess_7d2956429a6b212a/mderaznasr",
+      "enpire_role_count": 0,
+      "non_administrator_assignment_count": 0
+    },
+    "identity_center": {
+      "directory_user_count": 2,
+      "independent_evaluator_custodian_human_confirmed": false,
+      "independent_verifier_human_confirmed": false,
+      "permission_set_names": ["AdministratorAccess", "ENPIREG0VerifierAccess"],
+      "temporary_verifier_is_independent_human": false
+    },
+    "missing_principals": [
+      "coordinator_principal",
+      "independent_evaluator_custodian_principal",
+      "independent_evaluator_operator_principal",
+      "independently_human_controlled_verifier_principal"
+    ],
+    "observed_date": "2026-09-15",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-evaluator-readiness-inventory",
+    "region": "us-west-2",
+    "required_human_decisions": [
+      "name a human evaluator/custodian outside the candidate and worker operator chain",
+      "name a separate human verifier outside the evaluator and candidate operator chains",
+      "approve least-privilege Identity Center bootstrap for concrete principals"
+    ],
+    "schema_version": 1,
+    "status": "blocked_missing_independent_humans_and_principals",
+    "template_review": {
+      "direct_trust_principals_must_exist_before_stack_creation": true,
+      "receipt_verifier_missing_s3_list_bucket_versions": true,
+      "sha256": "bb06ee098ac74d71b3c1895acd198a6d5f42aadf5ec459bbf2cb8699ec18a15d"
+    }
+  },
+  "sha256": "f0937a027164818d2fdb6cee37e831923c9c914582e200b1038a0a58915ea978"
+}

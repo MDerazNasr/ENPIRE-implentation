@@ -196,3 +196,20 @@ No private object was uploaded, no evaluator stack was deployed, and no GPU,
 scientific evaluation, candidate decision, or promotion occurred. Independent
 human control remains unverified, so this successful technical read boundary
 is not production custody acceptance.
+
+## Evaluator-account readiness inventory
+
+A read-only inventory of evaluator account `960946312280` found no active
+CloudFormation stacks and no ENPIRE IAM roles. Its only Identity Center account
+assignment is the temporary administrator; the directory has no confirmed
+independent evaluator/custodian human or independently controlled verifier
+human. The template's direct trust principals must exist before stack creation.
+Its `ReceiptVerifierRole` also needs review for the same
+`s3:ListBucketVersions` permission required by the audit verifier.
+
+The inventory is preserved in
+`results/agent-supervisor/g0/aws-evaluator-readiness-inventory-v1.json`. Do not
+create an evaluator change set until the missing humans and concrete
+least-privilege principals are supplied and separately approved. Do not reuse
+the temporary same-operator verifier identity as proof of independent human
+custody.

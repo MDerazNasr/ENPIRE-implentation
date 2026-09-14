@@ -103,7 +103,7 @@
     },
     "g0_readiness_gate": {
       "status": "blocked_missing_external_inputs",
-      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-verifier-retest-v14.json",
+      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-evaluator-inventory-v15.json",
       "missing_external_input_count": 5,
       "ready_transition_implemented": true,
       "scientific_execution_authorized": false
@@ -152,6 +152,17 @@
       "audit_role_policies_verified": true,
       "independent_verifier_boundary_satisfied": false,
       "cloudformation_executed": true,
+      "private_artifact_uploaded": false
+    },
+    "g0_aws_evaluator_readiness": {
+      "status": "blocked_missing_independent_humans_and_principals",
+      "artifact": "results/agent-supervisor/g0/aws-evaluator-readiness-inventory-v1.json",
+      "active_stack_count": 0,
+      "enpire_role_count": 0,
+      "independent_evaluator_custodian_human_confirmed": false,
+      "independent_verifier_human_confirmed": false,
+      "evaluator_change_set_authorized": false,
+      "evaluator_deployment_authorized": false,
       "private_artifact_uploaded": false
     },
     "local_regression": {
