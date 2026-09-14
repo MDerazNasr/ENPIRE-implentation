@@ -148,8 +148,23 @@ attestation is preserved in
 Independent human ownership/control remains unverified and is not accepted.
 
 Replacement change set `g0-audit-independent-verifier-v3` is
-`CREATE_COMPLETE/AVAILABLE`. Its placeholder stack remains
-`REVIEW_IN_PROGRESS` with zero resources and no outputs. Review receipt:
+preserved at its pre-execution `CREATE_COMPLETE/AVAILABLE` state in the review receipt:
 `results/agent-supervisor/g0/aws-audit-change-set-review-v3.json`. It has not
-been executed. Execution requires a new exact approval and must not be treated
-as production custody acceptance.
+been altered since review.
+
+After exact approval and a caller-identity gate, v3 executed once and the audit
+stack reached `CREATE_COMPLETE`. Terminal receipt:
+`results/agent-supervisor/g0/aws-audit-stack-attempt-2-terminal.json`. All six
+resources reached `CREATE_COMPLETE`. The new empty buckets are
+`enpire-g0-audit-anchorbucket-qqxtjqex5jbf` and
+`enpire-g0-audit-auditlogbucket-pewvp64nueuy`; both enforce 30-day COMPLIANCE
+Object Lock, versioning, AES256, complete public-access blocking, non-public
+policies, and TLS-only access. The anchor writer is put-only to `anchors/*` and
+trusts only the exact future evaluator role. The verifier role is read-only and
+trusts only the dedicated Identity Center verifier role. Neither IAM role has
+managed-policy attachments.
+
+No private object was uploaded, no evaluator stack was deployed, and no GPU,
+scientific evaluation, candidate decision, or promotion occurred. End-to-end
+verifier role assumption and independent human control remain unverified, so
+this engineering deployment is not production custody acceptance.

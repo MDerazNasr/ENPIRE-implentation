@@ -1,0 +1,108 @@
+{
+  "payload": {
+    "accepted_local_design": {
+      "decision_rule": "g0-paired-seed-t-v1",
+      "stage1_checkpoints": [
+        250,
+        500,
+        1000,
+        2000
+      ],
+      "stage2_conditions": [
+        "control",
+        "candidate"
+      ],
+      "stage2_run_count": 6,
+      "training_seeds": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    "bound_sources": {
+      "acceptance_boundary": "supervisor/g0_acceptance.py",
+      "accepted_design_subset": "docs/agent-supervisor/g0-remaining-decisions-proposal.md",
+      "aws_audit_template": "infra/aws-g0/audit-account.template.json",
+      "aws_evaluator_template": "infra/aws-g0/evaluator-account.template.json",
+      "aws_infrastructure_runbook": "infra/aws-g0/README.md",
+      "aws_template_checker": "scripts/check_g0_aws_infrastructure.py",
+      "bundle_builder": "scripts/build_g0_evaluator_bundle.py",
+      "custody_deployment_design": "docs/agent-supervisor/g0-evaluator-custody-and-deployment.md",
+      "decision_rule": "supervisor/g0_decision.py",
+      "decision_worksheet": "docs/agent-supervisor/g0-decision-worksheet.md",
+      "deployment_boundary": "supervisor/evaluator_deployment.py",
+      "evaluator_integrity": "supervisor/evaluator_integrity.py",
+      "independent_runner": "scripts/g0_independent_evaluator.py",
+      "isolation_rehearsal": "scripts/run_g0_evaluator_isolation_rehearsal.py",
+      "production_acceptance_runbook": "docs/agent-supervisor/g0-production-acceptance-runbook.md",
+      "protocol_input_boundary": "supervisor/g0_protocol_inputs.py",
+      "readiness_gate": "scripts/run_g0_readiness_gate.py",
+      "reset_capture_producer": "scripts/capture_g0_maniskill_episode_seeds.py",
+      "reset_materializer": "scripts/export_g0_reset_sets.py",
+      "reset_repeat_verifier": "scripts/verify_g0_reset_repeat.py",
+      "reset_runtime_confirmation": "scripts/run_g0_reset_runtime_confirmation.py",
+      "reset_source_audit": "docs/agent-supervisor/g0-reset-source-audit.md",
+      "runtime_cost_candidate_builder": "scripts/build_g0_runtime_cost_candidates.py",
+      "runtime_cost_candidate_design": "docs/agent-supervisor/g0-runtime-cost-retention-candidate.md",
+      "scientific_program": "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
+      "seed_reset_design": "docs/agent-supervisor/g0-seeds-and-reset-sets.md"
+    },
+    "campaign_activation_authorized": false,
+    "e0_preflight_sha256": "267d38d8e32b6714f6e1ab760b73a1237cbf6721c62827edecdf04208aa21f48",
+    "gate": "G0",
+    "gpu_execution_authorized": false,
+    "missing_external_inputs": [
+      "final_reset_artifact_custody",
+      "production_evaluator_deployment",
+      "runtime_and_asset_identities",
+      "cost_and_retention_envelope",
+      "human_protocol_acceptance"
+    ],
+    "model_egress_authorized": false,
+    "paid_execution_authorized": false,
+    "promotion_authorized": false,
+    "provider_call_authorized": false,
+    "ready_transition_implemented": true,
+    "required_external_inputs": {
+      "cost_and_retention_envelope": "results/agent-supervisor/g0/cost-envelope.json",
+      "development_reset_artifact": "results/agent-supervisor/g0/reset-sets/development.json",
+      "final_reset_artifact_custody": "results/agent-supervisor/g0/final-reset-custody.json",
+      "human_protocol_acceptance": "results/agent-supervisor/g0/protocol-acceptance.json",
+      "production_evaluator_deployment": "results/agent-supervisor/g0/production-evaluator.json",
+      "repeat_export_receipt": "results/agent-supervisor/g0/reset-sets/repeat-export.json",
+      "runtime_and_asset_identities": "results/agent-supervisor/g0/runtime-identities.json"
+    },
+    "schema_version": 1,
+    "scientific_evaluation_authorized": false,
+    "source_hashes": {
+      "acceptance_boundary": "5f0c2a7105720600ef90eaac0bfb34e5a11a60e5dcec6e30157e24d0cea2a10b",
+      "accepted_design_subset": "6bb559c664b51171541d8f8a9c145e26863bef299286fb914f543bf632d1d6bb",
+      "aws_audit_template": "8f05eeb7c17617a24a70f36fe6b354522997896b10df0ef6f2cb7062b24c934f",
+      "aws_evaluator_template": "bb06ee098ac74d71b3c1895acd198a6d5f42aadf5ec459bbf2cb8699ec18a15d",
+      "aws_infrastructure_runbook": "8732c0ca88ac2f9ab336cf9c407a1eeb440c658ebdd49849c70983980d655d6d",
+      "aws_template_checker": "50c5c6587fa928b7144a5b06c943770411683ea204ea51071ffdde44dfc9589f",
+      "bundle_builder": "3ea549c13c989b46b6a48467b75ed2f9f95b1b5e5cb39deedcd07fe72845fb91",
+      "custody_deployment_design": "25f5d71130d55b1e9fe5cadf098c5fce9b22064b799b21f311d544e698a76bd9",
+      "decision_rule": "1152d3a7dda1192b18666728e4b5add58f72f5256094a9b4265b0dd41aca753c",
+      "decision_worksheet": "49ea5483755aa8c001c642445b58b9870c9ac9487a56b88a847223dc354c902e",
+      "deployment_boundary": "59ae641a500bdec4467aefecd96bfac172dc90b56543bb87acb52dd460e8d016",
+      "evaluator_integrity": "28f9509f2feb424a4643bb549d300cf1be258e83504bd0d614cc5ffd70861c40",
+      "independent_runner": "0b6f5400d601c28db02ef8c6f5e1488098c62ebc36503874c1ca8a95c308ed15",
+      "isolation_rehearsal": "ed0d7006c169cac5b4de7de429d78b78814d3ef170910b0a8cbd4bceac96deec",
+      "production_acceptance_runbook": "90ef47630cfd21c61678f6f99b7371b8b44bf1d9dbc292d935cae1299f4c8bf9",
+      "protocol_input_boundary": "ad5a325671f53aca451b51b96d5f0c71cd8e09c7c3d272a9ec71b4dc41e0beb9",
+      "readiness_gate": "3c5718d5bc70d564556a5511875361939517f0737df94f6b80a30e9115ae4dec",
+      "reset_capture_producer": "cf3d0679afda9281a70b5d06ad038be4ce0612a1abd88ca65aa31ac189c57abe",
+      "reset_materializer": "acd23e0327fd44d10bea97acf6c6fd89d7e9e78366462a431c15d84d05bc5a64",
+      "reset_repeat_verifier": "e547c670f6fbb681f0deb21b023bb7b234839dfbf16b6f77388916f7eb045921",
+      "reset_runtime_confirmation": "3905b48b38971291a283d114ab2f940bd9624f6262d76cd2d4b7e8150d2e3a25",
+      "reset_source_audit": "91af1be6a3522057b7984d29669968c5497c717b3b064e24c94b375273250341",
+      "runtime_cost_candidate_builder": "e1a76e33209ee5864d131ee87796d36e5c55962f9b5ebd951e2cb69384e654aa",
+      "runtime_cost_candidate_design": "6b4e9e144767f30fa9c7f1a061a6b5b1627ca8de4df1fd83dfa686ba8529b5ac",
+      "scientific_program": "fcf813e56bab976baf8fcb7306503937ee449342d8d58672d15292607d8173cb",
+      "seed_reset_design": "a5431e906a295231873aa5d9de3719b7e0f9bff7971bf546de05f6cdfc114c1a"
+    },
+    "status": "blocked_missing_external_inputs"
+  },
+  "sha256": "5c342d434c39aaae4367157b704d5a500c02b8b44faab9ceb2b6531800a197b5"
+}

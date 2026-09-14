@@ -1,0 +1,95 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "change_set": {
+      "executed_after_exact_approval": true,
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:changeSet/g0-audit-independent-verifier-v3/14494cef-a37a-4ceb-a83e-d4d97351d504",
+      "name": "g0-audit-independent-verifier-v3"
+    },
+    "cloud_resources_created": true,
+    "model_egress_occurred": false,
+    "object_lock_activated": true,
+    "observed_date": "2026-09-15",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-audit-stack-attempt-terminal",
+    "region": "us-west-2",
+    "resource_count": 6,
+    "resources": {
+      "anchor_bucket": {
+        "default_encryption": "AES256",
+        "empty": true,
+        "name": "enpire-g0-audit-anchorbucket-qqxtjqex5jbf",
+        "object_lock": {"default_retention_days": 30, "enabled": true, "mode": "COMPLIANCE"},
+        "policy_present": true,
+        "policy_public": false,
+        "public_access_block_all": true,
+        "secure_transport_required": true,
+        "versioning_status": "Enabled"
+      },
+      "anchor_writer_role": {
+        "allowed_actions": ["s3:PutObject"],
+        "allowed_prefix": "anchors/*",
+        "arn": "arn:aws:iam::125273094215:role/enpire-g0-anchor-writer",
+        "managed_policy_attachment_count": 0,
+        "trusted_account_id": "960946312280",
+        "trusted_principal_arn": "arn:aws:iam::960946312280:role/enpire-g0-evaluator"
+      },
+      "audit_log_bucket": {
+        "cloudtrail_source_account_id": "960946312280",
+        "cloudtrail_source_trail": "enpire-g0-evaluator-trail",
+        "default_encryption": "AES256",
+        "empty": true,
+        "name": "enpire-g0-audit-auditlogbucket-pewvp64nueuy",
+        "object_lock": {"default_retention_days": 30, "enabled": true, "mode": "COMPLIANCE"},
+        "policy_present": true,
+        "policy_public": false,
+        "public_access_block_all": true,
+        "secure_transport_required": true,
+        "versioning_status": "Enabled"
+      },
+      "independent_verifier_role": {
+        "allowed_bucket_actions": [
+          "s3:GetBucketLocation",
+          "s3:GetBucketObjectLockConfiguration",
+          "s3:GetBucketPolicyStatus",
+          "s3:GetBucketVersioning",
+          "s3:ListBucket"
+        ],
+        "allowed_object_actions": ["s3:GetObject", "s3:GetObjectVersion"],
+        "arn": "arn:aws:iam::125273094215:role/enpire-g0-independent-verifier",
+        "managed_policy_attachment_count": 0,
+        "trusted_principal_arn": "arn:aws:iam::125273094215:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0VerifierAccess_13931da895030245"
+      }
+    },
+    "schema_version": 1,
+    "sso_preflight_history": {
+      "completed_wrong_verifier_authorizations": 5,
+      "expired_device_codes": 2,
+      "final_admin_identity": "arn:aws:sts::125273094215:assumed-role/AWSReservedSSO_AdministratorAccess_db00f801dae257f5/mderaznasr",
+      "final_admin_identity_passed": true,
+      "initial_cached_token_expired": true,
+      "local_cancelled_prompt_count": 1,
+      "wrong_identity_cloudformation_calls": 0
+    },
+    "stack": {
+      "id": "arn:aws:cloudformation:us-west-2:125273094215:stack/enpire-g0-audit/77d57680-af87-11f1-a945-0a4675df858b",
+      "name": "enpire-g0-audit",
+      "status": "CREATE_COMPLETE"
+    },
+    "template_sha256": "8f05eeb7c17617a24a70f36fe6b354522997896b10df0ef6f2cb7062b24c934f",
+    "verifier_human_independence_accepted": false,
+    "verifier_portal_login_confirmed": true,
+    "verifier_role_assumption_verified": false
+  },
+  "sha256": "0e583b4f57633f67b05a3c2a4a6d4d630bc63276db81aa578060d98fdca6a747"
+}
