@@ -1,0 +1,76 @@
+{
+  "payload": {
+    "account_id": "125273094215",
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "checks": {
+      "anchor_bucket": {
+        "bucket": "enpire-g0-audit-anchorbucket-qqxtjqex5jbf",
+        "list_object_versions": {
+          "error": "AccessDenied: no identity-based policy allows s3:ListBucketVersions",
+          "passed": false
+        },
+        "object_lock": {
+          "default_retention_days": 30,
+          "enabled": true,
+          "mode": "COMPLIANCE",
+          "passed": true
+        },
+        "versioning": {
+          "mfa_delete": "Disabled",
+          "passed": true,
+          "status": "Enabled"
+        }
+      },
+      "audit_log_bucket": {
+        "bucket": "enpire-g0-audit-auditlogbucket-pewvp64nueuy",
+        "list_object_versions": {
+          "error": "AccessDenied: no identity-based policy allows s3:ListBucketVersions",
+          "passed": false
+        },
+        "object_lock": {
+          "default_retention_days": 30,
+          "enabled": true,
+          "mode": "COMPLIANCE",
+          "passed": true
+        },
+        "versioning": {
+          "mfa_delete": "Disabled",
+          "passed": true,
+          "status": "Enabled"
+        }
+      }
+    },
+    "cloud_resources_changed": false,
+    "independent_human_control_accepted": false,
+    "observed_date": "2026-09-15",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-independent-verifier-role-validation",
+    "region": "us-west-2",
+    "role_assumption": {
+      "arn": "arn:aws:sts::125273094215:assumed-role/enpire-g0-independent-verifier/g0-read-only-verification",
+      "passed": true,
+      "role_arn": "arn:aws:iam::125273094215:role/enpire-g0-independent-verifier"
+    },
+    "schema_version": 1,
+    "sso_identity": {
+      "account_id": "125273094215",
+      "arn": "arn:aws:sts::125273094215:assumed-role/AWSReservedSSO_ENPIREG0VerifierAccess_13931da895030245/deraznasr776@gmail.com",
+      "initial_wrong_identity_authorizations": 2,
+      "passed": true,
+      "successful_authorization_used_private_browser_session": true
+    },
+    "status": "partial_failed_closed_missing_list_bucket_versions",
+    "verifier_can_independently_enumerate_retained_versions": false,
+    "verifier_role_assumption_verified": true
+  },
+  "sha256": "d5709575d715a42fa8bc42d474f7c3613d15a1e540eb82011576d902ca5cf5ea"
+}

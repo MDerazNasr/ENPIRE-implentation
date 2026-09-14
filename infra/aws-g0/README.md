@@ -164,7 +164,17 @@ trusts only the exact future evaluator role. The verifier role is read-only and
 trusts only the dedicated Identity Center verifier role. Neither IAM role has
 managed-policy attachments.
 
+The dedicated verifier subsequently authenticated as the exact
+`AWSReservedSSO_ENPIREG0VerifierAccess` principal and successfully assumed
+`enpire-g0-independent-verifier`. Through that role, reads confirmed versioning
+and 30-day COMPLIANCE Object Lock on both buckets. Independent version
+enumeration failed closed because the deployed policy grants `s3:ListBucket`
+but not `s3:ListBucketVersions`. The complete partial result is preserved in
+`results/agent-supervisor/g0/aws-independent-verifier-role-validation-v1.json`.
+Do not claim full independent evidence verification until that missing action
+is reviewed, explicitly approved, deployed, and retested.
+
 No private object was uploaded, no evaluator stack was deployed, and no GPU,
-scientific evaluation, candidate decision, or promotion occurred. End-to-end
-verifier role assumption and independent human control remain unverified, so
-this engineering deployment is not production custody acceptance.
+scientific evaluation, candidate decision, or promotion occurred. Independent
+human control remains unverified, so this engineering deployment is not
+production custody acceptance.
