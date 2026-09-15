@@ -1,0 +1,75 @@
+{
+  "payload": {
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_change_set_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "model_egress_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_evaluation_authorized": false
+    },
+    "baseline_e1": {
+      "checkpoint_steps": [250, 500, 1000, 2000],
+      "development_outcomes_per_checkpoint": 256,
+      "final_evaluation_used_for_selection": false,
+      "non_degeneracy_floor": 0.05,
+      "selection_rule": "g0-e1-stage1-horizon-v1",
+      "stage1_config": {
+        "path": "configs/d1/stage1_scientific.yaml",
+        "sha256": "ec4413dff17730752cd694e36381e8fa072f2c42ecebfac7883c9bedf1b59d25"
+      },
+      "status": "selector_frozen_execution_blocked_on_g0",
+      "training_seed": 2026
+    },
+    "bound_sources": {
+      "e1_selector": {
+        "path": "supervisor/g0_e1_baseline.py",
+        "sha256": "a91e2b37b949c059135112afeb2bddf892e091c5ad37c4d82b1a2900e30ff190"
+      },
+      "e1_selector_cli": {
+        "path": "scripts/select_g0_e1_baseline.py",
+        "sha256": "d55bad3363a12320d6cebce56c1c34903de391f3055bc68a2e6df38d4f47a684"
+      },
+      "production_runbook": {
+        "path": "docs/agent-supervisor/g0-production-acceptance-runbook.md",
+        "sha256": "a2ffa9856eacebf7102cda5c8393d7210e011b72de97f8d453eb27c2d8551d2f"
+      },
+      "scientific_program": {
+        "path": "docs/agent-supervisor/g0-scientific-experiment-test-program.md",
+        "sha256": "b8f6f9ad9e2e5751db63f13c6a9fa2c2b003d1ff6a747584a89056ee12c71f53"
+      }
+    },
+    "completion_order": ["protected_evaluator", "scientific_stage1_baseline"],
+    "focus": ["meeting_experiment_3", "meeting_experiment_1"],
+    "observed_date": "2026-09-15",
+    "protected_evaluator": {
+      "aws_inventory_receipt_sha256": "f0937a027164818d2fdb6cee37e831923c9c914582e200b1038a0a58915ea978",
+      "evaluator_account_id": "960946312280",
+      "evaluator_template_sha256": "f6fc74ce41252af642243dd04b71907a9348900382920a7faa4f7a181cd4f3d5",
+      "independent_evaluator_custodian_human_confirmed": false,
+      "independent_verifier_human_confirmed": false,
+      "receipt_verifier_can_enumerate_versions": true,
+      "status": "template_hardened_external_principals_missing",
+      "template_check_receipt": "results/agent-supervisor/g0/aws-infrastructure-template-check-v4.json",
+      "template_check_sha256": "4a22dc2533ef06c7df494f4471d5cfcd8dacd13d8823534806386839f225e497"
+    },
+    "record_kind": "g0-baseline-evaluator-focus-freeze",
+    "schema_version": 1,
+    "status": "gpu_free_freeze_complete_external_inputs_required",
+    "supersedes_sha256": "67846fb0a99349808a6750d12a64f338026cf43bf5c908dc102428971caffdc7",
+    "validation": {
+      "explicit_authority_flags_complete": true,
+      "full_subtest_count": 142,
+      "full_test_count": 338,
+      "full_tests_passed": true,
+      "focused_test_count": 11,
+      "focused_tests_passed": true,
+      "templates_linted": true
+    }
+  },
+  "sha256": "114d4cfcc2ea82c026aabbf71db1715b4986bf674171db5b732913ce3469989e"
+}

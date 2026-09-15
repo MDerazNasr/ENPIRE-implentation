@@ -99,3 +99,33 @@ CloudFormation templates and offline checker create no resources by
 themselves. Deployment remains blocked until distinct AWS accounts/principals
 exist and the irreversible compliance-retention change set receives exact
 human approval.
+
+## Focused completion order: protected evaluator, then baseline
+
+The active scope is limited to completing meeting experiments 3 and 1, in that
+dependency order:
+
+1. Name an independent evaluator/custodian human and a different independent
+   verifier human. Do not share credentials or reuse the candidate operator.
+2. Create and verify their least-privilege Identity Center principals under a
+   separate exact approval. The current administrator remains bootstrap-only.
+3. Review the corrected evaluator template, including retained-version listing
+   for `ReceiptVerifierRole`, then create a non-executed change set under a
+   separate approval.
+4. Separately approve and execute the evaluator stack, independently verify all
+   three locked buckets, roles, CloudTrail, ledger/anchor separation, and remove
+   temporary administrator access before claiming production custody.
+5. Under a separate private-transfer approval, place the final reset artifact
+   and evaluator bundle through the custody principal without exposing ordered
+   IDs, paths, credentials, or model weights.
+6. Produce and validate the canonical custody and production-deployment
+   receipts. Only then resolve runtime/assets, cost/retention, and human
+   protocol acceptance to reach `ready_for_e1_preflight_only`.
+7. Create a separately approved E1 preflight for one uninterrupted seed-2026
+   Stage-1 run to 2,000 steps, retaining checkpoints 250/500/1000/2000.
+8. After a distinct paid/GPU authorization, run E1, evaluate only on the frozen
+   development set, apply `g0-e1-stage1-horizon-v1`, and independently hash the
+   selected non-degenerate actor. Final resets are not used for selection.
+
+No item inherits authorization from the preceding item. Failed, interrupted,
+reverted, and inconclusive evidence remains preserved.

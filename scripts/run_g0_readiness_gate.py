@@ -28,6 +28,8 @@ from supervisor.g0_acceptance import (
 BOUND_SOURCES = {
     "readiness_gate": "scripts/run_g0_readiness_gate.py",
     "decision_rule": "supervisor/g0_decision.py",
+    "e1_baseline_selector": "supervisor/g0_e1_baseline.py",
+    "e1_baseline_selector_cli": "scripts/select_g0_e1_baseline.py",
     "evaluator_integrity": "supervisor/evaluator_integrity.py",
     "independent_runner": "scripts/g0_independent_evaluator.py",
     "bundle_builder": "scripts/build_g0_evaluator_bundle.py",

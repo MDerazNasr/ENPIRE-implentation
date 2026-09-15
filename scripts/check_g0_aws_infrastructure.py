@@ -135,6 +135,7 @@ def check_templates(root: Path = ROOT) -> dict[str, Any]:
             "to the exact evaluator role ARN"
         )
     _assert_independent_verifier_actions(audit["Resources"]["IndependentVerifierRole"])
+    _assert_independent_verifier_actions(evaluator["Resources"]["ReceiptVerifierRole"])
     worker_actions = _actions(roles["WorkerUploadRole"])
     if "s3:GetObject" in worker_actions or "s3:GetObjectVersion" in worker_actions:
         raise G0AwsInfrastructureError("worker can read evidence or final inputs")
@@ -160,6 +161,8 @@ def check_templates(root: Path = ROOT) -> dict[str, Any]:
         "worker_delete_access": False,
         "receipt_verifier_final_input_read_access": False,
         "independent_verifier_version_enumeration": True,
+        "audit_independent_verifier_version_enumeration": True,
+        "evaluator_receipt_verifier_version_enumeration": True,
         "cross_account_audit_parameterized": True,
         "cloud_resources_created": False,
         "object_lock_activated": False,

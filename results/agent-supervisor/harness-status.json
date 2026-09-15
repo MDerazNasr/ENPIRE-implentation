@@ -103,7 +103,7 @@
     },
     "g0_readiness_gate": {
       "status": "blocked_missing_external_inputs",
-      "artifact": "results/agent-supervisor/g0/g0-readiness-aws-evaluator-inventory-v15.json",
+      "artifact": "results/agent-supervisor/g0/g0-readiness-baseline-evaluator-focus-v17.json",
       "missing_external_input_count": 5,
       "ready_transition_implemented": true,
       "scientific_execution_authorized": false
@@ -116,7 +116,7 @@
       "temporary_bootstrap_access_assigned": true,
       "temporary_bootstrap_access_artifact": "results/agent-supervisor/g0/aws-temporary-bootstrap-access-v1.json",
       "aws_template_validation_passed": true,
-      "aws_template_check_artifact": "results/agent-supervisor/g0/aws-infrastructure-template-check-v3.json",
+      "aws_template_check_artifact": "results/agent-supervisor/g0/aws-infrastructure-template-check-v4.json",
       "audit_change_set_status": "EXECUTE_COMPLETE_STACK_UPDATE_COMPLETE",
       "current_change_set_executed": true,
       "audit_change_set_artifact": "results/agent-supervisor/g0/aws-audit-change-set-review-v4.json",
@@ -155,18 +155,27 @@
       "private_artifact_uploaded": false
     },
     "g0_aws_evaluator_readiness": {
-      "status": "blocked_missing_independent_humans_and_principals",
+      "status": "template_hardened_blocked_missing_independent_humans_and_principals",
       "artifact": "results/agent-supervisor/g0/aws-evaluator-readiness-inventory-v1.json",
       "active_stack_count": 0,
       "enpire_role_count": 0,
       "independent_evaluator_custodian_human_confirmed": false,
       "independent_verifier_human_confirmed": false,
+      "receipt_verifier_version_enumeration_frozen": true,
       "evaluator_change_set_authorized": false,
       "evaluator_deployment_authorized": false,
       "private_artifact_uploaded": false
     },
+    "focused_meeting_experiments": {
+      "artifact": "results/agent-supervisor/g0/g0-baseline-evaluator-focus-freeze-v2.json",
+      "completion_order": ["protected_evaluator", "scientific_stage1_baseline"],
+      "experiment_1_baseline_status": "selector_frozen_execution_blocked_on_g0",
+      "experiment_3_evaluator_status": "template_hardened_external_principals_missing",
+      "gpu_execution_authorized": false,
+      "scientific_evaluation_authorized": false
+    },
     "local_regression": {
-      "tests": 332,
+      "tests": 338,
       "subtests": 142,
       "status": "pass"
     }

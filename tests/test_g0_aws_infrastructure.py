@@ -28,6 +28,8 @@ class G0AwsInfrastructureTests(unittest.TestCase):
         self.assertFalse(payload["cloud_resources_created"])
         self.assertFalse(payload["worker_final_input_access"])
         self.assertTrue(payload["independent_verifier_version_enumeration"])
+        self.assertTrue(payload["audit_independent_verifier_version_enumeration"])
+        self.assertTrue(payload["evaluator_receipt_verifier_version_enumeration"])
         for field in (
             "scientific_execution_authorized", "campaign_activation_authorized",
             "gpu_execution_authorized", "paid_execution_authorized",
@@ -87,6 +89,14 @@ class G0AwsInfrastructureTests(unittest.TestCase):
         ].remove("s3:ListBucketVersions")
         with self.assertRaises(G0AwsInfrastructureError):
             _assert_independent_verifier_actions(weakened)
+
+        evaluator = json.loads((ROOT / TEMPLATES["evaluator"]).read_text(encoding="utf-8"))
+        receipt_verifier = evaluator["Resources"]["ReceiptVerifierRole"]
+        _assert_independent_verifier_actions(receipt_verifier)
+        receipt_actions = receipt_verifier["Properties"]["Policies"][0][
+            "PolicyDocument"
+        ]["Statement"][0]["Action"]
+        self.assertIn("s3:ListBucketVersions", receipt_actions)
 
     def test_cli_is_create_only_and_byte_stable(self) -> None:
         with tempfile.TemporaryDirectory(prefix="enpire-g0-aws-test-") as temporary:

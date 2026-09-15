@@ -121,6 +121,15 @@ Pass gate:
 - [ ] Selection uses development results only.
 - [ ] The selected actor is exported and independently hash-verified.
 
+The frozen selector is implemented in `supervisor/g0_e1_baseline.py` and
+invoked with `scripts/select_g0_e1_baseline.py`. Its input must bind the exact
+source, Stage-1 configuration, parent actor, development reset set, evaluator
+source/environment, complete checkpoint hashes, ancestry, load status, and 256
+valid outcomes per checkpoint. It rejects final-set input, uses the complete
+grid, selects the highest development success with earlier-step tie-breaking,
+and returns `inconclusive` below the `0.05` floor or for any incomplete
+checkpoint. Its output grants no execution or promotion authority.
+
 GPU requirement: one large-memory GPU for training; evaluation uses only a
 runtime that preserves the frozen scientific identity.
 

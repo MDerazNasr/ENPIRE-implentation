@@ -127,7 +127,7 @@
         "Policies": [{
           "PolicyName": "VerifyControlsWithoutFinalInputRead",
           "PolicyDocument": {"Version": "2012-10-17", "Statement": [
-            {"Effect": "Allow", "Action": ["s3:GetBucketLocation", "s3:GetBucketObjectLockConfiguration", "s3:GetBucketPolicyStatus", "s3:GetBucketVersioning", "s3:ListBucket"], "Resource": [{"Fn::GetAtt": ["FinalInputBucket", "Arn"]}, {"Fn::GetAtt": ["EvidenceBucket", "Arn"]}, {"Fn::GetAtt": ["LedgerBucket", "Arn"]}]},
+            {"Effect": "Allow", "Action": ["s3:GetBucketLocation", "s3:GetBucketObjectLockConfiguration", "s3:GetBucketPolicyStatus", "s3:GetBucketVersioning", "s3:ListBucket", "s3:ListBucketVersions"], "Resource": [{"Fn::GetAtt": ["FinalInputBucket", "Arn"]}, {"Fn::GetAtt": ["EvidenceBucket", "Arn"]}, {"Fn::GetAtt": ["LedgerBucket", "Arn"]}]},
             {"Effect": "Allow", "Action": ["s3:GetObject", "s3:GetObjectVersion"], "Resource": [{"Fn::Sub": "${EvidenceBucket.Arn}/runs/*"}, {"Fn::Sub": "${LedgerBucket.Arn}/ledger/*"}]}
           ]}
         }]
