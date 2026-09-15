@@ -103,7 +103,7 @@
     },
     "g0_readiness_gate": {
       "status": "blocked_missing_external_inputs",
-      "artifact": "results/agent-supervisor/g0/g0-readiness-baseline-evaluator-focus-v17.json",
+      "artifact": "results/agent-supervisor/g0/g0-readiness-single-operator-mode-v18.json",
       "missing_external_input_count": 5,
       "ready_transition_implemented": true,
       "scientific_execution_authorized": false
@@ -173,6 +173,17 @@
       "experiment_3_evaluator_status": "template_hardened_external_principals_missing",
       "gpu_execution_authorized": false,
       "scientific_evaluation_authorized": false
+    },
+    "single_operator_protected_mode": {
+      "status": "accepted_as_interim_claim_boundary",
+      "artifact": "results/agent-supervisor/g0/g0-single-operator-protected-mode-v1.json",
+      "separate_aws_accounts_retained": true,
+      "independent_human_control": false,
+      "automatic_agent_interference_protected": true,
+      "preliminary_e1_requires_separate_approval": true,
+      "final_evaluation_allowed": false,
+      "e2_authorized": false,
+      "promotion_authorized": false
     },
     "local_regression": {
       "tests": 338,

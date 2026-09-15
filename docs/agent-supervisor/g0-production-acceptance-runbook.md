@@ -129,3 +129,18 @@ dependency order:
 
 No item inherits authorization from the preceding item. Failed, interrupted,
 reverted, and inconclusive evidence remains preserved.
+
+## Interim single-operator protected mode
+
+On 2026-09-15 the researcher selected an interim weaker boundary: retain the
+separate evaluator and audit AWS accounts and least-privilege roles, but allow
+one human owner to administer both. This is sufficient to test prevention of
+automatic agent/worker interference and to run a preregistered preliminary E1
+development baseline after separate infrastructure and paid-run approvals.
+
+It does not satisfy `production-independent` custody. Do not create canonical
+production custody/deployment receipts, expose or use hidden final resets,
+enter E2, claim independent human evaluation, or promote a policy under this
+mode. Administrator override risk must remain explicit in every report. A
+later independent-human handoff can strengthen the boundary, but cannot
+retroactively upgrade evidence collected under single-operator control.

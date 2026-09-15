@@ -1,0 +1,54 @@
+{
+  "payload": {
+    "accounts": {
+      "audit_account_id": "125273094215",
+      "evaluator_account_id": "960946312280",
+      "separate_aws_accounts_retained": true,
+      "single_human_owner": true
+    },
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_change_set_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "model_egress_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_evaluation_authorized": false
+    },
+    "classification": "single-operator-protected-preliminary",
+    "human_independence": {
+      "accepted": false,
+      "administrator_email_sha256": "48479cffe7b4a218ccee08518d135988072082b6ed766c9288a7cd6da34f3746",
+      "temporary_verifier_email_sha256": "6bd2a28013b82282a636e876cbefee325b9437f710fbaf4b063334ea94f393ea",
+      "temporary_verifier_is_independent_human": false
+    },
+    "permitted_claims_after_separate_execution_approvals": [
+      "agent and worker paths are technically isolated from evaluator inputs and official results",
+      "evidence is retained in versioned compliance-locked storage",
+      "the Stage-1 development baseline is preliminary and reproducible under the frozen contract"
+    ],
+    "prohibited_claims": [
+      "independent human custody",
+      "publication-grade independent evaluation",
+      "final-set-confirmed policy improvement",
+      "candidate superiority",
+      "promotion authority"
+    ],
+    "record_kind": "g0-single-operator-protected-mode-decision",
+    "schema_version": 1,
+    "selected_date": "2026-09-15",
+    "status": "accepted_as_interim_claim_boundary",
+    "workflow_limits": {
+      "administrator_override_risk_remains": true,
+      "automatic_agent_interference_is_in_scope_for_prevention": true,
+      "e2_candidate_comparison_authorized": false,
+      "final_evaluation_allowed": false,
+      "preliminary_e1_requires_separate_paid_preflight_and_approval": true,
+      "production_independent_receipts_allowed": false
+    }
+  },
+  "sha256": "22b6ff117bc69735f3435fa175d1dc864cf73c52b915ff4189f8a7706778a2b0"
+}

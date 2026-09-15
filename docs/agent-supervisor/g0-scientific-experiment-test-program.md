@@ -133,6 +133,13 @@ checkpoint. Its output grants no execution or promotion authority.
 GPU requirement: one large-memory GPU for training; evaluation uses only a
 runtime that preserves the frozen scientific identity.
 
+If E1 is run under the explicitly accepted single-operator protected mode, its
+result is preliminary development evidence only. It may establish whether the
+Stage-1 lineage is non-degenerate for engineering continuation, but it does not
+satisfy the independent-evaluator pass gate, may not consume the final reset
+set, may not enter E2, and cannot be retroactively relabeled as independently
+controlled evidence.
+
 ## 5. E2 — two-condition BC-schedule theory pilot
 
 **Hypothesis:** Reducing scheduled BC contribution improves Stage-2 policy
