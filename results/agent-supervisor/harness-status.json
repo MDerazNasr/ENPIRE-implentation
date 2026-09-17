@@ -155,10 +155,13 @@
       "private_artifact_uploaded": false
     },
     "g0_aws_evaluator_readiness": {
-      "status": "template_hardened_blocked_missing_independent_humans_and_principals",
+      "status": "technical_identities_provisioned_single_operator_deployment_not_authorized",
       "artifact": "results/agent-supervisor/g0/aws-evaluator-readiness-inventory-v1.json",
+      "technical_identity_bootstrap_artifact": "results/agent-supervisor/g0/aws-evaluator-technical-identity-bootstrap-v1.json",
       "active_stack_count": 0,
       "enpire_role_count": 0,
+      "generated_identity_center_role_count": 4,
+      "least_privilege_permission_sets_verified": true,
       "independent_evaluator_custodian_human_confirmed": false,
       "independent_verifier_human_confirmed": false,
       "receipt_verifier_version_enumeration_frozen": true,
@@ -170,7 +173,7 @@
       "artifact": "results/agent-supervisor/g0/g0-baseline-evaluator-focus-freeze-v2.json",
       "completion_order": ["protected_evaluator", "scientific_stage1_baseline"],
       "experiment_1_baseline_status": "selector_frozen_execution_blocked_on_g0",
-      "experiment_3_evaluator_status": "template_hardened_external_principals_missing",
+      "experiment_3_evaluator_status": "technical_identities_provisioned_change_set_not_authorized",
       "gpu_execution_authorized": false,
       "scientific_evaluation_authorized": false
     },

@@ -144,3 +144,12 @@ enter E2, claim independent human evaluation, or promote a policy under this
 mode. Administrator override risk must remain explicit in every report. A
 later independent-human handoff can strengthen the boundary, but cannot
 retroactively upgrade evidence collected under single-operator control.
+
+As of 2026-09-17, the interim technical-identity step is complete. The existing
+administrator holds separate coordinator, custodian, and evaluator-operator
+permission sets, and the temporary verifier has evaluator-account verifier
+access. Each permission set is limited to assuming its exact future role, and
+none grants direct S3, CloudFormation, GPU, or evaluator authority. This does
+not complete production steps 1 or 2 above because the humans remain under one
+owner. The next separately authorized action may only be creation of a
+non-executed evaluator CloudFormation change set for review.

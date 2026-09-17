@@ -213,3 +213,23 @@ create an evaluator change set until the missing humans and concrete
 least-privilege principals are supplied and separately approved. Do not reuse
 the temporary same-operator verifier identity as proof of independent human
 custody.
+
+## Interim evaluator technical identities
+
+On 2026-09-17, under the explicitly accepted single-operator protected mode,
+three one-hour Identity Center permission sets were created for the existing
+administrator: coordinator, custodian, and evaluator operator. Each can only
+call `sts:AssumeRole` on its exact future evaluator-account application role.
+The existing verifier permission set was extended only to the future evaluator
+receipt-verifier role and assigned to the existing temporary verifier user in
+the evaluator account. All four assignments completed, their generated
+AWS-reserved roles have no attached managed policies, and the evaluator account
+still has no stack, bucket, or `enpire-g0-*` application role.
+
+The exact receipt is
+`results/agent-supervisor/g0/aws-evaluator-technical-identity-bootstrap-v1.json`.
+This establishes technical identities, not independent human custody. The old
+verifier permission-set description still refers only to the audit role; its
+read-back inline policy is authoritative and contains exactly the two approved
+verifier roles. No evaluator change set or deployment is authorized by this
+bootstrap.

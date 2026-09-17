@@ -1,0 +1,154 @@
+{
+  "payload": {
+    "account_assignments": [
+      {
+        "account_id": "960946312280",
+        "permission_set_arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-7907c7ddef1545f5",
+        "principal_id": "c881c3c0-8091-703c-51f2-80ab8a173324",
+        "principal_type": "USER",
+        "request_id": "c5b23ca7-d15c-4f80-8338-5c22ccd2a1b4",
+        "status": "SUCCEEDED"
+      },
+      {
+        "account_id": "960946312280",
+        "permission_set_arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-7907bb1f7746e09e",
+        "principal_id": "c881c3c0-8091-703c-51f2-80ab8a173324",
+        "principal_type": "USER",
+        "request_id": "dfd91647-9fb5-4fa2-b06d-8ab6d8055ee6",
+        "status": "SUCCEEDED"
+      },
+      {
+        "account_id": "960946312280",
+        "permission_set_arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-79070bf5c971063a",
+        "principal_id": "c881c3c0-8091-703c-51f2-80ab8a173324",
+        "principal_type": "USER",
+        "request_id": "d559d842-4233-4176-90a1-16ef94cfc9c0",
+        "status": "SUCCEEDED"
+      },
+      {
+        "account_id": "960946312280",
+        "permission_set_arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-790724c2eff8b97c",
+        "principal_id": "48811330-e0a1-7058-9c56-7e76c65151eb",
+        "principal_type": "USER",
+        "request_id": "4be2212f-0c71-4b81-a5c3-60e251c8e482",
+        "status": "SUCCEEDED"
+      }
+    ],
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_change_set_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_evaluation_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "caller_gate": {
+      "account_id": "686194638827",
+      "arn": "arn:aws:sts::686194638827:assumed-role/AWSReservedSSO_AdministratorAccess_47b5d0f965e546a6/mderaznasr",
+      "passed": true
+    },
+    "evaluator_account_postcondition": {
+      "active_stack_count": 0,
+      "application_enpire_role_count": 0,
+      "bucket_count": 0,
+      "evaluator_account_id": "960946312280",
+      "evaluator_stack_created": false,
+      "generated_identity_center_role_count": 4
+    },
+    "generated_roles": [
+      {
+        "arn": "arn:aws:iam::960946312280:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0CoordinatorAccess_e8f3326d8e29d2e5",
+        "name": "AWSReservedSSO_ENPIREG0CoordinatorAccess_e8f3326d8e29d2e5"
+      },
+      {
+        "arn": "arn:aws:iam::960946312280:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0CustodianAccess_fdbc875b29382f2c",
+        "name": "AWSReservedSSO_ENPIREG0CustodianAccess_fdbc875b29382f2c"
+      },
+      {
+        "arn": "arn:aws:iam::960946312280:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0EvaluatorOperatorAccess_6e0707d62cb7a8e7",
+        "name": "AWSReservedSSO_ENPIREG0EvaluatorOperatorAccess_6e0707d62cb7a8e7"
+      },
+      {
+        "arn": "arn:aws:iam::960946312280:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0VerifierAccess_715cb6525cee841e",
+        "name": "AWSReservedSSO_ENPIREG0VerifierAccess_715cb6525cee841e"
+      }
+    ],
+    "identity_center": {
+      "identity_store_id": "d-9267ca5b31",
+      "instance_arn": "arn:aws:sso:::instance/ssoins-79073730248b0850",
+      "region": "us-west-2"
+    },
+    "independent_human_control_accepted": false,
+    "observed_at": "2026-09-17T14:44:28Z",
+    "permission_sets": [
+      {
+        "allowed_actions": [
+          "sts:AssumeRole"
+        ],
+        "allowed_resources": [
+          "arn:aws:iam::960946312280:role/enpire-g0-worker-upload"
+        ],
+        "arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-7907c7ddef1545f5",
+        "customer_managed_policy_reference_count": 0,
+        "managed_policy_attachment_count": 0,
+        "name": "ENPIREG0CoordinatorAccess",
+        "principal_id": "c881c3c0-8091-703c-51f2-80ab8a173324",
+        "session_duration": "PT1H"
+      },
+      {
+        "allowed_actions": [
+          "sts:AssumeRole"
+        ],
+        "allowed_resources": [
+          "arn:aws:iam::960946312280:role/enpire-g0-custody-provisioner"
+        ],
+        "arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-7907bb1f7746e09e",
+        "customer_managed_policy_reference_count": 0,
+        "managed_policy_attachment_count": 0,
+        "name": "ENPIREG0CustodianAccess",
+        "principal_id": "c881c3c0-8091-703c-51f2-80ab8a173324",
+        "session_duration": "PT1H"
+      },
+      {
+        "allowed_actions": [
+          "sts:AssumeRole"
+        ],
+        "allowed_resources": [
+          "arn:aws:iam::960946312280:role/enpire-g0-evaluator"
+        ],
+        "arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-79070bf5c971063a",
+        "customer_managed_policy_reference_count": 0,
+        "managed_policy_attachment_count": 0,
+        "name": "ENPIREG0EvaluatorOperatorAccess",
+        "principal_id": "c881c3c0-8091-703c-51f2-80ab8a173324",
+        "session_duration": "PT1H"
+      },
+      {
+        "allowed_actions": [
+          "sts:AssumeRole"
+        ],
+        "allowed_resources": [
+          "arn:aws:iam::125273094215:role/enpire-g0-independent-verifier",
+          "arn:aws:iam::960946312280:role/enpire-g0-receipt-verifier"
+        ],
+        "arn": "arn:aws:sso:::permissionSet/ssoins-79073730248b0850/ps-790724c2eff8b97c",
+        "customer_managed_policy_reference_count": 0,
+        "description_stale_after_approved_extension": true,
+        "managed_policy_attachment_count": 0,
+        "name": "ENPIREG0VerifierAccess",
+        "principal_id": "48811330-e0a1-7058-9c56-7e76c65151eb",
+        "session_duration": "PT1H"
+      }
+    ],
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-evaluator-technical-identity-bootstrap",
+    "schema_version": 1,
+    "status": "technical_identities_provisioned_single_operator_mode",
+    "technical_identity_separation_established": true
+  },
+  "sha256": "5a841b37619390cead118d65a483399d57f18b1e0f85d398c10a944ce1722a4d"
+}
