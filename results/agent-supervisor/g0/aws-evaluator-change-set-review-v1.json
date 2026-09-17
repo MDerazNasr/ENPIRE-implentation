@@ -1,0 +1,146 @@
+{
+  "payload": {
+    "account_id": "960946312280",
+    "approval_scope": {
+      "change_set_execution_authorized": false,
+      "evaluator_deployment_authorized": false,
+      "gpu_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "review_only_change_set_authorized": true,
+      "scientific_evaluation_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "caller_identity": {
+      "account_id": "960946312280",
+      "arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_AdministratorAccess_7d2956429a6b212a/mderaznasr",
+      "passed": true
+    },
+    "change_set": {
+      "capabilities": [
+        "CAPABILITY_NAMED_IAM"
+      ],
+      "changes": [
+        {
+          "action": "Add",
+          "logical_resource_id": "CustodyProvisionerRole",
+          "resource_type": "AWS::IAM::Role"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "EvaluatorRole",
+          "resource_type": "AWS::IAM::Role"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "EvaluatorTrail",
+          "resource_type": "AWS::CloudTrail::Trail"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "EvidenceBucket",
+          "resource_type": "AWS::S3::Bucket"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "EvidenceBucketPolicy",
+          "resource_type": "AWS::S3::BucketPolicy"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "FinalInputBucket",
+          "resource_type": "AWS::S3::Bucket"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "FinalInputBucketPolicy",
+          "resource_type": "AWS::S3::BucketPolicy"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "LedgerBucket",
+          "resource_type": "AWS::S3::Bucket"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "LedgerBucketPolicy",
+          "resource_type": "AWS::S3::BucketPolicy"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "ReceiptVerifierRole",
+          "resource_type": "AWS::IAM::Role"
+        },
+        {
+          "action": "Add",
+          "logical_resource_id": "WorkerUploadRole",
+          "resource_type": "AWS::IAM::Role"
+        }
+      ],
+      "execution_status": "AVAILABLE",
+      "executed": false,
+      "id": "arn:aws:cloudformation:us-west-2:960946312280:changeSet/g0-evaluator-single-operator-review-v1/6818c331-7ab3-4a45-9635-45050f3d12d7",
+      "name": "g0-evaluator-single-operator-review-v1",
+      "resource_add_count": 11,
+      "resource_modify_count": 0,
+      "resource_remove_count": 0,
+      "status": "CREATE_COMPLETE"
+    },
+    "cloudformation_stack": {
+      "name": "enpire-g0-evaluator",
+      "output_count": 0,
+      "resource_count": 0,
+      "status": "REVIEW_IN_PROGRESS"
+    },
+    "observed_at": "2026-09-17T18:30:20.846000Z",
+    "offline_validation": {
+      "cloudformation_lint_passed": true,
+      "project_checker_passed": true,
+      "template_check_sha256": "4a22dc2533ef06c7df494f4471d5cfcd8dacd13d8823534806386839f225e497",
+      "template_sha256": "f6fc74ce41252af642243dd04b71907a9348900382920a7faa4f7a181cd4f3d5"
+    },
+    "parameters": {
+      "AuditAnchorWriterRoleArn": "arn:aws:iam::125273094215:role/enpire-g0-anchor-writer",
+      "AuditLogBucketName": "enpire-g0-audit-auditlogbucket-pewvp64nueuy",
+      "CoordinatorPrincipalArn": "arn:aws:iam::960946312280:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0CoordinatorAccess_e8f3326d8e29d2e5",
+      "CustodianPrincipalArn": "arn:aws:iam::960946312280:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0CustodianAccess_fdbc875b29382f2c",
+      "EvaluatorOperatorPrincipalArn": "arn:aws:iam::960946312280:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0EvaluatorOperatorAccess_6e0707d62cb7a8e7",
+      "IndependentVerifierPrincipalArn": "arn:aws:iam::960946312280:role/aws-reserved/sso.amazonaws.com/us-west-2/AWSReservedSSO_ENPIREG0VerifierAccess_715cb6525cee841e",
+      "RetentionDays": "30",
+      "TrailName": "enpire-g0-evaluator-trail"
+    },
+    "postcondition": {
+      "application_enpire_role_count": 0,
+      "bucket_count": 0,
+      "cloudtrail_count": 0,
+      "object_lock_activated": false,
+      "private_artifact_uploaded": false,
+      "resources_created": false
+    },
+    "record_kind": "g0-aws-evaluator-change-set-review",
+    "region": "us-west-2",
+    "schema_version": 1,
+    "security_review": {
+      "bucket_count": 3,
+      "bucket_policies_tls_only": true,
+      "buckets_aes256_encrypted": true,
+      "buckets_block_public_access": true,
+      "buckets_object_lock_compliance_days": 30,
+      "buckets_retain_on_stack_change": true,
+      "buckets_versioned": true,
+      "cloudtrail_cross_account_audit_bucket": true,
+      "cloudtrail_log_validation": true,
+      "cloudtrail_multi_region": true,
+      "exact_identity_center_trusts": true,
+      "iam_role_count": 4,
+      "receipt_verifier_final_input_object_read": false,
+      "receipt_verifier_lists_versions": true,
+      "worker_delete_access": false,
+      "worker_final_input_access": false
+    },
+    "status": "review_complete_execution_not_authorized",
+    "technical_identity_bootstrap_receipt": "results/agent-supervisor/g0/aws-evaluator-technical-identity-bootstrap-v1.json",
+    "technical_identity_bootstrap_sha256": "5a841b37619390cead118d65a483399d57f18b1e0f85d398c10a944ce1722a4d"
+  },
+  "sha256": "7b65af23f09bdb2297c44d8e039b489984d931bc3a7132c9c95656b88daabda6"
+}

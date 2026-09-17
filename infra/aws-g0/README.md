@@ -233,3 +233,20 @@ verifier permission-set description still refers only to the audit role; its
 read-back inline policy is authoritative and contains exactly the two approved
 verifier roles. No evaluator change set or deployment is authorized by this
 bootstrap.
+
+## Evaluator change-set review
+
+With separate review-only approval, change set
+`g0-evaluator-single-operator-review-v1` was created in evaluator account
+`960946312280`. It is `CREATE_COMPLETE/AVAILABLE` and remains unexecuted. The
+diff contains exactly eleven additions: three S3 buckets, four IAM roles, three
+bucket policies, and one CloudTrail. The placeholder stack
+`enpire-g0-evaluator` remains `REVIEW_IN_PROGRESS` with zero resources and no
+outputs. Post-review checks found zero buckets, zero `enpire-g0-*` application
+roles, and zero trails in the evaluator account.
+
+The full review receipt is
+`results/agent-supervisor/g0/aws-evaluator-change-set-review-v1.json`. Executing
+this change set would activate irreversible 30-day COMPLIANCE Object Lock on
+three buckets and create the remaining roles and trail. Review approval does
+not authorize execution; a separate exact execution approval is mandatory.

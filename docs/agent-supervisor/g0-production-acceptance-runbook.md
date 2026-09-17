@@ -153,3 +153,10 @@ none grants direct S3, CloudFormation, GPU, or evaluator authority. This does
 not complete production steps 1 or 2 above because the humans remain under one
 owner. The next separately authorized action may only be creation of a
 non-executed evaluator CloudFormation change set for review.
+
+That review-only step completed on 2026-09-17. Change set
+`g0-evaluator-single-operator-review-v1` proposes exactly the expected eleven
+resource additions and remains `CREATE_COMPLETE/AVAILABLE`; its placeholder
+stack has zero resources. No Object Lock, bucket, application role, or trail
+exists in the evaluator account. The next action is execution only after a new
+exact approval acknowledging the three irreversible 30-day COMPLIANCE locks.
