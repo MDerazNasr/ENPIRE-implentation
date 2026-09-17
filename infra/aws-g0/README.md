@@ -250,3 +250,23 @@ The full review receipt is
 this change set would activate irreversible 30-day COMPLIANCE Object Lock on
 three buckets and create the remaining roles and trail. Review approval does
 not authorize execution; a separate exact execution approval is mandatory.
+
+## Evaluator stack execution
+
+After separate exact execution approval, the reviewed change set executed once
+and stack `enpire-g0-evaluator` reached `CREATE_COMPLETE` with all eleven
+resources complete. All three buckets are empty, versioned, AES256-encrypted,
+non-public, TLS-only, retained on stack change, and protected by 30-day
+COMPLIANCE Object Lock. All four application roles match the reviewed exact
+trusts and inline policies and have no attached managed policies. CloudTrail is
+logging, validates log files, is multi-region, records management and all three
+bucket data-event paths, and delivers to the audit account bucket.
+
+The administrator read-back is preserved in
+`results/agent-supervisor/g0/aws-evaluator-stack-terminal-v1.json`. Independent
+receipt-verifier validation is still pending: one SSO attempt failed closed on
+a reused wrong portal identity, and a fresh isolated authorization was not
+completed. Do not claim the independent verifier boundary complete until that
+role is assumed and independently reads all three version inventories and
+retention controls. No private artifact was uploaded and no evaluator,
+scientific job, evaluation, or promotion ran.

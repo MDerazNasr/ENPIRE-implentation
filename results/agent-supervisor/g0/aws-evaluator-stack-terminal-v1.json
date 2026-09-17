@@ -1,0 +1,150 @@
+{
+  "payload": {
+    "account_id": "960946312280",
+    "approval_scope": {
+      "change_set_execution_authorized": true,
+      "evaluator_execution_authorized": false,
+      "gpu_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "read_only_post_deployment_verification_authorized": true,
+      "scientific_evaluation_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "buckets": [
+      {
+        "arn": "arn:aws:s3:::enpire-g0-evaluator-finalinputbucket-uskddvpfqw4c",
+        "delete_marker_count": 0,
+        "encryption": "AES256",
+        "name": "enpire-g0-evaluator-finalinputbucket-uskddvpfqw4c",
+        "object_lock_days": 30,
+        "object_lock_mode": "COMPLIANCE",
+        "policy_public": false,
+        "public_access_blocks_enabled": true,
+        "secure_transport_required": true,
+        "version_count": 0,
+        "versioning": "Enabled"
+      },
+      {
+        "arn": "arn:aws:s3:::enpire-g0-evaluator-evidencebucket-atlpylr0fwjq",
+        "delete_marker_count": 0,
+        "encryption": "AES256",
+        "name": "enpire-g0-evaluator-evidencebucket-atlpylr0fwjq",
+        "object_lock_days": 30,
+        "object_lock_mode": "COMPLIANCE",
+        "policy_public": false,
+        "public_access_blocks_enabled": true,
+        "secure_transport_required": true,
+        "version_count": 0,
+        "versioning": "Enabled"
+      },
+      {
+        "arn": "arn:aws:s3:::enpire-g0-evaluator-ledgerbucket-2fq48ulugsje",
+        "delete_marker_count": 0,
+        "encryption": "AES256",
+        "name": "enpire-g0-evaluator-ledgerbucket-2fq48ulugsje",
+        "object_lock_days": 30,
+        "object_lock_mode": "COMPLIANCE",
+        "policy_public": false,
+        "public_access_blocks_enabled": true,
+        "secure_transport_required": true,
+        "version_count": 0,
+        "versioning": "Enabled"
+      }
+    ],
+    "caller_identity": {
+      "account_id": "960946312280",
+      "arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_AdministratorAccess_7d2956429a6b212a/mderaznasr",
+      "passed": true
+    },
+    "change_set": {
+      "executed_once": true,
+      "id": "arn:aws:cloudformation:us-west-2:960946312280:changeSet/g0-evaluator-single-operator-review-v1/6818c331-7ab3-4a45-9635-45050f3d12d7",
+      "name": "g0-evaluator-single-operator-review-v1",
+      "review_receipt": "results/agent-supervisor/g0/aws-evaluator-change-set-review-v1.json",
+      "review_receipt_sha256": "7b65af23f09bdb2297c44d8e039b489984d931bc3a7132c9c95656b88daabda6"
+    },
+    "cloudtrail": {
+      "data_event_bucket_count": 3,
+      "include_global_service_events": true,
+      "is_logging": true,
+      "log_file_validation_enabled": true,
+      "management_events": true,
+      "multi_region": true,
+      "name": "enpire-g0-evaluator-trail",
+      "read_write_type": "All",
+      "s3_bucket_name": "enpire-g0-audit-auditlogbucket-pewvp64nueuy",
+      "trail_arn": "arn:aws:cloudtrail:us-west-2:960946312280:trail/enpire-g0-evaluator-trail"
+    },
+    "independent_verifier_validation": {
+      "attempts": [
+        {
+          "aws_resource_mutation_occurred": false,
+          "result": "GetRoleCredentials_NoAccess",
+          "status": "failed_closed_wrong_portal_identity"
+        },
+        {
+          "aws_resource_mutation_occurred": false,
+          "result": "device_authorization_not_completed",
+          "status": "cancelled_pending_user_login"
+        }
+      ],
+      "role_assumption_verified": false,
+      "status": "pending_clean_verifier_authentication"
+    },
+    "observed_at": "2026-09-17T20:48:03Z",
+    "private_artifact_uploaded": false,
+    "record_kind": "g0-aws-evaluator-stack-terminal",
+    "region": "us-west-2",
+    "roles": [
+      {
+        "arn": "arn:aws:iam::960946312280:role/enpire-g0-worker-upload",
+        "attached_managed_policy_count": 0,
+        "inline_policy_names": [
+          "WriteAssignedEvidenceOnly"
+        ],
+        "name": "enpire-g0-worker-upload",
+        "trust_matches_review": true
+      },
+      {
+        "arn": "arn:aws:iam::960946312280:role/enpire-g0-custody-provisioner",
+        "attached_managed_policy_count": 0,
+        "inline_policy_names": [
+          "WriteFinalInputsAndBundle"
+        ],
+        "name": "enpire-g0-custody-provisioner",
+        "trust_matches_review": true
+      },
+      {
+        "arn": "arn:aws:iam::960946312280:role/enpire-g0-evaluator",
+        "attached_managed_policy_count": 0,
+        "inline_policy_names": [
+          "EvaluateFrozenEvidence"
+        ],
+        "name": "enpire-g0-evaluator",
+        "trust_matches_review": true
+      },
+      {
+        "arn": "arn:aws:iam::960946312280:role/enpire-g0-receipt-verifier",
+        "attached_managed_policy_count": 0,
+        "inline_policy_names": [
+          "VerifyControlsWithoutFinalInputRead"
+        ],
+        "name": "enpire-g0-receipt-verifier",
+        "trust_matches_review": true
+      }
+    ],
+    "schema_version": 1,
+    "stack": {
+      "all_resource_statuses_create_complete": true,
+      "id": "arn:aws:cloudformation:us-west-2:960946312280:stack/enpire-g0-evaluator/d6d4d590-b2c5-11f1-9077-02ffd34bc385",
+      "name": "enpire-g0-evaluator",
+      "resource_count": 11,
+      "status": "CREATE_COMPLETE"
+    },
+    "status": "deployed_admin_validation_passed_independent_verifier_pending",
+    "technical_controls_admin_verified": true,
+    "template_sha256": "f6fc74ce41252af642243dd04b71907a9348900382920a7faa4f7a181cd4f3d5"
+  },
+  "sha256": "b90c499b5ef7e6011688cce057ad77affdf98272c9f409c6289f36722f556641"
+}
