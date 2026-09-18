@@ -1,0 +1,54 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'maniskill_rlt_stage2_ac_mlp': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+/opt/RLinf/.venv/lib/python3.11/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.xyz_configs to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.xyz_configs` for environment variables or `env.get_wrapper_attr('xyz_configs')` that will search the reminding wrappers.[0m
+  logger.warn(
+{"action_step_executed": false, "elapsed_seconds": 22.974147911999808, "info_shapes": {"elapsed_steps": [16], "peg_head_pos_at_hole": [16, 3], "reconfigure": [16], "success": [16]}, "num_envs": 16, "observation_shapes": {"extra_view_images": "NoneType", "main_images": [16, 384, 384, 3], "states": [16, 9], "task_descriptions": ["str", "str", "str", "str", "str", "str", "str", "str", "str", "str", "str", "str", "str", "str", "str", "str"], "wrist_images": [16, 384, 384, 3]}, "policy_loaded": false, "promotion_executed": false, "scientific_evaluation_executed": false, "seed": 2026, "status": "pass", "task": "PegInsertionSideWideClearance-v1"}

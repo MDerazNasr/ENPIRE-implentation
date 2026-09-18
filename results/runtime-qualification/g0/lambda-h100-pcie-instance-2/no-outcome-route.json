@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "recorded_at": "2026-09-18T14:39:53Z",
+  "claim_scope": "actor-free 16-process task initialization and development-seed reset engineering qualification only; no action, policy outcome, training, evaluation, or promotion",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "cdb853ad0db8401a984bf71568cee8fd",
+    "ip": "209.20.159.254",
+    "gpu": "NVIDIA H100 PCIe"
+  },
+  "runtime": {
+    "project_commit": "82d5b498181c40e5741a872745788559d2f8ee90",
+    "image_id": "sha256:570387e62df8d3bf5d8a06ca6313c0a74f06f795d27953748ffbe2bbe13cce1d",
+    "task": "PegInsertionSideWideClearance-v1",
+    "sim_backend": "cpu",
+    "render_backend": "Mesa llvmpipe via pci:0000:00:00.0",
+    "adapter": "ModalMultiprocessManiskillRLTEnv",
+    "processes": 16,
+    "seed_role": "development",
+    "seed": 2026,
+    "elapsed_seconds": 22.974147911999808,
+    "network_mode": "none"
+  },
+  "observed_shapes": {
+    "main_images": [16, 384, 384, 3],
+    "wrist_images": [16, 384, 384, 3],
+    "states": [16, 9],
+    "success": [16]
+  },
+  "execution_boundary": {
+    "policy_loaded": false,
+    "private_model_present": false,
+    "action_step_executed": false,
+    "scientific_evaluation_executed": false,
+    "promotion_executed": false,
+    "final_reset_ids_accessed": false
+  },
+  "evidence": {
+    "probe_script_sha256": "61b1b45276aff4382b4f8d9767a01707e5d30acbf72a153af52197f4c61ebd80",
+    "log_path": "no-outcome-route.log",
+    "log_sha256": "6dcd8db103e16ab11bcfb67e908ce670e4e275c208245103a7bb28c4572cf2f8",
+    "log_size_bytes": 7708,
+    "failed_attempt_logs_preserved": [
+      "no-outcome-route-attempt-1.log",
+      "no-outcome-route-attempt-2.log"
+    ]
+  },
+  "terminal_idle_gate": {
+    "running_containers": 0,
+    "total_containers": 0,
+    "gpu_compute_processes": 0,
+    "enpire_workload_processes": 0,
+    "private_actor_present": false
+  },
+  "remaining_runtime_blockers": [
+    "sufficient instance lifetime for an approved attempt",
+    "durable off-host checkpoint and evidence writer integration",
+    "complete frozen E1 checkpoint evaluation route",
+    "budget reconciliation and explicit paid scientific execution approval",
+    "separately authorized private initial-actor transfer"
+  ],
+  "authorization": {
+    "scientific_execution_authorized": false,
+    "campaign_activation_authorized": false,
+    "private_model_export_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  }
+}

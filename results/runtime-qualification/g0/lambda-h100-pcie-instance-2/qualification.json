@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "status": "exact_image_public_runtime_and_no_outcome_route_qualified",
+  "recorded_at": "2026-09-18T14:39:53Z",
+  "claim_scope": "fresh actor-free Lambda H100 PCIe engineering qualification only; no policy, action step, training, scientific evaluation, campaign execution, or promotion",
+  "provider": {
+    "name": "Lambda Cloud",
+    "instance_id": "cdb853ad0db8401a984bf71568cee8fd",
+    "region": "Utah, USA",
+    "ip": "209.20.159.254",
+    "price_usd_per_hour": "3.29"
+  },
+  "source": {
+    "project_commit": "82d5b498181c40e5741a872745788559d2f8ee90",
+    "archive_sha256": "373fb8fe191f1d2787aaa64fc4bab01ac4570012b5877cc1ad41147921083af7",
+    "archive_size_bytes": 1364066,
+    "dockerfile_sha256": "72b27283e1f76470ebccb04ac12e036ec0698bef3bc4542ea4b596620dfa5f29",
+    "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+    "private_actor_present": false
+  },
+  "image": {
+    "tag": "enpire-g0-h100-pcie:82d5b49",
+    "id": "sha256:570387e62df8d3bf5d8a06ca6313c0a74f06f795d27953748ffbe2bbe13cce1d",
+    "size_bytes": 40897621449,
+    "base_image_digest": "sha256:6617a625f4090c76c545a0e7d63f2e441718ef9af7f4efe7dd1242a29e289fd7"
+  },
+  "public_probe": {
+    "result": "pass",
+    "network_mode": "none",
+    "python": "3.11.14",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA H100 PCIe",
+    "gpu_memory_bytes": 85028896768,
+    "cuda_probe": 4.0,
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "maniskill": "3.0.0b22",
+    "sapien": "3.0.1",
+    "hydra": "1.3.2",
+    "omegaconf": "2.3.0",
+    "vulkan": "Mesa llvmpipe",
+    "openpi_norm_loader_keys": [
+      "actions",
+      "state"
+    ],
+    "project_audit_module_imports": "pass",
+    "policy_loaded": false,
+    "simulator_step_executed": false,
+    "scientific_evaluation_executed": false
+  },
+  "no_outcome_route": {
+    "result": "pass",
+    "processes": 16,
+    "seed_role": "development",
+    "seed": 2026,
+    "task": "PegInsertionSideWideClearance-v1",
+    "simulator_reset_executed": true,
+    "action_step_executed": false,
+    "policy_loaded": false,
+    "scientific_evaluation_executed": false
+  },
+  "tests": {
+    "local_focused": {
+      "passed": 48,
+      "failed": 0
+    },
+    "exact_image_g0_focused": {
+      "passed": 42,
+      "failed": 0
+    },
+    "exact_image_f2": {
+      "passed": 6,
+      "failed": 0
+    },
+    "preserved_intermediate_failures": [
+      "public probe attempt 1 omitted the mounted project from PYTHONPATH",
+      "public probe attempt 2 omitted the explicit Mesa llvmpipe ICD",
+      "focused-test attempt 1 exposed the host/container ownership-fixture difference",
+      "focused-test attempt 2 accidentally preserved host ownership with cp -a",
+      "no-outcome attempt 1 omitted the public EMBODIED_PATH binding",
+      "no-outcome attempt 2 completed initialization and reset but used the wrong config key while formatting its report"
+    ],
+    "same_owner_fixture_scope": "temporary disposable container copy only; source archive and image unchanged"
+  },
+  "terminal_idle_gate": {
+    "checked_at": "2026-09-18T14:39:53Z",
+    "running_containers": 0,
+    "total_containers": 0,
+    "gpu_compute_processes": 0,
+    "enpire_workload_processes": 0,
+    "private_actor_present": false,
+    "disk_available_bytes": 997114310656
+  },
+  "evidence_manifest": {
+    "focused-tests-attempt-1.log": "3a7718ae5a93f8b8e514d0b3edbc085bb3e0d223bea861243d200a4f463c31ef",
+    "focused-tests-attempt-2.log": "23b1e102597ceb4fa62192ad4caa85637c16e16436b8a1d0d6735537a38b9208",
+    "focused-tests.log": "9d4283c5ffe8426ac9cf384fb62d4e3d8e7c72060becbcc82a23cf6a65b3b851",
+    "image-build.log": "38ca688a143ca1fe944f1c077b75a3c6187d4ff5264d36e793990f26939af059",
+    "no-outcome-probe-attempt-1.py": "8f9f87addd23f24b2742fd0582c27debb4019b259f9e721eeeb8b73747ad3765",
+    "no-outcome-probe.py": "61b1b45276aff4382b4f8d9767a01707e5d30acbf72a153af52197f4c61ebd80",
+    "no-outcome-route-attempt-1.log": "122d584dca4d58a6ccc500712c007590dfa7b74f80712bb20bb01aca82f5495d",
+    "no-outcome-route-attempt-2.log": "37948d8b6dcf7f3bd541f3e9b8924203aa1611db9aba4063f9e537881f56c713",
+    "no-outcome-route.log": "6dcd8db103e16ab11bcfb67e908ce670e4e275c208245103a7bb28c4572cf2f8",
+    "public-probe-attempt-1.log": "002f3377b6f399c1eaf0ffe10adba22a144772788fec011ef34c2914866dd6d7",
+    "public-probe-attempt-2.log": "eaacdfd421ddb1ff42ce66554746cdc4b3d7872aab4292eb8ee0faf2fa15d62d",
+    "public-probe.log": "493b52d57127e18db1389559cc9bf7d9bb7f27394390dadf3c6f5d61aa15a647",
+    "public-probe.py": "7ee7722c3f5f1740fc78ac5d28286dbd626ea1a08ab9b031db066dc0c7c055c1"
+  },
+  "remaining_runtime_blockers": [
+    "extend the instance lifetime beyond the complete approved scientific attempt plus recovery margin",
+    "bind the execution path to durable off-host checkpoint and evidence writes",
+    "implement and freeze the complete E1 checkpoint evaluation route over four development reset sets of 256 episodes",
+    "reconcile the stage1 scientific config budget with the selected runtime cost cap",
+    "obtain explicit authorization for private initial-actor transfer and paid E1 scientific execution"
+  ],
+  "authorization": {
+    "public_provisioning_completed": true,
+    "private_model_export_authorized": false,
+    "scientific_execution_authorized": false,
+    "campaign_activation_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false
+  }
+}

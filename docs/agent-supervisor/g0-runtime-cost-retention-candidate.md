@@ -17,20 +17,21 @@ evaluation, campaign activation, or promotion.
 | Option | Evidence | Current disposition |
 |---|---|---|
 | Modal RTX PRO 6000 | F0 selected a 96 GB matched scientific runtime with the pinned linux/amd64 CUDA image and 16-process CPU-physics adapter | Preserved version-1 candidate; not selected for the current campaign |
-| Lambda H100 PCIe | F2 attempt 7 completed the four-run engineering rehearsal and ten resume checks; instance `15c6fcfe...9b688` passed fresh host, exact-image, and actor-free 16-process route qualification on 2026-09-12 | Preferred version-4 design; durable storage, storage/egress pricing, and sufficient lifetime remain unqualified |
+| Lambda H100 PCIe | F2 attempt 7 completed the four-run engineering rehearsal and ten resume checks; replacement instance `cdb853ad...e8fd` passed fresh host, exact-image, and actor-free 16-process route qualification on 2026-09-18 | Preferred version-4 design, freshly rebound in engineering evidence; durable execution-path storage, storage/egress pricing, sufficient lifetime, and a refreshed candidate envelope remain pending |
 
 The user selected Lambda H100 PCIe after comparing currently available GPU
-prices. The exact host is Lambda instance
-`15c6fcfe96f946baa1e440d55ac9b688`, Utah, IP `209.20.157.138`, at the
+prices. The current host is replacement Lambda instance
+`cdb853ad0db8401a984bf71568cee8fd`, Utah, IP `209.20.159.254`, at the
 user-reported `$3.29/hour`. Read-only inspection confirmed Ubuntu 22.04.5,
-26 CPUs, 237,490,954,240 bytes RAM, 1,038,689,009,664 bytes free, H100 PCIe
-81,559 MiB, driver 570.148.08, Docker/NVIDIA tooling, and zero containers,
-GPU processes, or ENPIRE workload processes. Public provisioning then bound
-clean source commit `bb52372...c050`, image `06232835...705fd`, the pinned
-runtime/assets, and a second terminal idle gate. A network-disabled 16-process
-CPU-physics/Mesa initialization and development-seed reset then produced the
-expected 384x384 image and state batches in 23.04 seconds. No policy or action
-step ran. Durable storage and sufficient lifetime remain pending.
+26 CPUs, 237,490,954,240 bytes RAM, H100 PCIe 81,559 MiB, driver 570.148.08,
+Docker/NVIDIA tooling, and an idle host. Public provisioning then bound clean
+source commit `82d5b49...ee90`, image `570387e6...ce1d`, and the pinned
+runtime/assets. A network-disabled 16-process CPU-physics/Mesa initialization
+and development-seed reset produced the expected 384x384 image and state
+batches in 22.97 seconds. No policy or action step ran. The retired September
+12 host and all of its evidence remain preserved. Durable execution-path
+storage, sufficient lifetime, and a refreshed candidate envelope remain
+pending.
 
 Shared candidate identities already available:
 
@@ -60,12 +61,11 @@ verified and inserted into a separate E2 preflight before any E2 dispatch.
 
 ## Current Lambda pricing snapshot
 
-The user-supplied Lambda dashboard listed the selected H100 PCIe instance at
-`$3.29/hour` on 2026-09-12. The provider storage and egress prices were not
-supplied and are intentionally unresolved. The current 5h59m auto-shutdown
-window is insufficient for the proposed 24-hour E1 or 48-hour E2 attempt caps.
-It must be extended, or an approved segmented/checkpointed schedule with a
-durable off-host store must replace those caps, before scientific execution.
+The user-supplied Lambda dashboard listed H100 PCIe at `$3.29/hour` on both
+2026-09-12 and 2026-09-18. Provider storage and egress prices were not supplied
+and are intentionally unresolved. The replacement host's user-reported 11h52m
+auto-shutdown window is insufficient for the proposed 24-hour E1 attempt plus
+reconciliation margin. It must be extended before scientific execution.
 
 The version-2 compute-only arithmetic is:
 
@@ -82,8 +82,10 @@ It has 26 CPUs, 237,490,954,240 bytes RAM, 1,038,742,441,984 bytes free,
 zero GPU compute processes. The supplied SSH private key was tightened from
 mode `0644` to `0600`; only its public fingerprint is recorded. The
 user-reported 11h52m auto-shutdown window is insufficient for E1 and must be
-extended before paid execution. This read-only gate did not build or pull an
-image, transfer an actor, load a policy, run the GPU, evaluate, or train. See
+extended before paid execution. The host-gate receipt itself did not build or
+pull an image, transfer an actor, load a policy, run the GPU, evaluate, or
+train; the later actor-free public image and reset-only qualification is the
+separate instance-2 evidence linked below. See
 `results/agent-supervisor/g0/e1-h100-host-qualification-v1.json`.
 
 The compute-only ceiling is `$2,052.96`. A total-program ceiling cannot yet
@@ -105,8 +107,9 @@ requested-resource arithmetic is `$4.552992/hour`. Pricing must be rechecked
 immediately before any paid approval. Source:
 [Modal pricing](https://modal.com/pricing).
 
-No current Lambda price is used. The prior `$3.29/hour` is retained only as
-historical F2 evidence and cannot support a new approval.
+The `$3.29/hour` figure remains user-reported rather than independently
+provider-verified. It can support planning arithmetic but not a final paid-run
+approval without a fresh price check.
 
 ## Preserved version-1 worst-case envelope
 
@@ -166,6 +169,9 @@ that the selected cap can contain the frozen route before paid authorization.
 - [`../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1-host.json`](../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1-host.json)
 - [`../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1/qualification.json`](../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1/qualification.json)
 - [`../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1/no-outcome-route.json`](../../results/runtime-qualification/g0/lambda-h100-pcie-instance-1/no-outcome-route.json)
+- [`../../results/agent-supervisor/g0/e1-h100-host-qualification-v1.json`](../../results/agent-supervisor/g0/e1-h100-host-qualification-v1.json)
+- [`../../results/runtime-qualification/g0/lambda-h100-pcie-instance-2/qualification.json`](../../results/runtime-qualification/g0/lambda-h100-pcie-instance-2/qualification.json)
+- [`../../results/runtime-qualification/g0/lambda-h100-pcie-instance-2/no-outcome-route.json`](../../results/runtime-qualification/g0/lambda-h100-pcie-instance-2/no-outcome-route.json)
 
 The strict validator is `supervisor/g0_protocol_inputs.py`; the create-only
 builder is `scripts/build_g0_runtime_cost_candidates.py`. The candidates retain

@@ -1,0 +1,18 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+/opt/RLinf/.venv/lib/python3.11/site-packages/sapien/_vulkan_tricks.py:95: UserWarning: Failed to find glvnd ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+  warn(
+{"cuda": "12.8", "cuda_probe": 4.0, "gpu": "NVIDIA H100 PCIe", "gpu_memory_bytes": 85028896768, "hydra": "1.3.2", "maniskill": "3.0.0b22", "metrics_module": "/opt/qualia/agent/metrics.py", "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd", "omegaconf": "2.3.0", "openpi_norm_loader_keys": ["actions", "state"], "policy_loaded": false, "python": "3.11.14", "resume_state_module": "/opt/qualia/agent/rlt_resume_state.py", "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf", "sapien": "3.0.1", "scientific_evaluation_executed": false, "simulator_step_executed": false, "torch": "2.8.0+cu128", "vulkan_llvmpipe": true, "vulkan_returncode": 0}

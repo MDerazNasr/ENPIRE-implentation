@@ -1,0 +1,242 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.1
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+Traceback (most recent call last):
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/resolvers/oc/__init__.py", line 33, in env
+    return os.environ[key]
+           ~~~~~~~~~~^^^^^
+  File "<frozen os>", line 679, in __getitem__
+KeyError: 'EMBODIED_PATH'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 764, in resolve_parse_tree
+    return visitor.visit(parse_tree)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 206, in accept
+    return visitor.visitConfigValue(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 101, in visitConfigValue
+    return self.visit(ctx.getChild(0))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 342, in accept
+    return visitor.visitText(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 301, in visitText
+    return self._unescape(list(ctx.getChildren()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 389, in _unescape
+    text = str(self.visitInterpolation(node))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 125, in visitInterpolation
+    return self.visit(ctx.getChild(0))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 1041, in accept
+    return visitor.visitInterpolationResolver(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 179, in visitInterpolationResolver
+    return self.resolver_interpolation_callback(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 750, in resolver_interpolation_callback
+    return self._evaluate_custom_resolver(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 694, in _evaluate_custom_resolver
+    return resolver(
+           ^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/omegaconf.py", line 445, in resolver_wrapper
+    ret = resolver(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/resolvers/oc/__init__.py", line 38, in env
+    raise KeyError(f"Environment variable '{key}' not found")
+KeyError: "Environment variable 'EMBODIED_PATH' not found"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 142, in load_configuration
+    return self._load_configuration_impl(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 244, in _load_configuration_impl
+    parsed_overrides, caching_repo = self._parse_overrides_and_create_caching_repo(
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 230, in _parse_overrides_and_create_caching_repo
+    self._process_config_searchpath(config_name, parsed_overrides, caching_repo)
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 202, in _process_config_searchpath
+    for v in searchpath:
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/listconfig.py", line 547, in __next__
+    x = x._dereference_node()
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 246, in _dereference_node
+    node = self._dereference_node_impl(throw_on_resolution_failure=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 277, in _dereference_node_impl
+    return parent._resolve_interpolation_from_parse_tree(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 584, in _resolve_interpolation_from_parse_tree
+    resolved = self.resolve_parse_tree(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 769, in resolve_parse_tree
+    raise InterpolationResolutionError(
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 764, in resolve_parse_tree
+    return visitor.visit(parse_tree)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 206, in accept
+    return visitor.visitConfigValue(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 101, in visitConfigValue
+    return self.visit(ctx.getChild(0))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 342, in accept
+    return visitor.visitText(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 301, in visitText
+    return self._unescape(list(ctx.getChildren()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 389, in _unescape
+    text = str(self.visitInterpolation(node))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 125, in visitInterpolation
+    return self.visit(ctx.getChild(0))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 1041, in accept
+    return visitor.visitInterpolationResolver(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 179, in visitInterpolationResolver
+    return self.resolver_interpolation_callback(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 750, in resolver_interpolation_callback
+    return self._evaluate_custom_resolver(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 694, in _evaluate_custom_resolver
+    return resolver(
+           ^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/omegaconf.py", line 445, in resolver_wrapper
+    ret = resolver(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/resolvers/oc/__init__.py", line 38, in env
+    raise KeyError(f"Environment variable '{key}' not found")
+omegaconf.errors.InterpolationResolutionError: KeyError raised while resolving interpolation: "Environment variable 'EMBODIED_PATH' not found"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/enpire-no-outcome-probe.py", line 74, in <module>
+    main()
+  File "/opt/enpire-no-outcome-probe.py", line 25, in main
+    cfg = compose(
+          ^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/compose.py", line 38, in compose
+    cfg = gh.hydra.compose_config(
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 594, in compose_config
+    cfg = self.config_loader.load_configuration(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 150, in load_configuration
+    raise ConfigCompositionException().with_traceback(sys.exc_info()[2]) from e
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 142, in load_configuration
+    return self._load_configuration_impl(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 244, in _load_configuration_impl
+    parsed_overrides, caching_repo = self._parse_overrides_and_create_caching_repo(
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 230, in _parse_overrides_and_create_caching_repo
+    self._process_config_searchpath(config_name, parsed_overrides, caching_repo)
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/hydra/_internal/config_loader_impl.py", line 202, in _process_config_searchpath
+    for v in searchpath:
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/listconfig.py", line 547, in __next__
+    x = x._dereference_node()
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 246, in _dereference_node
+    node = self._dereference_node_impl(throw_on_resolution_failure=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 277, in _dereference_node_impl
+    return parent._resolve_interpolation_from_parse_tree(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 584, in _resolve_interpolation_from_parse_tree
+    resolved = self.resolve_parse_tree(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 769, in resolve_parse_tree
+    raise InterpolationResolutionError(
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 764, in resolve_parse_tree
+    return visitor.visit(parse_tree)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 206, in accept
+    return visitor.visitConfigValue(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 101, in visitConfigValue
+    return self.visit(ctx.getChild(0))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 342, in accept
+    return visitor.visitText(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 301, in visitText
+    return self._unescape(list(ctx.getChildren()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 389, in _unescape
+    text = str(self.visitInterpolation(node))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 125, in visitInterpolation
+    return self.visit(ctx.getChild(0))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/antlr4/tree/Tree.py", line 34, in visit
+    return tree.accept(self)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar/gen/OmegaConfGrammarParser.py", line 1041, in accept
+    return visitor.visitInterpolationResolver(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/grammar_visitor.py", line 179, in visitInterpolationResolver
+    return self.resolver_interpolation_callback(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 750, in resolver_interpolation_callback
+    return self._evaluate_custom_resolver(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/base.py", line 694, in _evaluate_custom_resolver
+    return resolver(
+           ^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/omegaconf.py", line 445, in resolver_wrapper
+    ret = resolver(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/RLinf/.venv/lib/python3.11/site-packages/omegaconf/resolvers/oc/__init__.py", line 38, in env
+    raise KeyError(f"Environment variable '{key}' not found")
+hydra.errors.ConfigCompositionException

@@ -64,7 +64,7 @@ Decision or amendment: `TBD`
 | Stage-1 input lineage | `TBD` |
 | Dataset | `TBD` |
 | Normalization statistics | `TBD` |
-| Runtime contract and image | **Accepted design preference:** Lambda H100 PCIe at `$3.29/hour`; instance `15c6fcfe...9b688`, clean source `bb52372...c050`, image `06232835...705fd`, and actor-free 16-process route passed, while storage/lifetime binding remains required |
+| Runtime contract and image | **Accepted design preference:** Lambda H100 PCIe at user-reported `$3.29/hour`; replacement instance `cdb853ad...e8fd`, clean source `82d5b49...ee90`, image `570387e6...ce1d`, and actor-free 16-process route passed on 2026-09-18, while execution-path storage/lifetime binding and refreshed candidate-envelope review remain required |
 | Training configuration base | `TBD` |
 | Primary metric | Proposed: fixed-set `eval/success_once`; `TBD` |
 | Secondary metrics | `TBD` |
