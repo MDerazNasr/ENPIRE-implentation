@@ -35,9 +35,14 @@ def environment(root: Path) -> dict[str, str]:
     checkpoint = root / "checkpoint/actor"
     adapter = root / "adapter"
     resume_checkpoint = root / "resume/global_step_1"
-    for path in (rlinf, model, dataset, checkpoint, adapter, resume_checkpoint):
+    project = root / "project"
+    for path in (
+        rlinf, model, dataset, checkpoint, adapter, resume_checkpoint, project
+    ):
         path.mkdir(parents=True, exist_ok=True)
     (dataset / "norm_stats.json").write_text("{}\n")
+    development_resets = root / "development.json"
+    development_resets.write_text("{}\n")
     return {
         "RLINF_HOME": str(rlinf),
         "MODEL_PATH": str(model),
@@ -45,6 +50,9 @@ def environment(root: Path) -> dict[str, str]:
         "NORM_STATS_PATH": str(dataset / "norm_stats.json"),
         "STAGE1_CHECKPOINT": str(checkpoint),
         "MODAL_ADAPTER_ROOT": str(adapter),
+        "QUALIA_PROJECT_ROOT": str(project),
+        "DEVELOPMENT_RESET_PATH": str(development_resets),
+        "DEVELOPMENT_RESET_SHA256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
         "CANDIDATE_RESUME_DIR": "null",
         "CANDIDATE_MAX_STEPS": "60",
         "CANDIDATE_VAL_CHECK_INTERVAL": "-1",
@@ -606,6 +614,48 @@ class D1ConfigTests(unittest.TestCase):
                 "examples/embodiment/train_embodied_agent.py",
             )
             self.assertEqual(stage2["config_path"], "examples/embodiment/config")
+
+    def test_e1_lambda_stage1_profile_preserves_science_and_caps_runtime(self):
+        frozen = load_d1_config(CONFIG_ROOT / "stage1_scientific.yaml")
+        bounded = load_d1_config(
+            CONFIG_ROOT / "stage1_scientific_lambda_h100_20h.yaml"
+        )
+        self.assertEqual(bounded["scientific_values"], frozen["scientific_values"])
+        self.assertEqual(bounded["hydra_overrides"], frozen["hydra_overrides"])
+        self.assertEqual(bounded["budget"]["max_cost_usd"], 65.8)
+        self.assertEqual(
+            bounded["budget"]["report_thresholds_usd"],
+            [10, 20, 30, 40, 50, 60, 65.8],
+        )
+
+    def test_e1_evaluator_uses_project_eval_only_runner_and_frozen_resets(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            env = environment(root)
+            project = Path(env["QUALIA_PROJECT_ROOT"])
+            entrypoint = project / "scripts/run_g0_e1_checkpoint_evaluation.py"
+            entrypoint.parent.mkdir(parents=True, exist_ok=True)
+            entrypoint.write_text("# fixture\n")
+            rlinf = Path(env["RLINF_HOME"])
+            (rlinf / ".venv/bin").mkdir(parents=True)
+            (rlinf / ".venv/bin/python").write_text("")
+            config_dir = rlinf / "examples/embodiment/config"
+            config_dir.mkdir(parents=True)
+            (config_dir / "maniskill_rlt_stage2_ac_mlp.yaml").write_text("{}\n")
+
+            config = resolve_d1_config(
+                load_d1_config(CONFIG_ROOT / "e1_checkpoint_evaluation.yaml"), env
+            )
+            validate_rlinf_layout(config)
+            command, cwd = build_d1_command(config, root / "run")
+            self.assertEqual(command[1], str(entrypoint))
+            self.assertEqual(cwd, rlinf)
+            self.assertIn("runner.only_eval=true", command)
+            self.assertIn("env.train=null", command)
+            self.assertIn("rollout.model=${rollout.rlt_feature_model}", command)
+            self.assertIn("rollout.expert_model=null", command)
+            self.assertEqual(config["evaluation"]["reset_set_role"], "development")
+            self.assertEqual(config["evaluation"]["num_trajectories"], 256)
 
     def test_l40s_recovery_changes_only_micro_batch_and_horizon(self):
         original = load_d1_config(CONFIG_ROOT / "stage1_reduced_250.yaml")

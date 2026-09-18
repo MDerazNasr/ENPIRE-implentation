@@ -87,6 +87,14 @@ def validate_d1_config(config: Mapping[str, Any]) -> None:
             or ".." in Path(value).parts
         ):
             raise D1ConfigError(f"{field} must be a safe RLinf-relative path")
+    entrypoint_scope = config.get("entrypoint_scope", "rlinf")
+    if entrypoint_scope not in {"rlinf", "project"}:
+        raise D1ConfigError("entrypoint_scope must be rlinf or project")
+    if (
+        entrypoint_scope == "project"
+        and "project_root" not in config["required_paths"]
+    ):
+        raise D1ConfigError("project entrypoints require required_paths.project_root")
     if not isinstance(config["runtime_environment"], dict):
         raise D1ConfigError("runtime_environment must be an object")
     if not isinstance(config["required_paths"], dict) or not config["required_paths"]:
@@ -197,8 +205,13 @@ def validate_required_paths(config: Mapping[str, Any]) -> None:
 
 def validate_rlinf_layout(config: Mapping[str, Any]) -> None:
     rlinf_home = Path(config["required_paths"]["rlinf_home"]["path"])
+    entrypoint_root = (
+        Path(config["required_paths"]["project_root"]["path"])
+        if config.get("entrypoint_scope", "rlinf") == "project"
+        else rlinf_home
+    )
     expected = {
-        "entrypoint": rlinf_home / config["entrypoint"],
+        "entrypoint": entrypoint_root / config["entrypoint"],
         "config": rlinf_home / config["config_path"] / f"{config['rlinf_config']}.yaml",
         "python": rlinf_home / ".venv/bin/python",
     }
@@ -213,9 +226,14 @@ def validate_rlinf_layout(config: Mapping[str, Any]) -> None:
 
 def build_d1_command(config: Mapping[str, Any], run_dir: Path) -> tuple[list[str], Path]:
     rlinf_home = Path(config["required_paths"]["rlinf_home"]["path"])
+    entrypoint_root = (
+        Path(config["required_paths"]["project_root"]["path"])
+        if config.get("entrypoint_scope", "rlinf") == "project"
+        else rlinf_home
+    )
     command = [
         str(rlinf_home / ".venv/bin/python"),
-        str(rlinf_home / config["entrypoint"]),
+        str(entrypoint_root / config["entrypoint"]),
         "--config-path",
         str(rlinf_home / config["config_path"]),
         "--config-name",

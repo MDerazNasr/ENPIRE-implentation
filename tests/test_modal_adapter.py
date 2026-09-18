@@ -1,4 +1,5 @@
 import os
+import json
 import runpy
 import sys
 import types
@@ -10,16 +11,90 @@ import numpy as np
 
 from envs.modal_multiprocess_rlt_env import (
     ModalMultiprocessEnvError,
+    ModalMultiprocessManiskillRLTEnv,
     _merge_worker_values,
     _slice_batch,
     expand_maniskill_seed,
 )
+from envs.frozen_development_resets import (
+    FrozenDevelopmentResetError,
+    FrozenDevelopmentResetSchedule,
+)
+from envs.e1_frozen_development_env import E1FrozenDevelopmentManiskillRLTEnv
+from supervisor.evaluator_integrity import ResetSetArtifact
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class ModalAdapterUnitTests(unittest.TestCase):
+    def development_artifact(self):
+        return ResetSetArtifact(
+            set_id="g0-development-v1",
+            role="development",
+            task_id="peg-insertion-side-wide-clearance-v1",
+            simulator_hash="a" * 64,
+            generator_hash="b" * 64,
+            generator_seed=2026,
+            reset_ids=tuple(range(256)),
+        )
+
+    def test_frozen_development_schedule_consumes_all_ids_once_in_order(self):
+        artifact = self.development_artifact()
+        schedule = FrozenDevelopmentResetSchedule(
+            artifact,
+            expected_sha256=artifact.fingerprint(),
+            batch_size=16,
+        )
+        observed = []
+        for _ in range(16):
+            observed.extend(schedule.next_batch())
+        self.assertEqual(observed, list(range(256)))
+        self.assertTrue(schedule.complete)
+        self.assertEqual(schedule.consumed, 256)
+        with self.assertRaisesRegex(FrozenDevelopmentResetError, "exhausted"):
+            schedule.next_batch()
+
+    def test_frozen_development_schedule_rejects_substitution_and_final_set(self):
+        artifact = self.development_artifact()
+        with self.assertRaisesRegex(FrozenDevelopmentResetError, "fingerprint"):
+            FrozenDevelopmentResetSchedule(
+                artifact,
+                expected_sha256="c" * 64,
+                batch_size=16,
+            )
+        final = ResetSetArtifact(
+            **{**artifact.__dict__, "set_id": "g0-final-v1", "role": "final"}
+        )
+        with self.assertRaisesRegex(FrozenDevelopmentResetError, "development"):
+            FrozenDevelopmentResetSchedule(
+                final,
+                expected_sha256=final.fingerprint(),
+                batch_size=16,
+            )
+
+    def test_frozen_development_schedule_loads_exact_artifact(self):
+        import tempfile
+
+        artifact = self.development_artifact()
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "development.json"
+            path.write_text(json.dumps(artifact.to_dict()), encoding="utf-8")
+            schedule = FrozenDevelopmentResetSchedule.load(
+                path,
+                expected_sha256=artifact.fingerprint(),
+                batch_size=32,
+            )
+            self.assertEqual(schedule.next_batch(), list(range(32)))
+
+    def test_e1_adapter_is_separate_from_frozen_historical_adapter(self):
+        self.assertTrue(
+            issubclass(
+                E1FrozenDevelopmentManiskillRLTEnv,
+                ModalMultiprocessManiskillRLTEnv,
+            )
+        )
+
     def test_scalar_seed_expansion_matches_maniskill_contract(self):
         expected = [2026] + np.random.RandomState(2026).randint(
             2**31, size=15

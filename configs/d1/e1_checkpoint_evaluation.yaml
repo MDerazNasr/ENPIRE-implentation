@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "project_start_commit": "8c5abfcd04e8b4a155f82e8b3537169169ef8337",
+  "experiment_id": "g0-e1-development-checkpoint-evaluation",
+  "stage": "stage2",
+  "condition": "reference",
+  "entrypoint_scope": "project",
+  "entrypoint": "scripts/run_g0_e1_checkpoint_evaluation.py",
+  "config_path": "examples/embodiment/config",
+  "runtime_environment": {
+    "EMBODIED_PATH": "${RLINF_HOME}/examples/embodiment",
+    "PYTHONPATH": "${QUALIA_PROJECT_ROOT}:${RLINF_HOME}",
+    "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+    "WANDB_MODE": "offline",
+    "QUALIA_MODAL_MULTIPROCESS": "1",
+    "QUALIA_MODAL_MP_START_METHOD": "spawn",
+    "QUALIA_MODAL_RENDER_DEVICE": "pci:0000:00:00.0",
+    "QUALIA_MODAL_VULKAN_ICD": "/usr/share/vulkan/icd.d/lvp_icd.x86_64.json",
+    "QUALIA_DEVELOPMENT_RESET_PATH": "${DEVELOPMENT_RESET_PATH}",
+    "QUALIA_DEVELOPMENT_RESET_SHA256": "${DEVELOPMENT_RESET_SHA256}",
+    "VK_ICD_FILENAMES": "/usr/share/vulkan/icd.d/lvp_icd.x86_64.json",
+    "LP_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "rlinf_config": "maniskill_rlt_stage2_ac_mlp",
+  "expected_rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+  "required_paths": {
+    "rlinf_home": {"path": "${RLINF_HOME}", "kind": "directory"},
+    "project_root": {"path": "${QUALIA_PROJECT_ROOT}", "kind": "directory"},
+    "stage1_checkpoint": {"path": "${STAGE1_CHECKPOINT}", "kind": "directory"},
+    "norm_stats": {"path": "${NORM_STATS_PATH}", "kind": "file"},
+    "development_resets": {"path": "${DEVELOPMENT_RESET_PATH}", "kind": "file"}
+  },
+  "hydra_overrides": [
+    "runner.task_type=embodied_eval",
+    "runner.only_eval=true",
+    "runner.logger.logger_backends=[wandb]",
+    "runner.logger.project_name=${WANDB_PROJECT}",
+    "env.train=null",
+    "env.eval.rlt_policy_switch.enable=false",
+    "env.eval.rlt_policy_switch.expert_takeover.enable=false",
+    "rollout.expert_model=null",
+    "env.eval.use_fixed_reset_state_ids=true",
+    "env.eval.total_num_envs=16",
+    "env.eval.rollout_epoch=16",
+    "env.eval.max_episode_steps=500",
+    "env.eval.max_steps_per_rollout_epoch=500",
+    "env.eval.init_params.max_episode_steps=500",
+    "env.eval.init_params.sim_backend=cpu",
+    "+env.eval.init_params.render_backend=pci:0000:00:00.0",
+    "rollout.rlt_feature_model.model_path=${STAGE1_CHECKPOINT}",
+    "+rollout.rlt_feature_model.openpi_data.norm_stats_path=${NORM_STATS_PATH}",
+    "rollout.model=${rollout.rlt_feature_model}",
+    "rollout.enable_offload=false"
+  ],
+  "evaluation": {
+    "fixed_reset_state_ids": true,
+    "num_trajectories": 256,
+    "parallel_environments": 16,
+    "rollout_epochs": 16,
+    "primary_metric": "eval/success_once",
+    "reset_set_role": "development",
+    "reset_set_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161"
+  },
+  "scientific_values": {
+    "fixed_eval_trajectories": 256,
+    "eval_parallel_environments": 16,
+    "eval_rollout_epochs": 16,
+    "episode_horizon": 500,
+    "policy_switch_enabled": false,
+    "expert_model_loaded": false,
+    "training_worker_constructed": false,
+    "evaluation_set_role": "development"
+  },
+  "budget": {
+    "max_cost_usd": 10,
+    "report_thresholds_usd": [5, 10]
+  },
+  "monitor_interval_seconds": 10
+}
