@@ -75,6 +75,17 @@ The version-2 compute-only arithmetic is:
 | E1 | 1 | 2 | 24 hours | `$78.96` | `$157.92` |
 | E2 | 6 | 2 | 48 hours | `$157.92` | `$1,895.04` |
 
+On 2026-09-18 a replacement Lambda H100 PCIe instance passed a fresh
+read-only identity, capacity, SSH, administrative-inspection, and idle gate.
+It has 26 CPUs, 237,490,954,240 bytes RAM, 1,038,742,441,984 bytes free,
+81,559 MiB GPU memory, driver 570.148.08, Docker 28.3.1, zero containers, and
+zero GPU compute processes. The supplied SSH private key was tightened from
+mode `0644` to `0600`; only its public fingerprint is recorded. The
+user-reported 11h52m auto-shutdown window is insufficient for E1 and must be
+extended before paid execution. This read-only gate did not build or pull an
+image, transfer an actor, load a policy, run the GPU, evaluate, or train. See
+`results/agent-supervisor/g0/e1-h100-host-qualification-v1.json`.
+
 The compute-only ceiling is `$2,052.96`. A total-program ceiling cannot yet
 be stated because durable storage and egress pricing are unresolved.
 

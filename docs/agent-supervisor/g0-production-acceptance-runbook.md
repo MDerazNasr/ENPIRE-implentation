@@ -99,12 +99,14 @@ new locked versions while remaining unable to read the final object. This
 completes the technical single-operator custody transfer only; canonical
 production-independent custody/deployment receipts remain prohibited.
 
-The previously qualified Lambda host was an engineering qualification target,
-is no longer reachable, and must not be treated as the scientific runtime. A
-future preliminary E1 host requires a fresh binding to the final scientific
-source commit, image, assets, durable evidence destination, timeout, UTC
-window, and explicit retry-inclusive cost ceiling in a non-authorizing
-preflight, followed by a separate exact paid/GPU approval.
+A replacement Lambda H100 PCIe host passed a fresh read-only identity,
+capacity, access, and idle gate on 2026-09-18. It is not yet the scientific
+runtime: public provisioning, exact-image qualification, development evaluator
+execution-path qualification, durable evidence binding, and sufficient
+auto-shutdown lifetime remain incomplete and unauthorized. A preliminary E1
+preflight must bind those results to the final source commit, assets, timeout,
+UTC window, and explicit retry-inclusive cost ceiling before a separate exact
+paid/GPU approval.
 
 The GPU-free AWS provisioning design is documented in
 [`../../infra/aws-g0/README.md`](../../infra/aws-g0/README.md). Its two

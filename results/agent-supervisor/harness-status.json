@@ -188,8 +188,9 @@
     },
     "focused_meeting_experiments": {
       "artifact": "results/agent-supervisor/g0/g0-baseline-evaluator-focus-freeze-v2.json",
+      "e1_host_qualification_artifact": "results/agent-supervisor/g0/e1-h100-host-qualification-v1.json",
       "completion_order": ["protected_evaluator", "scientific_stage1_baseline"],
-      "experiment_1_baseline_status": "selector_frozen_execution_blocked_on_g0",
+      "experiment_1_baseline_status": "selector_frozen_fresh_h100_read_only_qualified_provisioning_preflight_and_paid_execution_not_authorized",
       "experiment_3_evaluator_status": "single_operator_technical_controls_and_private_custody_transfer_passed_independent_human_control_not_satisfied",
       "gpu_execution_authorized": false,
       "scientific_evaluation_authorized": false

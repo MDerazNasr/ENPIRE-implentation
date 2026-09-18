@@ -1,0 +1,65 @@
+{
+  "payload": {
+    "authority": {
+      "actor_transfer_authorized": false,
+      "campaign_activation_authorized": false,
+      "container_build_authorized": false,
+      "gpu_execution_authorized": false,
+      "model_egress_authorized": false,
+      "paid_e1_execution_authorized": false,
+      "promotion_authorized": false,
+      "public_provisioning_authorized": false,
+      "scientific_evaluation_authorized": false
+    },
+    "host": {
+      "available_memory_bytes": 234763333632,
+      "cpu_count": 26,
+      "docker_version": "28.3.1",
+      "free_root_bytes": 1038742441984,
+      "gpu_driver_version": "570.148.08",
+      "gpu_memory_mib": 81559,
+      "gpu_name": "NVIDIA H100 PCIe",
+      "instance_id": "cdb853ad0db8401a984bf71568cee8fd",
+      "ip": "209.20.159.254",
+      "kernel": "Linux 6.8.0-60-generic x86_64",
+      "nvidia_container_cli_version": "1.17.8",
+      "price_usd_per_hour": "3.29",
+      "region": "Utah, USA",
+      "total_memory_bytes": 237490954240
+    },
+    "idle_gate": {
+      "docker_inspection_via_passwordless_sudo": true,
+      "gpu_compute_process_count": 0,
+      "running_container_count": 0,
+      "user_workload_process_count": 0
+    },
+    "lifecycle": {
+      "auto_shutdown_remaining_user_reported": "11h52m",
+      "auto_shutdown_sufficient_for_24h_e1_plus_reconciliation": false,
+      "extension_required_before_paid_execution": true,
+      "spent_usd_user_reported": "0.39"
+    },
+    "observed_at": "2026-09-18T14:07:02Z",
+    "record_kind": "g0-e1-h100-host-qualification",
+    "schema_version": 1,
+    "ssh": {
+      "account": "ubuntu",
+      "initial_local_identity_attempts_failed_closed": true,
+      "private_key_mode_after": "0600",
+      "private_key_mode_before": "0644",
+      "private_key_path_emitted": false,
+      "public_key_fingerprint": "SHA256:lMpX9wP25TsdHmhhcEkuChjnuHHSU1L76ztYTB1B3WI",
+      "root_login_redirected_to_ubuntu": true
+    },
+    "status": "pass_read_only_host_identity_capacity_and_idle_gate",
+    "workload": {
+      "actor_transferred": false,
+      "container_built_or_pulled": false,
+      "evaluation_executed": false,
+      "gpu_workload_executed": false,
+      "policy_loaded": false,
+      "scientific_training_executed": false
+    }
+  },
+  "sha256": "a2ea44e0a7aeed8f24b44568d71b5c389f45d68c5f727f06b105d9368c3375ad"
+}
