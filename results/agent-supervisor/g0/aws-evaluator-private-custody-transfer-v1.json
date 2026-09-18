@@ -1,0 +1,74 @@
+{
+  "payload": {
+    "account_id": "960946312280",
+    "approval_scope": {
+      "bundle_upload_authorized": true,
+      "e2_authorized": false,
+      "evaluator_execution_authorized": false,
+      "final_reset_evaluation_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_compute_authorized": false,
+      "policy_selection_authorized": false,
+      "private_final_reset_upload_authorized": true,
+      "promotion_authorized": false,
+      "read_only_version_and_retention_verification_authorized": true
+    },
+    "authentication_attempts": {
+      "failed_closed_wrong_verifier_identity_count": 2,
+      "failed_results": "GetRoleCredentials_NoAccess",
+      "mutation_before_exact_identity_gate": false,
+      "preserved": true
+    },
+    "bundle": {
+      "checksum_match_count": 7,
+      "delete_marker_count": 0,
+      "manifest_file_sha256": "c65aa40286bc88ae5041fd036c81a316209d25985497ca1dc25a71df30372979",
+      "manifest_sha256": "539d9cbae39c6aafa4948c9dd9602383afdf70012193396ad49f636ec40fa09d",
+      "object_count": 7,
+      "storage_identity_sha256": "4a69776fdaf6800447a863a9f92d6d336332b49b04fe2edb04f102b30f46f0db",
+      "total_size_bytes": 24057,
+      "version_count": 7
+    },
+    "custodian_identity": {
+      "application_role_arn": "arn:aws:sts::960946312280:assumed-role/enpire-g0-custody-provisioner/enpire-g0-custody-upload-v1",
+      "identity_center_arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_ENPIREG0CustodianAccess_fdbc875b29382f2c/mderaznasr",
+      "passed": true
+    },
+    "final_reset": {
+      "artifact_sha256": "27165db099dfaddc66a6eced98156110acb2e877289eb1c503ae53a446d2fa97",
+      "checksum_matched": true,
+      "count": 256,
+      "delete_marker_count": 0,
+      "file_sha256": "25e0e6e5969d5541750203a5d45b374e15ca9806de81ff90cf5565bf890772e0",
+      "object_path_emitted": false,
+      "ordered_ids_emitted": false,
+      "size_bytes": 2992,
+      "storage_identity_sha256": "c50cc92953f55e37449c38e79b1f69ae6dba555fe10181ffcf9c5c30e0b72ed9",
+      "version_count": 1
+    },
+    "observed_at": "2026-09-18T06:25:00Z",
+    "record_kind": "g0-aws-evaluator-private-custody-transfer",
+    "retention": {
+      "default_retention_days": 30,
+      "default_retention_mode": "COMPLIANCE",
+      "object_lock_enabled": true,
+      "verified_before_and_after_upload": true,
+      "versioning_enabled": true
+    },
+    "schema_version": 1,
+    "status": "pass_single_operator_private_custody_transfer",
+    "trust_boundary": {
+      "independent_human_control_accepted": false,
+      "production_independent_custody_accepted": false,
+      "single_operator_protected_mode": true
+    },
+    "verifier": {
+      "final_object_read_attempt_result": "forbidden",
+      "final_object_readable": false,
+      "identity_center_arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_ENPIREG0VerifierAccess_715cb6525cee841e/deraznasr776@gmail.com",
+      "role_arn": "arn:aws:sts::960946312280:assumed-role/enpire-g0-receipt-verifier/enpire-g0-receipt-verifier-final",
+      "version_enumeration_passed": true
+    }
+  },
+  "sha256": "f0ca742573ad004ae85238d999265747de9de03dec7bddc1402498282c2fd8e4"
+}

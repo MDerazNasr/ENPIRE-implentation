@@ -86,6 +86,21 @@ The recovery remains local only: no private object was uploaded, and this does
 not establish production-independent custody under single-operator mode. See
 [`../../results/agent-supervisor/g0/g0-private-input-recovery-v1.json`](../../results/agent-supervisor/g0/g0-private-input-recovery-v1.json).
 
+After a separate exact private-transfer approval, the least-privilege
+`ENPIREG0CustodianAccess` principal assumed only
+`enpire-g0-custody-provisioner` and created one final-reset object version plus
+seven evaluator-bundle object versions in the locked final-input bucket. Every
+S3 SHA-256 response matched the local bytes. The receipt-verifier role then
+enumerated exactly those eight versions, found no delete markers, reconfirmed
+versioning and the 30-day COMPLIANCE default, and remained forbidden from
+reading the private final object. Two earlier SSO attempts reused the verifier
+identity and failed before STS with no mutation. The public receipt emits no
+ordered final IDs, object path, or version ID. This completes the technical
+private-custody transfer under single-operator mode, but it is not
+`production-independent` human custody and does not authorize evaluator or GPU
+execution. See
+[`../../results/agent-supervisor/g0/aws-evaluator-private-custody-transfer-v1.json`](../../results/agent-supervisor/g0/aws-evaluator-private-custody-transfer-v1.json).
+
 ## Reproducing the local rehearsal
 
 Use a fresh external destination. The command is create-only and will refuse

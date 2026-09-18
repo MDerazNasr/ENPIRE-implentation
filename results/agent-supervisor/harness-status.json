@@ -155,7 +155,7 @@
       "private_artifact_uploaded": false
     },
     "g0_aws_evaluator_readiness": {
-      "status": "stack_create_complete_verifier_validation_passed_single_operator_private_input_recovered_local_only",
+      "status": "stack_create_complete_verifier_validation_and_private_custody_transfer_passed_single_operator",
       "artifact": "results/agent-supervisor/g0/aws-evaluator-receipt-verifier-validation-v1.json",
       "initial_inventory_artifact": "results/agent-supervisor/g0/aws-evaluator-readiness-inventory-v1.json",
       "technical_identity_bootstrap_artifact": "results/agent-supervisor/g0/aws-evaluator-technical-identity-bootstrap-v1.json",
@@ -163,6 +163,7 @@
       "stack_terminal_artifact": "results/agent-supervisor/g0/aws-evaluator-stack-terminal-v1.json",
       "receipt_verifier_validation_artifact": "results/agent-supervisor/g0/aws-evaluator-receipt-verifier-validation-v1.json",
       "private_input_recovery_artifact": "results/agent-supervisor/g0/g0-private-input-recovery-v1.json",
+      "private_custody_transfer_artifact": "results/agent-supervisor/g0/aws-evaluator-private-custody-transfer-v1.json",
       "active_stack_count": 1,
       "enpire_role_count": 4,
       "generated_identity_center_role_count": 4,
@@ -180,13 +181,16 @@
       "receipt_verifier_version_enumeration_frozen": true,
       "evaluator_change_set_authorized": false,
       "evaluator_deployment_authorized": false,
-      "private_artifact_uploaded": false
+      "private_artifact_uploaded": true,
+      "private_artifact_version_count": 1,
+      "evaluator_bundle_version_count": 7,
+      "production_independent_custody_accepted": false
     },
     "focused_meeting_experiments": {
       "artifact": "results/agent-supervisor/g0/g0-baseline-evaluator-focus-freeze-v2.json",
       "completion_order": ["protected_evaluator", "scientific_stage1_baseline"],
       "experiment_1_baseline_status": "selector_frozen_execution_blocked_on_g0",
-      "experiment_3_evaluator_status": "infrastructure_verifier_controls_passed_private_input_recovered_local_only_custody_upload_pending",
+      "experiment_3_evaluator_status": "single_operator_technical_controls_and_private_custody_transfer_passed_independent_human_control_not_satisfied",
       "gpu_execution_authorized": false,
       "scientific_evaluation_authorized": false
     },

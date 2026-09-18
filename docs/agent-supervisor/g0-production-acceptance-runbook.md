@@ -92,8 +92,12 @@ roles, independent anchor failure domain, CloudTrail, and 30-day COMPLIANCE
 retention controls. The dedicated receipt-verifier role has independently
 verified their technical state. They remain under one human owner, so this is
 the accepted single-operator protected boundary rather than
-`production-independent` custody. The recovered private final-reset artifact
-and evaluator bundle remain local and have not been uploaded.
+`production-independent` custody. Under a separate exact approval, the
+least-privilege custodian uploaded the recovered private final-reset artifact
+and evaluator bundle, and the receipt-verifier independently enumerated the
+new locked versions while remaining unable to read the final object. This
+completes the technical single-operator custody transfer only; canonical
+production-independent custody/deployment receipts remain prohibited.
 
 The previously qualified Lambda host was an engineering qualification target,
 is no longer reachable, and must not be treated as the scientific runtime. A
