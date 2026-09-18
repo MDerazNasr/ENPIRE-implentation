@@ -1,7 +1,7 @@
 # G0 Production Acceptance Runbook
 
-Status: **ready-transition validation implemented; production receipts remain
-unprovisioned and no execution is authorized**
+Status: **single-operator AWS controls verified; private custody transfer,
+fresh E1 preflight, and paid execution remain unauthorized**
 
 Obsidian task: `MI5T8`
 
@@ -87,18 +87,27 @@ model egress.
 
 ## Current blocker
 
-No production evaluator principal, independently controlled anchor, or durable
-artifact-store identity has been supplied. The previously qualified Lambda
-host was an engineering qualification target and must not be treated as the
-evaluator or durable store. A future scientific host requires a fresh binding
-to the final scientific source commit and a new non-authorizing preflight.
+The evaluator and audit accounts now contain the reviewed storage, application
+roles, independent anchor failure domain, CloudTrail, and 30-day COMPLIANCE
+retention controls. The dedicated receipt-verifier role has independently
+verified their technical state. They remain under one human owner, so this is
+the accepted single-operator protected boundary rather than
+`production-independent` custody. The recovered private final-reset artifact
+and evaluator bundle remain local and have not been uploaded.
 
-The GPU-free AWS provisioning design is now available in
+The previously qualified Lambda host was an engineering qualification target,
+is no longer reachable, and must not be treated as the scientific runtime. A
+future preliminary E1 host requires a fresh binding to the final scientific
+source commit, image, assets, durable evidence destination, timeout, UTC
+window, and explicit retry-inclusive cost ceiling in a non-authorizing
+preflight, followed by a separate exact paid/GPU approval.
+
+The GPU-free AWS provisioning design is documented in
 [`../../infra/aws-g0/README.md`](../../infra/aws-g0/README.md). Its two
-CloudFormation templates and offline checker create no resources by
-themselves. Deployment remains blocked until distinct AWS accounts/principals
-exist and the irreversible compliance-retention change set receives exact
-human approval.
+CloudFormation templates created the currently verified audit and evaluator
+stacks only after their recorded exact approvals. The templates and offline
+checker still grant no private-upload, evaluator, GPU, evaluation, or promotion
+authority by themselves.
 
 ## Focused completion order: protected evaluator, then baseline
 

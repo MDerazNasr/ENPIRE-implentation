@@ -1,7 +1,7 @@
 # G0 Evaluator Custody and Deployment Contract
 
-Status: **local isolation rehearsal passed; production custody and deployment
-remain unprovisioned and unauthorized**
+Status: **single-operator AWS controls verified; private custody transfer and
+independent-human production acceptance remain incomplete**
 
 Obsidian task: `MI5T8`
 
