@@ -168,3 +168,12 @@ TLS-only policies, and active cross-account CloudTrail. This is not yet a
 completed protected-evaluator acceptance: the dedicated receipt-verifier role
 still needs a clean verifier-user login and independent read-only validation.
 No private upload or evaluator/scientific execution is authorized.
+
+The dedicated technical verifier check passed on 2026-09-18. The exact
+`ENPIREG0VerifierAccess` principal assumed `enpire-g0-receipt-verifier` and
+independently confirmed all three empty version inventories, enabled
+versioning, non-public status, and 30-day COMPLIANCE retention. The technical
+protected-infrastructure boundary is therefore complete under the accepted
+single-operator mode. Independent human control and private final-input custody
+remain incomplete, and no evidence collected under this mode may be upgraded
+retroactively to independently controlled scientific evidence.

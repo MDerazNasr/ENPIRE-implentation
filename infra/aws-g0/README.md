@@ -270,3 +270,14 @@ completed. Do not claim the independent verifier boundary complete until that
 role is assumed and independently reads all three version inventories and
 retention controls. No private artifact was uploaded and no evaluator,
 scientific job, evaluation, or promotion ran.
+
+On 2026-09-18, a clean verifier-user session authenticated as the exact
+evaluator-account `ENPIREG0VerifierAccess` principal and assumed only
+`enpire-g0-receipt-verifier`. Through that role it independently confirmed all
+three buckets are in `us-west-2`, empty, versioned, non-public, and protected
+by 30-day COMPLIANCE Object Lock. The successful technical verifier receipt is
+`results/agent-supervisor/g0/aws-evaluator-receipt-verifier-validation-v1.json`.
+Earlier wrong-identity, expired, cancelled, and inconclusive authentication
+attempts remain preserved. This satisfies the technical receipt-verifier
+boundary under single-operator mode; it does not establish independent human
+control or authorize private custody transfer or evaluator execution.

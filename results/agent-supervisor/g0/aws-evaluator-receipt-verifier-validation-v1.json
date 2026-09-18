@@ -1,0 +1,80 @@
+{
+  "payload": {
+    "account_id": "960946312280",
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluator_execution_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "scientific_evaluation_authorized": false,
+      "scientific_execution_authorized": false
+    },
+    "buckets": [
+      {
+        "delete_marker_count": 0,
+        "location": "us-west-2",
+        "name": "enpire-g0-evaluator-finalinputbucket-uskddvpfqw4c",
+        "object_lock_days": 30,
+        "object_lock_enabled": true,
+        "object_lock_mode": "COMPLIANCE",
+        "policy_public": false,
+        "version_count": 0,
+        "versioning": "Enabled"
+      },
+      {
+        "delete_marker_count": 0,
+        "location": "us-west-2",
+        "name": "enpire-g0-evaluator-evidencebucket-atlpylr0fwjq",
+        "object_lock_days": 30,
+        "object_lock_enabled": true,
+        "object_lock_mode": "COMPLIANCE",
+        "policy_public": false,
+        "version_count": 0,
+        "versioning": "Enabled"
+      },
+      {
+        "delete_marker_count": 0,
+        "location": "us-west-2",
+        "name": "enpire-g0-evaluator-ledgerbucket-2fq48ulugsje",
+        "object_lock_days": 30,
+        "object_lock_enabled": true,
+        "object_lock_mode": "COMPLIANCE",
+        "policy_public": false,
+        "version_count": 0,
+        "versioning": "Enabled"
+      }
+    ],
+    "failed_and_inconclusive_authentication_evidence": {
+      "additional_device_codes_cancelled_or_expired": true,
+      "additional_wrong_portal_identity_attempts_returned_no_access": true,
+      "admin_portal_token_inventory_confirmed_wrong_identity": true,
+      "aws_resource_mutation_occurred": false,
+      "preserved": true,
+      "terminal_receipt": "results/agent-supervisor/g0/aws-evaluator-stack-terminal-v1.json",
+      "terminal_receipt_sha256": "b90c499b5ef7e6011688cce057ad77affdf98272c9f409c6289f36722f556641"
+    },
+    "identity_center_principal": {
+      "account_id": "960946312280",
+      "arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_ENPIREG0VerifierAccess_715cb6525cee841e/deraznasr776@gmail.com",
+      "passed": true,
+      "permission_set": "ENPIREG0VerifierAccess"
+    },
+    "independent_human_control_accepted": false,
+    "observed_date": "2026-09-18",
+    "private_artifact_uploaded": false,
+    "receipt_verifier_role": {
+      "account_id": "960946312280",
+      "arn": "arn:aws:sts::960946312280:assumed-role/enpire-g0-receipt-verifier/enpire-g0-receipt-verifier-final",
+      "passed": true,
+      "role_name": "enpire-g0-receipt-verifier"
+    },
+    "record_kind": "g0-aws-evaluator-receipt-verifier-validation",
+    "region": "us-west-2",
+    "schema_version": 1,
+    "status": "pass_technical_receipt_verifier_boundary_single_operator",
+    "technical_receipt_verifier_boundary_satisfied": true
+  },
+  "sha256": "a084fb765d94eef2a41cb93e8f55908ccdd3002c23d536fd7fed14d133ce8df8"
+}
