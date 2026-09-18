@@ -1,0 +1,52 @@
+{
+  "payload": {
+    "authority": {
+      "campaign_activation_authorized": false,
+      "gpu_execution_authorized": false,
+      "model_egress_authorized": false,
+      "paid_execution_authorized": false,
+      "private_upload_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "scientific_evaluation_authorized": false
+    },
+    "evaluator_bundle": {
+      "manifest_file_sha256": "c65aa40286bc88ae5041fd036c81a316209d25985497ca1dc25a71df30372979",
+      "manifest_sha256": "539d9cbae39c6aafa4948c9dd9602383afdf70012193396ad49f636ec40fa09d",
+      "read_only_tree_verified": true
+    },
+    "final_reset_artifact": {
+      "artifact_sha256": "27165db099dfaddc66a6eced98156110acb2e877289eb1c503ae53a446d2fa97",
+      "capture_file_sha256": "5a5486c19fbcb9637df028c9e2c364f0c3a2d1f4d4d9de57342b042cbc7318f8",
+      "capture_sha256": "17736b3c22e31d91b9984c3449af76bd648adaec4f56e68ba79a7a655db6460a",
+      "count": 256,
+      "file_sha256": "25e0e6e5969d5541750203a5d45b374e15ca9806de81ff90cf5565bf890772e0",
+      "maniskill_commit": "33967b9e3ead1f841eec57cc9f31d0d8b8cf0907",
+      "numpy_version": "1.26.4",
+      "ordered_ids_emitted": false,
+      "private_path_recorded": false,
+      "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+      "role": "final",
+      "size_bytes": 2992
+    },
+    "local_rehearsal": {
+      "failed_create_only_attempt_preserved": true,
+      "failure_reason": "ledger root already existed",
+      "passing_receipt_file_sha256": "ecd80a2e599995747dd82c62d38a001d158b7cb447ccd1aed4727d95e877dab8",
+      "passing_receipt_sha256": "caa2a52f0d03340ad994f1322dc4e3539900b1a02c587c17998ac0b173e5d360",
+      "production_custody_accepted": false,
+      "status": "pass_local_isolation_rehearsal"
+    },
+    "observed_at": "2026-09-18T05:56:25Z",
+    "record_kind": "g0-private-input-recovery",
+    "runtime_availability": {
+      "previous_h100_instance_id": "15c6fcfe96f946baa1e440d55ac9b688",
+      "previous_h100_reachable": false,
+      "reachability_result": "ssh_connection_timeout",
+      "replacement_host_launched": false
+    },
+    "schema_version": 1,
+    "status": "private_input_and_bundle_recovered_local_only_upload_and_e1_pending"
+  },
+  "sha256": "3bbf86d134b71e5f340a1017dd4794d86a707cde0ba602a82354b2fb5e44fdbe"
+}

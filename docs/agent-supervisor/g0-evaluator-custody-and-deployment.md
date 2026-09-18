@@ -75,6 +75,17 @@ The current public non-authorizing receipt is
 [`../../results/agent-supervisor/g0/evaluator-isolation-rehearsal-v2.json`](../../results/agent-supervisor/g0/evaluator-isolation-rehearsal-v2.json).
 The earlier v1 receipt remains preserved as historical evidence.
 
+The host later removed the temporary local final-reset directory. On
+2026-09-18 the artifact was deterministically regenerated from the same clean
+pinned RLinf and ManiSkill commits with NumPy 1.26.4. Its artifact fingerprint,
+capture identity, count, and byte hash match the frozen records; ordered IDs
+were not emitted. A fresh read-only evaluator bundle and local isolation
+rehearsal also passed. One create-only rehearsal invocation failed because its
+ledger directory had been pre-created and is preserved in the recovery record.
+The recovery remains local only: no private object was uploaded, and this does
+not establish production-independent custody under single-operator mode. See
+[`../../results/agent-supervisor/g0/g0-private-input-recovery-v1.json`](../../results/agent-supervisor/g0/g0-private-input-recovery-v1.json).
+
 ## Reproducing the local rehearsal
 
 Use a fresh external destination. The command is create-only and will refuse
