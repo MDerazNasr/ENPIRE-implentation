@@ -1,0 +1,41 @@
+{
+  "payload": {
+    "authority": {
+      "checkpoint_upload_authorized": false,
+      "evaluation_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "promotion_authorized": false
+    },
+    "campaign_prefix": "runs/g0-e1-stage1-seed2026-v1/",
+    "claim_scope": "create-only checkpoint upload engineering validation; dry run only",
+    "dry_run": {
+      "aws_listing_passed": true,
+      "campaign_prefix_empty_after": true,
+      "log_sha256": "6bdc8de7d0688c06a25166ed70018513fe868f6efe1b2d09394b81f64f784d78",
+      "objects_uploaded": 0,
+      "public_fixture_bytes_hashed": 6621
+    },
+    "maximum_campaign_bytes": 375809638400,
+    "record_kind": "g0-e1-preflight-storage-amendment",
+    "schema_version": 1,
+    "source": {
+      "commit": "355bc88207455ed23abc7abaf7de95555c7cd821",
+      "path": "scripts/upload_g0_e1_checkpoint.py",
+      "sha256": "80dc47060283ae3f704bed22713d39a8e882b098f4ad03dab6cfa3a4ad17ad71"
+    },
+    "status": "upload_path_qualified_execution_still_unauthorized",
+    "superseded_preflight_candidate_sha256": "ae181774f631761948c5c6178c5a697323e3211a6530bb91a08075ad92154c97",
+    "upload_controls": {
+      "allowed_steps": [250, 500, 1000, 2000],
+      "campaign_byte_cap_enforced": true,
+      "checksum_algorithm": "SHA256",
+      "manifest_uploaded_last": true,
+      "partial_prefix_reuse_forbidden": true,
+      "prefix_confined_to_runs_namespace": true,
+      "symlinks_forbidden": true
+    },
+    "worker_profile": "enpire-e1-worker-upload"
+  },
+  "sha256": "9c4436fedd0e6846ad8511b491ce23d816a6ceb3dd65320656ded5cbd91310ae"
+}

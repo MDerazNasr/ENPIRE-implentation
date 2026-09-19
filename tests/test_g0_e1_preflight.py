@@ -9,6 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 PREFLIGHT = (
     ROOT / "results/agent-supervisor/g0/e1-preflight-candidate-v1.json"
 )
+STORAGE_AMENDMENT = (
+    ROOT / "results/agent-supervisor/g0/e1-preflight-storage-amendment-v1.json"
+)
 
 
 class G0E1PreflightReceiptTests(unittest.TestCase):
@@ -47,6 +50,18 @@ class G0E1PreflightReceiptTests(unittest.TestCase):
         self.assertTrue(evidence["protected_prefix_list_denied"])
         self.assertEqual(evidence["bucket_object_lock_mode"], "COMPLIANCE")
         self.assertEqual(evidence["bucket_object_lock_days"], 30)
+
+    def test_storage_amendment_is_non_authorizing_and_cross_bound(self):
+        amendment = json.loads(STORAGE_AMENDMENT.read_text(encoding="utf-8"))
+        payload = amendment["payload"]
+        self.assertEqual(fingerprint(payload), amendment["sha256"])
+        self.assertEqual(
+            payload["superseded_preflight_candidate_sha256"],
+            self.receipt["sha256"],
+        )
+        self.assertFalse(any(payload["authority"].values()))
+        self.assertEqual(payload["dry_run"]["objects_uploaded"], 0)
+        self.assertTrue(payload["dry_run"]["campaign_prefix_empty_after"])
 
 
 if __name__ == "__main__":
