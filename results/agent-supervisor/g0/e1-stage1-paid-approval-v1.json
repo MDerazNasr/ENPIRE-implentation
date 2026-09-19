@@ -1,0 +1,43 @@
+{
+  "payload": {
+    "approved_at": "2026-09-19T07:08:56Z",
+    "approval_scope": {
+      "checkpoint_evaluation_authorized": false,
+      "checkpoint_upload_authorized": true,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "gpu_training_authorized": true,
+      "policy_selection_authorized": false,
+      "promotion_authorized": false,
+      "retry_authorized": false
+    },
+    "compute": {
+      "incremental_cost_cap_usd": "65.80",
+      "instance_id": "cdb853ad0db8401a984bf71568cee8fd",
+      "maximum_hours": 20,
+      "provider": "Lambda Cloud"
+    },
+    "durable_upload": {
+      "campaign_prefix": "runs/g0-e1-stage1-seed2026-v1/",
+      "maximum_bytes": 375809638400,
+      "maximum_storage_cost_usd": "10.00",
+      "retention_days": 30,
+      "retention_mode": "COMPLIANCE"
+    },
+    "lifecycle": {
+      "minimum_auto_shutdown_hours_confirmed_by_user": 23
+    },
+    "preflight_sha256": "ae181774f631761948c5c6178c5a697323e3211a6530bb91a08075ad92154c97",
+    "record_kind": "g0-e1-stage1-paid-approval",
+    "run": {
+      "attempt_count": 1,
+      "checkpoint_steps": [250, 500, 1000, 2000],
+      "seed": 2026,
+      "source_commit": "907ce489d669ef12aa32f7eca819331ad6b448bc",
+      "training_steps": 2000
+    },
+    "schema_version": 1,
+    "status": "approved_for_one_stage1_training_attempt"
+  },
+  "sha256": "cf7ea770a08a7ba3fb879d59c0f7a16302d97e7471e0c054f3b9d89ca8dbeef3"
+}

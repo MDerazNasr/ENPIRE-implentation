@@ -12,6 +12,7 @@ PREFLIGHT = (
 STORAGE_AMENDMENT = (
     ROOT / "results/agent-supervisor/g0/e1-preflight-storage-amendment-v1.json"
 )
+PAID_APPROVAL = ROOT / "results/agent-supervisor/g0/e1-stage1-paid-approval-v1.json"
 
 
 class G0E1PreflightReceiptTests(unittest.TestCase):
@@ -62,6 +63,23 @@ class G0E1PreflightReceiptTests(unittest.TestCase):
         self.assertFalse(any(payload["authority"].values()))
         self.assertEqual(payload["dry_run"]["objects_uploaded"], 0)
         self.assertTrue(payload["dry_run"]["campaign_prefix_empty_after"])
+
+    def test_paid_approval_is_narrow_and_cross_bound(self):
+        approval = json.loads(PAID_APPROVAL.read_text(encoding="utf-8"))
+        payload = approval["payload"]
+        self.assertEqual(fingerprint(payload), approval["sha256"])
+        self.assertEqual(payload["preflight_sha256"], self.receipt["sha256"])
+        self.assertTrue(payload["approval_scope"]["gpu_training_authorized"])
+        self.assertTrue(payload["approval_scope"]["checkpoint_upload_authorized"])
+        for field in (
+            "checkpoint_evaluation_authorized",
+            "e2_authorized",
+            "final_reset_access_authorized",
+            "policy_selection_authorized",
+            "promotion_authorized",
+            "retry_authorized",
+        ):
+            self.assertFalse(payload["approval_scope"][field])
 
 
 if __name__ == "__main__":
