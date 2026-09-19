@@ -13,6 +13,7 @@ STORAGE_AMENDMENT = (
     ROOT / "results/agent-supervisor/g0/e1-preflight-storage-amendment-v1.json"
 )
 PAID_APPROVAL = ROOT / "results/agent-supervisor/g0/e1-stage1-paid-approval-v1.json"
+LAUNCH = ROOT / "results/agent-supervisor/g0/e1-stage1-launch-v1.json"
 
 
 class G0E1PreflightReceiptTests(unittest.TestCase):
@@ -80,6 +81,16 @@ class G0E1PreflightReceiptTests(unittest.TestCase):
             "retry_authorized",
         ):
             self.assertFalse(payload["approval_scope"][field])
+
+    def test_launch_is_cross_bound_and_non_evaluating(self):
+        approval = json.loads(PAID_APPROVAL.read_text(encoding="utf-8"))
+        launch = json.loads(LAUNCH.read_text(encoding="utf-8"))
+        payload = launch["payload"]
+        self.assertEqual(fingerprint(payload), launch["sha256"])
+        self.assertEqual(payload["approval_sha256"], approval["sha256"])
+        self.assertFalse(any(payload["authority"].values()))
+        self.assertTrue(payload["durable_upload"]["watcher_started"])
+        self.assertEqual(payload["container"]["network_mode"], "none")
 
 
 if __name__ == "__main__":

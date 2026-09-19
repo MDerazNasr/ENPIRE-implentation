@@ -1,0 +1,44 @@
+{
+  "payload": {
+    "approval_sha256": "cf7ea770a08a7ba3fb879d59c0f7a16302d97e7471e0c054f3b9d89ca8dbeef3",
+    "authority": {
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_selection_authorized": false,
+      "promotion_authorized": false,
+      "retry_authorized": false
+    },
+    "container": {
+      "id": "4b0ab99151718ab0e2d0ea66a03502646f76e09f4bcd393f7619e96b5c12d26e",
+      "image_id": "sha256:570387e62df8d3bf5d8a06ca6313c0a74f06f795d27953748ffbe2bbe13cce1d",
+      "name": "enpire-g0-e1-stage1-seed2026-v1",
+      "network_mode": "none"
+    },
+    "durable_upload": {
+      "campaign_prefix_empty_at_launch": true,
+      "watcher_started": true
+    },
+    "first_progress": {
+      "gpu_memory_mib": 55133,
+      "gpu_utilization_percent": 100,
+      "step_1_seconds": 103.35,
+      "step_2_loss": 4.28,
+      "step_2_seconds": 27.5
+    },
+    "launched_at": "2026-09-19T07:14:20Z",
+    "prelaunch_gate": {
+      "dataset_revision_verified": true,
+      "gpu_idle": true,
+      "image_verified": true,
+      "model_sha256_verified": true,
+      "norm_stats_sha256_verified": true,
+      "source_archive_sha256_verified": true
+    },
+    "record_kind": "g0-e1-stage1-launch",
+    "schema_version": 1,
+    "source_commit": "907ce489d669ef12aa32f7eca819331ad6b448bc",
+    "status": "running_first_optimizer_steps_complete"
+  },
+  "sha256": "8571338fae46babb1b7b7bbf0446a6a090c3c551f3383f696fe5c305e6abc5ec"
+}
