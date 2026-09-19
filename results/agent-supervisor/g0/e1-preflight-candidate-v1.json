@@ -1,0 +1,109 @@
+{
+  "payload": {
+    "artifacts": {
+      "base_model": {
+        "repository": "lerobot/pi05_base",
+        "revision": "b211f3d44c36b6acfcf7ae94a64e8e96f75a64ba",
+        "sha256": "0eb11ca9587678c1d2ef8cf32807c29f8ce53a2bfdfc1aa4a4c96f16fca59b0f",
+        "size_bytes": 14467165872
+      },
+      "dataset": {
+        "file_count": 407,
+        "repository": "RLinf/rlt-maniskill-PegInsertionSide-v1-400-succ",
+        "revision": "2b92d5ef3fe274d30219130133f9e34c7ab91ebf",
+        "size_bytes": 9823735255
+      },
+      "development_resets": {
+        "count": 256,
+        "file_sha256": "c99cf14c7a7d926df5f502d9e5ca00d33c62487bb1ffeea1eae4f15ce47ed489",
+        "fingerprint": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+        "role": "development"
+      },
+      "norm_stats": {
+        "sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+        "size_bytes": 2149
+      }
+    },
+    "authority": {
+      "campaign_activation_authorized": false,
+      "evaluation_authorized": false,
+      "final_reset_access_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "policy_selection_authorized": false,
+      "promotion_authorized": false
+    },
+    "claim_scope": "non-authorizing E1 preflight and engineering validation only; no training, policy evaluation, selection, E2, or promotion",
+    "durable_evidence": {
+      "bucket_object_lock_days": 30,
+      "bucket_object_lock_mode": "COMPLIANCE",
+      "bucket_versioning": "Enabled",
+      "e1_prefix_empty": true,
+      "prefix": "runs/g0-e1-stage1-seed2026-v1/",
+      "protected_prefix_list_denied": true,
+      "region": "us-west-2",
+      "worker_role_arn": "arn:aws:iam::960946312280:role/enpire-g0-worker-upload",
+      "worker_role_assumption_verified": true,
+      "worker_role_scope": "put, abort-multipart, and list only under runs/*"
+    },
+    "evaluation_contract": {
+      "config_path": "configs/d1/e1_checkpoint_evaluation.yaml",
+      "config_sha256": "34455d7631db4494418b244dbda0c77821c768d2c88cc71f60f3af98e69cbe5b",
+      "development_outcomes_per_checkpoint": 256,
+      "expert_model_loaded": false,
+      "final_resets_permitted": false,
+      "frozen_reset_batches": 16,
+      "parallel_environments": 16,
+      "runner_path": "scripts/run_g0_e1_checkpoint_evaluation.py",
+      "runner_sha256": "50098bf4a1b1afcc15ffbd95b18d189638c581aced0ddb99218137173157f876",
+      "training_worker_constructed": false
+    },
+    "execution_contract": {
+      "checkpoint_steps": [250, 500, 1000, 2000],
+      "compute_cap_usd": "65.80",
+      "hourly_price_usd": "3.29",
+      "maximum_compute_seconds": 72000,
+      "maximum_compute_time_hours": 20,
+      "minimum_reconciliation_margin_hours_at_24h_extension": 4,
+      "retry_authorized": false,
+      "seed": 2026,
+      "stage1_config_path": "configs/d1/stage1_scientific_lambda_h100_20h.yaml",
+      "stage1_config_sha256": "2fedc7e5bf41ce2ced5fb50915386d7fac3b5191e00000b01c5018972fb855c3",
+      "training_steps": 2000
+    },
+    "host": {
+      "gpu": "NVIDIA H100 PCIe",
+      "image_id": "sha256:570387e62df8d3bf5d8a06ca6313c0a74f06f795d27953748ffbe2bbe13cce1d",
+      "instance_id": "cdb853ad0db8401a984bf71568cee8fd",
+      "provider": "Lambda Cloud",
+      "qualification_sha256": "ad2e0c9c75a1359e96a3f0eaa55c23f6e839d655e44b0c8738e31a0563ecd64b",
+      "region": "Utah, USA"
+    },
+    "observed_at": "2026-09-18T16:13:29Z",
+    "preflight_evidence": {
+      "evaluator_hydra_compose_sha256": "13e0ee16cc90dbd1836829fa02ae04b3148c8137ae291b05f0ee05f0b696ad3e",
+      "public_asset_download_sha256": "822c612872342e30bd9fb9e01f98aa55bee033340409f3ace415ce091e9284a2",
+      "stage1_hydra_compose_sha256": "da7b634ca87317c51b49f1a45f340c02cd6c05ccb23dd2f88b7d0a1c14aa415a",
+      "terminal_gpu_compute_processes": 0,
+      "terminal_running_containers": 0
+    },
+    "record_kind": "g0-e1-preflight-candidate",
+    "remaining_requirements": [
+      "fresh user confirmation that the provider auto-shutdown window leaves the required launch margin",
+      "exact paid and GPU execution approval naming this receipt and compute cap"
+    ],
+    "schema_version": 1,
+    "source": {
+      "archive_sha256": "d2af2889b2489c514a0238f703311f05a484ddc10ee7fb8412d5d76c780a2212",
+      "archive_size_bytes": 1402820,
+      "commit": "907ce489d669ef12aa32f7eca819331ad6b448bc"
+    },
+    "status": "ready_for_exact_paid_approval_pending_lifecycle_confirmation",
+    "tests": {
+      "full_test_count": 344,
+      "full_tests_passed": true,
+      "historical_f0_contract_passed": true
+    }
+  },
+  "sha256": "ae181774f631761948c5c6178c5a697323e3211a6530bb91a08075ad92154c97"
+}
