@@ -15,6 +15,9 @@ STORAGE_AMENDMENT = (
 PAID_APPROVAL = ROOT / "results/agent-supervisor/g0/e1-stage1-paid-approval-v1.json"
 LAUNCH = ROOT / "results/agent-supervisor/g0/e1-stage1-launch-v1.json"
 TERMINAL = ROOT / "results/agent-supervisor/g0/e1-stage1-terminal-v1.json"
+EVALUATION_PREFLIGHT = (
+    ROOT / "results/agent-supervisor/g0/e1-checkpoint-evaluation-preflight-v1.json"
+)
 
 
 class G0E1PreflightReceiptTests(unittest.TestCase):
@@ -116,6 +119,28 @@ class G0E1PreflightReceiptTests(unittest.TestCase):
         )
         self.assertFalse(payload["claim_boundary"]["scientific_evaluation_performed"])
         self.assertFalse(payload["claim_boundary"]["policy_improvement_claimed"])
+
+    def test_evaluation_preflight_is_cross_bound_and_non_authorizing(self):
+        terminal = json.loads(TERMINAL.read_text(encoding="utf-8"))
+        preflight = json.loads(EVALUATION_PREFLIGHT.read_text(encoding="utf-8"))
+        payload = preflight["payload"]
+        self.assertEqual(fingerprint(payload), preflight["sha256"])
+        self.assertFalse(any(payload["authority"].values()))
+        self.assertEqual(
+            payload["durable_source"]["terminal_receipt_sha256"],
+            terminal["sha256"],
+        )
+        self.assertEqual(
+            [checkpoint["step"] for checkpoint in payload["checkpoints"]],
+            [250, 500, 1000, 2000],
+        )
+        self.assertEqual(payload["budget_proposal"]["aggregate_gpu_hours"], 12)
+        self.assertEqual(payload["budget_proposal"]["aggregate_max_cost_usd"], "40.00")
+        self.assertEqual(payload["budget_proposal"]["retry_count"], 0)
+        self.assertEqual(payload["evaluation_contract"]["development_outcomes_per_checkpoint"], 256)
+        self.assertFalse(payload["evaluation_contract"]["final_reset_permitted"])
+        self.assertIsNone(payload["runtime_proposal"]["instance_id"])
+        self.assertIn("blocked_pending", payload["status"])
 
 
 if __name__ == "__main__":

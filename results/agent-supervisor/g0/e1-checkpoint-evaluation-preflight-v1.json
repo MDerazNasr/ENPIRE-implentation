@@ -1,0 +1,116 @@
+{
+  "payload": {
+    "authority": {
+      "checkpoint_download_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "checkpoint_selection_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "gpu_execution_authorized": false,
+      "paid_execution_authorized": false,
+      "promotion_authorized": false,
+      "provider_call_authorized": false,
+      "retry_authorized": false
+    },
+    "budget_proposal": {
+      "aggregate_gpu_hours": 12,
+      "aggregate_max_cost_usd": "40.00",
+      "checkpoint_count": 4,
+      "maximum_hours_per_checkpoint": 3,
+      "maximum_usd_per_checkpoint": "10.00",
+      "planning_hourly_price_usd": "3.29",
+      "pricing_revalidation_required": true,
+      "retry_count": 0
+    },
+    "checkpoint_identity_method": "canonical SHA-256 of step and ordered path/sha256/size_bytes file records; S3 version IDs excluded",
+    "checkpoints": [
+      {
+        "checkpoint_bytes": 40070031661,
+        "checkpoint_identity_sha256": "a2af3e19c2c4228a3d1105578bca72fdcb394700b7f27cba969892fa78579c2b",
+        "manifest_version_id": "Fi1FWGxfCvA.._TPGtEshybHukHTEpZr",
+        "object_count": 3,
+        "step": 250
+      },
+      {
+        "checkpoint_bytes": 40070031661,
+        "checkpoint_identity_sha256": "8e16f1853bca7074857cbc0ea7fa879949e7dbcc8867e0537dc80808ed0583d6",
+        "manifest_version_id": "vdaxzvyAn68gexEhhQvG.cNinScfhDby",
+        "object_count": 3,
+        "step": 500
+      },
+      {
+        "checkpoint_bytes": 40070031662,
+        "checkpoint_identity_sha256": "b6d2c8a3b3dbaf6f52d14039da99586e39f70101ceafe471ba15ecd35e2afe16",
+        "manifest_version_id": "0lqBhxXNWdUTqdrJTy3mMsBN5wYeiPWD",
+        "object_count": 3,
+        "step": 1000
+      },
+      {
+        "checkpoint_bytes": 40070031662,
+        "checkpoint_identity_sha256": "c1d6aa6a47221d7f3fd856bab7b34df08fcd8798b52fa9d47a5c7252c36b18d9",
+        "manifest_version_id": "TSXs0h8ezuILWnGlcWkHzQ4DQjlfGrNZ",
+        "object_count": 3,
+        "step": 2000
+      }
+    ],
+    "claim_scope": "non-authorizing E1 development checkpoint evaluation preflight only; no evaluation, selection, E2, final reset, or promotion",
+    "durable_source": {
+      "bucket": "enpire-g0-evaluator-evidencebucket-atlpylr0fwjq",
+      "campaign_prefix": "runs/g0-e1-stage1-seed2026-v1/",
+      "delete_marker_count": 0,
+      "latest_version_count": 16,
+      "object_lock_default_days": 30,
+      "object_lock_default_mode": "COMPLIANCE",
+      "region": "us-west-2",
+      "terminal_receipt_file_sha256": "844f453b467ff88489944b621699daf69d2aba5228f0433fce513c3959d00c95",
+      "terminal_receipt_sha256": "f3ecf0e76adc06f43d11e18b90f6280abc3ccb554e6f7d41e7a1504bca91440c",
+      "versioning": "Enabled"
+    },
+    "evaluation_contract": {
+      "development_outcomes_per_checkpoint": 256,
+      "evaluation_config_path": "configs/d1/e1_checkpoint_evaluation.yaml",
+      "evaluation_config_sha256": "34455d7631db4494418b244dbda0c77821c768d2c88cc71f60f3af98e69cbe5b",
+      "evaluation_runner_path": "scripts/run_g0_e1_checkpoint_evaluation.py",
+      "evaluation_runner_sha256": "50098bf4a1b1afcc15ffbd95b18d189638c581aced0ddb99218137173157f876",
+      "expert_model_loaded": false,
+      "final_reset_permitted": false,
+      "frozen_reset_adapter_path": "envs/e1_frozen_development_env.py",
+      "frozen_reset_adapter_sha256": "03cac61be195dc6f1160aa1cba74e6d6bbd8a819c63b7bcda529f07486a6fc04",
+      "parallel_environments": 16,
+      "rollout_epochs": 16,
+      "selection_rule": "g0-e1-stage1-horizon-v1",
+      "selection_rule_path": "supervisor/g0_e1_baseline.py",
+      "selection_rule_sha256": "a91e2b37b949c059135112afeb2bddf892e091c5ad37c4d82b1a2900e30ff190",
+      "training_worker_constructed": false
+    },
+    "identity": {
+      "base_image_id": "sha256:570387e62df8d3bf5d8a06ca6313c0a74f06f795d27953748ffbe2bbe13cce1d",
+      "development_reset_count": 256,
+      "development_reset_file_sha256": "c99cf14c7a7d926df5f502d9e5ca00d33c62487bb1ffeea1eae4f15ce47ed489",
+      "development_reset_fingerprint": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+      "norm_stats_sha256": "d5d6a96be65d2066b6dc0fd547e2eeb25473ea32558e819bbddd78f811aadfbd",
+      "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+      "training_seed": 2026,
+      "training_source_commit": "907ce489d669ef12aa32f7eca819331ad6b448bc"
+    },
+    "required_prelaunch_gates": [
+      "fresh instance and pricing binding",
+      "fresh H100 PCIe image and idle qualification",
+      "download-only role and exact S3 version retrieval review",
+      "all checkpoint byte counts and SHA-256 values verified before loading",
+      "four no-launch resolved commands reviewed",
+      "four empty create-only evidence destinations",
+      "exact instance-specific paid evaluation approval"
+    ],
+    "runtime_proposal": {
+      "free_local_storage_minimum_bytes": 268435456000,
+      "gpu": "NVIDIA H100 PCIe 80 GB",
+      "instance_id": null,
+      "provider": "Lambda Cloud",
+      "sequential_checkpoint_runs": true
+    },
+    "schema_version": 1,
+    "status": "blocked_pending_fresh_instance_preflight_and_exact_evaluation_approval"
+  },
+  "sha256": "5b2501dba5e4c686636d894cf0b5f04c087a113321fd230490bb48169f437e5b"
+}
