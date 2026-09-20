@@ -1,0 +1,195 @@
+{
+  "payload": {
+    "approval_sha256": "cf7ea770a08a7ba3fb879d59c0f7a16302d97e7471e0c054f3b9d89ca8dbeef3",
+    "authority": {
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_selection_authorized": false,
+      "promotion_authorized": false,
+      "retry_authorized": false
+    },
+    "claim_boundary": {
+      "candidate_outperforms_control_claimed": false,
+      "checkpoint_quality_assessed": false,
+      "evidence_supported_claim": "one approved E1 Stage-1 seed-2026 scientific training attempt completed and its four approved checkpoints were durably uploaded",
+      "policy_improvement_claimed": false,
+      "scientific_evaluation_performed": false
+    },
+    "container": {
+      "exit_code": 0,
+      "finished_at": "2026-09-19T23:44:11.411857255Z",
+      "id": "4b0ab99151718ab0e2d0ea66a03502646f76e09f4bcd393f7619e96b5c12d26e",
+      "name": "enpire-g0-e1-stage1-seed2026-v1",
+      "oom_killed": false,
+      "started_at": "2026-09-19T07:14:19.822550394Z",
+      "status": "exited",
+      "training_steps_completed": 2000,
+      "training_steps_planned": 2000,
+      "wall_seconds": "59391.589307"
+    },
+    "credential_maintenance": {
+      "exact_worker_role_restored_at": "2026-09-19T23:40:44Z",
+      "failed_refresh_count": 23,
+      "failure_detail": "AWS SSO token expired and refresh failed; each failed maintainer invocation exited 255",
+      "failure_log_preserved": true,
+      "failure_stderr_bytes": 2070,
+      "first_failed_refresh_at": "2026-09-19T17:55:04Z",
+      "last_failed_refresh_at": "2026-09-19T23:25:42Z",
+      "maintainer_terminal_event": "stopped_container_not_running",
+      "maintainer_terminal_event_at": "2026-09-19T23:55:46Z",
+      "worker_role_arn": "arn:aws:sts::960946312280:assumed-role/enpire-g0-worker-upload/enpire-g0-e1-worker-upload"
+    },
+    "durable_evidence": {
+      "approved_checkpoint_bytes": 160280126646,
+      "bucket": "enpire-g0-evaluator-evidencebucket-atlpylr0fwjq",
+      "campaign_bytes_including_manifests": 160280131711,
+      "campaign_prefix": "runs/g0-e1-stage1-seed2026-v1/",
+      "checkpoints": [
+        {
+          "checkpoint_bytes": 40070031661,
+          "files": [
+            {
+              "path": "actor/dcp_checkpoint/.metadata",
+              "sha256": "a50033a9376a0af58aecf3936d9bffed0d70449b00d3d9bc92e12167f2e47a8e",
+              "size_bytes": 1719195,
+              "version_id": "tWT_ap1bYcZozzJfOwPLwtlNfbCLIL5O"
+            },
+            {
+              "path": "actor/dcp_checkpoint/__0_0.distcp",
+              "sha256": "a10f96279d44c102185d6191796db74a26c4a18ed110c43f3f63ea329131d68b",
+              "size_bytes": 30052399804,
+              "version_id": "XW7f_4ygmRMwmJyQQ3jVXu9h_t0tUflq"
+            },
+            {
+              "path": "actor/model_state_dict/full_weights.pt",
+              "sha256": "f95c7112bbd25a714e477a448273b16fa564c8e8c184a5f765b1cbfc8d23a211",
+              "size_bytes": 10015912662,
+              "version_id": "J8K7_nDRR7zh17ZbbQmmUYc4Yq3_GpSR"
+            }
+          ],
+          "manifest_version_id": "Fi1FWGxfCvA.._TPGtEshybHukHTEpZr",
+          "step": 250,
+          "upload_completed_at": "2026-09-19T11:24:26.227505Z",
+          "uploaded_manifest_last": true
+        },
+        {
+          "checkpoint_bytes": 40070031661,
+          "files": [
+            {
+              "path": "actor/dcp_checkpoint/.metadata",
+              "sha256": "e5e040498a0c41b6cf459efe24b425db47f3c0c135d560debae111e408b1d5ab",
+              "size_bytes": 1719195,
+              "version_id": "KcTtTmzHfJ.mdeNyvQ15xDkb1XLz_USV"
+            },
+            {
+              "path": "actor/dcp_checkpoint/__0_0.distcp",
+              "sha256": "5a5247de7bde984a6a91708b0f480dc954473288e104c0276fe453d53a502b9c",
+              "size_bytes": 30052399804,
+              "version_id": "C_CQxOznWxQqrykLkGN.hiFoRQwCrWLy"
+            },
+            {
+              "path": "actor/model_state_dict/full_weights.pt",
+              "sha256": "e98bdd8c5b01c84a72e1018e57cb664547859c172eb402d9b4865292835e82b0",
+              "size_bytes": 10015912662,
+              "version_id": "LWi.kYdNvi_beY7TjYgI0cKwmWZ.N6fR"
+            }
+          ],
+          "manifest_version_id": "vdaxzvyAn68gexEhhQvG.cNinScfhDby",
+          "step": 500,
+          "upload_completed_at": "2026-09-19T15:32:31.417628Z",
+          "uploaded_manifest_last": true
+        },
+        {
+          "checkpoint_bytes": 40070031662,
+          "files": [
+            {
+              "path": "actor/dcp_checkpoint/.metadata",
+              "sha256": "6bfd1453a85c1635423e3754a33e964d8112d577bafeeb9ebe293fc53a6929f8",
+              "size_bytes": 1719196,
+              "version_id": "N9TbnzpTfEGgdU6M0ZYnHN0D0ArKhI8D"
+            },
+            {
+              "path": "actor/dcp_checkpoint/__0_0.distcp",
+              "sha256": "b9e70dd0cfb104e5c5e29f4c5a5a3598d32e9f0fb17a8b430a158de0fc614547",
+              "size_bytes": 30052399804,
+              "version_id": "nwYL6jNX9Ptkoj8xTZXn4eDayt33xvBC"
+            },
+            {
+              "path": "actor/model_state_dict/full_weights.pt",
+              "sha256": "72a05acadba9602d18ba8a8c43458ec7d76f4c8514fb83a1ca86fa7343850d61",
+              "size_bytes": 10015912662,
+              "version_id": "zjDLRQXH7Xe1o_y5pBAYG1Fx_gN21ytp"
+            }
+          ],
+          "manifest_version_id": "0lqBhxXNWdUTqdrJTy3mMsBN5wYeiPWD",
+          "step": 1000,
+          "upload_completed_at": "2026-09-19T23:48:11.196816Z",
+          "uploaded_manifest_last": true
+        },
+        {
+          "checkpoint_bytes": 40070031662,
+          "files": [
+            {
+              "path": "actor/dcp_checkpoint/.metadata",
+              "sha256": "df2f9a5260491adb27c399afa8c3de685e940678419abbab1669942a2fc25821",
+              "size_bytes": 1719196,
+              "version_id": "mTPZbQ62HJO_kQuZq9vcKFVal3Q92uRm"
+            },
+            {
+              "path": "actor/dcp_checkpoint/__0_0.distcp",
+              "sha256": "07b23267bdda8e62ef911008123a14e6904de591406b70016c3822560417fcf6",
+              "size_bytes": 30052399804,
+              "version_id": "Zw60n4ikppdL7ZeE8Dn3cPT.AOSX7PJu"
+            },
+            {
+              "path": "actor/model_state_dict/full_weights.pt",
+              "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+              "size_bytes": 10015912662,
+              "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+            }
+          ],
+          "manifest_version_id": "TSXs0h8ezuILWnGlcWkHzQ4DQjlfGrNZ",
+          "step": 2000,
+          "upload_completed_at": "2026-09-19T23:53:16.749016Z",
+          "uploaded_manifest_last": true
+        }
+      ],
+      "delete_marker_count": 0,
+      "latest_version_count": 16,
+      "maximum_approved_bytes": 375809638400,
+      "object_checksum_algorithm": "SHA256",
+      "watcher_completed_at": "2026-09-19T23:53:16.749472Z",
+      "watcher_missing_steps": []
+    },
+    "independent_verification": {
+      "bucket_default_retention_days": 30,
+      "bucket_default_retention_mode": "COMPLIANCE",
+      "bucket_object_lock_enabled": true,
+      "bucket_versioning": "Enabled",
+      "delete_marker_count": 0,
+      "exact_per_version_retain_until_verified": false,
+      "identity_arn": "arn:aws:sts::960946312280:assumed-role/enpire-g0-receipt-verifier/enpire-g0-checkpoint-receipt-verifier-v1",
+      "latest_version_count": 16,
+      "limitation": "GetObjectRetention was not authorized for the verifier, so exact per-version retain-until timestamps were not independently inspected",
+      "mutation_occurred": false,
+      "wrong_cached_identity_attempt_failed_closed": true
+    },
+    "non_grid_checkpoints": {
+      "disposition": "preserved_local_only_not_uploaded",
+      "steps": [750, 1250, 1500, 1750]
+    },
+    "record_kind": "g0-e1-stage1-terminal",
+    "retry_count": 0,
+    "run": {
+      "instance_id": "cdb853ad0db8401a984bf71568cee8fd",
+      "preflight_sha256": "ae181774f631761948c5c6178c5a697323e3211a6530bb91a08075ad92154c97",
+      "provider": "Lambda Cloud",
+      "seed": 2026,
+      "source_commit": "907ce489d669ef12aa32f7eca819331ad6b448bc"
+    },
+    "schema_version": 1,
+    "status": "pass_training_and_durable_upload_no_evaluation"
+  },
+  "sha256": "f3ecf0e76adc06f43d11e18b90f6280abc3ccb554e6f7d41e7a1504bca91440c"
+}

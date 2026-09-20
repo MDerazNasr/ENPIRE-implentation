@@ -14,6 +14,7 @@ STORAGE_AMENDMENT = (
 )
 PAID_APPROVAL = ROOT / "results/agent-supervisor/g0/e1-stage1-paid-approval-v1.json"
 LAUNCH = ROOT / "results/agent-supervisor/g0/e1-stage1-launch-v1.json"
+TERMINAL = ROOT / "results/agent-supervisor/g0/e1-stage1-terminal-v1.json"
 
 
 class G0E1PreflightReceiptTests(unittest.TestCase):
@@ -91,6 +92,30 @@ class G0E1PreflightReceiptTests(unittest.TestCase):
         self.assertFalse(any(payload["authority"].values()))
         self.assertTrue(payload["durable_upload"]["watcher_started"])
         self.assertEqual(payload["container"]["network_mode"], "none")
+
+    def test_terminal_receipt_preserves_execution_and_claim_boundaries(self):
+        approval = json.loads(PAID_APPROVAL.read_text(encoding="utf-8"))
+        terminal = json.loads(TERMINAL.read_text(encoding="utf-8"))
+        payload = terminal["payload"]
+        self.assertEqual(fingerprint(payload), terminal["sha256"])
+        self.assertEqual(payload["approval_sha256"], approval["sha256"])
+        self.assertEqual(payload["container"]["exit_code"], 0)
+        self.assertEqual(payload["container"]["training_steps_completed"], 2000)
+        self.assertEqual(payload["retry_count"], 0)
+        self.assertFalse(any(payload["authority"].values()))
+        self.assertEqual(
+            [item["step"] for item in payload["durable_evidence"]["checkpoints"]],
+            [250, 500, 1000, 2000],
+        )
+        self.assertEqual(payload["durable_evidence"]["latest_version_count"], 16)
+        self.assertEqual(payload["durable_evidence"]["delete_marker_count"], 0)
+        self.assertEqual(payload["durable_evidence"]["watcher_missing_steps"], [])
+        self.assertTrue(payload["credential_maintenance"]["failure_log_preserved"])
+        self.assertFalse(
+            payload["independent_verification"]["exact_per_version_retain_until_verified"]
+        )
+        self.assertFalse(payload["claim_boundary"]["scientific_evaluation_performed"])
+        self.assertFalse(payload["claim_boundary"]["policy_improvement_claimed"])
 
 
 if __name__ == "__main__":
