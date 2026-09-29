@@ -78,6 +78,7 @@ image = (
     )
     .entrypoint([])
     .env({"PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}"})
+    .pip_install("typing_extensions==4.16.0")
     .apt_install(
         "git", "git-lfs", "curl", "wget", "unzip", "build-essential", "cmake",
         "libgl1", "libglib2.0-0", "libsm6", "libxext6", "libxrender1",
