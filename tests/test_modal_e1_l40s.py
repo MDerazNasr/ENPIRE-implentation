@@ -25,7 +25,7 @@ class ModalE1L40SContractTests(unittest.TestCase):
         self.assertIn("ephemeral_disk=512 * 1024", self.text)
         self.assertIn('BASE_IMAGE_ID = "im-66ku0dbczWNQDgPWv97XNc"', self.text)
         self.assertIn("modal.Image.from_id(BASE_IMAGE_ID)", self.text)
-        self.assertIn('.pip_install("typing_extensions==4.16.0")', self.text)
+        self.assertIn('.pip_install("modal==1.5.4")', self.text)
         self.assertIn("retries=0", self.text)
         self.assertIn("single_use_containers=True", self.text)
 

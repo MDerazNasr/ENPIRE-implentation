@@ -77,7 +77,7 @@ image = (
     modal.Image.from_id(BASE_IMAGE_ID)
     .entrypoint([])
     .env({"PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}"})
-    .pip_install("typing_extensions==4.16.0")
+    .pip_install("modal==1.5.4")
     .add_local_dir("agent", f"{PROJECT_ROOT}/agent", copy=True)
     .add_local_dir("configs", f"{PROJECT_ROOT}/configs", copy=True)
     .add_local_dir("envs", f"{PROJECT_ROOT}/envs", copy=True)
