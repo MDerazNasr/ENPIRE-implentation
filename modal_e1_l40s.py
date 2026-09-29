@@ -169,6 +169,7 @@ def evaluate(step: int) -> dict[str, object]:
         "GPU_HOURLY_PRICE_USD": GPU_PRICE_USD_PER_HOUR,
         "PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}",
         "QUALIA_MODAL_THREADS_PER_WORKER": "1",
+        "QUALIA_E1_FROZEN_DEVELOPMENT": "1",
         "PYTHONUNBUFFERED": "1",
     }
     started = time.monotonic()

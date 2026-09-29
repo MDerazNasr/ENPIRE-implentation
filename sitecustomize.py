@@ -12,6 +12,12 @@ if os.environ.get("QUALIA_MODAL_MULTIPROCESS") == "1":
 
     def _qualia_get_env_cls(env_type: str, env_cfg=None):
         if env_type == "maniskill_rlt":
+            if os.environ.get("QUALIA_E1_FROZEN_DEVELOPMENT") == "1":
+                from envs.e1_frozen_development_env import (
+                    E1FrozenDevelopmentManiskillRLTEnv,
+                )
+
+                return E1FrozenDevelopmentManiskillRLTEnv
             from envs.modal_multiprocess_rlt_env import (
                 ModalMultiprocessManiskillRLTEnv,
             )

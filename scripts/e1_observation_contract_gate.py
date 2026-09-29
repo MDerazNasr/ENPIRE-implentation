@@ -45,6 +45,25 @@ def main() -> None:
             ],
         )
 
+    from rlinf.envs import get_env_cls
+
+    resolved_env_class = get_env_cls("maniskill_rlt", cfg.env.eval)
+    if resolved_env_class is not E1FrozenDevelopmentManiskillRLTEnv:
+        raise RuntimeError(
+            "runtime environment lookup did not select the frozen E1 adapter"
+        )
+
+    from scripts.run_g0_e1_checkpoint_evaluation import (
+        configure_direct_openpi_policy,
+    )
+
+    cfg.rollout.rlt_feature_model.model_path = "/no-checkpoint-access/e1-stage1-actor"
+    direct_cfg = configure_direct_openpi_policy(cfg)
+    if direct_cfg.rollout.model.model_type != "openpi":
+        raise RuntimeError("direct evaluation model is not OpenPI")
+    if direct_cfg.rollout.rlt_feature_model is not None:
+        raise RuntimeError("direct evaluation unexpectedly retained an RLT feature model")
+
     started = time.perf_counter()
     env = E1FrozenDevelopmentManiskillRLTEnv(
         cfg=cfg.env.eval,
@@ -84,11 +103,14 @@ def main() -> None:
             "status": "passed",
             "gate": "e1-observation-contract-v1",
             "environment_class": type(env).__name__,
+            "runtime_lookup_class": resolved_env_class.__name__,
             "workers": 16,
             "simulator_steps": 0,
             "policy_loaded": False,
             "checkpoint_accessed": False,
             "metric_produced": False,
+            "direct_openpi_policy": True,
+            "rlt_feature_model_loaded": False,
             "initialization_seconds": initialization_seconds,
             "reset_seconds": reset_seconds,
             "observation_keys": sorted(observed_keys),

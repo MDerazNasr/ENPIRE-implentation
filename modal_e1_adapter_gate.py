@@ -55,6 +55,8 @@ def observation_gate() -> dict[str, object]:
         "PYTHONUNBUFFERED": "1",
         "QUALIA_DEVELOPMENT_RESET_PATH": DEVELOPMENT_RESETS,
         "QUALIA_DEVELOPMENT_RESET_SHA256": DEVELOPMENT_RESET_FINGERPRINT,
+        "QUALIA_E1_FROZEN_DEVELOPMENT": "1",
+        "QUALIA_MODAL_MULTIPROCESS": "1",
         "QUALIA_MODAL_MP_START_METHOD": "spawn",
         "QUALIA_MODAL_RENDER_DEVICE": "pci:0000:00:00.0",
         "QUALIA_MODAL_VULKAN_ICD": "/usr/share/vulkan/icd.d/lvp_icd.x86_64.json",

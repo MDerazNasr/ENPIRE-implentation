@@ -7,7 +7,7 @@ import json
 
 import hydra
 import torch.multiprocessing as mp
-from omegaconf import OmegaConf
+from omegaconf import OmegaConf, open_dict
 
 from envs.e1_frozen_development_env import install_e1_frozen_development_adapter
 from rlinf.config import validate_cfg
@@ -22,8 +22,26 @@ mp.set_start_method("spawn", force=True)
 install_e1_frozen_development_adapter()
 
 
+def configure_direct_openpi_policy(cfg):
+    """Evaluate a Stage-1 OpenPI checkpoint directly, without an RLT actor."""
+
+    source = OmegaConf.to_container(
+        cfg.rollout.rlt_feature_model,
+        resolve=True,
+    )
+    if source.get("model_type") != "openpi":
+        raise ValueError("E1 checkpoint evaluation requires an OpenPI source model")
+    if not source.get("model_path"):
+        raise ValueError("E1 checkpoint evaluation requires an OpenPI checkpoint path")
+    with open_dict(cfg.rollout):
+        cfg.rollout.model = OmegaConf.create(source)
+        cfg.rollout.rlt_feature_model = None
+    return cfg
+
+
 @hydra.main(version_base="1.1", config_path=None)
 def main(cfg) -> None:
+    cfg = configure_direct_openpi_policy(cfg)
     cfg = validate_cfg(cfg)
     if cfg.runner.get("task_type") != "embodied_eval":
         raise ValueError("E1 checkpoint evaluation requires task_type=embodied_eval")
@@ -33,6 +51,8 @@ def main(cfg) -> None:
         raise ValueError("E1 checkpoint evaluation forbids a training environment")
     if cfg.rollout.model.model_type != "openpi":
         raise ValueError("E1 checkpoint evaluation must load the OpenPI checkpoint")
+    if cfg.rollout.get("rlt_feature_model") is not None:
+        raise ValueError("E1 checkpoint evaluation forbids an RLT feature model")
     if cfg.rollout.get("expert_model") is not None:
         raise ValueError("E1 checkpoint evaluation forbids an expert model")
     if cfg.env.eval.use_fixed_reset_state_ids is not True:
@@ -47,7 +67,9 @@ def main(cfg) -> None:
                 "development_only": True,
                 "evaluation_outcomes": 256,
                 "expert_model_loaded": False,
+                "direct_openpi_policy": True,
                 "policy_training_enabled": False,
+                "rlt_feature_model_loaded": False,
                 "promotion_authorized": False,
                 "task_type": "embodied_eval",
             },

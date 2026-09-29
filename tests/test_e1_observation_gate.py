@@ -23,6 +23,10 @@ class E1ObservationGateContractTests(unittest.TestCase):
         for key in ("main_images", "wrist_images", "states", "task_descriptions"):
             self.assertIn(f'"{key}"', text)
         self.assertIn("E1FrozenDevelopmentManiskillRLTEnv", text)
+        self.assertIn('get_env_cls("maniskill_rlt", cfg.env.eval)', text)
+        self.assertIn("configure_direct_openpi_policy(cfg)", text)
+        self.assertIn('"direct_openpi_policy": True', text)
+        self.assertIn('"rlt_feature_model_loaded": False', text)
         self.assertIn('"states": (16, 9)', text)
 
     def test_modal_launcher_has_no_gpu_or_aws_secret(self) -> None:
@@ -34,6 +38,8 @@ class E1ObservationGateContractTests(unittest.TestCase):
         self.assertNotIn("modal.Secret", text)
         self.assertNotIn("boto3", text)
         self.assertIn('"EMBODIED_PATH": f"{RLINF_HOME}/examples/embodiment"', text)
+        self.assertIn('"QUALIA_E1_FROZEN_DEVELOPMENT": "1"', text)
+        self.assertIn('"QUALIA_MODAL_MULTIPROCESS": "1"', text)
         self.assertIn('.add_local_dir("agent"', text)
         self.assertIn('.add_local_dir("supervisor"', text)
 
