@@ -1,0 +1,48 @@
+{
+  "payload": {
+    "authorization_receipt": "results/agent-supervisor/g0/e1-modal-l40s-amendment-v1.json",
+    "checkpoint": {
+      "key": "runs/g0-e1-stage1-seed2026-v1/checkpoints/global_step_250/actor/model_state_dict/full_weights.pt",
+      "sha256": "f95c7112bbd25a714e477a448273b16fa564c8e8c184a5f765b1cbfc8d23a211",
+      "size_bytes": 10015912662,
+      "step": 250,
+      "transfer_seconds": 133.505156116,
+      "version_id": "J8K7_nDRR7zh17ZbbQmmUYc4Yq3_GpSR"
+    },
+    "execution": {
+      "app_id": "ap-07RCbD9gHmnjFaMn6WtlbK",
+      "elapsed_seconds": 243.545654145,
+      "exit_code": 255,
+      "gpu": "L40S",
+      "run_cost_usd": 0.13186395870766002,
+      "run_id": "g0-e1-l40s-step-250-v1",
+      "started_at": "2026-09-29T00:40:38+00:00",
+      "stopped_at": "2026-09-29T00:44:41+00:00"
+    },
+    "failure": {
+      "evaluation_epoch": 0,
+      "exception": "KeyError: 'states'",
+      "location": "rlinf/models/embodiment/openpi/openpi_action_model.py:794",
+      "summary": "The environment observation received by the OpenPI rollout worker omitted the required states field.",
+      "type": "observation_schema_mismatch"
+    },
+    "outcome": {
+      "checkpoint_evaluations_completed": 0,
+      "checkpoint_evaluations_started": 1,
+      "checkpoints_not_run": [500, 1000, 2000],
+      "metric_produced": false,
+      "retry_performed": false,
+      "status": "failed_stopped_no_retry"
+    },
+    "retained_evidence": {
+      "manifest": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v1/manifest.json",
+      "resources": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v1/resources.jsonl",
+      "run_log": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v1/run.log",
+      "terminal_receipt": "/e1-l40s-results/step-250-terminal.json",
+      "volume": "enpire-workspace"
+    },
+    "schema_version": 1,
+    "stop_reason": "The authorized protocol specified zero retries; later checkpoints were not launched after the first scientific attempt failed."
+  },
+  "sha256": "9d074cb1dd9e2244524c86c89b13d7ac1e58bf5c54cc08b181d040ad72f65a8d"
+}
