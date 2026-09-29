@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "scripts/run_g0_e1_checkpoint_evaluation.py"
-SITECUSTOMIZE = ROOT / "sitecustomize.py"
+SITECUSTOMIZE = ROOT / "e1_runtime" / "sitecustomize.py"
 LAUNCHER = ROOT / "modal_e1_l40s.py"
 
 
@@ -26,6 +26,11 @@ class E1DirectPolicyContractTests(unittest.TestCase):
         self.assertIn('os.environ.get("QUALIA_E1_FROZEN_DEVELOPMENT") == "1"', hook)
         self.assertIn("E1FrozenDevelopmentManiskillRLTEnv", hook)
         self.assertIn('"QUALIA_E1_FROZEN_DEVELOPMENT": "1"', launcher)
+        self.assertIn('E1_RUNTIME_ROOT = f"{PROJECT_ROOT}/e1_runtime"', launcher)
+        self.assertIn(
+            'f"{E1_RUNTIME_ROOT}:{PROJECT_ROOT}:{RLINF_HOME}"',
+            launcher,
+        )
 
 
 if __name__ == "__main__":

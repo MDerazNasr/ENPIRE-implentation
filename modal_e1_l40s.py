@@ -24,6 +24,7 @@ CPU_CORES = 16
 MEMORY_MIB = 96 * 1024
 FUNCTION_TIMEOUT_SECONDS = 3600
 PROJECT_ROOT = "/opt/qualia"
+E1_RUNTIME_ROOT = f"{PROJECT_ROOT}/e1_runtime"
 RLINF_HOME = "/opt/RLinf"
 WORKSPACE = "/workspace"
 RESULTS_ROOT = f"{WORKSPACE}/e1-l40s-results"
@@ -76,14 +77,14 @@ workspace = modal.Volume.from_name("enpire-workspace", create_if_missing=False)
 image = (
     modal.Image.from_id(BASE_IMAGE_ID)
     .entrypoint([])
-    .env({"PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}"})
+    .env({"PYTHONPATH": f"{E1_RUNTIME_ROOT}:{PROJECT_ROOT}:{RLINF_HOME}"})
     .pip_install("modal==1.5.4", "boto3==1.40.45")
     .add_local_dir("agent", f"{PROJECT_ROOT}/agent", copy=True)
     .add_local_dir("configs", f"{PROJECT_ROOT}/configs", copy=True)
     .add_local_dir("envs", f"{PROJECT_ROOT}/envs", copy=True)
+    .add_local_dir("e1_runtime", E1_RUNTIME_ROOT, copy=True)
     .add_local_dir("scripts", f"{PROJECT_ROOT}/scripts", copy=True)
     .add_local_dir("supervisor", f"{PROJECT_ROOT}/supervisor", copy=True)
-    .add_local_file("sitecustomize.py", f"{PROJECT_ROOT}/sitecustomize.py", copy=True)
     .add_local_file(
         "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json",
         NORM_STATS,
@@ -167,7 +168,7 @@ def evaluate(step: int) -> dict[str, object]:
         "HF_HOME": f"{WORKSPACE}/cache/huggingface",
         "HF_DATASETS_CACHE": f"{WORKSPACE}/cache/huggingface/datasets",
         "GPU_HOURLY_PRICE_USD": GPU_PRICE_USD_PER_HOUR,
-        "PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}",
+        "PYTHONPATH": f"{E1_RUNTIME_ROOT}:{PROJECT_ROOT}:{RLINF_HOME}",
         "QUALIA_MODAL_THREADS_PER_WORKER": "1",
         "QUALIA_E1_FROZEN_DEVELOPMENT": "1",
         "PYTHONUNBUFFERED": "1",

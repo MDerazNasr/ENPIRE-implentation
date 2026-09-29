@@ -12,6 +12,7 @@ import modal
 APP_NAME = "enpire-g0-e1-observation-gate-v1"
 BASE_IMAGE_ID = "im-66ku0dbczWNQDgPWv97XNc"
 PROJECT_ROOT = "/opt/qualia"
+E1_RUNTIME_ROOT = f"{PROJECT_ROOT}/e1_runtime"
 RLINF_HOME = "/opt/RLinf"
 DEVELOPMENT_RESETS = f"{PROJECT_ROOT}/development-resets.json"
 DEVELOPMENT_RESET_FINGERPRINT = (
@@ -23,13 +24,13 @@ app = modal.App(APP_NAME, tags={"project": "enpire", "phase": "g0-e1-gate"})
 image = (
     modal.Image.from_id(BASE_IMAGE_ID)
     .entrypoint([])
-    .env({"PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}"})
+    .env({"PYTHONPATH": f"{E1_RUNTIME_ROOT}:{PROJECT_ROOT}:{RLINF_HOME}"})
     .pip_install("modal==1.5.4")
     .add_local_dir("agent", f"{PROJECT_ROOT}/agent", copy=True)
+    .add_local_dir("e1_runtime", E1_RUNTIME_ROOT, copy=True)
     .add_local_dir("envs", f"{PROJECT_ROOT}/envs", copy=True)
     .add_local_dir("scripts", f"{PROJECT_ROOT}/scripts", copy=True)
     .add_local_dir("supervisor", f"{PROJECT_ROOT}/supervisor", copy=True)
-    .add_local_file("sitecustomize.py", f"{PROJECT_ROOT}/sitecustomize.py", copy=True)
     .add_local_file(
         "results/agent-supervisor/g0/reset-sets/development.json",
         DEVELOPMENT_RESETS,
@@ -51,7 +52,7 @@ def observation_gate() -> dict[str, object]:
         **os.environ,
         "EMBODIED_PATH": f"{RLINF_HOME}/examples/embodiment",
         "RLINF_HOME": RLINF_HOME,
-        "PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}",
+        "PYTHONPATH": f"{E1_RUNTIME_ROOT}:{PROJECT_ROOT}:{RLINF_HOME}",
         "PYTHONUNBUFFERED": "1",
         "QUALIA_DEVELOPMENT_RESET_PATH": DEVELOPMENT_RESETS,
         "QUALIA_DEVELOPMENT_RESET_SHA256": DEVELOPMENT_RESET_FINGERPRINT,

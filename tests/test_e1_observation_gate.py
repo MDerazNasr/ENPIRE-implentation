@@ -41,6 +41,7 @@ class E1ObservationGateContractTests(unittest.TestCase):
         self.assertIn('"QUALIA_E1_FROZEN_DEVELOPMENT": "1"', text)
         self.assertIn('"QUALIA_MODAL_MULTIPROCESS": "1"', text)
         self.assertIn('.add_local_dir("agent"', text)
+        self.assertIn('.add_local_dir("e1_runtime"', text)
         self.assertIn('.add_local_dir("supervisor"', text)
 
 
