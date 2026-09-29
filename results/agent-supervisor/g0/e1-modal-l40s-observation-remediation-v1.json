@@ -1,0 +1,63 @@
+{
+  "payload": {
+    "authority": {
+      "checkpoint_evaluation_authorized": false,
+      "checkpoint_retry_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "correction": {
+      "description": "Load the Stage-1 OpenPI checkpoint once as the direct evaluation policy, remove the RLT feature-model path, and select the frozen development adapter inside worker processes through an E1-only startup hook.",
+      "e1_sitecustomize_path": "e1_runtime/sitecustomize.py",
+      "e1_sitecustomize_sha256": "aca0412f29527231631c81ce344a33ef1ca4087cd22be7383498bb190670dd0b",
+      "global_sitecustomize_path": "sitecustomize.py",
+      "global_sitecustomize_sha256": "8f39c3cfffcf839ece8aa9bdce5f798e6fb019fc4e19e5168edc1c1ca3187f74",
+      "launcher_path": "modal_e1_l40s.py",
+      "launcher_sha256": "da17e9c181414ae1098dbf4d3f087e57a229043ddec55cd2958c9ea31a662763",
+      "runner_path": "scripts/run_g0_e1_checkpoint_evaluation.py",
+      "runner_sha256": "4441225e647a6f657496036ee3052027cd4a8e1d16f9455cda8bd30051440fbb",
+      "source_commit": "3e792c3e7ceb093b04422f93075cae6246e5c175"
+    },
+    "failed_attempt": {
+      "receipt": "results/agent-supervisor/g0/e1-modal-l40s-step-250-failure-v1.json",
+      "receipt_sha256": "9d074cb1dd9e2244524c86c89b13d7ac1e58bf5c54cc08b181d040ad72f65a8d",
+      "root_cause": "The evaluator configured the same OpenPI checkpoint as both policy_model and rlt_feature_model. RLinf converted the valid environment observation into latent keys and then passed those latents to OpenPI, which requires the raw states key."
+    },
+    "gate": {
+      "app_id": "ap-kjCxzWxygTFtJV8eDWtj6b",
+      "checkpoint_accessed": false,
+      "direct_openpi_policy": true,
+      "environment_class": "E1FrozenDevelopmentManiskillRLTEnv",
+      "gate_launcher_sha256": "a8668add47d72e985ab9c892ebbb97ba899640a293df8f23d908748620fdd123",
+      "gate_script_sha256": "f48649791646daf0d4727b49b893ef6210011f00dfdcb4918fc45f2cf72d93a0",
+      "gpu_used": false,
+      "initialization_seconds": 38.272334339,
+      "metric_produced": false,
+      "non_fatal_runtime_warnings_observed": true,
+      "observation_keys": [
+        "extra_view_images",
+        "main_images",
+        "states",
+        "task_descriptions",
+        "wrist_images"
+      ],
+      "observation_shapes": {
+        "main_images": [16, 384, 384, 3],
+        "states": [16, 9],
+        "wrist_images": [16, 384, 384, 3]
+      },
+      "policy_loaded": false,
+      "reset_seconds": 1.0463500780000032,
+      "rlt_feature_model_loaded": false,
+      "runtime_lookup_class": "E1FrozenDevelopmentManiskillRLTEnv",
+      "simulator_steps": 0,
+      "status": "passed",
+      "workers": 16
+    },
+    "next_gate": "Fresh explicit authorization must bind the corrected launcher before retrying checkpoint 250.",
+    "schema_version": 1,
+    "status": "remediated_gate_passed_pending_retry_authorization"
+  },
+  "sha256": "8a529ecbaf76140452500f03ca57feed23cc289b5c6bdb5b3d02cf7f715c3f1b"
+}
