@@ -27,6 +27,7 @@ image = (
     .pip_install("modal==1.5.4")
     .add_local_dir("envs", f"{PROJECT_ROOT}/envs", copy=True)
     .add_local_dir("scripts", f"{PROJECT_ROOT}/scripts", copy=True)
+    .add_local_dir("supervisor", f"{PROJECT_ROOT}/supervisor", copy=True)
     .add_local_file("sitecustomize.py", f"{PROJECT_ROOT}/sitecustomize.py", copy=True)
     .add_local_file(
         "results/agent-supervisor/g0/reset-sets/development.json",

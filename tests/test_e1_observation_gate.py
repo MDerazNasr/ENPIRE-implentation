@@ -33,6 +33,7 @@ class E1ObservationGateContractTests(unittest.TestCase):
         self.assertNotIn("gpu=", text)
         self.assertNotIn("modal.Secret", text)
         self.assertNotIn("boto3", text)
+        self.assertIn('.add_local_dir("supervisor"', text)
 
 
 if __name__ == "__main__":
