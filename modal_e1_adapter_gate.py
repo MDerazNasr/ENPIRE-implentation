@@ -49,6 +49,7 @@ image = (
 def observation_gate() -> dict[str, object]:
     environment = {
         **os.environ,
+        "EMBODIED_PATH": f"{RLINF_HOME}/examples/embodiment",
         "RLINF_HOME": RLINF_HOME,
         "PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}",
         "PYTHONUNBUFFERED": "1",

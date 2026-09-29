@@ -33,6 +33,7 @@ class E1ObservationGateContractTests(unittest.TestCase):
         self.assertNotIn("gpu=", text)
         self.assertNotIn("modal.Secret", text)
         self.assertNotIn("boto3", text)
+        self.assertIn('"EMBODIED_PATH": f"{RLINF_HOME}/examples/embodiment"', text)
         self.assertIn('.add_local_dir("agent"', text)
         self.assertIn('.add_local_dir("supervisor"', text)
 
