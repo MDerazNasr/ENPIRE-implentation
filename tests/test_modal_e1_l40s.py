@@ -22,6 +22,7 @@ class ModalE1L40SContractTests(unittest.TestCase):
     def test_paid_boundary_is_bounded_and_retry_free(self) -> None:
         self.assertIn('GPU = "L40S"', self.text)
         self.assertIn("FUNCTION_TIMEOUT_SECONDS = 3600", self.text)
+        self.assertIn("ephemeral_disk=512 * 1024", self.text)
         self.assertIn("retries=0", self.text)
         self.assertIn("single_use_containers=True", self.text)
 

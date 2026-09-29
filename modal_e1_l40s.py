@@ -151,7 +151,7 @@ def _download(step: int, destination: Path) -> dict[str, object]:
     gpu=GPU,
     cpu=CPU_CORES,
     memory=MEMORY_MIB,
-    ephemeral_disk=80 * 1024,
+    ephemeral_disk=512 * 1024,
     timeout=FUNCTION_TIMEOUT_SECONDS,
     retries=0,
     single_use_containers=True,
