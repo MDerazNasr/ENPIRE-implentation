@@ -33,6 +33,7 @@ DEVELOPMENT_RESET_FINGERPRINT = (
     "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161"
 )
 RLINF_COMMIT = "c90951a0c799a750cb5294ed10587c61cc2af8bf"
+BASE_IMAGE_ID = "im-66ku0dbczWNQDgPWv97XNc"
 BUCKET = "enpire-g0-evaluator-evidencebucket-atlpylr0fwjq"
 PREFIX = "runs/g0-e1-stage1-seed2026-v1/checkpoints"
 GPU_PRICE_USD_PER_HOUR = "1.951200"
@@ -73,26 +74,10 @@ app = modal.App(APP_NAME, tags={"project": "enpire", "phase": "g0-e1"})
 workspace = modal.Volume.from_name("enpire-workspace", create_if_missing=False)
 
 image = (
-    modal.Image.from_registry(
-        "nvidia/cuda:12.8.1-devel-ubuntu22.04", add_python="3.11"
-    )
+    modal.Image.from_id(BASE_IMAGE_ID)
     .entrypoint([])
     .env({"PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}"})
     .pip_install("typing_extensions==4.16.0")
-    .apt_install(
-        "git", "git-lfs", "curl", "wget", "unzip", "build-essential", "cmake",
-        "libgl1", "libglib2.0-0", "libsm6", "libxext6", "libxrender1",
-        "libvulkan1", "vulkan-tools", "mesa-vulkan-drivers", "libegl1",
-        "libgles2", "libglvnd0", "libx11-6", "libx11-xcb1", "libxcb1",
-        "libxext6", "libgbm1",
-    )
-    .run_commands(
-        "git clone https://github.com/RLinf/RLinf.git /opt/RLinf",
-        f"cd /opt/RLinf && git checkout {RLINF_COMMIT}",
-        "cd /opt/RLinf && UV_TORCH_BACKEND=cu128 bash requirements/install.sh embodied --model openpi --env maniskill_libero --torch 2.8.0 --python 3.11.14 --no-root --no-flash-attn --no-apex --install-rlinf",
-        "cd /opt/RLinf && uv pip install --python .venv/bin/python hydra-core==1.3.2 omegaconf==2.3.0 sapien==3.0.1 boto3",
-        f"cd /opt/RLinf && test \"$(git rev-parse HEAD)\" = {RLINF_COMMIT}",
-    )
     .add_local_dir("agent", f"{PROJECT_ROOT}/agent", copy=True)
     .add_local_dir("configs", f"{PROJECT_ROOT}/configs", copy=True)
     .add_local_dir("envs", f"{PROJECT_ROOT}/envs", copy=True)

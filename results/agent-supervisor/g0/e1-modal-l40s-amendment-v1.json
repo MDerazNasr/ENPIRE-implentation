@@ -29,7 +29,7 @@
       "development_outcomes_per_checkpoint": 256,
       "gpu": "L40S",
       "launcher_path": "modal_e1_l40s.py",
-      "launcher_sha256": "6467ea087a73cfa94731e27537a6b8da80b7fe8464e67780ad0bf640479cc048",
+      "launcher_sha256": "7d9bd763c35a751f669db63337831a51d1d346ccc92516bf4ee4aee4289f2a24",
       "maximum_seconds_per_checkpoint": 3600,
       "provider": "Modal",
       "sequential": true,
@@ -46,5 +46,5 @@
     "schema_version": 1,
     "status": "authorized_pending_clean_commit_and_runtime_gate"
   },
-  "sha256": "eb78e5f5602c5c467efeeee8a308bf2e60edfc9c1e3bc7753913883c76676462"
+  "sha256": "7fce34d4584e675dc9b153ded45e889c663cfca4f2ee2fd95dc84b0d68d13b64"
 }
