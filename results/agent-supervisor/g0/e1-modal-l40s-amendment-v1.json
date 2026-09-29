@@ -1,0 +1,50 @@
+{
+  "payload": {
+    "approval": {
+      "approved_on": "2026-09-28",
+      "aggregate_max_cost_usd": "18.00",
+      "gpu_compute_max_cost_usd": "10.00",
+      "maximum_gpu_hours": 4,
+      "retry_count": 0,
+      "user_confirmation": "I confirm, proceed"
+    },
+    "authority": {
+      "checkpoint_evaluation_authorized": true,
+      "checkpoint_selection_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint_transfer": {
+      "bucket": "enpire-g0-evaluator-evidencebucket-atlpylr0fwjq",
+      "downloaded_files_per_checkpoint": ["actor/model_state_dict/full_weights.pt"],
+      "exact_version_required": true,
+      "maximum_transfer_cost_usd": "5.00",
+      "role": "arn:aws:iam::960946312280:role/enpire-g0-receipt-verifier",
+      "temporary_credentials_only": true
+    },
+    "claim_scope": "four development-only checkpoint evaluations; no selection, E2, final-reset access, or promotion",
+    "execution": {
+      "checkpoint_steps": [250, 500, 1000, 2000],
+      "development_outcomes_per_checkpoint": 256,
+      "gpu": "L40S",
+      "launcher_path": "modal_e1_l40s.py",
+      "launcher_sha256": "91efd48e371e812ef83f6cba802c46be71fa2082ac204df3acf52f6930dd11c5",
+      "maximum_seconds_per_checkpoint": 3600,
+      "provider": "Modal",
+      "sequential": true,
+      "source_parent_commit": "8818b779ca167e04bd1fd1da317e89649f589957",
+      "training_constructed": false
+    },
+    "frozen_inputs": {
+      "development_reset_file_sha256": "c99cf14c7a7d926df5f502d9e5ca00d33c62487bb1ffeea1eae4f15ce47ed489",
+      "development_reset_fingerprint": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+      "evaluation_config_sha256": "34455d7631db4494418b244dbda0c77821c768d2c88cc71f60f3af98e69cbe5b",
+      "frozen_reset_adapter_sha256": "03cac61be195dc6f1160aa1cba74e6d6bbd8a819c63b7bcda529f07486a6fc04",
+      "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf"
+    },
+    "schema_version": 1,
+    "status": "authorized_pending_clean_commit_and_runtime_gate"
+  },
+  "sha256": "8ca7f6b09a952739af3af49357fafa613590314a4773e7615cd13fa7ed8048d6"
+}
