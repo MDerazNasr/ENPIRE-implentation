@@ -25,6 +25,7 @@ image = (
     .entrypoint([])
     .env({"PYTHONPATH": f"{PROJECT_ROOT}:{RLINF_HOME}"})
     .pip_install("modal==1.5.4")
+    .add_local_dir("agent", f"{PROJECT_ROOT}/agent", copy=True)
     .add_local_dir("envs", f"{PROJECT_ROOT}/envs", copy=True)
     .add_local_dir("scripts", f"{PROJECT_ROOT}/scripts", copy=True)
     .add_local_dir("supervisor", f"{PROJECT_ROOT}/supervisor", copy=True)
