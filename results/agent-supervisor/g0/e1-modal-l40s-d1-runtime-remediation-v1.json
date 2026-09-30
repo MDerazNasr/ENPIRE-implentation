@@ -1,0 +1,67 @@
+{
+  "payload": {
+    "authority": {
+      "checkpoint_evaluation_authorized": false,
+      "checkpoint_retry_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "correction": {
+      "config_path": "configs/d1/e1_checkpoint_evaluation.yaml",
+      "config_sha256": "4ed44dc992326fb40aa15f6917a5b776635c33c5d95d1faff51330cd5d378dea",
+      "description": "Preserve the E1-only startup-hook directory in the resolved D1 PYTHONPATH and test worker lookup in a fresh subprocess using that exact runtime environment.",
+      "e1_sitecustomize_path": "e1_runtime/sitecustomize.py",
+      "e1_sitecustomize_sha256": "aca0412f29527231631c81ce344a33ef1ca4087cd22be7383498bb190670dd0b",
+      "launcher_path": "modal_e1_l40s.py",
+      "launcher_sha256": "b920d2d0e4cc6f92d6ff99575059af6e06a493499e16aaca375fdf00aac5a4b7",
+      "run_revision": 3,
+      "runner_path": "scripts/run_g0_e1_checkpoint_evaluation.py",
+      "runner_sha256": "4441225e647a6f657496036ee3052027cd4a8e1d16f9455cda8bd30051440fbb",
+      "source_commit": "bbc2a2bc7f33b6d0c81e60ff606a01549abcb2e0"
+    },
+    "failed_attempt": {
+      "receipt": "results/agent-supervisor/g0/e1-modal-l40s-step-250-v2-failure-v1.json",
+      "receipt_sha256": "7994deab20d7fe400cde3ff888a8bc90179e9bc5b7b6a0c331174b8ed892cd84",
+      "root_cause": "The resolved D1 PYTHONPATH omitted /opt/qualia/e1_runtime, so a Ray worker selected the base RLinf environment instead of the frozen E1 adapter."
+    },
+    "gate": {
+      "app_id": "ap-JbauTHnCe8HV7GjCaTOFDM",
+      "checkpoint_accessed": false,
+      "d1_worker_startup_hook": true,
+      "direct_openpi_policy": true,
+      "environment_class": "E1FrozenDevelopmentManiskillRLTEnv",
+      "gate_launcher_path": "modal_e1_adapter_gate.py",
+      "gate_launcher_sha256": "33b821345bf41909d2963b5ea83e9aeb8628c1122343d7f58013f7bf9b53990c",
+      "gate_script_path": "scripts/e1_observation_contract_gate.py",
+      "gate_script_sha256": "289dbdd426d9528ab934fe284a3c5d0e659be3c97392a42862006e2ef2dd5e15",
+      "gpu_used": false,
+      "initialization_seconds": 45.080880058000005,
+      "metric_produced": false,
+      "non_fatal_runtime_warnings_observed": true,
+      "observation_keys": [
+        "extra_view_images",
+        "main_images",
+        "states",
+        "task_descriptions",
+        "wrist_images"
+      ],
+      "observation_shapes": {
+        "main_images": [16, 384, 384, 3],
+        "states": [16, 9],
+        "wrist_images": [16, 384, 384, 3]
+      },
+      "policy_loaded": false,
+      "reset_seconds": 1.1844571450000103,
+      "rlt_feature_model_loaded": false,
+      "runtime_lookup_class": "E1FrozenDevelopmentManiskillRLTEnv",
+      "simulator_steps": 0,
+      "status": "passed",
+      "workers": 16
+    },
+    "next_gate": "Fresh explicit authorization must bind commit bbc2a2b before any checkpoint-250 v3 launch.",
+    "schema_version": 1,
+    "status": "d1_runtime_remediated_gate_passed_pending_v3_authorization"
+  },
+  "sha256": "f8942c8f57f132e8e14e1f190913968c74929d81e332a7a5dc86ebdca41bf891"
+}
