@@ -22,6 +22,13 @@ V2_FAILURE_RECEIPT = (
     / "g0"
     / "e1-modal-l40s-step-250-v2-failure-v1.json"
 )
+V3_FAILURE_RECEIPT = (
+    ROOT
+    / "results"
+    / "agent-supervisor"
+    / "g0"
+    / "e1-modal-l40s-step-250-v3-failure-v1.json"
+)
 
 
 class E1ModalCreateOnlyTests(unittest.TestCase):
@@ -36,7 +43,7 @@ class E1ModalCreateOnlyTests(unittest.TestCase):
 
     def test_retry_evidence_uses_new_create_only_paths(self) -> None:
         text = LAUNCHER.read_text(encoding="utf-8")
-        self.assertIn("RUN_REVISION = 3", text)
+        self.assertIn("RUN_REVISION = 4", text)
         self.assertIn('f"g0-e1-l40s-step-{step}-v{RUN_REVISION}"', text)
         self.assertIn('f"step-{step}-v{RUN_REVISION}-terminal.json"', text)
         self.assertIn('receipt_path.open("x", encoding="utf-8")', text)
@@ -59,6 +66,16 @@ class E1ModalCreateOnlyTests(unittest.TestCase):
         self.assertEqual(payload["status"], "failed_environment_worker_initialization")
         self.assertFalse(payload["failure"]["evaluation_loop_started"])
         self.assertEqual(payload["failure"]["simulator_steps"], 0)
+
+    def test_v3_failure_receipt_is_canonical_and_non_authorizing(self) -> None:
+        envelope = json.loads(V3_FAILURE_RECEIPT.read_text(encoding="utf-8"))
+        self.assertEqual(fingerprint(envelope["payload"]), envelope["sha256"])
+        payload = envelope["payload"]
+        self.assertTrue(all(value is False for value in payload["authority"].values()))
+        self.assertEqual(payload["status"], "failed_pre_step_action_preparation")
+        self.assertEqual(payload["failure"]["evaluation_epoch_reached"], 0)
+        self.assertEqual(payload["failure"]["simulator_steps"], 0)
+        self.assertFalse(payload["failure"]["evaluation_metric_produced"])
 
 
 if __name__ == "__main__":

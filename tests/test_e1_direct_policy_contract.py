@@ -15,6 +15,8 @@ class E1DirectPolicyContractTests(unittest.TestCase):
         ast.parse(text)
         self.assertIn("configure_direct_openpi_policy(cfg)", text)
         self.assertIn("cfg.rollout.rlt_feature_model = None", text)
+        self.assertIn('source["policy_setup"] = policy_setup', text)
+        self.assertIn("cfg.rollout.model.policy_setup != cfg.actor.model.policy_setup", text)
         self.assertIn('"direct_openpi_policy": True', text)
         self.assertIn('"rlt_feature_model_loaded": False', text)
 

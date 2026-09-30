@@ -33,6 +33,10 @@ def configure_direct_openpi_policy(cfg):
         raise ValueError("E1 checkpoint evaluation requires an OpenPI source model")
     if not source.get("model_path"):
         raise ValueError("E1 checkpoint evaluation requires an OpenPI checkpoint path")
+    policy_setup = cfg.actor.model.get("policy_setup")
+    if not policy_setup:
+        raise ValueError("E1 checkpoint evaluation requires an action policy setup")
+    source["policy_setup"] = policy_setup
     with open_dict(cfg.rollout):
         cfg.rollout.model = OmegaConf.create(source)
         cfg.rollout.rlt_feature_model = None
@@ -51,6 +55,8 @@ def main(cfg) -> None:
         raise ValueError("E1 checkpoint evaluation forbids a training environment")
     if cfg.rollout.model.model_type != "openpi":
         raise ValueError("E1 checkpoint evaluation must load the OpenPI checkpoint")
+    if cfg.rollout.model.policy_setup != cfg.actor.model.policy_setup:
+        raise ValueError("E1 checkpoint evaluation action policy setup mismatch")
     if cfg.rollout.get("rlt_feature_model") is not None:
         raise ValueError("E1 checkpoint evaluation forbids an RLT feature model")
     if cfg.rollout.get("expert_model") is not None:

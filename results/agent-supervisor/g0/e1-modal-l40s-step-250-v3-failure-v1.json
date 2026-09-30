@@ -1,0 +1,56 @@
+{
+  "payload": {
+    "app_id": "ap-OxMfVuzNJyTKBCNwhRts0j",
+    "authority": {
+      "additional_retry_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint": {
+      "download_elapsed_seconds": 133.47405547399998,
+      "identity_verified": true,
+      "sha256": "f95c7112bbd25a714e477a448273b16fa564c8e8c184a5f765b1cbfc8d23a211",
+      "size_bytes": 10015912662,
+      "step": 250,
+      "version_id": "J8K7_nDRR7zh17ZbbQmmUYc4Yq3_GpSR"
+    },
+    "cost": {
+      "d1_cumulative_cost_usd": 0.240983498900804,
+      "d1_evaluation_process_cost_usd": 0.07636759036523999,
+      "d1_evaluation_process_elapsed_seconds": 140.899609211,
+      "gpu_hourly_price_usd": 1.9512,
+      "total_provider_cost_usd": null,
+      "total_provider_cost_status": "unverified_pending_provider_billing"
+    },
+    "failure": {
+      "cause": "The direct OpenPI model copied from rollout.rlt_feature_model omitted rollout.model.policy_setup. RLinf successfully initialized the policy and frozen environment and reached evaluation epoch 0, then action preparation attempted a membership test against policy=None before the first environment step.",
+      "evaluation_epoch_reached": 0,
+      "evaluation_metric_produced": false,
+      "exit_code": 255,
+      "failed_closed": true,
+      "policy_inference_reached": true,
+      "policy_loaded": true,
+      "simulator_steps": 0,
+      "terminal_exception": "TypeError: argument of type 'NoneType' is not iterable"
+    },
+    "launched_source": {
+      "commit": "6a83d8a499d8b33bcc8854080ba16c39e23abb4c",
+      "config_path": "configs/d1/e1_checkpoint_evaluation.yaml",
+      "config_sha256": "4ed44dc992326fb40aa15f6917a5b776635c33c5d95d1faff51330cd5d378dea",
+      "launcher_path": "modal_e1_l40s.py",
+      "launcher_sha256": "b920d2d0e4cc6f92d6ff99575059af6e06a493499e16aaca375fdf00aac5a4b7",
+      "runner_path": "scripts/run_g0_e1_checkpoint_evaluation.py",
+      "runner_sha256": "4441225e647a6f657496036ee3052027cd4a8e1d16f9455cda8bd30051440fbb"
+    },
+    "next_gate": "Propagate actor.model.policy_setup into the direct OpenPI model, add checkpoint-free action preparation to the exact-runtime gate, and obtain fresh explicit approval before any v4 launch.",
+    "remote_evidence": {
+      "run_directory": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v3",
+      "terminal_receipt": "/e1-l40s-results/step-250-v3-terminal.json"
+    },
+    "schema_version": 1,
+    "status": "failed_pre_step_action_preparation"
+  },
+  "sha256": "a163d35c6b55c8fb89c10349a58ab54a6e006960652f3ab2995d76c0dd66e39e"
+}

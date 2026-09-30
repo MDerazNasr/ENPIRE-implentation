@@ -105,6 +105,22 @@ def main() -> None:
         raise RuntimeError("direct evaluation model is not OpenPI")
     if direct_cfg.rollout.rlt_feature_model is not None:
         raise RuntimeError("direct evaluation unexpectedly retained an RLT feature model")
+    if direct_cfg.rollout.model.policy_setup != "panda-qpos":
+        raise RuntimeError("direct evaluation dropped the action policy setup")
+
+    import torch
+    from rlinf.envs.action_utils import prepare_actions
+
+    prepared_actions = prepare_actions(
+        raw_chunk_actions=torch.zeros((16, 10, 8), dtype=torch.float32),
+        env_type=cfg.env.eval.env_type,
+        model_type=direct_cfg.rollout.model.model_type,
+        num_action_chunks=direct_cfg.rollout.model.num_action_chunks,
+        action_dim=direct_cfg.rollout.model.action_dim,
+        policy=direct_cfg.rollout.model.policy_setup,
+    )
+    if tuple(prepared_actions.shape) != (16, 10, 8):
+        raise RuntimeError("direct evaluation action preparation shape mismatch")
 
     started = time.perf_counter()
     env = E1FrozenDevelopmentManiskillRLTEnv(
@@ -154,6 +170,7 @@ def main() -> None:
             "direct_openpi_policy": True,
             "rlt_feature_model_loaded": False,
             "d1_worker_startup_hook": True,
+            "action_preparation_contract": True,
             "initialization_seconds": initialization_seconds,
             "reset_seconds": reset_seconds,
             "observation_keys": sorted(observed_keys),
