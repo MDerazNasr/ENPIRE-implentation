@@ -1,0 +1,53 @@
+{
+  "payload": {
+    "app_id": "ap-UDesiB3vbh1rSam8ONAJkT",
+    "authority": {
+      "additional_retry_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint": {
+      "download_elapsed_seconds": 75.273501906,
+      "identity_verified": true,
+      "sha256": "f95c7112bbd25a714e477a448273b16fa564c8e8c184a5f765b1cbfc8d23a211",
+      "size_bytes": 10015912662,
+      "step": 250,
+      "version_id": "J8K7_nDRR7zh17ZbbQmmUYc4Yq3_GpSR"
+    },
+    "cost": {
+      "d1_cumulative_cost_usd": 0.16461590862662,
+      "d1_evaluation_process_cost_usd": 0.0327519484122,
+      "d1_evaluation_process_elapsed_seconds": 60.42794534,
+      "gpu_hourly_price_usd": 1.9512,
+      "total_provider_cost_usd": null,
+      "total_provider_cost_status": "unverified_pending_provider_billing"
+    },
+    "failure": {
+      "cause": "The resolved D1 runtime environment overwrote PYTHONPATH without the E1-only startup-hook directory. The Ray environment worker therefore selected the base RLinf ManiSkill environment and passed the PCI render-device string to a parser that rejected it.",
+      "evaluation_loop_started": false,
+      "evaluation_metric_produced": false,
+      "exit_code": 255,
+      "failed_closed": true,
+      "policy_load_status": "unknown",
+      "simulator_steps": 0,
+      "terminal_exception": "ValueError: too many values to unpack (expected 2)"
+    },
+    "launched_source": {
+      "commit": "0d825f8e8cb587e68e3ccae9e3e930aee3c7b9c0",
+      "config_path": "configs/d1/e1_checkpoint_evaluation.yaml",
+      "config_sha256": "34455d7631db4494418b244dbda0c77821c768d2c88cc71f60f3af98e69cbe5b",
+      "launcher_path": "modal_e1_l40s.py",
+      "launcher_sha256": "a6967cd2a8194758e26f5cec6f218108530ef3f14ff8d7c4e1023fee2f2498bd"
+    },
+    "next_gate": "Correct the D1 runtime PYTHONPATH, repeat the checkpoint-free worker-startup gate, and obtain fresh explicit approval before any further checkpoint-250 launch.",
+    "remote_evidence": {
+      "run_directory": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v2",
+      "terminal_receipt": "/e1-l40s-results/step-250-v2-terminal.json"
+    },
+    "schema_version": 1,
+    "status": "failed_environment_worker_initialization"
+  },
+  "sha256": "7994deab20d7fe400cde3ff888a8bc90179e9bc5b7b6a0c331174b8ed892cd84"
+}

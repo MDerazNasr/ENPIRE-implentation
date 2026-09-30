@@ -27,6 +27,9 @@ class E1ObservationGateContractTests(unittest.TestCase):
         self.assertIn("configure_direct_openpi_policy(cfg)", text)
         self.assertIn('"direct_openpi_policy": True', text)
         self.assertIn('"rlt_feature_model_loaded": False', text)
+        self.assertIn('"d1_worker_startup_hook": True', text)
+        self.assertIn("resolved D1 runtime dropped the E1 startup hook", text)
+        self.assertIn("D1 worker subprocess did not select the frozen E1 adapter", text)
         self.assertIn('"states": (16, 9)', text)
 
     def test_modal_launcher_has_no_gpu_or_aws_secret(self) -> None:
@@ -41,6 +44,7 @@ class E1ObservationGateContractTests(unittest.TestCase):
         self.assertIn('"QUALIA_E1_FROZEN_DEVELOPMENT": "1"', text)
         self.assertIn('"QUALIA_MODAL_MULTIPROCESS": "1"', text)
         self.assertIn('.add_local_dir("agent"', text)
+        self.assertIn('.add_local_dir("configs"', text)
         self.assertIn('.add_local_dir("e1_runtime"', text)
         self.assertIn('.add_local_dir("supervisor"', text)
 

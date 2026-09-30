@@ -9,7 +9,7 @@
   "config_path": "examples/embodiment/config",
   "runtime_environment": {
     "EMBODIED_PATH": "${RLINF_HOME}/examples/embodiment",
-    "PYTHONPATH": "${QUALIA_PROJECT_ROOT}:${RLINF_HOME}",
+    "PYTHONPATH": "${QUALIA_PROJECT_ROOT}/e1_runtime:${QUALIA_PROJECT_ROOT}:${RLINF_HOME}",
     "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
     "WANDB_MODE": "offline",
     "QUALIA_MODAL_MULTIPROCESS": "1",

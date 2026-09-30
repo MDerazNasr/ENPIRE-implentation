@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 import time
 from pathlib import Path
 
@@ -22,6 +23,8 @@ EXPECTED_KEYS = {
 def main() -> None:
     from hydra import compose, initialize_config_dir
 
+    from agent.d1_config import load_d1_config, resolve_d1_config
+
     from envs.e1_frozen_development_env import (
         E1FrozenDevelopmentManiskillRLTEnv,
     )
@@ -29,6 +32,45 @@ def main() -> None:
     reset_path = Path(os.environ["QUALIA_DEVELOPMENT_RESET_PATH"])
     if not reset_path.is_file():
         raise FileNotFoundError(f"development reset file missing: {reset_path}")
+
+    project_root = Path(os.environ.get("QUALIA_PROJECT_ROOT", "/opt/qualia"))
+    exact_runtime = resolve_d1_config(
+        load_d1_config(project_root / "configs/d1/e1_checkpoint_evaluation.yaml"),
+        {
+            **os.environ,
+            "DEVELOPMENT_RESET_PATH": str(reset_path),
+            "DEVELOPMENT_RESET_SHA256": os.environ[
+                "QUALIA_DEVELOPMENT_RESET_SHA256"
+            ],
+            "NORM_STATS_PATH": str(project_root / "norm_stats.json"),
+            "QUALIA_PROJECT_ROOT": str(project_root),
+            "RLINF_HOME": str(RLINF_HOME),
+            "STAGE1_CHECKPOINT": "/no-checkpoint-access/e1-stage1-actor",
+            "WANDB_PROJECT": "qualia-rlt-d1-gate",
+        },
+    )["runtime_environment"]
+    expected_pythonpath = f"{project_root}/e1_runtime:{project_root}:{RLINF_HOME}"
+    if exact_runtime["PYTHONPATH"] != expected_pythonpath:
+        raise RuntimeError("resolved D1 runtime dropped the E1 startup hook")
+    worker_probe = subprocess.run(
+        [
+            str(RLINF_HOME / ".venv/bin/python"),
+            "-c",
+            (
+                "from rlinf.envs import get_env_cls; "
+                "print(get_env_cls('maniskill_rlt').__name__)"
+            ),
+        ],
+        env={**os.environ, **exact_runtime},
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    if worker_probe.stdout.strip().splitlines()[-1] != (
+        "E1FrozenDevelopmentManiskillRLTEnv"
+    ):
+        raise RuntimeError("D1 worker subprocess did not select the frozen E1 adapter")
 
     config_dir = RLINF_HOME / "examples/embodiment/config"
     with initialize_config_dir(version_base=None, config_dir=str(config_dir)):
@@ -111,6 +153,7 @@ def main() -> None:
             "metric_produced": False,
             "direct_openpi_policy": True,
             "rlt_feature_model_loaded": False,
+            "d1_worker_startup_hook": True,
             "initialization_seconds": initialization_seconds,
             "reset_seconds": reset_seconds,
             "observation_keys": sorted(observed_keys),

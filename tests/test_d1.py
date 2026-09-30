@@ -656,6 +656,10 @@ class D1ConfigTests(unittest.TestCase):
             self.assertIn("rollout.expert_model=null", command)
             self.assertEqual(config["evaluation"]["reset_set_role"], "development")
             self.assertEqual(config["evaluation"]["num_trajectories"], 256)
+            self.assertEqual(
+                config["runtime_environment"]["PYTHONPATH"],
+                f"{project}/e1_runtime:{project}:{rlinf}",
+            )
 
     def test_l40s_recovery_changes_only_micro_batch_and_horizon(self):
         original = load_d1_config(CONFIG_ROOT / "stage1_reduced_250.yaml")
