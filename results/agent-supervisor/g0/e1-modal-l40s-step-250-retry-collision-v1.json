@@ -1,0 +1,49 @@
+{
+  "payload": {
+    "app_id": "ap-tAZy43YgBxCht3ZVg3atSC",
+    "authority": {
+      "additional_retry_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint": {
+      "download_completed": true,
+      "identity_verified_before_failure": true,
+      "sha256": "f95c7112bbd25a714e477a448273b16fa564c8e8c184a5f765b1cbfc8d23a211",
+      "size_bytes": 10015912662,
+      "step": 250,
+      "version_id": "J8K7_nDRR7zh17ZbbQmmUYc4Yq3_GpSR"
+    },
+    "cost": {
+      "billable_function_seconds_upper_bound": 90,
+      "gpu_cost_upper_usd": 0.04878,
+      "gpu_hourly_price_usd": 1.9512,
+      "total_cost_usd": null,
+      "total_cost_status": "unverified_pending_provider_billing"
+    },
+    "failure": {
+      "cause": "The corrected launcher retained the original create-only run ID g0-e1-l40s-step-250-v1, whose preserved failure directory already existed.",
+      "checkpoint_loaded_into_policy": false,
+      "evaluation_metric_produced": false,
+      "evaluation_runner_started": false,
+      "existing_destination": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v1",
+      "failed_closed": true,
+      "simulator_steps": 0
+    },
+    "launched_source": {
+      "commit": "c8a6efb",
+      "launcher_path": "modal_e1_l40s.py",
+      "launcher_sha256": "da17e9c181414ae1098dbf4d3f087e57a229043ddec55cd2958c9ea31a662763"
+    },
+    "next_gate": "Record the collision fix and obtain fresh explicit approval before any v2 checkpoint-250 launch.",
+    "schema_version": 1,
+    "status": "failed_pre_evaluation_create_only_collision",
+    "timestamps": {
+      "function_activity_first_observed": "2026-09-29T20:40:06-04:00",
+      "terminal_failure": "2026-09-29T20:41:36-04:00"
+    }
+  },
+  "sha256": "d4376200811b6877ba53fc9283e5d28ccf714836caf20881902356db86d6681f"
+}

@@ -1,5 +1,6 @@
 import hashlib
 import json
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -16,8 +17,14 @@ RECEIPT = (
 )
 
 
-def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def sha256_at_commit(commit: str, path: str) -> str:
+    completed = subprocess.run(
+        ["git", "show", f"{commit}:{path}"],
+        cwd=ROOT,
+        check=True,
+        stdout=subprocess.PIPE,
+    )
+    return hashlib.sha256(completed.stdout).hexdigest()
 
 
 class E1ObservationRemediationTests(unittest.TestCase):
@@ -37,6 +44,7 @@ class E1ObservationRemediationTests(unittest.TestCase):
 
     def test_receipt_binds_current_correction_sources(self) -> None:
         correction = self.payload["correction"]
+        source_commit = correction["source_commit"]
         for path_field, hash_field in (
             ("e1_sitecustomize_path", "e1_sitecustomize_sha256"),
             ("global_sitecustomize_path", "global_sitecustomize_sha256"),
@@ -44,17 +52,20 @@ class E1ObservationRemediationTests(unittest.TestCase):
             ("runner_path", "runner_sha256"),
         ):
             self.assertEqual(
-                sha256(ROOT / correction[path_field]),
+                sha256_at_commit(source_commit, correction[path_field]),
                 correction[hash_field],
             )
 
         gate = self.payload["gate"]
         self.assertEqual(
-            sha256(ROOT / "modal_e1_adapter_gate.py"),
+            sha256_at_commit(source_commit, "modal_e1_adapter_gate.py"),
             gate["gate_launcher_sha256"],
         )
         self.assertEqual(
-            sha256(ROOT / "scripts" / "e1_observation_contract_gate.py"),
+            sha256_at_commit(
+                source_commit,
+                "scripts/e1_observation_contract_gate.py",
+            ),
             gate["gate_script_sha256"],
         )
 

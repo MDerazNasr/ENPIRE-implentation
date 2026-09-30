@@ -28,6 +28,7 @@ E1_RUNTIME_ROOT = f"{PROJECT_ROOT}/e1_runtime"
 RLINF_HOME = "/opt/RLinf"
 WORKSPACE = "/workspace"
 RESULTS_ROOT = f"{WORKSPACE}/e1-l40s-results"
+RUN_REVISION = 2
 NORM_STATS = f"{PROJECT_ROOT}/norm_stats.json"
 DEVELOPMENT_RESETS = f"{PROJECT_ROOT}/development-resets.json"
 DEVELOPMENT_RESET_FINGERPRINT = (
@@ -148,12 +149,13 @@ def _download(step: int, destination: Path) -> dict[str, object]:
 def evaluate(step: int) -> dict[str, object]:
     if step not in CHECKPOINTS:
         raise ValueError("step must be exactly one of 250, 500, 1000, or 2000")
+    run_id = f"g0-e1-l40s-step-{step}-v{RUN_REVISION}"
+    run_dir = Path(RESULTS_ROOT) / "d1" / run_id
+    receipt_path = Path(RESULTS_ROOT) / f"step-{step}-v{RUN_REVISION}-terminal.json"
+    if run_dir.exists() or receipt_path.exists():
+        raise RuntimeError("create-only evaluation destination already exists")
     checkpoint = Path(f"/tmp/e1-checkpoint-{step}/actor/model_state_dict/full_weights.pt")
     download = _download(step, checkpoint)
-    run_id = f"g0-e1-l40s-step-{step}-v1"
-    run_dir = Path(RESULTS_ROOT) / "d1" / run_id
-    if run_dir.exists():
-        raise RuntimeError("create-only evaluation destination already exists")
     environment = {
         **os.environ,
         "RLINF_HOME": RLINF_HOME,
@@ -199,8 +201,8 @@ def evaluate(step: int) -> dict[str, object]:
         "manifest": manifest,
         "claim_scope": "development checkpoint evaluation only; no selection or promotion",
     }
-    receipt_path = Path(RESULTS_ROOT) / f"step-{step}-terminal.json"
-    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+    with receipt_path.open("x", encoding="utf-8") as handle:
+        handle.write(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
     workspace.commit()
     if process.returncode:
         raise RuntimeError(f"checkpoint evaluation failed with exit {process.returncode}")
