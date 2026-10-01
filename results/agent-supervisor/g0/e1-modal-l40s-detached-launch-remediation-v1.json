@@ -1,0 +1,45 @@
+{
+  "payload": {
+    "authority": {
+      "checkpoint_evaluation_authorized": false,
+      "checkpoint_retry_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "correction": {
+      "description": "Launch evaluation as a detached asynchronous Modal FunctionCall, emit its durable fc-* identity, monitor it independently, extend the bounded function timeout to two hours, and use unique v5 evidence paths.",
+      "function_timeout_seconds": 7200,
+      "launcher_path": "modal_e1_l40s.py",
+      "launcher_sha256": "c58d69d3c3221a69e31159d7606f8cc502b4650daa25ef5b45cb4d6dc16a61f5",
+      "max_gpu_runtime_cost_usd": 3.9024,
+      "monitor_path": "modal_e1_l40s_monitor.py",
+      "monitor_sha256": "c63add800dfa2277d21afd5c3e0db63892bcfa0e72d1a076a6d210833ce7c7ea",
+      "run_revision": 5,
+      "source_commit": "f07c8b37568a26507b1268a674e2a9dce0ef21e5"
+    },
+    "failed_attempt": {
+      "completed_rollout_epochs": 4,
+      "configured_rollout_epochs": 16,
+      "receipt": "results/agent-supervisor/g0/e1-modal-l40s-step-250-v4-cancelled-v1.json",
+      "receipt_sha256": "f72527a36c87008297328a81752dfd6c5d6f808ed83534f1c059aa13f0959e67",
+      "root_cause_boundary": "The client-coupled v4 invocation received an external cancellation signal; its exact origin is unverified. Independent throughput evidence also showed the one-hour function timeout was shorter than the projected full evaluation."
+    },
+    "gate": {
+      "checkpoint_accessed": false,
+      "detached_acknowledgement_required": true,
+      "detached_function_call_spawned_during_gate": false,
+      "focused_tests_passed": 16,
+      "full_tests_passed": 390,
+      "gpu_used": false,
+      "launch_command_contract": "modal run --detach modal_e1_l40s.py --step 250 --acknowledge-detached-run",
+      "monitor_can_cancel": false,
+      "monitor_command_contract": "modal run modal_e1_l40s_monitor.py --function-call-id fc-*",
+      "status": "offline_passed"
+    },
+    "next_gate": "Fresh explicit authorization must bind source commit f07c8b3 before one checkpoint-250 v5 paid launch; no retry is authorized by this receipt.",
+    "schema_version": 1,
+    "status": "detached_launch_remediated_offline_pending_v5_authorization"
+  },
+  "sha256": "3307a07cb394552dfa0f35316897fe81f23c18764d192b8b4e81dd3ed1fd1eca"
+}
