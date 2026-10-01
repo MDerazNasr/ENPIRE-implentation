@@ -1,0 +1,69 @@
+{
+  "payload": {
+    "app": {
+      "app_id": "ap-WwbiNpURs7nDIWomAtlrH4",
+      "created_at": "2026-10-01T10:42:27-04:00",
+      "function_call_id": "fc-01M3VYP9J878G6EH17NRPM6QYE",
+      "state": "stopped",
+      "stopped_at": "2026-10-01T11:10:12-04:00",
+      "tasks_after_stop": 0
+    },
+    "authority": {
+      "additional_retry_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint": {
+      "identity_verified_before_launch": true,
+      "sha256": "f95c7112bbd25a714e477a448273b16fa564c8e8c184a5f765b1cbfc8d23a211",
+      "size_bytes": 10015912662,
+      "step": 250,
+      "version_id": "J8K7_nDRR7zh17ZbbQmmUYc4Yq3_GpSR"
+    },
+    "cost": {
+      "d1_cumulative_cost_usd_estimate": 1.004029,
+      "d1_v4_run_cost_usd_estimate": 0.763046,
+      "gpu_hourly_price_usd": 1.9512,
+      "provider_billing_status": "unverified_pending_provider_billing"
+    },
+    "evidence": {
+      "manifest_remote_path": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v4/manifest.json",
+      "manifest_sha256": "f5e2078708b5e72f8ea4016dd009571db8df53928b21b9d6a7b3295adfdb48be",
+      "resources_remote_path": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v4/resources.jsonl",
+      "resources_sha256": "00aa0d6b3b9c91bbde50f88b897f9d1f2709645dce8a43b2ff3c809daa28c73b",
+      "run_log_remote_path": "/e1-l40s-results/d1/g0-e1-l40s-step-250-v4/run.log",
+      "run_log_sha256": "0c4fdace130ee64791e2e39f8ba52cbc49f11089dae6a42ae6dec33d0054ba34",
+      "terminal_receipt_created": false
+    },
+    "launched_source": {
+      "action_remediation_commit": "45e7c8bd7bfcec969a1e16de1e75e18fe79db6f3",
+      "bundle_commit": "02e755b89797150815c2f71472a80d54c7c12303",
+      "config_path": "configs/d1/e1_checkpoint_evaluation.yaml",
+      "config_sha256": "4ed44dc992326fb40aa15f6917a5b776635c33c5d95d1faff51330cd5d378dea",
+      "launcher_path": "modal_e1_l40s.py",
+      "launcher_sha256": "3d43f925be933265cd2e478a287801212f4b169e634edd9c678bf30dd4cbac92",
+      "runner_path": "scripts/run_g0_e1_checkpoint_evaluation.py",
+      "runner_sha256": "f31847995a63cbb8c7fe49ba708e70d8a44df543bd7006c11f860962d4d4416a"
+    },
+    "outcome": {
+      "aggregate_metric_produced": false,
+      "cancellation_origin": "unverified_external_cancellation_signal",
+      "completed_rollout_epochs": 4,
+      "completed_trajectories_implied": 64,
+      "configured_rollout_epochs": 16,
+      "configured_trajectories": 256,
+      "first_four_epoch_elapsed_seconds": [295.88, 295.95, 282.69, 279.0],
+      "live_action_preparation_passed": true,
+      "live_simulator_actions_executed": true,
+      "manifest_status_after_cancellation": "running",
+      "partial_results_scientifically_accepted": false,
+      "terminal_message": "Received a cancellation signal while processing input; successfully canceled input"
+    },
+    "next_gate": "Diagnose a detached launch path and provision at least the measured full-evaluation runtime while preserving the cost cap; obtain fresh explicit approval before any v5 paid launch.",
+    "schema_version": 1,
+    "status": "cancelled_after_four_of_sixteen_epochs_no_metric"
+  },
+  "sha256": "4e4c65de7b0e3178b25481b846588fd2d5101e52c4aa326dff88345caab33ba4"
+}
