@@ -22,13 +22,14 @@ APP_NAME = "enpire-g0-e1-l40s-evaluation-v1"
 GPU = "L40S"
 CPU_CORES = 16
 MEMORY_MIB = 96 * 1024
-FUNCTION_TIMEOUT_SECONDS = 3600
+FUNCTION_TIMEOUT_SECONDS = 7200
+MAX_GPU_RUNTIME_COST_USD = "3.902400"
 PROJECT_ROOT = "/opt/qualia"
 E1_RUNTIME_ROOT = f"{PROJECT_ROOT}/e1_runtime"
 RLINF_HOME = "/opt/RLinf"
 WORKSPACE = "/workspace"
 RESULTS_ROOT = f"{WORKSPACE}/e1-l40s-results"
-RUN_REVISION = 4
+RUN_REVISION = 5
 NORM_STATS = f"{PROJECT_ROOT}/norm_stats.json"
 DEVELOPMENT_RESETS = f"{PROJECT_ROOT}/development-resets.json"
 DEVELOPMENT_RESET_FINGERPRINT = (
@@ -210,7 +211,26 @@ def evaluate(step: int) -> dict[str, object]:
 
 
 @app.local_entrypoint()
-def main(step: int):
+def main(step: int, acknowledge_detached_run: bool = False):
     if step not in CHECKPOINTS:
         raise ValueError("--step must be 250, 500, 1000, or 2000")
-    print(json.dumps(evaluate.remote(step), indent=2, sort_keys=True))
+    if not acknowledge_detached_run:
+        raise RuntimeError(
+            "detached launch acknowledgement is required; invoke Modal with "
+            "`modal run --detach ... --acknowledge-detached-run`"
+        )
+    call = evaluate.spawn(step)
+    print(
+        json.dumps(
+            {
+                "app_name": APP_NAME,
+                "function_call_id": call.object_id,
+                "max_gpu_runtime_cost_usd": MAX_GPU_RUNTIME_COST_USD,
+                "run_revision": RUN_REVISION,
+                "status": "launched_detached",
+                "step": step,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )

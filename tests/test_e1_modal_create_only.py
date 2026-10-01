@@ -43,7 +43,7 @@ class E1ModalCreateOnlyTests(unittest.TestCase):
 
     def test_retry_evidence_uses_new_create_only_paths(self) -> None:
         text = LAUNCHER.read_text(encoding="utf-8")
-        self.assertIn("RUN_REVISION = 4", text)
+        self.assertIn("RUN_REVISION = 5", text)
         self.assertIn('f"g0-e1-l40s-step-{step}-v{RUN_REVISION}"', text)
         self.assertIn('f"step-{step}-v{RUN_REVISION}-terminal.json"', text)
         self.assertIn('receipt_path.open("x", encoding="utf-8")', text)
