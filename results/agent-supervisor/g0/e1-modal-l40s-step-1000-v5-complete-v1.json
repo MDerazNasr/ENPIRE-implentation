@@ -1,0 +1,58 @@
+{
+  "payload": {
+    "app": {
+      "app_id": "ap-PKSPujYnbW7FX7OhXlbdjB",
+      "function_call_id": "fc-01M3ZBY1P41KSPF51WCNTJNGVH",
+      "launch_mode": "detached",
+      "terminal_exit_code": 0
+    },
+    "authority": {
+      "additional_checkpoint_authorized": false,
+      "checkpoint_retry_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint": {
+      "sha256": "72a05acadba9602d18ba8a8c43458ec7d76f4c8514fb83a1ca86fa7343850d61",
+      "size_bytes": 10015912662,
+      "step": 1000,
+      "version_id": "zjDLRQXH7Xe1o_y5pBAYG1Fx_gN21ytp"
+    },
+    "cost": {
+      "d1_cumulative_cost_usd_estimate": 8.871883217456238,
+      "d1_run_cost_usd_estimate": 2.9615886163829863,
+      "provider_billing_status": "unverified_pending_provider_billing"
+    },
+    "evidence": {
+      "manifest_sha256": "4e5e7e24d31470c8d11aaf883badacb6b5de4bc9012e1f355e5f0e915d5c41cf",
+      "resources_sha256": "1921f4ac2598bff5f100237e172de67e2d66783c93185c25b057bd30746684a8",
+      "run_log_sha256": "a87511ca496d769216155096a6c137bf5b439606431561b40f39aac18ff91336",
+      "terminal_receipt_sha256": "ecb42f03df75c9ec7d8993f3ab997766834abd76c37d91f475da09ebf5bacb4b"
+    },
+    "metric": {
+      "episode_len_mean": 323.32422,
+      "num_successes": 108,
+      "num_trajectories": 256,
+      "primary_metric": "eval/success_once",
+      "return_mean": 0.421875,
+      "reward_mean": 0.00562887,
+      "success_once": 0.421875
+    },
+    "runtime": {
+      "elapsed_seconds": 5467.646194616999,
+      "finished_at": "2026-10-03T00:04:48+00:00",
+      "rollout_epochs_completed": 16,
+      "started_at": "2026-10-02T22:33:43+00:00"
+    },
+    "source": {
+      "launcher_commit": "f07c8b37568a26507b1268a674e2a9dce0ef21e5",
+      "launcher_sha256": "c58d69d3c3221a69e31159d7606f8cc502b4650daa25ef5b45cb4d6dc16a61f5",
+      "monitor_sha256": "c63add800dfa2277d21afd5c3e0db63892bcfa0e72d1a076a6d210833ce7c7ea"
+    },
+    "next_gate": "Evaluate checkpoint 2000 only after fresh explicit paid authorization and empty step-2000-v5 destinations; this receipt grants no authority.",
+    "schema_version": 1,
+    "status": "complete_valid_development_baseline"
+  },
+  "sha256": "c6d6062d31617aafb9e88fd6cd931a12911cbc84ee42ddfb5a3c4925cf5972e5"
+}
