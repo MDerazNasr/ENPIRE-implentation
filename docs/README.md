@@ -4,6 +4,16 @@ This directory holds the project notes, integration record, diagram export when
 available, and benchmark run table. Experiment results are reported honestly,
 including small or null effects.
 
+The cross-workstream execution authority is
+`reproducible-agentic-enpire-plan.md`. It consolidates the current D1 evidence,
+the completed D2 supervisor branch, the Obsidian documentation protocol, and
+the gated path to the first live three-arm study.
+
+The 2026-09-02 research discussion is preserved in
+`research-meeting-transcript-2026-09-02.md`. It records the training setback,
+parallel-GPU orchestration proposal, and the decision to use protected,
+immutable evaluation with programmatic winner selection.
+
 The gated D1 scientific-baseline work is specified in:
 
 - `baseline_protocol.md` — hypothesis, conditions, evaluation, decision, and

@@ -107,6 +107,35 @@ Run the dependency-free tests with:
 python3 -m unittest discover -s tests -v
 ```
 
+### Modal GPU instance
+
+Install and authenticate the Modal CLI once:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install modal
+.venv/bin/modal setup
+```
+
+Run the GPU diagnostic and test suite on the current GPU selection:
+
+```bash
+.venv/bin/modal run modal_app.py
+```
+
+For an interactive GPU shell with the same image and persistent storage:
+
+```bash
+.venv/bin/modal shell modal_app.py::instance
+cd /root/enpire
+```
+
+The named `enpire-workspace` volume persists `/workspace` across container
+starts. The mounted repository source is at `/root/enpire`. Clone RLinf and
+place model/dataset assets under `/workspace`; do not put persistent data
+elsewhere in the container. Exit the shell to stop billed compute. Change
+`GPU` in `modal_app.py` if a different accelerator is required.
+
 See [`docs/upstream-integration.md`](docs/upstream-integration.md) for the
 validated upstream installation and smoke commands.
 
