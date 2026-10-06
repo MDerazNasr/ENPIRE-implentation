@@ -1,0 +1,61 @@
+{
+  "payload": {
+    "app": {
+      "app_id": "ap-i0MBbCPZ0lVG3yyoeghxoV",
+      "call_graph_terminal_status": "FAILURE",
+      "function_call_id": "fc-01M418CXD1VPSV1B43ZH15CMD3",
+      "launch_mode": "detached",
+      "terminal_exit_code": 250
+    },
+    "authority": {
+      "additional_checkpoint_authorized": false,
+      "checkpoint_retry_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint": {
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "cost": {
+      "d1_cumulative_cost_usd_estimate": 10.004226119647857,
+      "d1_run_cost_usd_estimate": 1.1323429024360596,
+      "provider_billing_status": "unverified_pending_provider_billing"
+    },
+    "evidence": {
+      "manifest_sha256": "f7d49a5c7126bba57f79be3bb470ee9d52ed95b056402b7ec12231f8881b3879",
+      "resources_sha256": "af62a99bb363b0d44839c8b6ce305b45ddbe3284736608be3705191909c4a703",
+      "run_log_sha256": "f3717e0740b2595c9bae81397438882e26b654d95b25acdf5250e47d465177f4",
+      "terminal_receipt_sha256": "c0af97274d6b2fc507bba93496c5d01a5b8eccbc7157fb1bb6b3708ea031857e"
+    },
+    "outcome": {
+      "aggregate_metric_produced": false,
+      "completed_rollout_epochs": 5,
+      "completed_trajectories_implied": 80,
+      "configured_rollout_epochs": 16,
+      "configured_trajectories": 256,
+      "manifest_exit_code": -6,
+      "partial_results_scientifically_accepted": false,
+      "signal": "SIGTERM",
+      "signal_origin": "unverified",
+      "terminal_log_line": "*** SIGTERM received at time=1791045992 on cpu 14 ***"
+    },
+    "runtime": {
+      "elapsed_seconds": 2092.762221335,
+      "finished_at": "2026-10-03T16:46:35+00:00",
+      "started_at": "2026-10-03T16:11:46+00:00"
+    },
+    "source": {
+      "launcher_commit": "f07c8b37568a26507b1268a674e2a9dce0ef21e5",
+      "launcher_sha256": "c58d69d3c3221a69e31159d7606f8cc502b4650daa25ef5b45cb4d6dc16a61f5",
+      "monitor_sha256": "c63add800dfa2277d21afd5c3e0db63892bcfa0e72d1a076a6d210833ce7c7ea"
+    },
+    "next_gate": "Preserve this failed attempt and obtain fresh explicit authorization before any checkpoint-2000 retry; this receipt grants no authority.",
+    "schema_version": 1,
+    "status": "failed_after_five_of_sixteen_epochs_no_metric"
+  },
+  "sha256": "18d1726e381d6edbd2641397e347732faaf2539cce373bbb2ea40a87be1ce8ec"
+}
