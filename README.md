@@ -1,163 +1,137 @@
-# Qualia Residual RL
+# Reproducible Agentic Policy Improvement for VLA Models
 
-Phase 1 checkpoint for improving a frozen pi0.5 VLA through RLT inside
-unmodified RLinf-VLA, wrapped by a small ENPIRE-inspired Policy Improvement
-loop.
+This repository is a research implementation of an ENPIRE-inspired loop for
+improving a vision-language-action (VLA) policy. It combines reproducible
+RLinf training with a constrained coding-agent supervisor that can propose
+changes, run isolated trials, and compare them using a protected evaluator.
 
-## Status
+The project is currently an engineering and preliminary-development study. It
+does **not** yet establish that an agent improves robotic policy performance.
 
-Phase 1 is complete and was exercised on an NVIDIA L40S against RLinf commit
-`c90951a0c799a750cb5294ed10587c61cc2af8bf`. The loop launched a baseline,
-read its logged loss and evaluation success, reduced RLT reference
-regularization, launched an adjusted run, and reverted the change because
-success did not improve.
+## Research question
 
-This is an integration smoke result, not evidence about RLT performance. Both
-20-step evaluations had `success_once=0.0`; lowering `bc_weight` from `1.0` to
-`0.8` produced no meaningful difference.
+Can a coding agent iteratively improve a robotic policy while the surrounding
+system keeps training, evaluation, experiment selection, cost, and provenance
+reproducible and outside the agent's control?
 
-D1 baseline work now lives on `experiment/d1-rlt-baseline`. Stages 0–4 and the
-reduced-budget Stage-5A checkpoint are complete. Stage 5B reached the complete
-rollout/evaluation path but its 250-step reference was degenerate. Stage 5C
-extended Stage 1 to 500 steps. The fresh-chain fixed-set Reference A measured
-`35/256` (`13.67%`) with zero Stage-2 updates. Seed-2026 Control B then
-completed 100 uninterrupted Stage-2 steps, crossed both warm-up gates, reached
-`ready_for_online=1`, and evaluated at `18/256` (`7.03%`). This is a valid
-trained one-seed control, but it underperformed the frozen reference by `6.64`
-points. Stage 6 is operationally unblocked for a matched Candidate C; the
-preregistered final decision still requires the approved seed set.
-
-## Three-phase plan
-
-1. **Phase 1 — rule-based (current):** bounded RLinf runs, text metric
-   normalization, one transparent tuning rule, and keep/revert.
-2. **Phase 2 — coding-agent-driven:** an agent proposes config or code changes,
-   with structured multi-run and branch comparison.
-3. **Phase 3 — real hardware:** hardware rollout, reset, and verification after
-   simulation results justify transfer.
-
-Phase 1 is deliberately a planned stand-in for ENPIRE's coding-agent Policy
-Improvement module. It does not claim to reproduce that module.
-
-## Repository layout
+The intended loop is:
 
 ```text
-qualia-residual-rl/
-├── README.md
-├── .gitignore
-├── configs/
-│   └── phase1_overrides.yaml
-├── agent/
-│   ├── rules.py
-│   ├── metrics.py
-│   └── policy_improvement.py
-├── scripts/
-│   └── run_phase1_loop.sh
-├── results/
-│   └── phase1_runs.jsonl
-└── docs/
+frozen parent policy
+        ↓
+agent proposes bounded changes
+        ↓
+isolated training branches on independent workers
+        ↓
+protected fixed-set evaluation
+        ↓
+programmatic selection from measured results
+        ↓
+next experiment generation
 ```
 
-Additional files under `results/` preserve raw checkpoint evidence, and
-`tests/` verifies the wrapper without requiring RLinf or a GPU.
+The agent may propose changes. It cannot approve paid runs, alter evaluation
+inputs, assign its own score, or promote a result.
 
-## Phase 1 boundaries
+## What has been built
 
-[`configs/phase1_overrides.yaml`](configs/phase1_overrides.yaml) contains
-exactly four documented experiment fields:
+- A pinned RLinf/OpenPI training and evaluation path for ManiSkill RLT.
+- Fixed reset sets and a deterministic `eval/success_once` endpoint.
+- Hash-bound manifests for code, configurations, checkpoints, logs, metrics,
+  costs, and run lineage.
+- Fail-closed paid-run approvals, retry limits, and budget controls.
+- A coding-agent supervisor with structured proposals, source restrictions,
+  isolated Git worktrees, worker scheduling, and deterministic decisions.
+- Local, SSH, and Modal worker paths with restart and stale-result handling.
+- Reproducible synthetic and CPU-policy demonstrations of the orchestration
+  layer, explicitly separated from scientific VLA evidence.
 
-- `learning_rate` maps to RLinf `actor.optim.lr`.
-- `regularization_strength` maps to `algorithm.bc_weight`.
-- `training_iterations` bounds each RLinf run.
-- `episode_steps` bounds the train/evaluation episode.
+The completed baseline history is on `main`. The latest integrated supervisor
+and evaluator work is maintained on
+[`integration/d1-d2-agentic-harness`](https://github.com/MDerazNasr/ENPIRE-implentation/tree/integration/d1-d2-agentic-harness).
 
-The current rule changes only learning rate or regularization, and only one at
-a time. Low evaluation success relaxes regularization by 20%. A non-finite or
-plateaued loss halves learning rate. The adjusted run is kept only if evaluation
-success improves; otherwise the loop reverts to the baseline.
+## Current baseline results
 
-The Python modules have no RLinf imports. RLinf is launched as an external
-process with Hydra overrides and remains unmodified.
+One seed-2026 Stage-1 run completed all 2,000 planned optimizer steps. Four
+checkpoints were retained and evaluated on the same 256 frozen development
+trajectories with a 500-step episode horizon.
 
-## Setup and run
+| Checkpoint | Successful trials | Development success | Mean episode length | Status |
+| ---: | ---: | ---: | ---: | --- |
+| 250 | 0 / 256 | 0.00% | 500.0 | Complete |
+| 500 | 23 / 256 | 8.98% | 462.54 | Complete |
+| 1,000 | 108 / 256 | 42.19% | 323.32 | Complete |
+| 2,000 | — | — | — | Incomplete: terminated after 5/16 rollout epochs |
 
-First install RLinf using its upstream embodied, OpenPI, and ManiSkill options.
-Provide the checkout, model, and RLT-compatible dataset paths:
+These are development results from one training seed, not final-set results.
+The 2,000-step attempt produced no aggregate metric, and its partial output is
+not accepted. The completed curve shows substantial learning between steps 500
+and 1,000 but cannot yet determine the best checkpoint on the frozen grid.
 
-```bash
-export RLINF_HOME=/workspace/qualia/RLinf
-export MODEL_PATH=/root/qualia-assets/pi05_base
-export DATASET_PATH=/workspace/qualia/assets/maniskill_smoke
-scripts/run_phase1_loop.sh
+## Next experiment
+
+1. Obtain a complete, valid 2,000-step checkpoint evaluation.
+2. Select the highest-scoring checkpoint using the frozen mechanical rule.
+3. Start matched agent-controlled experiments from that exact parent policy.
+4. Run candidate approaches on isolated workers with identical evaluation.
+5. Select winners from evaluator results, not agent-written claims.
+6. Repeat across the preregistered paired seeds before making an improvement
+   claim.
+
+## Repository map
+
+```text
+agent/          Early transparent policy-improvement loop
+configs/        Versioned training and evaluation configurations
+docs/           Protocols, runbooks, research decisions, and result reports
+scripts/        Reproducible launch, evaluation, and verification commands
+tests/          Offline contract, safety, provenance, and integration tests
+results/        Compact tracked receipts and evidence summaries
 ```
 
-`run_phase1_loop.sh` fails immediately if `RLINF_HOME` is missing. `MODEL_PATH`
-and `DATASET_PATH` are also required. Optional variables are `RESULTS_ROOT`,
-`SESSION_ID`, `PYTHON_BIN`, `RLINF_CONFIG_NAME`, and `RUN_TIMEOUT_SECONDS`.
-`RLINF_CONFIG_NAME` keeps the launch boundary configurable while the checkpoint
-uses the upstream ManiSkill example.
+The active integration branch additionally contains `supervisor/`, its
+agent-orchestration documentation, and the latest evaluator receipts.
 
-Each run retains its resolved command, raw log, normalized metrics, and summary.
-The compact cross-run ledger is appended to
-[`results/phase1_runs.jsonl`](results/phase1_runs.jsonl).
+Start with:
 
-Run the dependency-free tests with:
+- [`docs/reproducible-agentic-enpire-plan.md`](docs/reproducible-agentic-enpire-plan.md)
+- [`docs/baseline_protocol.md`](docs/baseline_protocol.md)
+- [Scientific experiment test program](https://github.com/MDerazNasr/ENPIRE-implentation/blob/integration/d1-d2-agentic-harness/docs/agent-supervisor/g0-scientific-experiment-test-program.md)
+- [`docs/research-meeting-transcript-2026-09-02.md`](docs/research-meeting-transcript-2026-09-02.md)
+
+Some supervisor documents exist only on the active integration branch until
+that work passes its remaining research gates.
+
+## Verification
+
+The core test suite is dependency-free:
 
 ```bash
 python3 -m unittest discover -s tests -v
 ```
 
-### Modal GPU instance
-
-Install and authenticate the Modal CLI once:
+The repository also includes a generic Modal GPU workspace launcher:
 
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install modal
 .venv/bin/modal setup
-```
-
-Run the GPU diagnostic and test suite on the current GPU selection:
-
-```bash
 .venv/bin/modal run modal_app.py
 ```
 
-For an interactive GPU shell with the same image and persistent storage:
+GPU execution requires separately provisioned model, dataset, checkpoint, and
+simulator assets. Paid or scientific execution is never implied by running the
+offline tests.
 
-```bash
-.venv/bin/modal shell modal_app.py::instance
-cd /root/enpire
-```
+## Scientific boundaries
 
-The named `enpire-workspace` volume persists `/workspace` across container
-starts. The mounted repository source is at `/root/enpire`. Clone RLinf and
-place model/dataset assets under `/workspace`; do not put persistent data
-elsewhere in the container. Exit the shell to stop billed compute. Change
-`GPU` in `modal_app.py` if a different accelerator is required.
+- Current checkpoint scores are preliminary development evidence.
+- The incomplete 2,000-step run is not a result.
+- Synthetic supervisor demos validate orchestration, not VLA improvement.
+- A single seed cannot establish a reliable treatment effect.
+- No final-reset, real-robot, or agent-superiority claim is currently made.
+- Negative, failed, and inconclusive runs are retained rather than discarded.
 
-See [`docs/upstream-integration.md`](docs/upstream-integration.md) for the
-validated upstream installation and smoke commands.
-
-## Checkpoint result
-
-| Run | `bc_weight` | Actor LR | Eval success | Actor loss | Decision |
-| --- | ---: | ---: | ---: | ---: | --- |
-| Baseline | 1.0 | 1e-4 | 0.0 | -0.119 | Selected |
-| Adjusted | 0.8 | 1e-4 | 0.0 | -0.109 | Reverted |
-
-Honest conclusion: the adjustment produced no meaningful improvement in this
-one-transition smoke. It validates the orchestration path only.
-
-## Honestly flagged TODOs
-
-- Save and use a trained Stage-1 RLT checkpoint; the smoke currently uses base
-  pi0.5 as the feature-model input.
-- Resolve the D1 degenerate-baseline gate: obtain a compatible trained actor or
-  explicitly approve enough Stage-1/Stage-2 training to pass replay warm-up.
-- Train longer and evaluate multiple episodes/seeds before interpreting a
-  hyperparameter comparison.
-- Replace the fallback text-log parser in `agent/metrics.py` with RLinf's stable
-  structured metric artifact once its emitted path and schema are pinned.
-- Confirm the long-term simulator with Qualia; ManiSkill is only the current
-  upstream example, not a permanent architectural choice.
+The goal is not merely to obtain a higher number. It is to produce an
+improvement whose code, inputs, evaluation, cost, and lineage can all be
+independently checked.
