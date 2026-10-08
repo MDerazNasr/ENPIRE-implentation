@@ -13,11 +13,19 @@ from supervisor.e1_sharded_evaluation import (
     parse_final_eval_metrics,
     shard_spec,
 )
+from supervisor.e1_staged_checkpoint import (
+    E1CheckpointStageError,
+    load_valid_stage_receipt,
+    sha256_file,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs/d1/e1_checkpoint_evaluation_shard.yaml"
 LAUNCHER = ROOT / "modal_e1_l40s_sharded.py"
+STAGER = ROOT / "modal_e1_checkpoint_stage_v1.py"
+V7_LAUNCHER = ROOT / "modal_e1_l40s_sharded_v7.py"
+STAGE_WRAPPER = ROOT / "scripts/launch_g0_e1_checkpoint_stage.py"
 RUNNER = ROOT / "scripts/run_g0_e1_checkpoint_evaluation.py"
 APPROVAL = (
     ROOT
@@ -64,6 +72,124 @@ def receipt(index: int, successes: int) -> dict:
 
 
 class E1ShardedEvaluationTests(unittest.TestCase):
+    def test_staged_checkpoint_receipt_rehashes_exact_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            checkpoint = root / "full_weights.pt"
+            checkpoint.write_bytes(b"verified-checkpoint")
+            expected = {
+                "sha256": sha256_file(checkpoint),
+                "size_bytes": checkpoint.stat().st_size,
+                "step": 2000,
+                "version_id": "fixed-version",
+            }
+            receipt_path = root / "receipt.json"
+            valid = {
+                "authority": {"evaluation_authorized": False},
+                "checkpoint": expected,
+                "checkpoint_path": str(checkpoint),
+                "schema_version": 1,
+                "status": "complete_valid_checkpoint_stage",
+            }
+            receipt_path.write_text(json.dumps(valid), encoding="utf-8")
+            self.assertEqual(
+                load_valid_stage_receipt(
+                    receipt_path,
+                    checkpoint,
+                    expected_checkpoint=expected,
+                ),
+                valid,
+            )
+            for mutate in ("status", "authority", "checkpoint", "bytes"):
+                candidate = copy.deepcopy(valid)
+                checkpoint.write_bytes(b"verified-checkpoint")
+                if mutate == "status":
+                    candidate["status"] = "failed_checkpoint_stage"
+                elif mutate == "authority":
+                    candidate["authority"]["evaluation_authorized"] = True
+                elif mutate == "checkpoint":
+                    candidate["checkpoint"]["version_id"] = "drift"
+                else:
+                    checkpoint.write_bytes(b"tampered-checkpoint")
+                receipt_path.write_text(json.dumps(candidate), encoding="utf-8")
+                with self.subTest(mutate=mutate):
+                    with self.assertRaises(E1CheckpointStageError):
+                        load_valid_stage_receipt(
+                            receipt_path,
+                            checkpoint,
+                            expected_checkpoint=expected,
+                        )
+
+    def test_v7_staging_and_evaluation_are_separated_and_fail_closed(self) -> None:
+        stager = STAGER.read_text(encoding="utf-8")
+        evaluator = V7_LAUNCHER.read_text(encoding="utf-8")
+        wrapper = STAGE_WRAPPER.read_text(encoding="utf-8")
+        self.assertIn("MINIMUM_CREDENTIAL_TTL_SECONDS = 3300", stager)
+        self.assertIn('MAXIMUM_STAGE_COST_USD = "1.000000"', stager)
+        self.assertIn("failed_checkpoint_stage", stager)
+        self.assertIn("retries=0", stager)
+        self.assertIn("single_use_containers=True", stager)
+        self.assertNotIn("gpu=", stager)
+        self.assertIn('ALLOWED_SHARDS = (1, 2, 3)', evaluator)
+        self.assertIn("load_valid_stage_receipt", evaluator)
+        self.assertIn("finally:", evaluator)
+        self.assertNotIn("AWS_ACCESS_KEY_ID", evaluator)
+        self.assertNotIn("boto3", evaluator)
+        self.assertNotIn("_download(", evaluator)
+        self.assertIn('"sts",\n            "assume-role"', wrapper)
+        self.assertIn("MINIMUM_MINTED_TTL_SECONDS = 3500", wrapper)
+        self.assertIn("--acknowledge-checkpoint-access", wrapper)
+
+    def test_stage_wrapper_defaults_to_no_cloud_dry_run(self) -> None:
+        from scripts.launch_g0_e1_checkpoint_stage import main
+        from unittest.mock import patch
+
+        with patch("sys.argv", ["launch-stage"]), redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(main(), 0)
+        payload = json.loads(out.getvalue())
+        self.assertEqual(payload["status"], "dry_run")
+        self.assertFalse(payload["gpu_used"])
+        self.assertIn("--detach", payload["command"])
+
+    def test_stage_wrapper_mints_and_validates_a_fresh_target_session(self) -> None:
+        from datetime import datetime, timedelta, timezone
+        from scripts import launch_g0_e1_checkpoint_stage as launcher
+        from unittest.mock import patch
+
+        expiration = (datetime.now(timezone.utc) + timedelta(seconds=3590)).isoformat()
+        source_arn = (
+            "arn:aws:sts::960946312280:assumed-role/"
+            "AWSReservedSSO_ENPIREG0VerifierAccess_fixture/verifier"
+        )
+        responses = [
+            {"Account": launcher.ACCOUNT, "Arn": source_arn},
+            {
+                "AssumedRoleUser": {"Arn": launcher.EXPECTED_TARGET_ARN},
+                "Credentials": {
+                    "AccessKeyId": "access",
+                    "SecretAccessKey": "secret",
+                    "SessionToken": "token",
+                    "Expiration": expiration,
+                },
+            },
+        ]
+        with patch.object(launcher, "_run_json", side_effect=responses) as run_json:
+            environment, observed_source = launcher._fresh_target_credentials()
+        self.assertEqual(observed_source, source_arn)
+        self.assertEqual(environment["AWS_CREDENTIAL_EXPIRATION"], expiration)
+        self.assertEqual(
+            set(environment),
+            {
+                "AWS_ACCESS_KEY_ID",
+                "AWS_SECRET_ACCESS_KEY",
+                "AWS_SESSION_TOKEN",
+                "AWS_CREDENTIAL_EXPIRATION",
+            },
+        )
+        assume_argv = run_json.call_args_list[1].args[0]
+        self.assertIn("assume-role", assume_argv)
+        self.assertIn("3600", assume_argv)
+
     def test_checked_in_interruption_stops_after_failed_shard(self) -> None:
         from supervisor.canonical import fingerprint
 
