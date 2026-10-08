@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 
 import hydra
 import torch.multiprocessing as mp
@@ -16,6 +17,7 @@ from rlinf.scheduler import Cluster
 from rlinf.utils.placement import HybridComponentPlacement
 from rlinf.workers.env.env_worker import EnvWorker
 from rlinf.workers.rollout.hf.huggingface_worker import MultiStepRolloutWorker
+from supervisor.e1_sharded_evaluation import SHARD_SIZE, shard_spec
 
 
 mp.set_start_method("spawn", force=True)
@@ -63,21 +65,42 @@ def main(cfg) -> None:
         raise ValueError("E1 checkpoint evaluation forbids an expert model")
     if cfg.env.eval.use_fixed_reset_state_ids is not True:
         raise ValueError("E1 checkpoint evaluation requires frozen reset IDs")
-    if cfg.env.eval.total_num_envs * cfg.env.eval.rollout_epoch != 256:
-        raise ValueError("E1 checkpoint evaluation requires exactly 256 outcomes")
+    offset_value = os.environ.get("QUALIA_DEVELOPMENT_RESET_OFFSET")
+    count_value = os.environ.get("QUALIA_DEVELOPMENT_RESET_COUNT")
+    if (offset_value is None) != (count_value is None):
+        raise ValueError("E1 shard offset and count must be provided together")
+    shard = None
+    expected_outcomes = 256
+    if offset_value is not None and count_value is not None:
+        try:
+            offset = int(offset_value)
+            count = int(count_value)
+        except ValueError as error:
+            raise ValueError("E1 shard offset and count must be integers") from error
+        if count != SHARD_SIZE or offset % SHARD_SIZE:
+            raise ValueError("E1 shard must be one frozen contiguous 64-reset slice")
+        shard = shard_spec(offset // SHARD_SIZE)
+        if shard.offset != offset:
+            raise ValueError("E1 shard offset does not match its frozen index")
+        expected_outcomes = shard.count
+    if cfg.env.eval.total_num_envs * cfg.env.eval.rollout_epoch != expected_outcomes:
+        raise ValueError(
+            f"E1 checkpoint evaluation requires exactly {expected_outcomes} outcomes"
+        )
 
     print(
         "QUALIA_E1_EVALUATION_CONTRACT="
         + json.dumps(
             {
                 "development_only": True,
-                "evaluation_outcomes": 256,
+                "evaluation_outcomes": expected_outcomes,
                 "expert_model_loaded": False,
                 "direct_openpi_policy": True,
                 "policy_training_enabled": False,
                 "rlt_feature_model_loaded": False,
                 "promotion_authorized": False,
                 "task_type": "embodied_eval",
+                "shard": None if shard is None else shard.to_dict(),
             },
             sort_keys=True,
         ),

@@ -21,6 +21,8 @@ class FrozenDevelopmentResetSchedule:
         *,
         expected_sha256: str,
         batch_size: int,
+        offset: int = 0,
+        count: int | None = None,
     ) -> None:
         if artifact.role != "development":
             raise FrozenDevelopmentResetError(
@@ -32,9 +34,25 @@ class FrozenDevelopmentResetSchedule:
             raise FrozenDevelopmentResetError(
                 "development reset count must be divisible by the environment batch"
             )
+        selected_count = len(artifact.reset_ids) - offset if count is None else count
+        if offset < 0 or selected_count <= 0:
+            raise FrozenDevelopmentResetError(
+                "development reset shard offset must be nonnegative and count positive"
+            )
+        if offset % batch_size or selected_count % batch_size:
+            raise FrozenDevelopmentResetError(
+                "development reset shard boundaries must align to the environment batch"
+            )
+        if offset + selected_count > len(artifact.reset_ids):
+            raise FrozenDevelopmentResetError(
+                "development reset shard exceeds the frozen reset artifact"
+            )
         self.artifact = artifact
         self.batch_size = int(batch_size)
-        self._cursor = 0
+        self.offset = int(offset)
+        self.count = int(selected_count)
+        self._cursor = self.offset
+        self._stop = self.offset + self.count
 
     @classmethod
     def load(
@@ -43,6 +61,8 @@ class FrozenDevelopmentResetSchedule:
         *,
         expected_sha256: str,
         batch_size: int,
+        offset: int = 0,
+        count: int | None = None,
     ) -> "FrozenDevelopmentResetSchedule":
         try:
             value = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -55,6 +75,8 @@ class FrozenDevelopmentResetSchedule:
             artifact,
             expected_sha256=expected_sha256,
             batch_size=batch_size,
+            offset=offset,
+            count=count,
         )
 
     @property
@@ -63,15 +85,15 @@ class FrozenDevelopmentResetSchedule:
 
     @property
     def consumed(self) -> int:
-        return self._cursor
+        return self._cursor - self.offset
 
     @property
     def complete(self) -> bool:
-        return self._cursor == len(self.artifact.reset_ids)
+        return self._cursor == self._stop
 
     def next_batch(self) -> list[int]:
         end = self._cursor + self.batch_size
-        if end > len(self.artifact.reset_ids):
+        if end > self._stop:
             raise FrozenDevelopmentResetError(
                 "frozen development reset schedule is exhausted"
             )

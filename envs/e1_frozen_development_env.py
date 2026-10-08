@@ -14,6 +14,8 @@ from envs.modal_multiprocess_rlt_env import (
 
 DEVELOPMENT_RESET_PATH_ENV = "QUALIA_DEVELOPMENT_RESET_PATH"
 DEVELOPMENT_RESET_SHA256_ENV = "QUALIA_DEVELOPMENT_RESET_SHA256"
+DEVELOPMENT_RESET_OFFSET_ENV = "QUALIA_DEVELOPMENT_RESET_OFFSET"
+DEVELOPMENT_RESET_COUNT_ENV = "QUALIA_DEVELOPMENT_RESET_COUNT"
 
 
 class E1FrozenDevelopmentManiskillRLTEnv(ModalMultiprocessManiskillRLTEnv):
@@ -30,10 +32,20 @@ class E1FrozenDevelopmentManiskillRLTEnv(ModalMultiprocessManiskillRLTEnv):
             raise ModalMultiprocessEnvError(
                 "both frozen development reset path and fingerprint are required"
             )
+        try:
+            reset_offset = int(os.environ.get(DEVELOPMENT_RESET_OFFSET_ENV, "0"))
+            reset_count_value = os.environ.get(DEVELOPMENT_RESET_COUNT_ENV)
+            reset_count = None if reset_count_value is None else int(reset_count_value)
+        except ValueError as error:
+            raise ModalMultiprocessEnvError(
+                "frozen development reset offset and count must be integers"
+            ) from error
         self._development_resets = FrozenDevelopmentResetSchedule.load(
             reset_path,
             expected_sha256=reset_sha256,
             batch_size=int(num_envs),
+            offset=reset_offset,
+            count=reset_count,
         )
         self._development_seed_batch: list[int] | None = None
         super().__init__(cfg, num_envs, *args, **kwargs)
@@ -47,6 +59,7 @@ class E1FrozenDevelopmentManiskillRLTEnv(ModalMultiprocessManiskillRLTEnv):
                 + json.dumps(
                     {
                         "count": self._development_resets.consumed,
+                        "offset": self._development_resets.offset,
                         "reset_set_sha256": self._development_resets.fingerprint,
                     },
                     sort_keys=True,

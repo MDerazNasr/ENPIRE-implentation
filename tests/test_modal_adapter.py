@@ -87,6 +87,39 @@ class ModalAdapterUnitTests(unittest.TestCase):
             )
             self.assertEqual(schedule.next_batch(), list(range(32)))
 
+    def test_frozen_development_schedule_selects_one_aligned_shard(self):
+        artifact = self.development_artifact()
+        schedule = FrozenDevelopmentResetSchedule(
+            artifact,
+            expected_sha256=artifact.fingerprint(),
+            batch_size=16,
+            offset=128,
+            count=64,
+        )
+        observed = []
+        for _ in range(4):
+            observed.extend(schedule.next_batch())
+        self.assertEqual(observed, list(range(128, 192)))
+        self.assertEqual(schedule.offset, 128)
+        self.assertEqual(schedule.count, 64)
+        self.assertEqual(schedule.consumed, 64)
+        self.assertTrue(schedule.complete)
+        with self.assertRaisesRegex(FrozenDevelopmentResetError, "exhausted"):
+            schedule.next_batch()
+
+    def test_frozen_development_schedule_rejects_invalid_shards(self):
+        artifact = self.development_artifact()
+        for offset, count in ((-1, 64), (1, 64), (0, 63), (240, 32), (0, 0)):
+            with self.subTest(offset=offset, count=count):
+                with self.assertRaises(FrozenDevelopmentResetError):
+                    FrozenDevelopmentResetSchedule(
+                        artifact,
+                        expected_sha256=artifact.fingerprint(),
+                        batch_size=16,
+                        offset=offset,
+                        count=count,
+                    )
+
     def test_e1_adapter_is_separate_from_frozen_historical_adapter(self):
         self.assertTrue(
             issubclass(
