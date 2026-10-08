@@ -1,0 +1,64 @@
+{
+  "payload": {
+    "authority": {
+      "checkpoint_access_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "checkpoint_retry_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "correction": {
+      "description": "Stage the exact versioned checkpoint once in a zero-retry CPU function using a freshly minted verifier session, then evaluate only replacement shards 1 through 3 without AWS credentials and with independent checkpoint rehashing.",
+      "documentation_path": "docs/agent-supervisor/e1-v7-staged-checkpoint-remediation.md",
+      "documentation_sha256": "6512bd5bb041da561e922460d3a44ecbcb697080d38536845b5314b850add570",
+      "evaluation_launcher_path": "modal_e1_l40s_sharded_v7.py",
+      "evaluation_launcher_sha256": "33d29b6efa855494df778f206883123fa72f157fd7cde8929b41e9b31217577e",
+      "source_commit": "08484d955f7c464c0fa5500ad966c678d7109ffa",
+      "stage_helper_path": "supervisor/e1_staged_checkpoint.py",
+      "stage_helper_sha256": "ff8863346d1c813b7814803982011eb1c58c3b570c63787ad91cd3ea505d7741",
+      "stage_launcher_path": "modal_e1_checkpoint_stage_v1.py",
+      "stage_launcher_sha256": "2f6f6589df6d2a72309dcd2f0fc3b14190e488a3d03ab33db3b4829e11050378",
+      "stage_wrapper_path": "scripts/launch_g0_e1_checkpoint_stage.py",
+      "stage_wrapper_sha256": "55a52a1bc46b838b9c12f5d3974cd73193bc880a0e8d06a70a0e073ac490ef0e"
+    },
+    "cost_boundary": {
+      "maximum_proposed_total_d1_cost_usd": 17.595054814583118,
+      "maximum_stage_cost_usd": 1.0,
+      "recorded_cumulative_d1_cost_usd": 10.741454814583118,
+      "remaining_three_shard_gpu_runtime_estimate_usd": 5.8536,
+      "total_d1_ceiling_usd": 18.0
+    },
+    "failed_campaign": {
+      "interruption_receipt": "results/agent-supervisor/g0/e1-modal-l40s-step-2000-v6-interrupted-v1.json",
+      "interruption_receipt_sha256": "e384ef269dc4cbee1314a82d073a8355c1c4cdacd60b168caa510cb8111ba051",
+      "retained_complete_shard": 0,
+      "replacement_shards": [
+        1,
+        2,
+        3
+      ]
+    },
+    "frozen_science": {
+      "checkpoint_sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "checkpoint_size_bytes": 10015912662,
+      "checkpoint_step": 2000,
+      "checkpoint_version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077",
+      "evaluator_contract_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+      "reset_set_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161"
+    },
+    "gate": {
+      "checkpoint_accessed": false,
+      "cloud_function_spawned": false,
+      "focused_tests_passed": 66,
+      "full_tests_passed": 412,
+      "gpu_used": false,
+      "paid_work_performed": false,
+      "status": "offline_passed"
+    },
+    "next_gate": "Fresh explicit authorization must bind source commit 08484d9 and name one CPU checkpoint-stage attempt capped at $1, then replacement shard 1 followed sequentially by shards 2 and 3 with zero retries, a $5.8536 remaining GPU-runtime estimate, and the $18 cumulative D1 ceiling. It must not authorize shard 0, final resets, E2, selection, or promotion.",
+    "schema_version": 1,
+    "status": "v7_staged_checkpoint_remediation_offline_pending_authorization"
+  },
+  "sha256": "86af7ba2ff37806f5e868b425cbae076fed129e32b57a89ff7ab3159f940782d"
+}
