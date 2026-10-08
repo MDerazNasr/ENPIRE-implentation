@@ -24,6 +24,11 @@ APPROVAL = (
     / "results/agent-supervisor/g0/"
     "e1-modal-l40s-step-2000-v6-sharded-approval-v1.json"
 )
+INTERRUPTION = (
+    ROOT
+    / "results/agent-supervisor/g0/"
+    "e1-modal-l40s-step-2000-v6-interrupted-v1.json"
+)
 
 
 def metric_line(successes: int, trajectories: int = 64, episode_len: float = 300.0) -> str:
@@ -59,6 +64,23 @@ def receipt(index: int, successes: int) -> dict:
 
 
 class E1ShardedEvaluationTests(unittest.TestCase):
+    def test_checked_in_interruption_stops_after_failed_shard(self) -> None:
+        from supervisor.canonical import fingerprint
+
+        envelope = json.loads(INTERRUPTION.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(envelope["sha256"], fingerprint(payload))
+        self.assertEqual(
+            payload["shard_0"]["status"], "complete_valid_development_shard"
+        )
+        self.assertEqual(payload["shard_0"]["metric"]["num_trajectories"], 64)
+        self.assertEqual(
+            payload["shard_1"]["status"], "failed_before_checkpoint_download"
+        )
+        self.assertFalse(payload["shard_1"]["metric_produced"])
+        self.assertFalse(payload["shards_2_and_3"]["function_calls_created"])
+        self.assertFalse(any(payload["authority"].values()))
+
     def test_checked_in_approval_is_exactly_bounded(self) -> None:
         from supervisor.canonical import fingerprint
 

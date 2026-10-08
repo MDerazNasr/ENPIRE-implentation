@@ -1,0 +1,71 @@
+{
+  "payload": {
+    "authority": {
+      "additional_shard_authorized": false,
+      "automatic_retry_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false,
+      "replacement_shard_authorized": false
+    },
+    "campaign": {
+      "approval_receipt": "results/agent-supervisor/g0/e1-modal-l40s-step-2000-v6-sharded-approval-v1.json",
+      "approval_sha256": "b7c36ea21f97cfad24cf9512dde7d30b8e40d2eca6a76ed09cfa513e9f93ee18",
+      "evaluator_contract_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+      "implementation_commit": "11495ccc17380b66fd3cf6ac6ec5319802422d8a",
+      "recorded_at": "2026-10-08T16:26:37Z",
+      "run_revision": 6
+    },
+    "checkpoint": {
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "cost": {
+      "prior_cumulative_d1_cost_usd": 10.004226119647857,
+      "shard_0_run_cost_usd": 0.7372286942675181,
+      "shard_0_terminal_cumulative_d1_cost_usd": 10.741454814583118,
+      "shard_1_cost_status": "unavailable_before_manifest"
+    },
+    "next_gate": "Implement and checkpoint-free test fresh-per-launch credential issuance plus pre-download failure receipts, then obtain explicit authorization for a new create-only replacement of shard 1. Shards 2 and 3 remain unlaunched.",
+    "schema_version": 1,
+    "shard_0": {
+      "app_id": "ap-cqetgi0ixkWZKmrr5Yk7ja",
+      "elapsed_seconds": 1366.034156313,
+      "function_call_id": "fc-01M4E1K1EPHGCA7BJ3RJB47B8C",
+      "metric": {
+        "episode_len_mean": 279.14062,
+        "num_successes": 33,
+        "num_trajectories": 64,
+        "primary_metric": "eval/success_once",
+        "return_mean": 0.515625,
+        "reward_mean": 0.00743189,
+        "success_once": 0.515625
+      },
+      "offset": 0,
+      "remote_receipt_sha256": "84093788facd62282eefe43c1dab409a1352afb211a9a317ca195e210d2be74e",
+      "status": "complete_valid_development_shard"
+    },
+    "shard_1": {
+      "app_id": "ap-2ITrTwwxfWv1ivh3lCTAOF",
+      "checkpoint_download_started": false,
+      "error": "S3 HeadObject returned HTTP 400 before download_file began",
+      "function_call_id": "fc-01M4E3XQSPK6A12Y7NJQY70XB1",
+      "inferred_cause": "The static temporary role credentials were minted before launch and likely expired during the approximately 24-minute L40S capacity wait; the exact service-side cause of the HTTP 400 was not returned.",
+      "log_sha256": "bf9b8e5a04c4cdb3737a3e7802940856fd3bba8e64506aa357a7ad0cd96ee871",
+      "metric_produced": false,
+      "offset": 64,
+      "remote_receipt_produced": false,
+      "rollout_started": false,
+      "run_directory_created": false,
+      "status": "failed_before_checkpoint_download"
+    },
+    "shards_2_and_3": {
+      "function_calls_created": false,
+      "status": "unlaunched_due_zero_retry_stop"
+    },
+    "status": "v6_campaign_interrupted_after_shard_1_failure"
+  },
+  "sha256": "e384ef269dc4cbee1314a82d073a8355c1c4cdacd60b168caa510cb8111ba051"
+}
