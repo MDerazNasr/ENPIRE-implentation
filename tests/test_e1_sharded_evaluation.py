@@ -19,6 +19,11 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs/d1/e1_checkpoint_evaluation_shard.yaml"
 LAUNCHER = ROOT / "modal_e1_l40s_sharded.py"
 RUNNER = ROOT / "scripts/run_g0_e1_checkpoint_evaluation.py"
+APPROVAL = (
+    ROOT
+    / "results/agent-supervisor/g0/"
+    "e1-modal-l40s-step-2000-v6-sharded-approval-v1.json"
+)
 
 
 def metric_line(successes: int, trajectories: int = 64, episode_len: float = 300.0) -> str:
@@ -54,6 +59,26 @@ def receipt(index: int, successes: int) -> dict:
 
 
 class E1ShardedEvaluationTests(unittest.TestCase):
+    def test_checked_in_approval_is_exactly_bounded(self) -> None:
+        from supervisor.canonical import fingerprint
+
+        envelope = json.loads(APPROVAL.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(envelope["sha256"], fingerprint(payload))
+        self.assertTrue(payload["authority"]["checkpoint_2000_v6_shards_authorized"])
+        self.assertFalse(payload["authority"]["automatic_retry_authorized"])
+        self.assertFalse(payload["authority"]["replacement_shard_authorized"])
+        self.assertTrue(payload["execution"]["sequential"])
+        self.assertEqual(payload["execution"]["modal_retries"], 0)
+        self.assertEqual(
+            [shard["index"] for shard in payload["execution"]["shards"]],
+            [0, 1, 2, 3],
+        )
+        self.assertLessEqual(
+            payload["budget"]["projected_maximum_cumulative_d1_cost_usd"],
+            payload["budget"]["maximum_cumulative_d1_cost_usd"],
+        )
+
     def test_metric_parser_requires_one_exact_complete_shard(self) -> None:
         metric = parse_final_eval_metrics(metric_line(27, episode_len=321.5))
         self.assertEqual(metric["num_successes"], 27)

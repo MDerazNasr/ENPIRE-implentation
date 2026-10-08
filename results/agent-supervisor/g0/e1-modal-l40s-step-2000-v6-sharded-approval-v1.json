@@ -1,0 +1,59 @@
+{
+  "payload": {
+    "approval": {
+      "approved_at": "2026-10-08T15:17:02Z",
+      "instruction": "proceed",
+      "scope": "exactly four predeclared checkpoint-2000 v6 development shards"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_2000_v6_shards_authorized": true,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false,
+      "replacement_shard_authorized": false
+    },
+    "budget": {
+      "gpu_price_usd_per_hour": 1.9512,
+      "maximum_added_gpu_runtime_cost_usd": 7.8048,
+      "maximum_cumulative_d1_cost_usd": 18.0,
+      "prior_cumulative_d1_cost_usd": 10.004226119647857,
+      "projected_maximum_cumulative_d1_cost_usd": 17.809026119647857
+    },
+    "checkpoint": {
+      "key": "runs/g0-e1-stage1-seed2026-v1/checkpoints/global_step_2000/actor/model_state_dict/full_weights.pt",
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "execution": {
+      "function_timeout_seconds_per_shard": 3600,
+      "modal_retries": 0,
+      "run_revision": 6,
+      "sequential": true,
+      "shards": [
+        {"count": 64, "index": 0, "offset": 0},
+        {"count": 64, "index": 1, "offset": 64},
+        {"count": 64, "index": 2, "offset": 128},
+        {"count": 64, "index": 3, "offset": 192}
+      ]
+    },
+    "preflight": {
+      "checked_at": "2026-10-08T15:17:02Z",
+      "checkpoint_version_and_size_verified": true,
+      "create_only_v6_destinations_empty": true,
+      "exact_role_arn": "arn:aws:sts::960946312280:assumed-role/enpire-g0-receipt-verifier/enpire-g0-receipt-verifier-final",
+      "modal_profile": "deraznasr776",
+      "source_clean_and_remote_matched": true
+    },
+    "schema_version": 1,
+    "source": {
+      "evaluator_contract_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+      "implementation_commit": "11495ccc17380b66fd3cf6ac6ec5319802422d8a",
+      "launcher": "modal_e1_l40s_sharded.py"
+    },
+    "status": "authorized_pending_four_sequential_shards"
+  },
+  "sha256": "b7c36ea21f97cfad24cf9512dde7d30b8e40d2eca6a76ed09cfa513e9f93ee18"
+}
