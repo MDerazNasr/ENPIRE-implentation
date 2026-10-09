@@ -1,0 +1,70 @@
+{
+  "payload": {
+    "approval": {
+      "approved_at": "2026-10-09T23:17:50Z",
+      "instruction": "proceed",
+      "scope": "one exact checkpoint-2000 CPU staging attempt followed by replacement development shards 1, 2, and 3 sequentially"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_2000_stage_authorized": true,
+      "checkpoint_2000_v7_replacement_shards_authorized": true,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false,
+      "shard_0_duplicate_authorized": false
+    },
+    "budget": {
+      "maximum_cumulative_d1_cost_usd": 18.0,
+      "maximum_stage_cost_usd": 1.0,
+      "prior_cumulative_d1_cost_usd": 10.741454814583118,
+      "remaining_three_shard_gpu_runtime_estimate_usd": 5.8536,
+      "stage_plus_gpu_maximum_usd": 6.8536,
+      "stage_plus_recorded_maximum_d1_cost_usd": 17.595054814583118
+    },
+    "checkpoint": {
+      "key": "runs/g0-e1-stage1-seed2026-v1/checkpoints/global_step_2000/actor/model_state_dict/full_weights.pt",
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "execution": {
+      "evaluation_function_timeout_seconds": 3600,
+      "modal_retries": 0,
+      "replacement_shards": [
+        {"count": 64, "index": 1, "offset": 64},
+        {"count": 64, "index": 2, "offset": 128},
+        {"count": 64, "index": 3, "offset": 192}
+      ],
+      "run_revision": 7,
+      "sequential": true,
+      "stage_attempts": 1,
+      "stage_cpu": 2,
+      "stage_function_timeout_seconds": 1800,
+      "stage_memory_mib": 4096
+    },
+    "exclusions": {
+      "aggregation_authorized": false,
+      "checkpoint_selection_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "schema_version": 1,
+    "source": {
+      "evaluator_contract_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+      "evaluation_launcher": "modal_e1_l40s_sharded_v7.py",
+      "evaluation_launcher_sha256": "33d29b6efa855494df778f206883123fa72f157fd7cde8929b41e9b31217577e",
+      "implementation_commit": "440fb143e157d699e1bccb8535d44202b3db654a",
+      "remediation_receipt": "results/agent-supervisor/g0/e1-modal-l40s-v7-staged-remediation-v1.json",
+      "remediation_receipt_file_sha256": "2cb51ca44c43b7691d19889cf3ee3c29e8ba99ce72cf962c1d952c57e093bc6a",
+      "stage_launcher": "modal_e1_checkpoint_stage_v1.py",
+      "stage_launcher_sha256": "2f6f6589df6d2a72309dcd2f0fc3b14190e488a3d03ab33db3b4829e11050378",
+      "stage_wrapper": "scripts/launch_g0_e1_checkpoint_stage.py",
+      "stage_wrapper_sha256": "55a52a1bc46b838b9c12f5d3974cd73193bc880a0e8d06a70a0e073ac490ef0e"
+    },
+    "status": "authorized_pending_identity_destination_and_budget_preflight"
+  },
+  "sha256": "da64ef94a8a6ddfe11fc99dc2caa00f7444af3d1a7cab07b62e6fbd9d51f125b"
+}
