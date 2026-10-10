@@ -71,6 +71,13 @@ STAGE_V3_FAILURE = (
     / "g0"
     / "e1-modal-checkpoint-stage-v3-import-failure-v1.json"
 )
+V10_REMEDIATION = (
+    ROOT
+    / "results"
+    / "agent-supervisor"
+    / "g0"
+    / "e1-modal-l40s-v10-named-secret-remediation-v1.json"
+)
 
 
 def sha256_at_commit(commit: str, path: str) -> str:
@@ -252,6 +259,28 @@ class E1V7StagedRemediationTests(unittest.TestCase):
         self.assertFalse(failure["checkpoint_accessed"])
         self.assertFalse(failure["staged_checkpoint_created"])
         self.assertFalse(failure["stage_receipt_created"])
+
+    def test_v10_remediation_binds_named_secret_sources_without_authority(self) -> None:
+        envelope = json.loads(V10_REMEDIATION.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(fingerprint(payload), envelope["sha256"])
+        self.assertTrue(all(value is False for value in payload["authority"].values()))
+        correction = payload["correction"]
+        commit = correction["source_commit"]
+        for path_field, hash_field in (
+            ("documentation_path", "documentation_sha256"),
+            ("evaluation_launcher_path", "evaluation_launcher_sha256"),
+            ("runtime_path", "runtime_sha256"),
+            ("stage_launcher_path", "stage_launcher_sha256"),
+            ("stage_wrapper_path", "stage_wrapper_sha256"),
+        ):
+            self.assertEqual(
+                sha256_at_commit(commit, correction[path_field]),
+                correction[hash_field],
+            )
+        self.assertTrue(payload["gate"]["named_secret_lifecycle_test_passed"])
+        self.assertEqual(payload["gate"]["full_tests_passed"], 425)
+        self.assertFalse(payload["gate"]["named_secret_created_during_offline_correction"])
 
 
 if __name__ == "__main__":
