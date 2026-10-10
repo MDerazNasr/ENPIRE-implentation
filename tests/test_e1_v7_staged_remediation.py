@@ -78,6 +78,13 @@ V10_REMEDIATION = (
     / "g0"
     / "e1-modal-l40s-v10-named-secret-remediation-v1.json"
 )
+STAGE_V4_APPROVAL = (
+    ROOT
+    / "results"
+    / "agent-supervisor"
+    / "g0"
+    / "e1-modal-checkpoint-stage-v4-approval-v1.json"
+)
 
 
 def sha256_at_commit(commit: str, path: str) -> str:
@@ -281,6 +288,24 @@ class E1V7StagedRemediationTests(unittest.TestCase):
         self.assertTrue(payload["gate"]["named_secret_lifecycle_test_passed"])
         self.assertEqual(payload["gate"]["full_tests_passed"], 425)
         self.assertFalse(payload["gate"]["named_secret_created_during_offline_correction"])
+
+    def test_stage_v4_approval_authorizes_only_one_cpu_attempt(self) -> None:
+        envelope = json.loads(STAGE_V4_APPROVAL.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(fingerprint(payload), envelope["sha256"])
+        authority = payload["authority"]
+        self.assertTrue(authority["checkpoint_2000_stage_v4_authorized"])
+        self.assertTrue(authority["named_secret_creation_authorized"])
+        self.assertFalse(authority["automatic_retry_authorized"])
+        self.assertFalse(authority["gpu_shards_authorized"])
+        self.assertFalse(authority["checkpoint_evaluation_authorized"])
+        self.assertEqual(payload["budget"]["stage_attempts"], 1)
+        self.assertLessEqual(payload["budget"]["maximum_stage_cost_usd"], 1.0)
+        self.assertTrue(payload["execution"]["create_only"])
+        self.assertTrue(
+            payload["execution"]["mandatory_named_secret_cleanup_after_terminal_state"]
+        )
+        self.assertEqual(payload["execution"]["modal_retries"], 0)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,56 @@
+{
+  "payload": {
+    "approval": {
+      "approved_at": "2026-10-10T05:15:17Z",
+      "instruction": "proceed",
+      "scope": "exactly one create-only checkpoint-2000 stage-v4 CPU attempt using one temporary named Modal Secret"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_2000_stage_v4_authorized": true,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "gpu_shards_authorized": false,
+      "named_secret_creation_authorized": true,
+      "policy_promotion_authorized": false
+    },
+    "budget": {
+      "maximum_stage_cost_usd": 1.0,
+      "stage_attempts": 1,
+      "stage_cpu": 2,
+      "stage_function_timeout_seconds": 1800,
+      "stage_memory_mib": 4096
+    },
+    "checkpoint": {
+      "key": "runs/g0-e1-stage1-seed2026-v1/checkpoints/global_step_2000/actor/model_state_dict/full_weights.pt",
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "execution": {
+      "create_only": true,
+      "mandatory_named_secret_cleanup_after_terminal_state": true,
+      "modal_retries": 0,
+      "named_secret": "enpire-g0-e1-stage-v4-aws",
+      "stage_app_name": "enpire-g0-e1-checkpoint-stage-v4",
+      "stage_path": "/workspace/e1-checkpoints/step-2000-stage-v4/actor/model_state_dict/full_weights.pt",
+      "terminal_receipt_path": "/workspace/e1-l40s-results/step-2000-stage-v4-terminal.json"
+    },
+    "schema_version": 1,
+    "source": {
+      "implementation_commit": "e168e43ea01829b4b2addaffb1d704d361579608",
+      "remediation_receipt": "results/agent-supervisor/g0/e1-modal-l40s-v10-named-secret-remediation-v1.json",
+      "remediation_receipt_file_sha256": "6f21db4494f9e972b861d57d7ac1409a67f8ecd247ce74504e4bf745622ade3b",
+      "runtime": "e1_staged_checkpoint_runtime.py",
+      "runtime_sha256": "264ee77d365a49478343d69b7cdf242db16e929fc93bcc07c5abd71cecb2fe5b",
+      "stage_launcher": "modal_e1_checkpoint_stage_v4.py",
+      "stage_launcher_sha256": "3e694cd7adcfe0860859cb3b7234893240323d33952b70b27a3070c8ac1b32bc",
+      "stage_wrapper": "scripts/launch_g0_e1_checkpoint_stage_v4.py",
+      "stage_wrapper_sha256": "faaa780d45b10a3edd84f56092ffb56690c577f80a1a3cd544f489d876ef7ddf"
+    },
+    "status": "authorized_pending_stage_v4_preflight"
+  },
+  "sha256": "17bde5408adc1b85e831a623ea35e7ea09545bbccc8ef50098508bec85c8888e"
+}
