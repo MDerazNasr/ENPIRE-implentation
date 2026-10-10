@@ -1,0 +1,46 @@
+{
+  "payload": {
+    "authority": {
+      "checkpoint_access_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false,
+      "replacement_stage_authorized": false
+    },
+    "correction": {
+      "description": "Replace the transitive supervisor package import with a standalone standard-library staging runtime and uniquely versioned stage-v3/evaluator-v9 identities.",
+      "documentation_path": "docs/agent-supervisor/e1-v9-isolated-stage-runtime-remediation.md",
+      "documentation_sha256": "16da644396f7a6ce320c31791939568727df0fcd18641b5d963b75193f8d5959",
+      "evaluation_launcher_path": "modal_e1_l40s_sharded_v9.py",
+      "evaluation_launcher_sha256": "cf0da036e6134e5dd53c904e3e1818d0cc36c8fe8210570def82ed18e89d41d6",
+      "runtime_path": "e1_staged_checkpoint_runtime.py",
+      "runtime_sha256": "264ee77d365a49478343d69b7cdf242db16e929fc93bcc07c5abd71cecb2fe5b",
+      "source_commit": "4e11d6d3118e5168102b9e2bcef33a7b11d496ab",
+      "stage_launcher_path": "modal_e1_checkpoint_stage_v3.py",
+      "stage_launcher_sha256": "818518bc4d757ff53f43ada32d198a716300cdb71414e293523819c5173a9ba2",
+      "stage_wrapper_path": "scripts/launch_g0_e1_checkpoint_stage_v3.py",
+      "stage_wrapper_sha256": "4fe775ed2c607cabdf27788c385123b62fee1f076185179dc4b9fe0fb43e8495"
+    },
+    "failed_attempt": {
+      "app_id": "ap-NhgUDfJD4LC85Iajnb1yd0",
+      "failure_receipt": "results/agent-supervisor/g0/e1-modal-checkpoint-stage-v2-import-failure-v1.json",
+      "failure_receipt_file_sha256": "68e07a4ba44f72ab9e3de5c6d2e250b71d7cee5d7c4a3617dd853c0e7c98a666",
+      "function_call_id": "fc-01M4J2EY8GY3ARSX5NNTZW0W6H",
+      "status": "failed_before_checkpoint_access"
+    },
+    "gate": {
+      "checkpoint_accessed_during_offline_correction": false,
+      "cloud_function_spawned_during_offline_correction": false,
+      "focused_tests_passed": 75,
+      "full_tests_passed": 421,
+      "gpu_used_during_offline_correction": false,
+      "isolated_runtime_import_passed": true,
+      "status": "offline_passed"
+    },
+    "next_gate": "Fresh explicit authorization must bind source commit 4e11d6d for one create-only stage-v3 CPU attempt capped at $1 with zero retries. No GPU shard is authorized until a valid stage-v3 receipt exists and separate evaluator-v9 authority is granted.",
+    "schema_version": 1,
+    "status": "v9_isolated_stage_runtime_remediation_offline_pending_authorization"
+  },
+  "sha256": "5f9627550f814e0a04c3cbbe008970383248325e76d4a72a0e0f108304a0ce05"
+}
