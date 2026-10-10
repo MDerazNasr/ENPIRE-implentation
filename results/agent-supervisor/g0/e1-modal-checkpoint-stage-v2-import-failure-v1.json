@@ -1,0 +1,43 @@
+{
+  "payload": {
+    "attempt": {
+      "app_id": "ap-NhgUDfJD4LC85Iajnb1yd0",
+      "function_call_id": "fc-01M4J2EY8GY3ARSX5NNTZW0W6H",
+      "modal_profile": "deraznasr776",
+      "recorded_at": "2026-10-10T04:52:43Z",
+      "source_arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_ENPIREG0VerifierAccess_715cb6525cee841e/deraznasr776@gmail.com"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_access_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "policy_promotion_authorized": false,
+      "replacement_stage_authorized": false
+    },
+    "failure": {
+      "checkpoint_accessed": false,
+      "error_message": "No module named 'agent'",
+      "error_type": "ModuleNotFoundError",
+      "failure_boundary": "Modal container function hydration through supervisor package initializer before stage_checkpoint execution",
+      "gpu_used": false,
+      "metric_produced": false,
+      "remote_terminal_receipt_produced": false,
+      "root_cause": "The staged helper was present, but importing supervisor.e1_staged_checkpoint first executed supervisor.__init__, whose eager coordinator import requires the intentionally absent agent package.",
+      "simulator_steps": 0,
+      "staged_checkpoint_created": false,
+      "stage_receipt_created": false
+    },
+    "next_gate": "Use a dependency-free top-level staging runtime module in a uniquely versioned stage-v3 app and destination, prove its isolated import without supervisor or agent, then obtain fresh explicit authorization for one replacement CPU staging attempt. No GPU shard is authorized by this failure receipt.",
+    "schema_version": 1,
+    "source": {
+      "approval_receipt": "results/agent-supervisor/g0/e1-modal-checkpoint-stage-v2-approval-v1.json",
+      "approval_receipt_file_sha256": "312c6ce71839ca607bd97f41a812381ca19a70f1011b98502c291531e5543a1e",
+      "implementation_commit": "d8c92d644d333a273af766f227329e90ce0bedb4",
+      "stage_launcher": "modal_e1_checkpoint_stage_v2.py",
+      "stage_launcher_sha256": "0ab6748a3db214b43cdea046fefc79757d786557d92e56e0470324eebfbe8902"
+    },
+    "status": "stage_v2_failed_during_transitive_import_before_checkpoint_access"
+  },
+  "sha256": "f8569118a85ab981d216f11dcd0906bd07778d8ad76b7889ee69ca690bc71b27"
+}

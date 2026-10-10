@@ -14,7 +14,7 @@ from pathlib import Path
 
 import modal
 
-from supervisor.e1_staged_checkpoint import (
+from e1_staged_checkpoint_runtime import (
     STAGE_SCHEMA_VERSION,
     STAGE_STATUS_COMPLETE,
     bounded_error,
@@ -22,12 +22,12 @@ from supervisor.e1_staged_checkpoint import (
 )
 
 
-APP_NAME = "enpire-g0-e1-checkpoint-stage-v2"
+APP_NAME = "enpire-g0-e1-checkpoint-stage-v3"
 WORKSPACE = "/workspace"
 RESULTS_ROOT = f"{WORKSPACE}/e1-l40s-results"
-STAGE_ROOT = Path(f"{WORKSPACE}/e1-checkpoints/step-2000-stage-v2")
+STAGE_ROOT = Path(f"{WORKSPACE}/e1-checkpoints/step-2000-stage-v3")
 STAGED_CHECKPOINT = STAGE_ROOT / "actor/model_state_dict/full_weights.pt"
-STAGE_RECEIPT = Path(RESULTS_ROOT) / "step-2000-stage-v2-terminal.json"
+STAGE_RECEIPT = Path(RESULTS_ROOT) / "step-2000-stage-v3-terminal.json"
 BUCKET = "enpire-g0-evaluator-evidencebucket-atlpylr0fwjq"
 CHECKPOINT_KEY = (
     "runs/g0-e1-stage1-seed2026-v1/checkpoints/global_step_2000/"
@@ -67,7 +67,7 @@ def _required_fresh_aws_secret() -> modal.Secret:
     )
 
 
-app = modal.App(APP_NAME, tags={"project": "enpire", "phase": "g0-e1-stage-v2"})
+app = modal.App(APP_NAME, tags={"project": "enpire", "phase": "g0-e1-stage-v3"})
 workspace = modal.Volume.from_name("enpire-workspace", create_if_missing=False)
 image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -75,7 +75,11 @@ image = (
         "boto3==1.40.45",
         "modal==1.5.4",
     )
-    .add_local_dir("supervisor", "/root/supervisor", copy=True)
+    .add_local_file(
+        "e1_staged_checkpoint_runtime.py",
+        "/root/e1_staged_checkpoint_runtime.py",
+        copy=True,
+    )
 )
 
 

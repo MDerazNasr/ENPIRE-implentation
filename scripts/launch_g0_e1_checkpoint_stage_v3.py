@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 SOURCE_PROFILE = "enpire-evaluator-verifier-final"
 ACCOUNT = "960946312280"
 TARGET_ROLE_ARN = f"arn:aws:iam::{ACCOUNT}:role/enpire-g0-receipt-verifier"
-TARGET_SESSION_NAME = "enpire-g0-stage-v2"
+TARGET_SESSION_NAME = "enpire-g0-stage-v3"
 EXPECTED_TARGET_ARN = (
     f"arn:aws:sts::{ACCOUNT}:assumed-role/"
     f"enpire-g0-receipt-verifier/{TARGET_SESSION_NAME}"
@@ -23,7 +23,7 @@ MODAL_COMMAND = (
     "modal",
     "run",
     "--detach",
-    "modal_e1_checkpoint_stage_v2.py",
+    "modal_e1_checkpoint_stage_v3.py",
     "--acknowledge-checkpoint-stage",
 )
 

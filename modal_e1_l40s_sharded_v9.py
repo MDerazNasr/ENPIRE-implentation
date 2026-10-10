@@ -1,4 +1,4 @@
-"""Credential-independent v8 replacement evaluation for E1 shards 1 through 3.
+"""Credential-independent v9 replacement evaluation for E1 shards 1 through 3.
 
 The exact checkpoint must first be staged and verified by the separate CPU
 staging app. This GPU app has no AWS secret, cannot download a checkpoint, and
@@ -20,14 +20,14 @@ from supervisor.e1_sharded_evaluation import (
     parse_final_eval_metrics,
     shard_spec,
 )
-from supervisor.e1_staged_checkpoint import (
+from e1_staged_checkpoint_runtime import (
     bounded_error,
     load_valid_stage_receipt,
     sha256_file,
 )
 
 
-APP_NAME = "enpire-g0-e1-l40s-sharded-evaluation-v3"
+APP_NAME = "enpire-g0-e1-l40s-sharded-evaluation-v4"
 GPU = "L40S"
 CPU_CORES = 16
 MEMORY_MIB = 96 * 1024
@@ -38,7 +38,7 @@ E1_RUNTIME_ROOT = f"{PROJECT_ROOT}/e1_runtime"
 RLINF_HOME = "/opt/RLinf"
 WORKSPACE = "/workspace"
 RESULTS_ROOT = f"{WORKSPACE}/e1-l40s-results"
-RUN_REVISION = 8
+RUN_REVISION = 9
 ALLOWED_SHARDS = (1, 2, 3)
 NORM_STATS = f"{PROJECT_ROOT}/norm_stats.json"
 DEVELOPMENT_RESETS = f"{PROJECT_ROOT}/development-resets.json"
@@ -47,9 +47,9 @@ DEVELOPMENT_RESET_FINGERPRINT = (
 )
 EVALUATOR_CONTRACT_SHA256 = "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256"
 BASE_IMAGE_ID = "im-66ku0dbczWNQDgPWv97XNc"
-STAGE_RECEIPT = Path(RESULTS_ROOT) / "step-2000-stage-v2-terminal.json"
+STAGE_RECEIPT = Path(RESULTS_ROOT) / "step-2000-stage-v3-terminal.json"
 STAGED_CHECKPOINT = Path(
-    f"{WORKSPACE}/e1-checkpoints/step-2000-stage-v2/"
+    f"{WORKSPACE}/e1-checkpoints/step-2000-stage-v3/"
     "actor/model_state_dict/full_weights.pt"
 )
 CHECKPOINT = {
@@ -61,7 +61,7 @@ CHECKPOINT = {
 GPU_PRICE_USD_PER_HOUR = "1.951200"
 
 
-app = modal.App(APP_NAME, tags={"project": "enpire", "phase": "g0-e1-v8"})
+app = modal.App(APP_NAME, tags={"project": "enpire", "phase": "g0-e1-v9"})
 workspace = modal.Volume.from_name("enpire-workspace", create_if_missing=False)
 image = (
     modal.Image.from_id(BASE_IMAGE_ID)
@@ -74,6 +74,11 @@ image = (
     .add_local_dir("e1_runtime", E1_RUNTIME_ROOT, copy=True)
     .add_local_dir("scripts", f"{PROJECT_ROOT}/scripts", copy=True)
     .add_local_dir("supervisor", f"{PROJECT_ROOT}/supervisor", copy=True)
+    .add_local_file(
+        "e1_staged_checkpoint_runtime.py",
+        f"{PROJECT_ROOT}/e1_staged_checkpoint_runtime.py",
+        copy=True,
+    )
     .add_local_file(
         "configs/d1/assets/maniskill_peginsertionside_joint.norm_stats.json",
         NORM_STATS,
@@ -101,7 +106,7 @@ image = (
 def evaluate_shard(shard_index: int) -> dict[str, object]:
     shard = shard_spec(shard_index)
     if shard.index not in ALLOWED_SHARDS:
-        raise RuntimeError("v8 permits only replacement shards 1 through 3")
+        raise RuntimeError("v9 permits only replacement shards 1 through 3")
     actual_contract_sha256 = evaluator_contract_sha256(Path(PROJECT_ROOT))
     if actual_contract_sha256 != EVALUATOR_CONTRACT_SHA256:
         raise RuntimeError("evaluator contract source identity mismatch")
@@ -113,7 +118,7 @@ def evaluate_shard(shard_index: int) -> dict[str, object]:
         / f"step-2000-v{RUN_REVISION}-shard-{shard.index}-terminal.json"
     )
     if run_dir.exists() or receipt_path.exists():
-        raise RuntimeError("create-only v8 shard destination already exists")
+        raise RuntimeError("create-only v9 shard destination already exists")
 
     started = time.monotonic()
     failure: BaseException | None = None
@@ -205,7 +210,7 @@ def evaluate_shard(shard_index: int) -> dict[str, object]:
             handle.write(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
         workspace.commit()
     if failure is not None:
-        raise RuntimeError("v8 shard failed; inspect terminal receipt") from None
+        raise RuntimeError("v9 shard failed; inspect terminal receipt") from None
     return receipt
 
 
@@ -213,7 +218,7 @@ def evaluate_shard(shard_index: int) -> dict[str, object]:
 def main(shard_index: int, acknowledge_detached_run: bool = False):
     shard = shard_spec(shard_index)
     if shard.index not in ALLOWED_SHARDS:
-        raise RuntimeError("v8 permits only replacement shards 1 through 3")
+        raise RuntimeError("v9 permits only replacement shards 1 through 3")
     if not acknowledge_detached_run:
         raise RuntimeError("detached launch acknowledgement is required")
     call = evaluate_shard.spawn(shard.index)

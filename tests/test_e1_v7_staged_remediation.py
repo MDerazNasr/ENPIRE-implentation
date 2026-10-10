@@ -43,6 +43,13 @@ STAGE_V2_APPROVAL = (
     / "g0"
     / "e1-modal-checkpoint-stage-v2-approval-v1.json"
 )
+STAGE_V2_FAILURE = (
+    ROOT
+    / "results"
+    / "agent-supervisor"
+    / "g0"
+    / "e1-modal-checkpoint-stage-v2-import-failure-v1.json"
+)
 
 
 def sha256_at_commit(commit: str, path: str) -> str:
@@ -167,6 +174,17 @@ class E1V7StagedRemediationTests(unittest.TestCase):
         self.assertLessEqual(payload["budget"]["maximum_stage_cost_usd"], 1.0)
         self.assertTrue(payload["execution"]["create_only"])
         self.assertEqual(payload["execution"]["modal_retries"], 0)
+
+    def test_stage_v2_transitive_import_failure_is_non_authorizing(self) -> None:
+        envelope = json.loads(STAGE_V2_FAILURE.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(fingerprint(payload), envelope["sha256"])
+        self.assertTrue(all(value is False for value in payload["authority"].values()))
+        failure = payload["failure"]
+        self.assertEqual(failure["error_message"], "No module named 'agent'")
+        self.assertFalse(failure["checkpoint_accessed"])
+        self.assertFalse(failure["staged_checkpoint_created"])
+        self.assertFalse(failure["stage_receipt_created"])
 
 
 if __name__ == "__main__":
