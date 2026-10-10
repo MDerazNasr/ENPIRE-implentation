@@ -1,0 +1,53 @@
+{
+  "payload": {
+    "authority": {
+      "checkpoint_access_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false,
+      "replacement_stage_authorized": false
+    },
+    "correction": {
+      "description": "Package the supervisor module required during Modal function hydration, use unique stage-v2 and evaluator-v8 identities, and preserve every frozen scientific input.",
+      "documentation_path": "docs/agent-supervisor/e1-v8-stage-packaging-remediation.md",
+      "documentation_sha256": "3d2ee8f36c7169791dfbf273cded35eb3e7d6f9cdbfebe20606d95a722e3b012",
+      "evaluation_launcher_path": "modal_e1_l40s_sharded_v8.py",
+      "evaluation_launcher_sha256": "287a74b7c19620638e7d2aaba56180ec59ccfc8d90a2b3a814581b182290ddd3",
+      "source_commit": "02f3e4a00fa195d46d9f2363683302568839a5c3",
+      "stage_launcher_path": "modal_e1_checkpoint_stage_v2.py",
+      "stage_launcher_sha256": "0ab6748a3db214b43cdea046fefc79757d786557d92e56e0470324eebfbe8902",
+      "stage_wrapper_path": "scripts/launch_g0_e1_checkpoint_stage_v2.py",
+      "stage_wrapper_sha256": "bc7abdd8ec53cb7b18961d477799e6f6cb8b38d4473115b0caaab3d874f7dbc7"
+    },
+    "failed_attempt": {
+      "app_id": "ap-SU26SRTsJvPFKvBHUTtDKJ",
+      "failure_receipt": "results/agent-supervisor/g0/e1-modal-checkpoint-stage-v1-import-failure-v1.json",
+      "failure_receipt_file_sha256": "78367f9b93b1afe2e76c7a93bad3828e0ab59f57cbd34e66743eee0bcc8338c0",
+      "function_call_id": "fc-01M4J2384BZ844838JS8QT3C02",
+      "status": "failed_before_checkpoint_access"
+    },
+    "frozen_science": {
+      "checkpoint_sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "checkpoint_size_bytes": 10015912662,
+      "checkpoint_step": 2000,
+      "checkpoint_version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077",
+      "evaluator_contract_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+      "replacement_shards": [1, 2, 3],
+      "reset_set_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+      "retained_complete_shard": 0
+    },
+    "gate": {
+      "checkpoint_accessed_during_offline_correction": false,
+      "cloud_function_spawned_during_offline_correction": false,
+      "focused_tests_passed": 71,
+      "full_tests_passed": 417,
+      "gpu_used_during_offline_correction": false,
+      "status": "offline_passed"
+    },
+    "next_gate": "Fresh explicit authorization must bind source commit 02f3e4a for one create-only stage-v2 CPU attempt capped at $1 with zero retries. GPU shards remain unauthorized until a valid stage-v2 receipt exists and authority is renewed against evaluator v8.",
+    "schema_version": 1,
+    "status": "v8_stage_packaging_remediation_offline_pending_authorization"
+  },
+  "sha256": "58e0a3dd79c983c4293385207fce80aa75015d6af76d797c390e6ac0cec1cb19"
+}
