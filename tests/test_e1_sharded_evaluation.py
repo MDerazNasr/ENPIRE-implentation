@@ -23,9 +23,9 @@ from supervisor.e1_staged_checkpoint import (
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs/d1/e1_checkpoint_evaluation_shard.yaml"
 LAUNCHER = ROOT / "modal_e1_l40s_sharded.py"
-STAGER = ROOT / "modal_e1_checkpoint_stage_v1.py"
-V7_LAUNCHER = ROOT / "modal_e1_l40s_sharded_v7.py"
-STAGE_WRAPPER = ROOT / "scripts/launch_g0_e1_checkpoint_stage.py"
+STAGER = ROOT / "modal_e1_checkpoint_stage_v2.py"
+V8_LAUNCHER = ROOT / "modal_e1_l40s_sharded_v8.py"
+STAGE_WRAPPER = ROOT / "scripts/launch_g0_e1_checkpoint_stage_v2.py"
 RUNNER = ROOT / "scripts/run_g0_e1_checkpoint_evaluation.py"
 APPROVAL = (
     ROOT
@@ -120,15 +120,16 @@ class E1ShardedEvaluationTests(unittest.TestCase):
                             expected_checkpoint=expected,
                         )
 
-    def test_v7_staging_and_evaluation_are_separated_and_fail_closed(self) -> None:
+    def test_v8_staging_and_evaluation_are_separated_and_fail_closed(self) -> None:
         stager = STAGER.read_text(encoding="utf-8")
-        evaluator = V7_LAUNCHER.read_text(encoding="utf-8")
+        evaluator = V8_LAUNCHER.read_text(encoding="utf-8")
         wrapper = STAGE_WRAPPER.read_text(encoding="utf-8")
         self.assertIn("MINIMUM_CREDENTIAL_TTL_SECONDS = 3300", stager)
         self.assertIn('MAXIMUM_STAGE_COST_USD = "1.000000"', stager)
         self.assertIn("failed_checkpoint_stage", stager)
         self.assertIn("retries=0", stager)
         self.assertIn("single_use_containers=True", stager)
+        self.assertIn('.add_local_dir("supervisor", "/root/supervisor", copy=True)', stager)
         self.assertNotIn("gpu=", stager)
         self.assertIn('ALLOWED_SHARDS = (1, 2, 3)', evaluator)
         self.assertIn("load_valid_stage_receipt", evaluator)
@@ -141,7 +142,7 @@ class E1ShardedEvaluationTests(unittest.TestCase):
         self.assertIn("--acknowledge-checkpoint-access", wrapper)
 
     def test_stage_wrapper_defaults_to_no_cloud_dry_run(self) -> None:
-        from scripts.launch_g0_e1_checkpoint_stage import main
+        from scripts.launch_g0_e1_checkpoint_stage_v2 import main
         from unittest.mock import patch
 
         with patch("sys.argv", ["launch-stage"]), redirect_stdout(io.StringIO()) as out:
@@ -153,7 +154,7 @@ class E1ShardedEvaluationTests(unittest.TestCase):
 
     def test_stage_wrapper_mints_and_validates_a_fresh_target_session(self) -> None:
         from datetime import datetime, timedelta, timezone
-        from scripts import launch_g0_e1_checkpoint_stage as launcher
+        from scripts import launch_g0_e1_checkpoint_stage_v2 as launcher
         from unittest.mock import patch
 
         expiration = (datetime.now(timezone.utc) + timedelta(seconds=3590)).isoformat()

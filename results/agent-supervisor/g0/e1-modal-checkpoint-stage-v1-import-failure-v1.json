@@ -1,0 +1,43 @@
+{
+  "payload": {
+    "attempt": {
+      "app_id": "ap-SU26SRTsJvPFKvBHUTtDKJ",
+      "function_call_id": "fc-01M4J2384BZ844838JS8QT3C02",
+      "modal_profile": "deraznasr776",
+      "recorded_at": "2026-10-10T04:46:28Z",
+      "source_arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_ENPIREG0VerifierAccess_715cb6525cee841e/deraznasr776@gmail.com"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_access_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "policy_promotion_authorized": false,
+      "replacement_stage_authorized": false
+    },
+    "failure": {
+      "checkpoint_accessed": false,
+      "error_message": "No module named 'supervisor'",
+      "error_type": "ModuleNotFoundError",
+      "failure_boundary": "Modal container function hydration before stage_checkpoint execution",
+      "gpu_used": false,
+      "metric_produced": false,
+      "remote_terminal_receipt_produced": false,
+      "root_cause": "The staging image packaged the launcher but did not add the local supervisor package imported by the launcher.",
+      "simulator_steps": 0,
+      "staged_checkpoint_created": false,
+      "stage_receipt_created": false
+    },
+    "next_gate": "Package the supervisor directory into a uniquely versioned stage-v2 app and destination, test the import and create-only boundaries offline, then obtain fresh explicit authorization for one replacement CPU staging attempt. No GPU shard is authorized by this failure receipt.",
+    "schema_version": 1,
+    "source": {
+      "approval_receipt": "results/agent-supervisor/g0/e1-modal-l40s-step-2000-v7-staged-approval-v1.json",
+      "approval_receipt_file_sha256": "def451585b696f975919d9ab8aad13f9d91cfca96a7f47085fd391dd35b7dd47",
+      "implementation_commit": "401bb4a3d7fae30e946c8fa6a4ce833477205154",
+      "stage_launcher": "modal_e1_checkpoint_stage_v1.py",
+      "stage_launcher_sha256": "2f6f6589df6d2a72309dcd2f0fc3b14190e488a3d03ab33db3b4829e11050378"
+    },
+    "status": "stage_v1_failed_during_import_before_checkpoint_access"
+  },
+  "sha256": "2839af500fc0b84a630ab1ae9afd306919a1fe92312f231c81ed53369222bb8d"
+}

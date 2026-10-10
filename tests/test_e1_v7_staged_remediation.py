@@ -22,6 +22,13 @@ APPROVAL = (
     / "g0"
     / "e1-modal-l40s-step-2000-v7-staged-approval-v1.json"
 )
+STAGE_FAILURE = (
+    ROOT
+    / "results"
+    / "agent-supervisor"
+    / "g0"
+    / "e1-modal-checkpoint-stage-v1-import-failure-v1.json"
+)
 
 
 def sha256_at_commit(commit: str, path: str) -> str:
@@ -99,6 +106,19 @@ class E1V7StagedRemediationTests(unittest.TestCase):
             payload["budget"]["maximum_cumulative_d1_cost_usd"],
         )
         self.assertFalse(any(payload["exclusions"].values()))
+
+    def test_stage_v1_import_failure_is_terminal_and_non_authorizing(self) -> None:
+        envelope = json.loads(STAGE_FAILURE.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(fingerprint(payload), envelope["sha256"])
+        self.assertTrue(all(value is False for value in payload["authority"].values()))
+        failure = payload["failure"]
+        self.assertEqual(failure["error_type"], "ModuleNotFoundError")
+        self.assertFalse(failure["checkpoint_accessed"])
+        self.assertFalse(failure["staged_checkpoint_created"])
+        self.assertFalse(failure["stage_receipt_created"])
+        self.assertFalse(failure["gpu_used"])
+        self.assertFalse(failure["metric_produced"])
 
 
 if __name__ == "__main__":
