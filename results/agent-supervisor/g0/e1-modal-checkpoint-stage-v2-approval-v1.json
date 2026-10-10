@@ -1,0 +1,51 @@
+{
+  "payload": {
+    "approval": {
+      "approved_at": "2026-10-10T04:51:11Z",
+      "instruction": "proceed",
+      "scope": "exactly one create-only checkpoint-2000 stage-v2 CPU attempt"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_2000_stage_v2_authorized": true,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "gpu_shards_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "budget": {
+      "maximum_stage_cost_usd": 1.0,
+      "stage_attempts": 1,
+      "stage_cpu": 2,
+      "stage_function_timeout_seconds": 1800,
+      "stage_memory_mib": 4096
+    },
+    "checkpoint": {
+      "key": "runs/g0-e1-stage1-seed2026-v1/checkpoints/global_step_2000/actor/model_state_dict/full_weights.pt",
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "execution": {
+      "create_only": true,
+      "modal_retries": 0,
+      "stage_app_name": "enpire-g0-e1-checkpoint-stage-v2",
+      "stage_path": "/workspace/e1-checkpoints/step-2000-stage-v2/actor/model_state_dict/full_weights.pt",
+      "terminal_receipt_path": "/workspace/e1-l40s-results/step-2000-stage-v2-terminal.json"
+    },
+    "schema_version": 1,
+    "source": {
+      "implementation_commit": "2e914de1a56dd0f538908f310fd4cd71a8f0ed94",
+      "remediation_receipt": "results/agent-supervisor/g0/e1-modal-l40s-v8-stage-packaging-remediation-v1.json",
+      "remediation_receipt_file_sha256": "07494cd630aa40f8e8368500add0f7872aace432717184f63cdd9febb7e1ef56",
+      "stage_launcher": "modal_e1_checkpoint_stage_v2.py",
+      "stage_launcher_sha256": "0ab6748a3db214b43cdea046fefc79757d786557d92e56e0470324eebfbe8902",
+      "stage_wrapper": "scripts/launch_g0_e1_checkpoint_stage_v2.py",
+      "stage_wrapper_sha256": "bc7abdd8ec53cb7b18961d477799e6f6cb8b38d4473115b0caaab3d874f7dbc7"
+    },
+    "status": "authorized_pending_stage_v2_preflight"
+  },
+  "sha256": "3cc7a2e35c990f438e80bc280f6f37af0143b006a3b593dedefb4633412688ac"
+}
