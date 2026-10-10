@@ -7,13 +7,16 @@ import argparse
 import json
 import os
 import subprocess
+import tempfile
 from datetime import datetime, timezone
+from pathlib import Path
 
 
 SOURCE_PROFILE = "enpire-evaluator-verifier-final"
 ACCOUNT = "960946312280"
 TARGET_ROLE_ARN = f"arn:aws:iam::{ACCOUNT}:role/enpire-g0-receipt-verifier"
-TARGET_SESSION_NAME = "enpire-g0-stage-v3"
+TARGET_SESSION_NAME = "enpire-g0-stage-v4"
+STAGE_SECRET_NAME = "enpire-g0-e1-stage-v4-aws"
 EXPECTED_TARGET_ARN = (
     f"arn:aws:sts::{ACCOUNT}:assumed-role/"
     f"enpire-g0-receipt-verifier/{TARGET_SESSION_NAME}"
@@ -23,7 +26,7 @@ MODAL_COMMAND = (
     "modal",
     "run",
     "--detach",
-    "modal_e1_checkpoint_stage_v3.py",
+    "modal_e1_checkpoint_stage_v4.py",
     "--acknowledge-checkpoint-stage",
 )
 
@@ -95,6 +98,48 @@ def _fresh_target_credentials() -> tuple[dict[str, str], str]:
     return environment, source_arn
 
 
+def _publish_named_secret(credentials: dict[str, str]) -> None:
+    descriptor, path_text = tempfile.mkstemp(prefix="enpire-stage-v4-", suffix=".json")
+    path = Path(path_text)
+    try:
+        os.fchmod(descriptor, 0o600)
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            json.dump(credentials, handle, sort_keys=True)
+        completed = subprocess.run(
+            [
+                "modal",
+                "secret",
+                "create",
+                STAGE_SECRET_NAME,
+                "--from-json",
+                str(path),
+            ],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        if completed.returncode:
+            raise RuntimeError("failed to create the unique named staging secret")
+    finally:
+        path.unlink(missing_ok=True)
+
+
+def _delete_named_secret() -> None:
+    subprocess.run(
+        [
+            "modal",
+            "secret",
+            "delete",
+            "--allow-missing",
+            "--yes",
+            STAGE_SECRET_NAME,
+        ],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--execute", action="store_true")
@@ -104,6 +149,8 @@ def main() -> int:
         "command": list(MODAL_COMMAND),
         "duration_seconds": 3600,
         "gpu_used": False,
+        "named_secret": STAGE_SECRET_NAME,
+        "named_secret_cleanup_required_after_terminal_state": True,
         "source_profile": SOURCE_PROFILE,
         "target_role_arn": TARGET_ROLE_ARN,
     }
@@ -114,14 +161,21 @@ def main() -> int:
         parser.error("--execute requires --acknowledge-checkpoint-access")
 
     credentials, source_arn = _fresh_target_credentials()
-    environment = {**os.environ, **credentials}
-    completed = subprocess.run(MODAL_COMMAND, env=environment, check=False)
+    _publish_named_secret(credentials)
+    try:
+        completed = subprocess.run(MODAL_COMMAND, check=False)
+    except BaseException:
+        _delete_named_secret()
+        raise
+    if completed.returncode:
+        _delete_named_secret()
     print(
         json.dumps(
             {
                 **contract,
                 "exit_code": completed.returncode,
                 "source_arn": source_arn,
+                "named_secret_cleanup_required": completed.returncode == 0,
                 "status": "submitted" if completed.returncode == 0 else "failed",
             },
             indent=2,

@@ -22,12 +22,13 @@ from e1_staged_checkpoint_runtime import (
 )
 
 
-APP_NAME = "enpire-g0-e1-checkpoint-stage-v3"
+APP_NAME = "enpire-g0-e1-checkpoint-stage-v4"
+STAGE_SECRET_NAME = "enpire-g0-e1-stage-v4-aws"
 WORKSPACE = "/workspace"
 RESULTS_ROOT = f"{WORKSPACE}/e1-l40s-results"
-STAGE_ROOT = Path(f"{WORKSPACE}/e1-checkpoints/step-2000-stage-v3")
+STAGE_ROOT = Path(f"{WORKSPACE}/e1-checkpoints/step-2000-stage-v4")
 STAGED_CHECKPOINT = STAGE_ROOT / "actor/model_state_dict/full_weights.pt"
-STAGE_RECEIPT = Path(RESULTS_ROOT) / "step-2000-stage-v3-terminal.json"
+STAGE_RECEIPT = Path(RESULTS_ROOT) / "step-2000-stage-v4-terminal.json"
 BUCKET = "enpire-g0-evaluator-evidencebucket-atlpylr0fwjq"
 CHECKPOINT_KEY = (
     "runs/g0-e1-stage1-seed2026-v1/checkpoints/global_step_2000/"
@@ -45,14 +46,14 @@ AWS_ENVIRONMENT = (
     "AWS_SESSION_TOKEN",
     "AWS_CREDENTIAL_EXPIRATION",
 )
-MINIMUM_CREDENTIAL_TTL_SECONDS = 3300
+MINIMUM_CREDENTIAL_TTL_SECONDS = 1800
 MAXIMUM_STAGE_COST_USD = "1.000000"
 
 
-def _required_fresh_aws_secret() -> modal.Secret:
+def _validate_injected_aws_credentials() -> None:
     missing = [name for name in AWS_ENVIRONMENT if not os.environ.get(name)]
     if missing:
-        raise RuntimeError("fresh temporary read-only AWS credentials are required")
+        raise RuntimeError("named staging secret is missing required AWS credentials")
     try:
         expiration = datetime.fromisoformat(
             os.environ["AWS_CREDENTIAL_EXPIRATION"].replace("Z", "+00:00")
@@ -61,13 +62,10 @@ def _required_fresh_aws_secret() -> modal.Secret:
         raise RuntimeError("AWS credential expiration must be ISO-8601") from error
     remaining = (expiration - datetime.now(timezone.utc)).total_seconds()
     if remaining < MINIMUM_CREDENTIAL_TTL_SECONDS:
-        raise RuntimeError("AWS credentials do not have the required 55-minute TTL")
-    return modal.Secret.from_dict(
-        {name: os.environ[name] for name in AWS_ENVIRONMENT[:3]}
-    )
+        raise RuntimeError("AWS credentials do not have the required 30-minute TTL")
 
 
-app = modal.App(APP_NAME, tags={"project": "enpire", "phase": "g0-e1-stage-v3"})
+app = modal.App(APP_NAME, tags={"project": "enpire", "phase": "g0-e1-stage-v4"})
 workspace = modal.Volume.from_name("enpire-workspace", create_if_missing=False)
 image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -90,7 +88,7 @@ image = (
     timeout=1800,
     retries=0,
     single_use_containers=True,
-    secrets=[_required_fresh_aws_secret()],
+    secrets=[modal.Secret.from_name(STAGE_SECRET_NAME, required_keys=list(AWS_ENVIRONMENT))],
     volumes={WORKSPACE: workspace},
 )
 def stage_checkpoint() -> dict[str, object]:
@@ -98,6 +96,7 @@ def stage_checkpoint() -> dict[str, object]:
 
     if STAGE_ROOT.exists() or STAGE_RECEIPT.exists():
         raise RuntimeError("create-only checkpoint staging destination already exists")
+    _validate_injected_aws_credentials()
     started = time.monotonic()
     partial = STAGED_CHECKPOINT.with_suffix(".pt.partial")
     receipt: dict[str, object] = {

@@ -25,9 +25,9 @@ from e1_staged_checkpoint_runtime import (
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "configs/d1/e1_checkpoint_evaluation_shard.yaml"
 LAUNCHER = ROOT / "modal_e1_l40s_sharded.py"
-STAGER = ROOT / "modal_e1_checkpoint_stage_v3.py"
-V9_LAUNCHER = ROOT / "modal_e1_l40s_sharded_v9.py"
-STAGE_WRAPPER = ROOT / "scripts/launch_g0_e1_checkpoint_stage_v3.py"
+STAGER = ROOT / "modal_e1_checkpoint_stage_v4.py"
+V10_LAUNCHER = ROOT / "modal_e1_l40s_sharded_v10.py"
+STAGE_WRAPPER = ROOT / "scripts/launch_g0_e1_checkpoint_stage_v4.py"
 RUNNER = ROOT / "scripts/run_g0_e1_checkpoint_evaluation.py"
 APPROVAL = (
     ROOT
@@ -122,17 +122,19 @@ class E1ShardedEvaluationTests(unittest.TestCase):
                             expected_checkpoint=expected,
                         )
 
-    def test_v9_staging_and_evaluation_are_separated_and_fail_closed(self) -> None:
+    def test_v10_staging_and_evaluation_are_separated_and_fail_closed(self) -> None:
         stager = STAGER.read_text(encoding="utf-8")
-        evaluator = V9_LAUNCHER.read_text(encoding="utf-8")
+        evaluator = V10_LAUNCHER.read_text(encoding="utf-8")
         wrapper = STAGE_WRAPPER.read_text(encoding="utf-8")
-        self.assertIn("MINIMUM_CREDENTIAL_TTL_SECONDS = 3300", stager)
+        self.assertIn("MINIMUM_CREDENTIAL_TTL_SECONDS = 1800", stager)
         self.assertIn('MAXIMUM_STAGE_COST_USD = "1.000000"', stager)
         self.assertIn("failed_checkpoint_stage", stager)
         self.assertIn("retries=0", stager)
         self.assertIn("single_use_containers=True", stager)
         self.assertIn('"/root/e1_staged_checkpoint_runtime.py"', stager)
         self.assertNotIn("from supervisor", stager)
+        self.assertIn("modal.Secret.from_name", stager)
+        self.assertNotIn("modal.Secret.from_dict", stager)
         self.assertNotIn("gpu=", stager)
         self.assertIn('ALLOWED_SHARDS = (1, 2, 3)', evaluator)
         self.assertIn("load_valid_stage_receipt", evaluator)
@@ -162,7 +164,7 @@ class E1ShardedEvaluationTests(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stderr)
 
     def test_stage_wrapper_defaults_to_no_cloud_dry_run(self) -> None:
-        from scripts.launch_g0_e1_checkpoint_stage_v3 import main
+        from scripts.launch_g0_e1_checkpoint_stage_v4 import main
         from unittest.mock import patch
 
         with patch("sys.argv", ["launch-stage"]), redirect_stdout(io.StringIO()) as out:
@@ -174,7 +176,7 @@ class E1ShardedEvaluationTests(unittest.TestCase):
 
     def test_stage_wrapper_mints_and_validates_a_fresh_target_session(self) -> None:
         from datetime import datetime, timedelta, timezone
-        from scripts import launch_g0_e1_checkpoint_stage_v3 as launcher
+        from scripts import launch_g0_e1_checkpoint_stage_v4 as launcher
         from unittest.mock import patch
 
         expiration = (datetime.now(timezone.utc) + timedelta(seconds=3590)).isoformat()
@@ -210,6 +212,34 @@ class E1ShardedEvaluationTests(unittest.TestCase):
         assume_argv = run_json.call_args_list[1].args[0]
         self.assertIn("assume-role", assume_argv)
         self.assertIn("3600", assume_argv)
+
+    def test_stage_wrapper_publishes_named_secret_without_values_in_argv(self) -> None:
+        from scripts import launch_g0_e1_checkpoint_stage_v4 as launcher
+        from types import SimpleNamespace
+        from unittest.mock import patch
+
+        credentials = {
+            "AWS_ACCESS_KEY_ID": "access-value",
+            "AWS_SECRET_ACCESS_KEY": "secret-value",
+            "AWS_SESSION_TOKEN": "token-value",
+            "AWS_CREDENTIAL_EXPIRATION": "2099-01-01T00:00:00+00:00",
+        }
+        observed: dict[str, object] = {}
+
+        def fake_run(argv, **kwargs):
+            observed["argv"] = argv
+            secret_path = Path(argv[-1])
+            observed["path"] = secret_path
+            observed["payload"] = json.loads(secret_path.read_text(encoding="utf-8"))
+            return SimpleNamespace(returncode=0)
+
+        with patch.object(launcher.subprocess, "run", side_effect=fake_run):
+            launcher._publish_named_secret(credentials)
+        self.assertEqual(observed["payload"], credentials)
+        self.assertFalse(observed["path"].exists())
+        command_text = " ".join(observed["argv"])
+        for value in credentials.values():
+            self.assertNotIn(value, command_text)
 
     def test_checked_in_interruption_stops_after_failed_shard(self) -> None:
         from supervisor.canonical import fingerprint

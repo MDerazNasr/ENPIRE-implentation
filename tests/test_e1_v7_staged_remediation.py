@@ -64,6 +64,13 @@ STAGE_V3_APPROVAL = (
     / "g0"
     / "e1-modal-checkpoint-stage-v3-approval-v1.json"
 )
+STAGE_V3_FAILURE = (
+    ROOT
+    / "results"
+    / "agent-supervisor"
+    / "g0"
+    / "e1-modal-checkpoint-stage-v3-import-failure-v1.json"
+)
 
 
 def sha256_at_commit(commit: str, path: str) -> str:
@@ -234,6 +241,17 @@ class E1V7StagedRemediationTests(unittest.TestCase):
         self.assertLessEqual(payload["budget"]["maximum_stage_cost_usd"], 1.0)
         self.assertTrue(payload["execution"]["isolated_runtime_required"])
         self.assertEqual(payload["execution"]["modal_retries"], 0)
+
+    def test_stage_v3_secret_builder_failure_is_non_authorizing(self) -> None:
+        envelope = json.loads(STAGE_V3_FAILURE.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(fingerprint(payload), envelope["sha256"])
+        self.assertTrue(all(value is False for value in payload["authority"].values()))
+        failure = payload["failure"]
+        self.assertIn("AWS credentials", failure["error_message"])
+        self.assertFalse(failure["checkpoint_accessed"])
+        self.assertFalse(failure["staged_checkpoint_created"])
+        self.assertFalse(failure["stage_receipt_created"])
 
 
 if __name__ == "__main__":

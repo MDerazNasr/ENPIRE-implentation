@@ -1,0 +1,43 @@
+{
+  "payload": {
+    "attempt": {
+      "app_id": "ap-bOuH3AOfTrXIuGpuHBsXul",
+      "function_call_id": "fc-01M4J3C8GPS5SMAHJC8M3YEAEY",
+      "modal_profile": "deraznasr776",
+      "recorded_at": "2026-10-10T05:09:10Z",
+      "source_arn": "arn:aws:sts::960946312280:assumed-role/AWSReservedSSO_ENPIREG0VerifierAccess_715cb6525cee841e/deraznasr776@gmail.com"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_access_authorized": false,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "policy_promotion_authorized": false,
+      "replacement_stage_authorized": false
+    },
+    "failure": {
+      "checkpoint_accessed": false,
+      "error_message": "fresh temporary read-only AWS credentials are required",
+      "error_type": "RuntimeError",
+      "failure_boundary": "Modal container function hydration while re-evaluating the environment-dependent decorator secret builder",
+      "gpu_used": false,
+      "metric_produced": false,
+      "remote_terminal_receipt_produced": false,
+      "root_cause": "The stage-v3 runtime import was isolated, but modal.Secret.from_dict was constructed by a helper that required local environment variables during remote module hydration, before secret injection.",
+      "simulator_steps": 0,
+      "staged_checkpoint_created": false,
+      "stage_receipt_created": false
+    },
+    "next_gate": "Use a unique short-lived named Modal Secret referenced by name during stage-v4 hydration, create it without exposing values in arguments or logs, require cleanup after terminal state, test the lifecycle offline, then obtain fresh authorization. No GPU shard is authorized.",
+    "schema_version": 1,
+    "source": {
+      "approval_receipt": "results/agent-supervisor/g0/e1-modal-checkpoint-stage-v3-approval-v1.json",
+      "approval_receipt_file_sha256": "4d52c2569d35faabb930b01af00ccc5a81266672826e58d3cbfb2a9799a4bb61",
+      "implementation_commit": "706abb0d15c290ff9e1bed22daacc5d35eb4b484",
+      "stage_launcher": "modal_e1_checkpoint_stage_v3.py",
+      "stage_launcher_sha256": "818518bc4d757ff53f43ada32d198a716300cdb71414e293523819c5173a9ba2"
+    },
+    "status": "stage_v3_failed_during_secret_builder_hydration_before_checkpoint_access"
+  },
+  "sha256": "d2910dcaadd151a65afd054db415e2fac7894bb95d006c2975e7557d01dff67a"
+}
