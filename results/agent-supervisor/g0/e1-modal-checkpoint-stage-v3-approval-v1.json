@@ -1,0 +1,54 @@
+{
+  "payload": {
+    "approval": {
+      "approved_at": "2026-10-10T05:07:08Z",
+      "instruction": "proceed",
+      "scope": "exactly one create-only checkpoint-2000 stage-v3 CPU attempt"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_2000_stage_v3_authorized": true,
+      "checkpoint_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "gpu_shards_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "budget": {
+      "maximum_stage_cost_usd": 1.0,
+      "stage_attempts": 1,
+      "stage_cpu": 2,
+      "stage_function_timeout_seconds": 1800,
+      "stage_memory_mib": 4096
+    },
+    "checkpoint": {
+      "key": "runs/g0-e1-stage1-seed2026-v1/checkpoints/global_step_2000/actor/model_state_dict/full_weights.pt",
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "execution": {
+      "create_only": true,
+      "isolated_runtime_required": true,
+      "modal_retries": 0,
+      "stage_app_name": "enpire-g0-e1-checkpoint-stage-v3",
+      "stage_path": "/workspace/e1-checkpoints/step-2000-stage-v3/actor/model_state_dict/full_weights.pt",
+      "terminal_receipt_path": "/workspace/e1-l40s-results/step-2000-stage-v3-terminal.json"
+    },
+    "schema_version": 1,
+    "source": {
+      "implementation_commit": "6ba70932a2f7566c463db49477fe1d8deb6155db",
+      "remediation_receipt": "results/agent-supervisor/g0/e1-modal-l40s-v9-isolated-stage-remediation-v1.json",
+      "remediation_receipt_file_sha256": "ae643547f26b5f91792806620997547e07b4d9435245f6165b0bcf8ada5f865f",
+      "runtime": "e1_staged_checkpoint_runtime.py",
+      "runtime_sha256": "264ee77d365a49478343d69b7cdf242db16e929fc93bcc07c5abd71cecb2fe5b",
+      "stage_launcher": "modal_e1_checkpoint_stage_v3.py",
+      "stage_launcher_sha256": "818518bc4d757ff53f43ada32d198a716300cdb71414e293523819c5173a9ba2",
+      "stage_wrapper": "scripts/launch_g0_e1_checkpoint_stage_v3.py",
+      "stage_wrapper_sha256": "4fe775ed2c607cabdf27788c385123b62fee1f076185179dc4b9fe0fb43e8495"
+    },
+    "status": "authorized_pending_stage_v3_preflight"
+  },
+  "sha256": "6a623399a02b9e80d3ac47ca9dffc1174a20b10c80f572d53d334a9e6b621047"
+}
