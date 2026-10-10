@@ -85,6 +85,13 @@ STAGE_V4_APPROVAL = (
     / "g0"
     / "e1-modal-checkpoint-stage-v4-approval-v1.json"
 )
+STAGE_V4_TERMINAL = (
+    ROOT
+    / "results"
+    / "agent-supervisor"
+    / "g0"
+    / "e1-modal-checkpoint-stage-v4-terminal-v1.json"
+)
 
 
 def sha256_at_commit(commit: str, path: str) -> str:
@@ -305,6 +312,24 @@ class E1V7StagedRemediationTests(unittest.TestCase):
         self.assertTrue(
             payload["execution"]["mandatory_named_secret_cleanup_after_terminal_state"]
         )
+        self.assertEqual(payload["execution"]["modal_retries"], 0)
+
+    def test_stage_v4_terminal_receipt_is_complete_and_non_authorizing(self) -> None:
+        envelope = json.loads(STAGE_V4_TERMINAL.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(fingerprint(payload), envelope["sha256"])
+        self.assertTrue(all(value is False for value in payload["authority"].values()))
+        self.assertEqual(
+            payload["remote_terminal_receipt"]["status"],
+            "complete_valid_checkpoint_stage",
+        )
+        self.assertEqual(
+            payload["remote_terminal_receipt"]["checkpoint"]["sha256"],
+            "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+        )
+        self.assertTrue(payload["secret_cleanup"]["deleted_after_terminal_state"])
+        self.assertTrue(payload["secret_cleanup"]["verified_absent"])
+        self.assertFalse(payload["execution"]["gpu_used"])
         self.assertEqual(payload["execution"]["modal_retries"], 0)
 
 
