@@ -1,10 +1,11 @@
 # D2 Coding-Agent Supervisor Contract
 
 Status: Milestone 9 offline-first delivery, live F1 fixed-worker acceptance,
-and the matched H100 PCIe F2 execution/resume rehearsal are complete. The
-paired-seed scientific baseline and live agent study remain unexecuted and
-unauthorized. No RLT improvement, agent-superiority, evaluation, or promotion
-claim follows from F2.
+the matched-runtime F2 execution/resume rehearsal, and protected-operator G0
+E1 are complete. E1 selected the hash-pinned 2,000-step actor at `125/256`
+development successes, and the bounded first agent pilot is preregistered.
+Paid activation, independent E2 evidence, final evaluation, and promotion
+remain unauthorized. No RLT-improvement or agent-superiority claim follows.
 
 Current integration note (2026-09-11): the B1 builder still refuses strict D1
 publication because the canonical matched paired-seed evidence pack is absent.

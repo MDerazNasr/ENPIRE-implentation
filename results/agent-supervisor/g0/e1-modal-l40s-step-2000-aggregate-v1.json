@@ -1,0 +1,34 @@
+{
+  "payload": {
+    "authority": {
+      "additional_evaluation_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint": {
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "evaluator_source_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+    "metric": {
+      "episode_len_mean": 290.82421750000003,
+      "num_successes": 125,
+      "num_trajectories": 256,
+      "primary_metric": "eval/success_once",
+      "return_mean": 0.48828125,
+      "reward_mean": 0.00715461,
+      "success_once": 0.48828125
+    },
+    "reset_set_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+    "shard_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "status": "complete_valid_development_baseline"
+  },
+  "sha256": "500511a909be4809c0f04d1a23e9c00d547a82c58b113590ea12f137b6389e3f"
+}

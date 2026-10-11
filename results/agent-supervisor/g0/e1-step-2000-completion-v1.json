@@ -1,0 +1,77 @@
+{
+  "payload": {
+    "aggregate": {
+      "artifact_sha256": "5419a3537e7e9e5d99232acc3a52567102f267763183247101678d9c5d4d255d",
+      "payload_sha256": "500511a909be4809c0f04d1a23e9c00d547a82c58b113590ea12f137b6389e3f",
+      "success_once": 0.48828125,
+      "successes": 125,
+      "valid_outcomes": 256
+    },
+    "authority": {
+      "agent_campaign_activation_authorized": false,
+      "additional_evaluation_authorized": false,
+      "checkpoint_retry_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false
+    },
+    "checkpoint": {
+      "remote_actor_path": "/workspace/e1-checkpoints/step-2000-stage-v4/actor",
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "claim_scope": "protected-operator development baseline only; no independent final evaluation, E2, agent-value, or promotion claim",
+    "cost": {
+      "checkpoint_2000_four_shard_cost_usd_estimate": 2.7406562547845218,
+      "d1_cumulative_cost_usd_estimate": 12.744882375150528,
+      "provider_billing_status": "unverified_pending_provider_billing"
+    },
+    "evaluator_environment_sha256": "e587586d24b243fab51b4f0b9d16206b534b71ae7974228ce5eb81c3ccd3e268",
+    "evaluator_source_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+    "record_kind": "g0-e1-step-2000-completion",
+    "reset_set_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+    "schema_version": 1,
+    "selection": {
+      "artifact": "results/agent-supervisor/g0/e1-baseline-selection-v1.json",
+      "payload_sha256": "7f43d9b7d9fbcafab995e926d0a9947ec8d2a260b960cbe45645499c544a6bcb",
+      "selected_step": 2000,
+      "status": "selected"
+    },
+    "shards": [
+      {
+        "index": 0,
+        "receipt_sha256": "84093788facd62282eefe43c1dab409a1352afb211a9a317ca195e210d2be74e",
+        "success_once": 0.515625,
+        "successes": 33
+      },
+      {
+        "app_id": "ap-WRRoEtirpn0fZG2VDfIMd9",
+        "function_call_id": "fc-01M4NSHE7RYJQ3R87692NGD9NR",
+        "index": 1,
+        "receipt_sha256": "5223bc4fef6b591687d710c1693686013b177470a9affda7128155f6b93bbc93",
+        "success_once": 0.421875,
+        "successes": 27
+      },
+      {
+        "app_id": "ap-PeNV3eJlFP92BEhQT3FQST",
+        "function_call_id": "fc-01M4NTT85EE7BS6XH8JT644EH4",
+        "index": 2,
+        "receipt_sha256": "5085694edfd72a23697a6c0e3c69377d315bbd4c531ecc8d5c68164b83fc9a16",
+        "success_once": 0.546875,
+        "successes": 35
+      },
+      {
+        "app_id": "ap-QFYBE7eiLbpstxwcyin129",
+        "function_call_id": "fc-01M4NW5EEBGSBMBM4F69HW21NX",
+        "index": 3,
+        "receipt_sha256": "af4f0c43a27091682cbac2d0f835e5aa52e48449d2a32a17e5ef7b578b691be1",
+        "success_once": 0.46875,
+        "successes": 30
+      }
+    ],
+    "status": "complete_selected"
+  },
+  "sha256": "e220455194a61f90ba98f5fe0bd33310e938b03f0be95854a3ae93a72c160480"
+}

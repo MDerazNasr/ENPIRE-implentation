@@ -1,0 +1,71 @@
+{
+  "payload": {
+    "activation": {
+      "agent_provider_call_authorized": false,
+      "explicit_activation_receipt_required": true,
+      "final_evaluation_authorized": false,
+      "gpu_execution_authorized": false,
+      "model_egress_authorized": false,
+      "promotion_authorized": false
+    },
+    "agent": {
+      "context_policy": "curated summaries only; no final resets, evaluator source, credentials, or arbitrary repository context",
+      "proposal_format": "structured configuration-only proposal",
+      "tools": [],
+      "winner_selection_by_agent": false
+    },
+    "baseline": {
+      "remote_actor_path": "/workspace/e1-checkpoints/step-2000-stage-v4/actor",
+      "selection_sha256": "7f43d9b7d9fbcafab995e926d0a9947ec8d2a260b960cbe45645499c544a6bcb",
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "step": 2000
+    },
+    "campaign_id": "g0-agent-config-evolutionary-pilot-v1",
+    "claim_scope": "configuration-only development engineering pilot; no E2, final-set, agent-superiority, or promotion claim",
+    "evaluation": {
+      "development_outcomes_per_candidate": 256,
+      "evaluator_source_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+      "primary_metric": "eval/success_once",
+      "reset_set_role": "development",
+      "reset_set_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161"
+    },
+    "evolution": {
+      "children_per_generation": 3,
+      "generations": 2,
+      "invalid_or_failed_children_consume_slots": true,
+      "next_generation_parent": "deterministically selected valid child",
+      "selection_order": [
+        "higher_primary_score",
+        "higher_paired_delta",
+        "lower_gpu_cost_usd",
+        "lower_wall_time_seconds",
+        "lexical_candidate_id"
+      ],
+      "wait_for_all_assigned_children": true
+    },
+    "mutation_domain": {
+      "maximum_changed_parameters_per_child": 1,
+      "online_bc_weight": {
+        "maximum": 3.5,
+        "minimum": 1.0,
+        "type": "number"
+      },
+      "warmup_bc_weight": {
+        "maximum": 8.5,
+        "minimum": 3.5,
+        "type": "number"
+      }
+    },
+    "record_kind": "g0-agent-config-pilot-preregistration",
+    "runtime": {
+      "max_concurrency": 3,
+      "provider": "Modal",
+      "provider_profile": "deraznasr776",
+      "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+      "runtime_contract_sha256": "260928126f1342b268b9b40eff56d0e4e5d0f57f112d212eb6f081092fdc6e0c"
+    },
+    "schema_version": 1,
+    "status": "prepared_not_activated"
+  },
+  "sha256": "228c513fcda8ece6f19e3673f048fc08e3248222ce6f3f4ff201fde3bd315280"
+}

@@ -115,11 +115,16 @@ Metrics:
 
 Pass gate:
 
-- [ ] Every checkpoint loads without fallback and has complete ancestry.
-- [ ] The selected checkpoint is non-degenerate under the frozen rule.
-- [ ] The stopping/plateau rule is applied mechanically.
-- [ ] Selection uses development results only.
-- [ ] The selected actor is exported and independently hash-verified.
+- [x] Every checkpoint loads without fallback and has complete ancestry.
+- [x] The selected checkpoint is non-degenerate under the frozen rule.
+- [x] The stopping/plateau rule is applied mechanically.
+- [x] Selection uses development results only.
+- [x] The selected actor is exported and independently hash-verified.
+
+Protected-operator E1 completed on 2026-10-11. The selector chose step 2,000
+at `125/256` development successes. This checks the development-continuation
+gate only; the independent-evaluator limitation below still blocks scientific
+E2 activation.
 
 The frozen selector is implemented in `supervisor/g0_e1_baseline.py` and
 invoked with `scripts/select_g0_e1_baseline.py`. Its input must bind the exact
@@ -328,8 +333,8 @@ it improves a frozen outcome without expanding authority.
 
 ### Baseline and theory
 
-- [ ] Obtain exact E1 paid approval.
-- [ ] Run E1 and export/hash the selected actor.
+- [x] Obtain exact E1 paid approval.
+- [x] Run E1 and export/hash the selected actor for protected development use.
 - [ ] Freeze matched E2 contracts from that actor.
 - [ ] Obtain exact E2 approval and run all paired conditions.
 - [ ] Apply the independent evaluator and preserve the conclusion.

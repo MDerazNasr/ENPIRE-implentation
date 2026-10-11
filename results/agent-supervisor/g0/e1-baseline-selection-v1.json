@@ -1,0 +1,34 @@
+{
+  "payload": {
+    "campaign_activation_authorized": false,
+    "checkpoint_steps": [
+      250,
+      500,
+      1000,
+      2000
+    ],
+    "development_outcome_count": 256,
+    "final_evaluation_used": false,
+    "gpu_execution_authorized": false,
+    "input_sha256": "8a9c64f241cb868514919bf46d611748618622c3b0183fd0557b3ef93291e926",
+    "lineage_id": "stage1-seed-2026",
+    "model_egress_authorized": false,
+    "non_degeneracy_floor": 0.05,
+    "paid_execution_authorized": false,
+    "plateau_at_step": null,
+    "plateau_delta": 0.02,
+    "promotion_authorized": false,
+    "provider_call_authorized": false,
+    "reason": "highest development success; exact ties select the earlier checkpoint",
+    "record_kind": "g0-e1-baseline-selection",
+    "schema_version": 1,
+    "scientific_evaluation_authorized": false,
+    "selected_checkpoint_sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+    "selected_step": 2000,
+    "selected_success_once": 0.48828125,
+    "selection_rule": "g0-e1-stage1-horizon-v1",
+    "status": "selected",
+    "training_seed": 2026
+  },
+  "sha256": "7f43d9b7d9fbcafab995e926d0a9947ec8d2a260b960cbe45645499c544a6bcb"
+}

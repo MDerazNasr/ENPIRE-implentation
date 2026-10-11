@@ -349,6 +349,18 @@ class E1ShardedEvaluationTests(unittest.TestCase):
                 with self.assertRaises(FileExistsError):
                     main()
 
+    def test_aggregator_cli_runs_from_repository_root(self) -> None:
+        completed = subprocess.run(
+            [sys.executable, str(ROOT / "scripts/aggregate_g0_e1_shards.py"), "--help"],
+            cwd=ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertIn("canonical E1 baseline metric", completed.stdout)
+
     def test_launcher_and_config_are_bounded_non_authorizing_shards(self) -> None:
         text = LAUNCHER.read_text(encoding="utf-8")
         config = json.loads(CONFIG.read_text(encoding="utf-8"))

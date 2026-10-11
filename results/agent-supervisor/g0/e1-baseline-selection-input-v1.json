@@ -1,0 +1,47 @@
+{
+  "actor_parent_sha256": "0eb11ca9587678c1d2ef8cf32807c29f8ce53a2bfdfc1aa4a4c96f16fca59b0f",
+  "checkpoints": [
+    {
+      "ancestry_complete": true,
+      "checkpoint_sha256": "f95c7112bbd25a714e477a448273b16fa564c8e8c184a5f765b1cbfc8d23a211",
+      "loaded_without_fallback": true,
+      "step": 250,
+      "success_once": 0.0,
+      "valid_outcomes": 256
+    },
+    {
+      "ancestry_complete": true,
+      "checkpoint_sha256": "e98bdd8c5b01c84a72e1018e57cb664547859c172eb402d9b4865292835e82b0",
+      "loaded_without_fallback": true,
+      "step": 500,
+      "success_once": 0.08984375,
+      "valid_outcomes": 256
+    },
+    {
+      "ancestry_complete": true,
+      "checkpoint_sha256": "72a05acadba9602d18ba8a8c43458ec7d76f4c8514fb83a1ca86fa7343850d61",
+      "loaded_without_fallback": true,
+      "step": 1000,
+      "success_once": 0.421875,
+      "valid_outcomes": 256
+    },
+    {
+      "ancestry_complete": true,
+      "checkpoint_sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "loaded_without_fallback": true,
+      "step": 2000,
+      "success_once": 0.48828125,
+      "valid_outcomes": 256
+    }
+  ],
+  "development_reset_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+  "evaluation_set_role": "development",
+  "evaluator_environment_sha256": "e587586d24b243fab51b4f0b9d16206b534b71ae7974228ce5eb81c3ccd3e268",
+  "evaluator_source_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+  "lineage_id": "stage1-seed-2026",
+  "record_kind": "g0-e1-baseline-input",
+  "schema_version": 1,
+  "source_commit": "907ce489d669ef12aa32f7eca819331ad6b448bc",
+  "stage1_config_sha256": "2fedc7e5bf41ce2ced5fb50915386d7fac3b5191e00000b01c5018972fb855c3",
+  "training_seed": 2026
+}

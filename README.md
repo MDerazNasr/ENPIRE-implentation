@@ -6,14 +6,18 @@ loop.
 
 ## Status
 
-The integrated ENPIRE-style supervisor and reproducible D1 laboratory now pass
-their live F1 worker-RPC and F2 matched H100 PCIe engineering gates. F2
-completed Control, Candidate, resume-source, and resume-continuation with all
-ten resume checks and no evaluation or promotion. The next stage is the
-GPU-free G0 scientific-protocol review; no paired-seed scientific or agent-
-superiority claim is authorized. See
+The integrated ENPIRE-style supervisor and reproducible D1 laboratory pass
+their live F1 worker-RPC and F2 matched-runtime engineering gates. The G0 E1
+Stage-1 development baseline is also complete: the frozen selector chose the
+2,000-step seed-2026 actor at `125/256` successes (`48.83%`) over the 250,
+500, and 1,000-step checkpoints. The actor is staged and hash-verified for a
+bounded configuration-only agent pilot. Paid agent/GPU activation, E2, final
+evaluation, and promotion remain separately gated; no paired-seed scientific
+or agent-superiority claim is authorized. See
 [`docs/agent-supervisor/harness-product-and-operations-guide.md`](docs/agent-supervisor/harness-product-and-operations-guide.md)
-for the full product and operations guide.
+for the full product and operations guide and
+[`docs/agent-supervisor/agent-experiment-readiness.md`](docs/agent-supervisor/agent-experiment-readiness.md)
+for the exact experiment boundary.
 
 Phase 1 is complete and was exercised on an NVIDIA L40S against RLinf commit
 `c90951a0c799a750cb5294ed10587c61cc2af8bf`. The loop launched a baseline,

@@ -1,0 +1,15 @@
+{
+  "payload": {
+    "base_image_id": "im-66ku0dbczWNQDgPWv97XNc",
+    "development_reset_sha256": "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161",
+    "evaluation_config_sha256": "ceddc2de1fc520c3cded49cf97378cfc6c38d20406eaead95f9cdd078de52f9f",
+    "evaluator_source_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+    "gpu": "NVIDIA L40S",
+    "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.35",
+    "provider": "Modal",
+    "record_kind": "g0-e1-evaluator-environment",
+    "rlinf_commit": "c90951a0c799a750cb5294ed10587c61cc2af8bf",
+    "schema_version": 1
+  },
+  "sha256": "e587586d24b243fab51b4f0b9d16206b534b71ae7974228ce5eb81c3ccd3e268"
+}
