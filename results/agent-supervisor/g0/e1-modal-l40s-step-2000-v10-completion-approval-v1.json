@@ -1,0 +1,63 @@
+{
+  "payload": {
+    "approval": {
+      "approved_at": "2026-10-11T15:28:59Z",
+      "instruction": "finish everything so agent experiments can start",
+      "scope": "run checkpoint-2000 evaluator-v10 replacement shards 1, 2, and 3 sequentially, aggregate the four complete shards, and apply the frozen development-only checkpoint selector"
+    },
+    "authority": {
+      "automatic_retry_authorized": false,
+      "checkpoint_2000_v10_replacement_shards_authorized": true,
+      "checkpoint_selection_authorized": true,
+      "development_aggregation_authorized": true,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false,
+      "shard_0_duplicate_authorized": false
+    },
+    "budget": {
+      "completed_stage_maximum_cost_usd": 1.0,
+      "maximum_cumulative_d1_cost_usd": 18.0,
+      "prior_recorded_cumulative_d1_cost_usd": 10.741454814583118,
+      "remaining_three_shard_gpu_runtime_estimate_usd": 5.8536,
+      "stage_plus_recorded_maximum_d1_cost_usd": 17.595054814583118
+    },
+    "checkpoint": {
+      "sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+      "size_bytes": 10015912662,
+      "step": 2000,
+      "version_id": "LvdNrl8pPsbD6s9tdJ8.__.1V2B00077"
+    },
+    "execution": {
+      "evaluation_function_timeout_seconds": 3600,
+      "modal_retries": 0,
+      "replacement_shards": [
+        {"count": 64, "index": 1, "offset": 64},
+        {"count": 64, "index": 2, "offset": 128},
+        {"count": 64, "index": 3, "offset": 192}
+      ],
+      "run_revision": 10,
+      "sequential": true,
+      "staged_checkpoint_path": "/workspace/e1-checkpoints/step-2000-stage-v4/actor/model_state_dict/full_weights.pt",
+      "staged_checkpoint_receipt_path": "/workspace/e1-l40s-results/step-2000-stage-v4-terminal.json"
+    },
+    "exclusions": {
+      "agent_experiment_execution_authorized": false,
+      "e2_authorized": false,
+      "final_reset_access_authorized": false,
+      "policy_promotion_authorized": false,
+      "stable_branch_merge_authorized": false
+    },
+    "schema_version": 1,
+    "source": {
+      "evaluator_contract_sha256": "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256",
+      "evaluation_launcher": "modal_e1_l40s_sharded_v10.py",
+      "evaluation_launcher_sha256": "f46790008953c7b5d50f838fec9eb830895bf0948995b0fbbc06233aeed54e27",
+      "implementation_commit": "7ab54d5cb8c16cb96688ef04dcbc2935ee1ffec2",
+      "stage_terminal_receipt": "results/agent-supervisor/g0/e1-modal-checkpoint-stage-v4-terminal-v1.json",
+      "stage_terminal_receipt_file_sha256": "db97426268b6e3578823daa743578d427f7932554c6854fdde3af8e5eda53afe"
+    },
+    "status": "authorized_pending_v10_identity_destination_and_budget_preflight"
+  },
+  "sha256": "5ad8b1e71fc55dbd80778228f868bd71fe6f1c03ba7d772bd5bc58d74752b5f4"
+}

@@ -92,6 +92,13 @@ STAGE_V4_TERMINAL = (
     / "g0"
     / "e1-modal-checkpoint-stage-v4-terminal-v1.json"
 )
+V10_COMPLETION_APPROVAL = (
+    ROOT
+    / "results"
+    / "agent-supervisor"
+    / "g0"
+    / "e1-modal-l40s-step-2000-v10-completion-approval-v1.json"
+)
 
 
 def sha256_at_commit(commit: str, path: str) -> str:
@@ -331,6 +338,28 @@ class E1V7StagedRemediationTests(unittest.TestCase):
         self.assertTrue(payload["secret_cleanup"]["verified_absent"])
         self.assertFalse(payload["execution"]["gpu_used"])
         self.assertEqual(payload["execution"]["modal_retries"], 0)
+
+    def test_v10_completion_approval_is_bounded_and_sequential(self) -> None:
+        envelope = json.loads(V10_COMPLETION_APPROVAL.read_text(encoding="utf-8"))
+        payload = envelope["payload"]
+        self.assertEqual(fingerprint(payload), envelope["sha256"])
+        authority = payload["authority"]
+        self.assertTrue(authority["checkpoint_2000_v10_replacement_shards_authorized"])
+        self.assertTrue(authority["development_aggregation_authorized"])
+        self.assertTrue(authority["checkpoint_selection_authorized"])
+        self.assertFalse(authority["automatic_retry_authorized"])
+        self.assertFalse(authority["shard_0_duplicate_authorized"])
+        self.assertEqual(
+            [item["index"] for item in payload["execution"]["replacement_shards"]],
+            [1, 2, 3],
+        )
+        self.assertTrue(payload["execution"]["sequential"])
+        self.assertEqual(payload["execution"]["modal_retries"], 0)
+        self.assertLessEqual(
+            payload["budget"]["stage_plus_recorded_maximum_d1_cost_usd"],
+            payload["budget"]["maximum_cumulative_d1_cost_usd"],
+        )
+        self.assertFalse(any(payload["exclusions"].values()))
 
 
 if __name__ == "__main__":
