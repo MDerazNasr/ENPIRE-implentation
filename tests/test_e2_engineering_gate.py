@@ -62,6 +62,7 @@ class E2EngineeringGateTests(unittest.TestCase):
         source = APP_PATH.read_text()
         self.assertIn("4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146", source)
         self.assertIn("e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161", source)
+        self.assertIn("c99cf14c7a7d926df5f502d9e5ca00d33c62487bb1ffeea1eae4f15ce47ed489", source)
         self.assertIn("ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256", source)
         self.assertIn("for i in range(4)", source)
 

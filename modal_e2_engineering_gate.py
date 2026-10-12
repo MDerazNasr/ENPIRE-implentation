@@ -84,6 +84,9 @@ DEVELOPMENT_RESETS = f"{PROJECT_ROOT}/development-resets.json"
 DEVELOPMENT_RESET_SHA256 = (
     "e5466ff22121cf1429a1f710639cc31ed14b67430e3c84f3760fd184a3a6e161"
 )
+DEVELOPMENT_RESET_FILE_SHA256 = (
+    "c99cf14c7a7d926df5f502d9e5ca00d33c62487bb1ffeea1eae4f15ce47ed489"
+)
 EVALUATOR_CONTRACT_SHA256 = (
     "ee979edef79b84440bfac0b6f0a787315af71b69252be64cfea06465935dd256"
 )
@@ -289,8 +292,8 @@ def preflight() -> dict[str, Any]:
     selected = _verify_selected_actor()
     if evaluator_contract_sha256(Path(PROJECT_ROOT)) != EVALUATOR_CONTRACT_SHA256:
         raise RuntimeError("evaluator contract source identity mismatch")
-    if sha256_file(Path(DEVELOPMENT_RESETS)) != DEVELOPMENT_RESET_SHA256:
-        raise RuntimeError("development reset identity mismatch")
+    if sha256_file(Path(DEVELOPMENT_RESETS)) != DEVELOPMENT_RESET_FILE_SHA256:
+        raise RuntimeError("development reset file identity mismatch")
     forbidden = [
         _terminal_path(arm, segment)
         for arm in ARMS
