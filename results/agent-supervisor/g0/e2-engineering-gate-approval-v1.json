@@ -12,9 +12,9 @@
     "aws_account_role": "evidence and evaluator storage only",
     "aws_account_id": "960946312280"
   },
-  "source_commit": "7868ae441bb03f2a656870373d7c43e360263a3e",
+  "source_commit": "7d859e7485748a2c932e026a142aa8d1b0d64700",
   "source_files": {
-    "modal_e2_engineering_gate.py": "8a2c3c6054fb9ff59c8696e9d3b7eb3a4bec636edf4b7c169558fa79412a20c8",
+    "modal_e2_engineering_gate.py": "2c9d4a84dcda0eba6848dbb1c6b3cb5021caa30245adfff93dc954ee34d01695",
     "modal_e2_engineering_monitor.py": "40612c1f7a67498c7fe29a401d49f6b272d5b799916c165a88e988a7d9f64410",
     "configs/d1/e2_engineering_control_seed2026.yaml": "f082cd6223bacf4fdb9182cf0ed00627a76492b0d9553863666aef2b0911746a",
     "configs/d1/e2_engineering_candidate_seed2026.yaml": "ff6ff71d780da8876e42a2d9629fc2aca0277e0bbeb5d173e97600d6bd7fa494"
@@ -49,6 +49,14 @@
       "gpu_used": false,
       "reason": "Modal container runtime lacked typing_extensions",
       "remediation_commit": "7868ae441bb03f2a656870373d7c43e360263a3e",
+      "scope_changed": false
+    },
+    {
+      "function_call_id": "fc-01M4Q7VNQFZ4E2QS86YMT5MVTT",
+      "status": "failed_closed_in_cpu_preflight",
+      "gpu_used": false,
+      "reason": "raw reset file hash was incorrectly compared with canonical reset contract fingerprint",
+      "remediation_commit": "7d859e7485748a2c932e026a142aa8d1b0d64700",
       "scope_changed": false
     }
   ],
