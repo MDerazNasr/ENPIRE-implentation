@@ -57,6 +57,9 @@ class E2EngineeringGateTests(unittest.TestCase):
         self.assertNotIn("shell=True", source)
         self.assertNotIn("FINAL_RESET", source)
         self.assertIn('.pip_install("modal==1.5.4")', source)
+        self.assertIn("pyarrow==25.0.1", source)
+        self.assertIn('{"numpy": "1.26.4", "pyarrow": "25.0.1"}', source)
+        self.assertIn('e2-engineering-gate-v2', source)
 
     def test_selected_actor_and_evaluator_are_frozen(self) -> None:
         source = APP_PATH.read_text()
@@ -104,11 +107,9 @@ class E2EngineeringGateTests(unittest.TestCase):
         self.assertIn('"gpu_execution_authorized_by_this_receipt": False', preflight)
         self.assertIn("100 * 1024**3", preflight)
 
-    def test_human_approval_binds_exact_source_package(self) -> None:
-        result = validate()
-        self.assertEqual(result["status"], "ready_for_modal_cpu_preflight")
-        self.assertEqual(result["verified_source_files"], 4)
-        self.assertEqual(result["maximum_resource_cost_usd"], "338.298720")
+    def test_v1_approval_does_not_authorize_v2_remediation(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "approved E2 source mismatch"):
+            validate()
 
     def test_failed_control_segment_stops_without_retry(self) -> None:
         path = ROOT / "results/agent-supervisor/g0/e2-control-segment1-failure-v1.json"

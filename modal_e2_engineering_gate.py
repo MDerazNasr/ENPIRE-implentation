@@ -31,12 +31,12 @@ from supervisor.e1_sharded_evaluation import (
 )
 
 
-APP_NAME = "enpire-g0-e2-engineering-gate-v1"
+APP_NAME = "enpire-g0-e2-engineering-gate-v2"
 PROJECT_ROOT = "/opt/qualia"
 E1_RUNTIME_ROOT = f"{PROJECT_ROOT}/e1_runtime"
 RLINF_HOME = "/opt/RLinf"
 WORKSPACE = "/workspace"
-RESULTS_ROOT = Path(WORKSPACE) / "e2-engineering-gate-v1"
+RESULTS_ROOT = Path(WORKSPACE) / "e2-engineering-gate-v2"
 TRAINING_RESULTS_ROOT = RESULTS_ROOT / "training"
 EVALUATION_RESULTS_ROOT = RESULTS_ROOT / "evaluation"
 
@@ -137,6 +137,9 @@ image = (
         "cd /opt/RLinf && UV_TORCH_BACKEND=cu128 bash requirements/install.sh embodied --model openpi --env maniskill_libero --torch 2.8.0 --python 3.11.14 --no-root --no-flash-attn --no-apex --install-rlinf",
         "cd /opt/RLinf && uv pip install --python .venv/bin/python hydra-core==1.3.2 omegaconf==2.3.0 sapien==3.0.1",
         f"cd /opt/RLinf && test \"$(git rev-parse HEAD)\" = {RLINF_COMMIT}",
+    )
+    .run_commands(
+        "cd /opt/RLinf && uv pip install --python .venv/bin/python pyarrow==25.0.1"
     )
     .pip_install("modal==1.5.4")
     .add_local_dir("agent", f"{PROJECT_ROOT}/agent", copy=True)
@@ -290,6 +293,18 @@ def preflight() -> dict[str, Any]:
     if receipt_path.exists():
         raise RuntimeError("create-only preflight receipt already exists")
     selected = _verify_selected_actor()
+    compatibility = json.loads(
+        subprocess.check_output(
+            [
+                f"{RLINF_HOME}/.venv/bin/python",
+                "-c",
+                "import json,numpy,pyarrow; print(json.dumps({'numpy':numpy.__version__,'pyarrow':pyarrow.__version__}))",
+            ],
+            text=True,
+        )
+    )
+    if compatibility != {"numpy": "1.26.4", "pyarrow": "25.0.1"}:
+        raise RuntimeError(f"RLinf NumPy/PyArrow compatibility mismatch: {compatibility}")
     if evaluator_contract_sha256(Path(PROJECT_ROOT)) != EVALUATOR_CONTRACT_SHA256:
         raise RuntimeError("evaluator contract source identity mismatch")
     if sha256_file(Path(DEVELOPMENT_RESETS)) != DEVELOPMENT_RESET_FILE_SHA256:
@@ -320,6 +335,7 @@ def preflight() -> dict[str, Any]:
             "email": "deraznasr776@gmail.com",
         },
         "selected_actor": selected,
+        "rlinf_numpy_pyarrow": compatibility,
         "seed": 2026,
         "arms": ARMS,
         "segments": SEGMENTS,
