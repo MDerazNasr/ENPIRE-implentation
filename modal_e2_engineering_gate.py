@@ -135,6 +135,7 @@ image = (
         "cd /opt/RLinf && uv pip install --python .venv/bin/python hydra-core==1.3.2 omegaconf==2.3.0 sapien==3.0.1",
         f"cd /opt/RLinf && test \"$(git rev-parse HEAD)\" = {RLINF_COMMIT}",
     )
+    .pip_install("modal==1.5.4")
     .add_local_dir("agent", f"{PROJECT_ROOT}/agent", copy=True)
     .add_local_dir("configs", f"{PROJECT_ROOT}/configs", copy=True)
     .add_local_dir("envs", f"{PROJECT_ROOT}/envs", copy=True)

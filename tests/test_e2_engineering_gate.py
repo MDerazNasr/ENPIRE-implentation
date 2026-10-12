@@ -56,6 +56,7 @@ class E2EngineeringGateTests(unittest.TestCase):
         self.assertNotIn("create_if_missing=True", source)
         self.assertNotIn("shell=True", source)
         self.assertNotIn("FINAL_RESET", source)
+        self.assertIn('.pip_install("modal==1.5.4")', source)
 
     def test_selected_actor_and_evaluator_are_frozen(self) -> None:
         source = APP_PATH.read_text()
