@@ -6,6 +6,8 @@ import unittest
 from decimal import Decimal
 from pathlib import Path
 
+from scripts.validate_e2_engineering_activation import validate
+
 
 ROOT = Path(__file__).resolve().parents[1]
 APP_PATH = ROOT / "modal_e2_engineering_gate.py"
@@ -99,6 +101,12 @@ class E2EngineeringGateTests(unittest.TestCase):
         preflight = source[start:end]
         self.assertIn('"gpu_execution_authorized_by_this_receipt": False', preflight)
         self.assertIn("100 * 1024**3", preflight)
+
+    def test_human_approval_binds_exact_source_package(self) -> None:
+        result = validate()
+        self.assertEqual(result["status"], "ready_for_modal_cpu_preflight")
+        self.assertEqual(result["verified_source_files"], 4)
+        self.assertEqual(result["maximum_resource_cost_usd"], "338.298720")
 
 
 if __name__ == "__main__":
