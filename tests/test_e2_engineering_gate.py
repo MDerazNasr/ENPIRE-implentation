@@ -120,6 +120,15 @@ class E2EngineeringGateTests(unittest.TestCase):
         self.assertFalse(record["campaign_effect"]["automatic_retry_launched"])
         self.assertFalse(record["authority"]["replacement_attempt_authorized"])
 
+    def test_v2_remediation_is_non_authorizing(self) -> None:
+        path = ROOT / "results/agent-supervisor/g0/e2-runtime-compatibility-remediation-v1.json"
+        record = json.loads(path.read_text())
+        self.assertEqual(record["status"], "ready_for_fresh_review")
+        self.assertEqual(record["changes"]["pinned_pyarrow"], "25.0.1")
+        self.assertFalse(record["changes"]["scientific_scope_changed"])
+        self.assertFalse(record["authority"]["cpu_preflight_authorized"])
+        self.assertFalse(record["authority"]["replacement_gpu_attempt_authorized"])
+
 
 if __name__ == "__main__":
     unittest.main()
