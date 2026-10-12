@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "record_kind": "g0-e2-engineering-training-failure",
+  "status": "failed_before_first_training_step",
+  "account": {
+    "provider": "Modal",
+    "profile": "deraznasr776",
+    "email": "deraznasr776@gmail.com"
+  },
+  "app_id": "ap-mYtTpSNITOy5YIEZ9THvv9",
+  "function_call_id": "fc-01M4Q7Z1RG9FF329X70F44E55F",
+  "arm": "control",
+  "seed": 2026,
+  "segment": {"start_step": 0, "end_step": 50},
+  "terminal_receipt": {
+    "path": "results/agent-supervisor/g0/e2-control-segment1-terminal-v1.json",
+    "sha256": "e7d841cc921db5868ed2594eb29871548d78533dcef3b4443f205561b6b591ac",
+    "elapsed_seconds": "56.718370028",
+    "estimated_resource_cost_usd": "0.07576212994860128"
+  },
+  "failure": {
+    "phase": "RLinf configuration validation and Ray NodeProbe construction",
+    "training_updates_completed": 0,
+    "checkpoint_created": false,
+    "root_cause": "The unbounded dependency resolver installed pyarrow requiring NumPy 2.0 or newer while the embodied runtime installed NumPy 1.26.4.",
+    "observed_exception": "ImportError: pyarrow requires NumPy 2.0 or newer, found 1.26.4"
+  },
+  "campaign_effect": {
+    "control_segment_1_complete": false,
+    "control_segment_2_launched": false,
+    "candidate_launched": false,
+    "evaluation_launched": false,
+    "aggregate_created": false,
+    "automatic_retry_launched": false,
+    "gate_stopped": true
+  },
+  "authority": {
+    "replacement_attempt_authorized": false,
+    "automatic_retry_authorized": false,
+    "final_reset_access_authorized": false,
+    "scientific_e2_claim_authorized": false,
+    "policy_promotion_authorized": false
+  }
+}

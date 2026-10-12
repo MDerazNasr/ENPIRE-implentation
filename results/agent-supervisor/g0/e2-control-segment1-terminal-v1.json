@@ -1,0 +1,24 @@
+{
+  "arm": "control",
+  "authority": {
+    "additional_run_authorized": false,
+    "final_reset_access_authorized": false,
+    "promotion_authorized": false,
+    "retry_authorized": false
+  },
+  "elapsed_seconds": 56.718370028,
+  "error": {
+    "message": "training exited 1",
+    "type": "RuntimeError"
+  },
+  "exit_code": 1,
+  "resource_ceiling": {
+    "maximum_usd": 79.344144,
+    "rate_usd_per_second": 0.00133576,
+    "timeout_seconds": 59400
+  },
+  "schema_version": 1,
+  "seed": 2026,
+  "segment": 1,
+  "status": "failed_before_or_during_training"
+}

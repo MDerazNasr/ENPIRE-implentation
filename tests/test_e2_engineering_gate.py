@@ -110,6 +110,15 @@ class E2EngineeringGateTests(unittest.TestCase):
         self.assertEqual(result["verified_source_files"], 4)
         self.assertEqual(result["maximum_resource_cost_usd"], "338.298720")
 
+    def test_failed_control_segment_stops_without_retry(self) -> None:
+        path = ROOT / "results/agent-supervisor/g0/e2-control-segment1-failure-v1.json"
+        record = json.loads(path.read_text())
+        self.assertEqual(record["status"], "failed_before_first_training_step")
+        self.assertEqual(record["failure"]["training_updates_completed"], 0)
+        self.assertTrue(record["campaign_effect"]["gate_stopped"])
+        self.assertFalse(record["campaign_effect"]["automatic_retry_launched"])
+        self.assertFalse(record["authority"]["replacement_attempt_authorized"])
+
 
 if __name__ == "__main__":
     unittest.main()
