@@ -12,9 +12,9 @@
     "aws_account_role": "evidence and evaluator storage only",
     "aws_account_id": "960946312280"
   },
-  "source_commit": "1670d545351dd9ac3fd429145c49ab24d9fe0524",
+  "source_commit": "7868ae441bb03f2a656870373d7c43e360263a3e",
   "source_files": {
-    "modal_e2_engineering_gate.py": "446ff6b3732ca90d48291e686f446babf47d1cdb8d5f8dee56ace4b19ade126a",
+    "modal_e2_engineering_gate.py": "8a2c3c6054fb9ff59c8696e9d3b7eb3a4bec636edf4b7c169558fa79412a20c8",
     "modal_e2_engineering_monitor.py": "40612c1f7a67498c7fe29a401d49f6b272d5b799916c165a88e988a7d9f64410",
     "configs/d1/e2_engineering_control_seed2026.yaml": "f082cd6223bacf4fdb9182cf0ed00627a76492b0d9553863666aef2b0911746a",
     "configs/d1/e2_engineering_candidate_seed2026.yaml": "ff6ff71d780da8876e42a2d9629fc2aca0277e0bbeb5d173e97600d6bd7fa494"
@@ -41,6 +41,16 @@
     "candidate_segment_2",
     "candidate_development_shards_0_to_3",
     "cpu_aggregate_and_demo_report"
+  ],
+  "preflight_history": [
+    {
+      "function_call_id": "fc-01M4Q7R5MBF52NKCSPGKHA7B6V",
+      "status": "failed_before_user_code",
+      "gpu_used": false,
+      "reason": "Modal container runtime lacked typing_extensions",
+      "remediation_commit": "7868ae441bb03f2a656870373d7c43e360263a3e",
+      "scope_changed": false
+    }
   ],
   "authority": {
     "fixed_gpu_execution_authorized": true,
