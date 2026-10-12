@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "record_kind": "g0-e2-engineering-gate-v2-human-approval",
+  "status": "approved_fixed_engineering_gate_v2",
+  "accepted_at_local_date": "2026-10-12",
+  "accepted_by": "repository owner via interactive Codex session",
+  "user_instruction": "proceed, also i give permission for any retries needed in the future",
+  "account": {
+    "compute_provider": "Modal",
+    "profile": "deraznasr776",
+    "email": "deraznasr776@gmail.com",
+    "aws_account_role": "evidence and evaluator storage only",
+    "aws_account_id": "960946312280"
+  },
+  "source_commit": "937d6e170ad62dd1f7d4592dac4b7a7f71a9c4ff",
+  "source_files": {
+    "modal_e2_engineering_gate.py": "d529acd415c59f2fbe609c2007905084d6f5571b7053f3245cc4ee20465b3a57",
+    "modal_e2_engineering_monitor.py": "40612c1f7a67498c7fe29a401d49f6b272d5b799916c165a88e988a7d9f64410",
+    "configs/d1/e2_engineering_control_seed2026.yaml": "f082cd6223bacf4fdb9182cf0ed00627a76492b0d9553863666aef2b0911746a",
+    "configs/d1/e2_engineering_candidate_seed2026.yaml": "ff6ff71d780da8876e42a2d9629fc2aca0277e0bbeb5d173e97600d6bd7fa494"
+  },
+  "fixed_scope": {
+    "arms": ["control", "candidate"],
+    "seed": 2026,
+    "initial_actor_sha256": "4f80c4a68a9e1118b1750fb11b9092d5592d3082160b983329b2f12bd067a146",
+    "segments_per_arm": [
+      {"start_step": 0, "end_step": 50},
+      {"start_step": 50, "end_step": 100}
+    ],
+    "development_shards_per_arm": 4,
+    "development_trajectories_per_arm": 256,
+    "v2_maximum_resource_cost_usd": "338.298720",
+    "prior_consumed_resource_cost_usd": "0.07576212994860128",
+    "projected_total_resource_cost_usd": "338.37448212994860128",
+    "approved_aggregate_cap_usd": "350.00"
+  },
+  "retry_policy": {
+    "standing_retries_authorized": true,
+    "requirements": [
+      "retry is needed to complete the unchanged fixed engineering scope",
+      "scientific variables, seed, actor, resets, and evaluator remain unchanged",
+      "failure and remediation evidence are committed before retry",
+      "a fresh create-only namespace is used",
+      "tests and CPU preflight pass before GPU execution",
+      "projected aggregate resource exposure remains at or below 350 USD"
+    ],
+    "retry_must_stop_if_cap_would_be_exceeded": true
+  },
+  "authority": {
+    "v2_cpu_preflight_authorized": true,
+    "replacement_control_segment_1_authorized": true,
+    "bounded_future_retries_authorized": true,
+    "unbounded_spend_authorized": false,
+    "additional_seed_authorized": false,
+    "additional_arm_authorized": false,
+    "final_reset_access_authorized": false,
+    "scientific_e2_claim_authorized": false,
+    "policy_promotion_authorized": false
+  }
+}

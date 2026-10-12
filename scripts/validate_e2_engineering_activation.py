@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-APPROVAL = ROOT / "results/agent-supervisor/g0/e2-engineering-gate-approval-v1.json"
+APPROVAL = ROOT / "results/agent-supervisor/g0/e2-engineering-gate-v2-approval-v1.json"
 
 
 def sha256(path: Path) -> str:
@@ -19,13 +19,13 @@ def sha256(path: Path) -> str:
 
 def validate() -> dict[str, object]:
     record = json.loads(APPROVAL.read_text(encoding="utf-8"))
-    if record.get("status") != "approved_fixed_engineering_gate":
+    if record.get("status") != "approved_fixed_engineering_gate_v2":
         raise RuntimeError("E2 approval status is invalid")
     authority = record.get("authority", {})
-    if authority.get("fixed_gpu_execution_authorized") is not True:
+    if authority.get("replacement_control_segment_1_authorized") is not True:
         raise RuntimeError("fixed E2 execution is not authorized")
     forbidden = (
-        "automatic_retry_authorized", "additional_seed_authorized",
+        "unbounded_spend_authorized", "additional_seed_authorized",
         "additional_arm_authorized", "final_reset_access_authorized",
         "scientific_e2_claim_authorized", "policy_promotion_authorized",
     )
@@ -46,14 +46,16 @@ def validate() -> dict[str, object]:
     scope = record["fixed_scope"]
     if scope["arms"] != ["control", "candidate"] or scope["seed"] != 2026:
         raise RuntimeError("approved E2 allocation mismatch")
-    if scope["maximum_resource_cost_usd"] != "338.298720":
+    if scope["v2_maximum_resource_cost_usd"] != "338.298720":
         raise RuntimeError("approved E2 resource ceiling mismatch")
+    if scope["projected_total_resource_cost_usd"] != "338.37448212994860128":
+        raise RuntimeError("approved E2 aggregate projection mismatch")
     return {
         "status": "ready_for_modal_cpu_preflight",
         "approval_path": str(APPROVAL.relative_to(ROOT)),
         "source_commit": source_commit,
         "verified_source_files": len(record["source_files"]),
-        "maximum_resource_cost_usd": scope["maximum_resource_cost_usd"],
+        "maximum_resource_cost_usd": scope["v2_maximum_resource_cost_usd"],
     }
 
 

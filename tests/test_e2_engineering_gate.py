@@ -107,9 +107,11 @@ class E2EngineeringGateTests(unittest.TestCase):
         self.assertIn('"gpu_execution_authorized_by_this_receipt": False', preflight)
         self.assertIn("100 * 1024**3", preflight)
 
-    def test_v1_approval_does_not_authorize_v2_remediation(self) -> None:
-        with self.assertRaisesRegex(RuntimeError, "approved E2 source mismatch"):
-            validate()
+    def test_v2_approval_binds_exact_remediation(self) -> None:
+        result = validate()
+        self.assertEqual(result["status"], "ready_for_modal_cpu_preflight")
+        self.assertEqual(result["verified_source_files"], 4)
+        self.assertEqual(result["maximum_resource_cost_usd"], "338.298720")
 
     def test_failed_control_segment_stops_without_retry(self) -> None:
         path = ROOT / "results/agent-supervisor/g0/e2-control-segment1-failure-v1.json"
